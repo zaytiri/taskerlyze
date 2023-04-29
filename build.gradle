@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'personal.zaytiri'
+group 'personal.zaytiri.taskerlyze'
 version '1.0-SNAPSHOT'
 
 repositories {
