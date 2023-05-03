@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.api.controllers.result;
+package personal.zaytiri.taskerlyze.app.api.controllers.result;
 
 public enum CodeResult {
 

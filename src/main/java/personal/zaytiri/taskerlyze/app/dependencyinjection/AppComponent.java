@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.dependencyinjection;
+package personal.zaytiri.taskerlyze.app.dependencyinjection;
 
 
 import dagger.Component;

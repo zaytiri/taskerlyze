@@ -1,7 +1,7 @@
-package personal.zaytiri.taskerlyze.api.controllers.base;
+package personal.zaytiri.taskerlyze.app.api.controllers.base;
 
 
-import personal.zaytiri.taskerlyze.api.controllers.result.OperationResult;
+import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 
 import java.util.concurrent.ExecutionException;
 

@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.api.domain.mappers.base;
+package personal.zaytiri.taskerlyze.app.api.domain.mappers.base;
 
 public interface Mapper<E, M> {
 
