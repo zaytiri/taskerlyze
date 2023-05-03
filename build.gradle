@@ -16,6 +16,13 @@ dependencies {
     // dagger DI
     implementation 'com.google.dagger:dagger:2.28.3'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.28.3'
+
+    // sqlite jdbc database
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.41.2.1'
+
+    // convert xml to json and vice versa
+    implementation 'org.json:json:20230227'
+    implementation 'com.github.javadev:underscore17:1.46'
 }
 
 test {
