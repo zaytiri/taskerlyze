@@ -4,10 +4,7 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +19,8 @@ public class SelectQueryBuilder extends QueryBuilder {
         return results;
     }
 
-    public SelectQueryBuilder() {
-        super();
+    public SelectQueryBuilder(Connection connection) {
+        super(connection);
     }
 
     public SelectQueryBuilder select(List<Column> columns){
@@ -50,26 +47,16 @@ public class SelectQueryBuilder extends QueryBuilder {
 
     private void addTableToQuery(String clause, Table table){
         query.append(" ").append(clause).append(" ");
-        query.append(table.getName()).append(" as ").append(getTableAbbreviation(table));
+        query.append(table.getName()).append(" as ").append(getTableAbbreviation(table.getName()));
         tables.add(table);
     }
 
     public SelectQueryBuilder on(Column column1, Column column2){
         query.append(" on ");
 
-        Table currentTable = new Table();
-        for (Table tb : tables) {
-            if (!query.toString().contains(tb.getName())){
-                currentTable = tb;
-                break;
-            }
-        }
-
-        Table previousTable = tables.get(tables.indexOf(currentTable) - 1);
-        query.append(getTableAbbreviation(previousTable)).append(".").append(column1.getName());
-
-        query.append("=").append(column2.getName());
-        query.append(getTableAbbreviation(currentTable)).append(".").append(column2.getName());
+        query.append(getColumnWithTableAbbreviation(column1));
+        query.append("=");
+        query.append(getColumnWithTableAbbreviation(column2));
 
         return this;
     }
@@ -96,6 +83,7 @@ public class SelectQueryBuilder extends QueryBuilder {
             }
             resultsFromDb.add(row);
         }
+        statement.close();
         connection.close();
 
         results = resultsFromDb;

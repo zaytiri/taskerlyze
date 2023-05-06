@@ -52,6 +52,8 @@ public class Schema {
                 column.setName(((JSONObject) c).getString("name"));
                 column.setType(((JSONObject) c).getString("type"));
                 column.setDefaultValue(((JSONObject) c).getString("default"));
+                column.setIsPrimaryKey(((JSONObject) c).getString("isprimarykey"));
+                column.setTableName(((JSONObject) t).getString("name"));
                 columns.add(column);
             }
             table.setColumns(columns);

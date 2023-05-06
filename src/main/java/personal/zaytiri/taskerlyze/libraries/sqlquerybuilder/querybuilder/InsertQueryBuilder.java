@@ -3,13 +3,14 @@ package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class InsertQueryBuilder extends QueryBuilder{
 
     // todo insert variable for last inserted object or last inserted id
-    public InsertQueryBuilder() {
-        super();
+    public InsertQueryBuilder(Connection connection) {
+        super(connection);
     }
 
     public InsertQueryBuilder insertInto(Table table){

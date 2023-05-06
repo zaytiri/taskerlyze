@@ -4,11 +4,15 @@ public class Column {
     private String name;
     private String type;
     private String defaultValue;
+    private String isPrimaryKey;
+    private String tableName;
 
-    public Column(String name, String type, String defaultValue) {
+    public Column(String name, String type, String defaultValue, String isPrimaryKey, String tableName) {
         this.name = name;
         this.type = type;
         this.defaultValue = defaultValue;
+        this.isPrimaryKey = isPrimaryKey;
+        this.tableName = tableName;
     }
 
     public Column() {}
@@ -35,5 +39,21 @@ public class Column {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public boolean getIsPrimaryKey() {
+        return Boolean.parseBoolean(isPrimaryKey);
+    }
+
+    public void setIsPrimaryKey(String isPrimaryKey) {
+        this.isPrimaryKey = isPrimaryKey;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 }
