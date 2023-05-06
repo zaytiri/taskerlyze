@@ -7,6 +7,13 @@
             <name>id</name>
             <type>integer</type>
             <default>1</default>
+            <isprimarykey>true</isprimarykey>
+        </column>
+        <column>
+            <name>name</name>
+            <type>string</type>
+            <default>null</default>
+            <isprimarykey>false</isprimarykey>
         </column>
     </table>
 </database>
