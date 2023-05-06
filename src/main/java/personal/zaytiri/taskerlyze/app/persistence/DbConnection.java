@@ -1,10 +1,14 @@
 package personal.zaytiri.taskerlyze.app.persistence;
 
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Database;
 import personal.zaytiri.taskerlyze.app.persistence.schema.Schema;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Database;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.CreateTableQueryBuilder;
 
 import java.nio.file.Path;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DbConnection {
 
@@ -12,28 +16,16 @@ public class DbConnection {
     private static DbConnection CUSTOM_INSTANCE;
 
     private final String path;
-    private Connection connection;
     private final Database schema;
 
-    public Database getSchema() {
-        return schema;
-    }
-
-    public Connection getConnection(){
-        return connection;
-    }
+    private Connection connection;
 
     private DbConnection() {
         connection = null;
         schema = Schema.getSchema();
+        // todo: think of a way to maybe pass the db name defined inside the xml file considering I need to have a way to test with a mock database...
+        // ...while having a different xml file just for testing?
         path = getDbConnectionPath() + "database\\taskerlyze.db";
-    }
-    public static DbConnection getInstance() {
-        if(INSTANCE == null) {
-            INSTANCE = new DbConnection();
-        }
-
-        return INSTANCE;
     }
 
     private DbConnection(String fileName) {
@@ -42,25 +34,44 @@ public class DbConnection {
         path = getDbConnectionPath() + "database\\" + fileName + ".db";
 
     }
+
+    public void close() {
+        try {
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            // connection close failed.
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
     public static DbConnection getCustomInstance(String fileName) {
-        if(CUSTOM_INSTANCE == null) {
+        if (CUSTOM_INSTANCE == null) {
             CUSTOM_INSTANCE = new DbConnection(fileName);
         }
         return CUSTOM_INSTANCE;
     }
 
-    private String getDbConnectionPath(){
-        String currentDirectory = Path.of("").toAbsolutePath().toString();
-        return currentDirectory + "\\src\\main\\resources\\";
+    public static DbConnection getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new DbConnection();
+        }
+
+        return INSTANCE;
     }
 
-    public Connection open(){
-        try
-        {
+    public Database getSchema() {
+        return schema;
+    }
+
+    public Connection open() {
+        try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + path);
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
@@ -69,16 +80,17 @@ public class DbConnection {
         return connection;
     }
 
-    public void close(){
-        try
-        {
-            if(connection != null)
-                connection.close();
+    private void createDatabase() {
+        CreateTableQueryBuilder query = new CreateTableQueryBuilder(open());
+
+        for (Table tb : schema.getTables()) {
+            query.create(tb);
+            query.execute();
         }
-        catch(SQLException e)
-        {
-            // connection close failed.
-            System.err.println(e.getMessage());
-        }
+    }
+
+    private String getDbConnectionPath() {
+        String currentDirectory = Path.of("").toAbsolutePath().toString();
+        return currentDirectory + "\\src\\main\\resources\\";
     }
 }
