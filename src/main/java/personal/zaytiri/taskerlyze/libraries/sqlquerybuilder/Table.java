@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
@@ -33,6 +34,17 @@ public class Table {
             }
         }
         return null;
+    }
+
+    public List<Column> getColumns(List<String> names){
+        List<Column> columnsToReturn = new ArrayList<>();
+
+        for (Column col : columns) {
+            if(names.contains(col.getName())){
+                columnsToReturn.add(col);
+            }
+        }
+        return columnsToReturn;
     }
 
     public void setColumns(List<Column> columns) {
