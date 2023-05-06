@@ -17,10 +17,11 @@ public class Schema {
 
     private static Database SCHEMA;
 
-    public Schema() {}
+    public Schema() {
+    }
 
-    public static Database getSchema(){
-        if (SCHEMA != null){
+    public static Database getSchema() {
+        if (SCHEMA != null) {
             return SCHEMA;
         }
 
@@ -69,8 +70,8 @@ public class Schema {
     }
 
     private static String convertXmlFileToString() throws FileNotFoundException {
-        InputStream xmlFile = Main.class.getClassLoader().getResourceAsStream("database/database.xml");
-        if (xmlFile == null){
+        InputStream xmlFile = Main.class.getClassLoader().getResourceAsStream("database/database.xml"); // todo: name must be given as parameter
+        if (xmlFile == null) {
             throw new FileNotFoundException("");
         }
 
@@ -79,7 +80,7 @@ public class Schema {
         String line;
         StringBuilder xml = new StringBuilder();
 
-        while(true){
+        while (true) {
             try {
                 if ((line = br.readLine()) == null) break;
             } catch (IOException e) {
