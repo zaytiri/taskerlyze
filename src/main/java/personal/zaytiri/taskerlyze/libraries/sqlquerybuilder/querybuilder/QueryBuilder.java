@@ -3,6 +3,7 @@ package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder;
 import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,20 +91,32 @@ public class QueryBuilder {
         }
     }
 
-    public void execute(){
-        PreparedStatement statement = null;
+    public Response execute(){
+        Response response = new Response();
+
         try {
-            statement = connection.prepareStatement(query.toString());
-            setValues(statement);
-            statement.executeUpdate();
-
-            connection.close();
-
+            response = executeQuery();
         } catch (SQLException e) {
-            throw new RuntimeException(e); // todo return response object
+            System.err.println(e.getMessage());
+            System.err.println("Executed Query: " + query.toString());
+
+            response.setSuccess(false)
+                    .setMessage(e.getMessage());
         }
 
-        // todo return response object
+        return response.setQueryExecuted(query.toString());
+    }
+
+    protected Response executeQuery() throws SQLException {
+        PreparedStatement statement = null;
+
+        statement = connection.prepareStatement(query.toString());
+        setValues(statement);
+        statement.executeUpdate();
+
+        connection.close();
+
+        return new Response();
     }
 
     protected void appendMultipleColumnsNameByComma(List<Column> values) {

@@ -2,6 +2,7 @@ package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder;
 
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,35 +75,32 @@ public class SelectQueryBuilder extends QueryBuilder {
     }
 
     @Override
-    public void execute() {
+    public Response executeQuery() throws SQLException {
         List<Map<String, String>> resultsFromDb = new ArrayList<>();
 
-        try {
-            PreparedStatement statement = connection.prepareStatement(query.toString());
-            setValues(statement);
+        PreparedStatement statement = connection.prepareStatement(query.toString());
+        setValues(statement);
 
-            ResultSet rs = statement.executeQuery();
-            ResultSetMetaData md = rs.getMetaData();
+        ResultSet rs = statement.executeQuery();
+        ResultSetMetaData md = rs.getMetaData();
 
-            int numberOfCols = md.getColumnCount();
+        int numberOfCols = md.getColumnCount();
 
-            while(rs.next())
-            {
-                Map<String, String> row = new HashMap<>();
-                for (int i = 1; i <= numberOfCols; i++){
-                    String columnName = md.getColumnName(i);
-                    String value = rs.getString(columnName);
-                    row.put(columnName, value);
-                }
-                resultsFromDb.add(row);
+        while(rs.next())
+        {
+            Map<String, String> row = new HashMap<>();
+            for (int i = 1; i <= numberOfCols; i++){
+                String columnName = md.getColumnName(i);
+                String value = rs.getString(columnName);
+                row.put(columnName, value);
             }
-
-            results = resultsFromDb;
-
-            connection.close();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+            resultsFromDb.add(row);
         }
+        connection.close();
+
+        results = resultsFromDb;
+
+        return new Response().setResult(results);
     }
 
 }
