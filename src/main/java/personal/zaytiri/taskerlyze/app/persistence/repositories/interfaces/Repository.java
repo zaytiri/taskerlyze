@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces;
 
+import personal.zaytiri.taskerlyze.app.persistence.mappers.base.Mapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.*;
@@ -7,15 +8,17 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.*;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Repository<GEntity, GModel extends Model> {
+public abstract class Repository<GEntity, GModel extends Model, GMapper extends Mapper<GEntity, GModel>> {
 
-    private GModel model;
+    protected GModel model;
+    protected final GMapper mapper;
 
-    protected Repository(GModel model){
+    protected Repository(GModel model, GMapper mapper){
         this.model = model;
+        this.mapper = mapper;
     }
     public List<Map<String, String>> read(GEntity entity){
-        model = mapModelFrom(entity);
+        model = mapper.toModel(entity);
 
         SelectQueryBuilder query = new SelectQueryBuilder();
 
@@ -39,7 +42,7 @@ public abstract class Repository<GEntity, GModel extends Model> {
     }
 
     public void create(GEntity entity){
-        model = mapModelFrom(entity);
+        model = mapper.toModel(entity);
 
         InsertQueryBuilder query = new InsertQueryBuilder();
 
@@ -50,7 +53,7 @@ public abstract class Repository<GEntity, GModel extends Model> {
     }
 
     public void update(GEntity entity, Map<Column, Object> sets){
-        model = mapModelFrom(entity);
+        model = mapper.toModel(entity);
 
         UpdateQueryBuilder query = new UpdateQueryBuilder();
 
@@ -61,7 +64,7 @@ public abstract class Repository<GEntity, GModel extends Model> {
     }
 
     public void delete(GEntity entity){
-        model = mapModelFrom(entity);
+        model = mapper.toModel(entity);
 
         DeleteQueryBuilder query = new DeleteQueryBuilder();
 
@@ -70,7 +73,4 @@ public abstract class Repository<GEntity, GModel extends Model> {
 
         query.execute();
     }
-
-    // todo this could maybe be a mapper which will be included as generics
-    protected abstract GModel mapModelFrom(GEntity entity);
 }
