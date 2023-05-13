@@ -8,7 +8,9 @@ import java.util.List;
 
 public class InsertQueryBuilder extends QueryBuilder {
 
-    // todo insert variable for last inserted object or last inserted id
+    // todo: insert variable for last inserted object or last inserted id.
+
+    // todo: implement an automatically way to auto increment an id when inserting something.
     public InsertQueryBuilder(Connection connection) {
         super(connection);
     }
@@ -22,7 +24,7 @@ public class InsertQueryBuilder extends QueryBuilder {
         insertInto(table);
 
         query.append(" (");
-        appendMultipleColumnsNameByComma(columns);
+        query.append(getMultipleColumnsNameByComma(columns));
         query.append(")");
         return this;
     }
@@ -31,9 +33,7 @@ public class InsertQueryBuilder extends QueryBuilder {
         this.values.addAll(List.of(values));
 
         query.append(" values (?");
-        for (int i = 0; i < values.length; i++) {
-            query.append(",?");
-        }
+        query.append(",?".repeat(values.length));
         query.append(")");
         return this;
     }

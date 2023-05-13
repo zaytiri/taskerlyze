@@ -5,6 +5,7 @@ import personal.zaytiri.taskerlyze.app.persistence.mappers.base.Mapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.*;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import java.util.List;
 import java.util.Map;
@@ -58,9 +59,9 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
                 .from(model.getTable())
                 .where(model.getTable().getColumn("id"), Operators.EQUALS, model.getId());
 
-        query.execute();
+        Response response = query.execute();
 
-        return query.getResults();
+        return response.getResult();
     }
 
     public List<Map<String, String>> readAll() {
@@ -68,9 +69,9 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
 
         query.select().from(model.getTable());
 
-        query.execute();
+        Response response = query.execute();
 
-        return query.getResults();
+        return response.getResult();
     }
 
     public void update(GEntity entity, Map<Column, Object> sets) {

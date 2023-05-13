@@ -1,17 +1,21 @@
 package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class Response {
 
     private boolean success;
     private String message;
-    private Object result;
+    private List<Map<String, String>> result;
     private String queryExecuted;
 
     public Response() {
         this.success = true;
         this.message = "Success.";
         this.queryExecuted = "";
-        this.result = null;
+        this.result = new ArrayList<>();
     }
 
     public String getMessage() {
@@ -32,8 +36,13 @@ public class Response {
         return this;
     }
 
-    public <T> Object getResult(Class<T> tClass) {
-        return tClass.cast(result);
+    public List<Map<String, String>> getResult() {
+        return result;
+    }
+
+    public Response setResult(List<Map<String, String>> result) {
+        this.result = result;
+        return this;
     }
 
     public boolean isSuccess() {
@@ -42,11 +51,6 @@ public class Response {
 
     public Response setSuccess(boolean success) {
         this.success = success;
-        return this;
-    }
-
-    public Response setResult(Object result) {
-        this.result = result;
         return this;
     }
 }

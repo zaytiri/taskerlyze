@@ -46,13 +46,13 @@ public class QueryBuilder {
         return response.setQueryExecuted(query.toString());
     }
 
-    public StringBuilder getQuery() {
-        return query;
+    public String getQuery() {
+        return query.toString();
     }
 
     public QueryBuilder groupBy(List<Column> columns) {
         query.append(" group by ");
-        appendMultipleColumnsNameByComma(columns);
+        query.append(getMultipleColumnsNameByComma(columns));
         return this;
     }
 
@@ -81,7 +81,7 @@ public class QueryBuilder {
 
     public QueryBuilder orderBy(Order order, List<Column> columns) {
         query.append(" order by ");
-        appendMultipleColumnsNameByComma(columns);
+        query.append(getMultipleColumnsNameByComma(columns));
         query.append(" ").append(order.value);
         return this;
     }
@@ -106,18 +106,6 @@ public class QueryBuilder {
         return this;
     }
 
-    protected void appendMultipleColumnsNameByComma(List<Column> values) {
-        boolean first = true;
-        for (Column val : values) {
-            if (first) {
-                query.append(getColumnWithTableAbbreviation(val));
-                first = false;
-                continue;
-            }
-            query.append(", ").append(getColumnWithTableAbbreviation(val));
-        }
-    }
-
     protected Response executeQuery() throws SQLException {
         PreparedStatement statement = null;
 
@@ -137,8 +125,17 @@ public class QueryBuilder {
         return getTableAbbreviation(column.getTableName()) + "." + column.getName();
     }
 
+    protected String getMultipleColumnsNameByComma(List<Column> values) {
+        return separateColumnsNameByComma(values, false);
+    }
+
+    protected String getMultipleColumnsNameByComma(List<Column> values, boolean as) {
+        return separateColumnsNameByComma(values, as);
+    }
+
     protected String getTableAbbreviation(String tableName) {
-        return tableName.charAt(0) + String.valueOf(tableName.charAt(tableName.length() - 1));
+//        return tableName.charAt(0) + String.valueOf(tableName.charAt(tableName.length() - 1));
+        return tableName;
     }
 
     protected void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -156,5 +153,26 @@ public class QueryBuilder {
     private QueryBuilder appendLogicOperator(String operator) {
         query.append(" ").append(operator).append(" ");
         return this;
+    }
+
+    private String separateColumnsNameByComma(List<Column> values, boolean as) {
+        StringBuilder columns = new StringBuilder();
+
+        boolean comma = false;
+        for (Column val : values) {
+            if (comma) {
+                columns.append(", ");
+            }
+            String columnWithAbbr = getColumnWithTableAbbreviation(val);
+            columns.append(columnWithAbbr);
+
+            if (as) {
+                String columnWithAbbrModified = columnWithAbbr.replace(".", "__");
+                columns.append(" as ").append(columnWithAbbrModified);
+            }
+
+            comma = true;
+        }
+        return columns.toString();
     }
 }
