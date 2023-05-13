@@ -20,6 +20,7 @@ public class QueryBuilder {
         this.query = new StringBuilder();
         this.values = new ArrayList<>();
         this.connection = connection;
+        closeConnection = true;
     }
 
     public QueryBuilder and() {
@@ -126,11 +127,15 @@ public class QueryBuilder {
     }
 
     protected String getMultipleColumnsNameByComma(List<Column> values) {
-        return separateColumnsNameByComma(values, false);
+        return separateColumnsNameByComma(values, true, false);
     }
 
-    protected String getMultipleColumnsNameByComma(List<Column> values, boolean as) {
-        return separateColumnsNameByComma(values, as);
+    protected String getMultipleColumnsNameByComma(List<Column> values, boolean abbreviation) {
+        return separateColumnsNameByComma(values, abbreviation, false);
+    }
+
+    protected String getMultipleColumnsNameByComma(List<Column> values, boolean abbreviation, boolean as) {
+        return separateColumnsNameByComma(values, abbreviation, as);
     }
 
     protected String getTableAbbreviation(String tableName) {
@@ -155,7 +160,7 @@ public class QueryBuilder {
         return this;
     }
 
-    private String separateColumnsNameByComma(List<Column> values, boolean as) {
+    private String separateColumnsNameByComma(List<Column> values, boolean abbreviation, boolean as) {
         StringBuilder columns = new StringBuilder();
 
         boolean comma = false;
@@ -163,7 +168,12 @@ public class QueryBuilder {
             if (comma) {
                 columns.append(", ");
             }
-            String columnWithAbbr = getColumnWithTableAbbreviation(val);
+
+            String columnWithAbbr = val.getName();
+            if (abbreviation) {
+                columnWithAbbr = getColumnWithTableAbbreviation(val);
+            }
+
             columns.append(columnWithAbbr);
 
             if (as) {

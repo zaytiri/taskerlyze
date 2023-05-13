@@ -24,7 +24,7 @@ public class InsertQueryBuilder extends QueryBuilder {
         insertInto(table);
 
         query.append(" (");
-        query.append(getMultipleColumnsNameByComma(columns));
+        query.append(getMultipleColumnsNameByComma(columns, false));
         query.append(")");
         return this;
     }
@@ -33,7 +33,7 @@ public class InsertQueryBuilder extends QueryBuilder {
         this.values.addAll(List.of(values));
 
         query.append(" values (?");
-        query.append(",?".repeat(values.length));
+        query.append(",?".repeat(values.length - 1));
         query.append(")");
         return this;
     }

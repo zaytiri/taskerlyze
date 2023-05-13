@@ -20,35 +20,6 @@ public class SelectQueryBuilder extends QueryBuilder {
         tables = new ArrayList<>();
     }
 
-    @Override
-    public Response executeQuery() throws SQLException {
-        List<Map<String, String>> resultsFromDb = new ArrayList<>();
-
-        addSelectArgumentsToQuery();
-
-        PreparedStatement statement = connection.prepareStatement(query.toString());
-        setValues(statement);
-
-        ResultSet rs = statement.executeQuery();
-        ResultSetMetaData md = rs.getMetaData();
-
-        int numberOfCols = md.getColumnCount();
-
-        while (rs.next()) {
-            Map<String, String> row = new HashMap<>();
-            for (int i = 1; i <= numberOfCols; i++) {
-                String columnName = md.getColumnName(i);
-                String value = rs.getString(columnName);
-                row.put(columnName, value);
-            }
-            resultsFromDb.add(row);
-        }
-        statement.close();
-        connection.close();
-
-        return new Response().setResult(resultsFromDb);
-    }
-
     public SelectQueryBuilder from(Table table) {
         appendSelectArgumentsToQuery(table);
         addTableToQuery("from", table);
@@ -92,6 +63,37 @@ public class SelectQueryBuilder extends QueryBuilder {
         return this;
     }
 
+    @Override
+    protected Response executeQuery() throws SQLException {
+        List<Map<String, String>> resultsFromDb = new ArrayList<>();
+
+        addSelectArgumentsToQuery();
+
+        PreparedStatement statement = connection.prepareStatement(query.toString());
+        setValues(statement);
+
+        ResultSet rs = statement.executeQuery();
+        ResultSetMetaData md = rs.getMetaData();
+
+        int numberOfCols = md.getColumnCount();
+
+        while (rs.next()) {
+            Map<String, String> row = new HashMap<>();
+            for (int i = 1; i <= numberOfCols; i++) {
+                String columnName = md.getColumnName(i);
+                String value = rs.getString(columnName);
+                row.put(columnName, value);
+            }
+            resultsFromDb.add(row);
+        }
+        statement.close();
+        if (closeConnection) {
+            connection.close();
+        }
+
+        return new Response().setResult(resultsFromDb);
+    }
+
     private void addSelectArgumentsToQuery() {
         if (selectQuery.isEmpty())
             return;
@@ -119,6 +121,6 @@ public class SelectQueryBuilder extends QueryBuilder {
         if (!selectQuery.isEmpty()) {
             selectQuery.append(", ");
         }
-        selectQuery.append(getMultipleColumnsNameByComma(table.getColumns(), true));
+        selectQuery.append(getMultipleColumnsNameByComma(table.getColumns(), true, true));
     }
 }
