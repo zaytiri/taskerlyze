@@ -46,15 +46,16 @@ public class SelectQueryBuilderTests {
 
             Column id = tasks.getColumn("id");
             query.select().from(tasks).where(id, Operators.EQUALS, "999");
-            Response response = query.executeQuery();
+            Response response = query.execute();
 
             // assert
             Assertions.assertTrue(response.isSuccess());
             Assertions.assertEquals(0, response.getResult().size());
 
         } catch (SQLException e) {
-            DatabaseTestHelper.closeConnection(connection);
             LOGGER.log(Level.SEVERE, "Should_ResponseUnsuccessfulWhenSelectingANonExistentIdFromTasksTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
         }
     }
 
@@ -74,7 +75,7 @@ public class SelectQueryBuilderTests {
             }});
 
             query.select(name).from(table);
-            Response response = query.executeQuery();
+            Response response = query.execute();
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -87,8 +88,9 @@ public class SelectQueryBuilderTests {
             Assertions.assertEquals("do anything spectacular", response.getResult().get(2).get("name"));
 
         } catch (SQLException e) {
-            DatabaseTestHelper.closeConnection(connection);
             LOGGER.log(Level.SEVERE, "Should_SelectAllNamesFromTasksTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
         }
     }
 
@@ -103,7 +105,7 @@ public class SelectQueryBuilderTests {
             // act
             SelectQueryBuilder query = new SelectQueryBuilder(connection);
             query.select().from(table);
-            Response response = query.executeQuery();
+            Response response = query.execute();
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -122,8 +124,9 @@ public class SelectQueryBuilderTests {
             Assertions.assertEquals("monica", response.getResult().get(3).get("name"));
 
         } catch (SQLException e) {
-            DatabaseTestHelper.closeConnection(connection);
             LOGGER.log(Level.SEVERE, "Should_SelectAllRowsFromPeopleTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
         }
     }
 
@@ -153,7 +156,7 @@ public class SelectQueryBuilderTests {
                     .join(tablePeople)
                     .on(peopleId, personId);
 
-            Response response = query.executeQuery();
+            Response response = query.execute();
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -164,8 +167,9 @@ public class SelectQueryBuilderTests {
             Assertions.assertEquals("1", response.getResult().get(0).get("tasks_people__people_id"));
 
         } catch (SQLException e) {
-            DatabaseTestHelper.closeConnection(connection);
             LOGGER.log(Level.SEVERE, "Should_SelectAllRowsWhereTasksJoinsPeople: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
         }
     }
 
@@ -182,7 +186,7 @@ public class SelectQueryBuilderTests {
 
             Column id = table.getColumn("id");
             query.select().from(table).where(id, Operators.EQUALS, "3");
-            Response response = query.executeQuery();
+            Response response = query.execute();
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -192,8 +196,9 @@ public class SelectQueryBuilderTests {
             Assertions.assertEquals("do anything spectacular", response.getResult().get(0).get("name"));
 
         } catch (SQLException e) {
-            DatabaseTestHelper.closeConnection(connection);
             LOGGER.log(Level.SEVERE, "Should_SelectTaskWithId3FromTasksTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
         }
     }
 }

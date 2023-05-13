@@ -57,6 +57,8 @@ public class CreateTableQueryBuilderTests {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Should_CreateTableInDatabase: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
         }
     }
 }
