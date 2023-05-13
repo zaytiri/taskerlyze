@@ -14,6 +14,7 @@ public class QueryBuilder {
     protected StringBuilder query;
     protected ArrayList<Object> values;
     protected Connection connection;
+    protected boolean closeConnection;
 
     public QueryBuilder(Connection connection) {
         this.query = new StringBuilder();
@@ -53,6 +54,14 @@ public class QueryBuilder {
         query.append(" group by ");
         appendMultipleColumnsNameByComma(columns);
         return this;
+    }
+
+    public boolean isCloseConnection() {
+        return closeConnection;
+    }
+
+    public void setCloseConnection(boolean closeConnection) {
+        this.closeConnection = closeConnection;
     }
 
     public QueryBuilder limit(int limit, int offset) {
@@ -117,7 +126,9 @@ public class QueryBuilder {
         statement.executeUpdate();
 
         statement.close();
+        if (closeConnection) {
             connection.close();
+        }
 
         return new Response();
     }
