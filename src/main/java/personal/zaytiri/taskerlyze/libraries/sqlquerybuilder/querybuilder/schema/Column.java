@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder;
+package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema;
 
 public class Column {
     private String name;
@@ -15,30 +15,11 @@ public class Column {
         this.tableName = tableName;
     }
 
-    public Column() {}
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public Column() {
     }
 
     public <T> T getDefaultValue(Class<T> tClass) {
         return tClass.cast(defaultValue);
-    }
-
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
     }
 
     public boolean getIsPrimaryKey() {
@@ -49,11 +30,31 @@ public class Column {
         this.isPrimaryKey = isPrimaryKey;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getTableName() {
         return tableName;
     }
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 }

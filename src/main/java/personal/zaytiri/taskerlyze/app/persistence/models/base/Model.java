@@ -1,8 +1,8 @@
 package personal.zaytiri.taskerlyze.app.persistence.models.base;
 
 import personal.zaytiri.taskerlyze.app.persistence.schema.Schema;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Database;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.util.Date;
 
@@ -11,12 +11,12 @@ public abstract class Model {
     protected Table table;
     protected int id;
     protected String name;
-    private Date createdAt;
     protected Date updatedAt;
+    private Date createdAt;
 
     protected Model(String tableName) {
         Database schema = Schema.getSchema();
-        if (schema == null){
+        if (schema == null) {
             System.err.println("No table was found in schema with the following name: " + tableName);
             return;
         }
@@ -26,11 +26,13 @@ public abstract class Model {
         this.updatedAt = new Date();
     }
 
-    public Table getTable() {
-        return table;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public abstract Object[] getValues();
+    protected void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public int getId() {
         return id;
@@ -50,12 +52,8 @@ public abstract class Model {
         return this;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    protected void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public Table getTable() {
+        return table;
     }
 
     public Date getUpdatedAt() {
@@ -65,4 +63,6 @@ public abstract class Model {
     protected void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public abstract Object[] getValues();
 }

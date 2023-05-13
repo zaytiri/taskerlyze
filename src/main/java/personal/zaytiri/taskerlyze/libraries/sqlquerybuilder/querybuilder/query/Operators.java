@@ -1,6 +1,6 @@
-package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder;
+package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query;
 
-public enum Operators{
+public enum Operators {
     EQUALS("="),
     NOT_EQUAL("!="),
     GREATER_THAN(">"),
@@ -14,7 +14,7 @@ public enum Operators{
 
     public final String value;
 
-    private Operators(String value) {
+    Operators(String value) {
         this.value = value;
     }
 }

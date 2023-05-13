@@ -4,9 +4,9 @@ import com.github.underscore.U;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import personal.zaytiri.taskerlyze.app.presentation.Main;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Column;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Database;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

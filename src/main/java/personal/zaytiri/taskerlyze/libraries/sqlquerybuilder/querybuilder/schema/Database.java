@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder;
+package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema;
 
 import java.util.List;
 
@@ -11,7 +11,8 @@ public class Database {
         this.tables = tables;
     }
 
-    public Database() {}
+    public Database() {
+    }
 
     public String getName() {
         return name;
@@ -21,17 +22,17 @@ public class Database {
         this.name = name;
     }
 
-    public List<Table> getTables() {
-        return tables;
-    }
-
-    public Table getTable(String name){
+    public Table getTable(String name) {
         for (Table tb : tables) {
-            if(tb.getName().equals(name)){
+            if (tb.getName().equals(name)) {
                 return tb;
             }
         }
         return null;
+    }
+
+    public List<Table> getTables() {
+        return tables;
     }
 
     public void setTables(List<Table> tables) {

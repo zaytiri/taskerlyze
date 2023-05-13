@@ -1,7 +1,7 @@
-package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder;
+package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query;
 
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Column;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.sql.Connection;
 import java.util.Map;

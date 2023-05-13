@@ -1,7 +1,7 @@
-package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder;
+package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query;
 
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Column;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.Table;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.sql.Connection;
 
@@ -22,15 +22,17 @@ public class CreateTableQueryBuilder extends QueryBuilder {
 
         for (Column col : table.getColumns()) {
             query.append(col.getName()).append(" ");
-            query.append(col.getType()).append(" ");
+            query.append(col.getType());
 
             if (!col.getDefaultValue(String.class).equalsIgnoreCase("null")) {
-                query.append("not null, ");
+                query.append(" not null");
             }
 
             if (col.getIsPrimaryKey()) {
                 primaryKey = col.getName();
             }
+
+            query.append(", ");
         }
 
         query.append("primary key ( ").append(primaryKey).append(" ) )");
