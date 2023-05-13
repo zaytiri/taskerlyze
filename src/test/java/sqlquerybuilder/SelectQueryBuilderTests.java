@@ -54,7 +54,7 @@ public class SelectQueryBuilderTests {
 
         } catch (SQLException e) {
             DatabaseTestHelper.closeConnection(connection);
-            LOGGER.log(Level.SEVERE, "Should_SelectTaskWithId3FromTasksTable: " + e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, "Should_ResponseUnsuccessfulWhenSelectingANonExistentIdFromTasksTable: " + e.getMessage(), e);
         }
     }
 
