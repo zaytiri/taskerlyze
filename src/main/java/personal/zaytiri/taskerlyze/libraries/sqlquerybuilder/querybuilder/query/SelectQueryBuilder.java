@@ -22,44 +22,70 @@ public class SelectQueryBuilder extends QueryBuilder {
 
     public SelectQueryBuilder from(Table table) {
         appendSelectArgumentsToQuery(table);
-        addTableToQuery("from", table);
+        appendKeyword(Clause.FROM.value);
+        addTableToQuery(table);
+        return this;
+    }
+
+    public SelectQueryBuilder groupBy(List<Column> columns) {
+        if (!tryAppendKeyword(Clause.GROUP_BY.value)) {
+            return this;
+        }
+        query.append(getMultipleColumnsNameByComma(columns));
         return this;
     }
 
     public SelectQueryBuilder join(Table table) {
         appendSelectArgumentsToQuery(table);
-        addTableToQuery("join", table);
+        appendKeyword(Clause.JOIN.value);
+        addTableToQuery(table);
         return this;
     }
 
-    public SelectQueryBuilder joinByIds(Table table) {
-        appendSelectArgumentsToQuery(table);
-        addTableToQuery("join", table);
+    public SelectQueryBuilder limit(int limit, int offset) {
+        limit(limit);
+        if (!tryAppendKeyword(Clause.OFFSET.value)) {
+            return this;
+        }
+        query.append(offset);
+        return this;
+    }
 
-        // todo: join by primary keys or maybe add a foreign key property into the xml file to signify an association between two columns of different tables.
-
-        //  on(column1, column2);
+    public SelectQueryBuilder limit(int limit) {
+        if (!tryAppendKeyword(Clause.LIMIT.value)) {
+            return this;
+        }
+        query.append(limit);
         return this;
     }
 
     public SelectQueryBuilder on(Column column1, Column column2) {
-        query.append(" on ");
+        appendKeyword(Clause.ON.value);
 
-        query.append(getColumnWithTableAbbreviation(column1));
-        query.append("=");
-        query.append(getColumnWithTableAbbreviation(column2));
+        query.append(getColumnName(column1));
+        query.append(Operators.EQUALS.value);
+        query.append(getColumnName(column2));
 
+        return this;
+    }
+
+    public SelectQueryBuilder orderBy(Order order, List<Column> columns) {
+        if (!tryAppendKeyword(Clause.ORDER_BY.value)) {
+            return this;
+        }
+        query.append(getMultipleColumnsNameByComma(columns));
+        appendKeyword(order.value);
         return this;
     }
 
     public SelectQueryBuilder select(List<Column> columns) {
-        query.append("select ");
-        query.append(getMultipleColumnsNameByComma(columns));
+        tryAppendKeyword(Clause.SELECT.value);
+        query.append(getMultipleColumnsNameByComma(columns, true));
         return this;
     }
 
     public SelectQueryBuilder select() {
-        query.append("select *");
+        tryAppendKeyword(Clause.SELECT.value + " *");
         return this;
     }
 
@@ -94,6 +120,23 @@ public class SelectQueryBuilder extends QueryBuilder {
         return new Response().setResult(resultsFromDb);
     }
 
+    @Override
+    protected String getColumnName(Column column) {
+        StringBuilder col = new StringBuilder();
+        String columnName = getTableAbbreviation(column.getTableName()) + "." + column.getName();
+        col.append(columnName);
+        return col.toString();
+    }
+
+    protected String getTableAbbreviation(String tableName) {
+//        return tableName.charAt(0) + String.valueOf(tableName.charAt(tableName.length() - 1));
+        return tableName;
+    }
+
+    protected String getTableName(Table table) {
+        return table.getName() + " as " + getTableAbbreviation(table.getName());
+    }
+
     private void addSelectArgumentsToQuery() {
         if (selectQuery.isEmpty())
             return;
@@ -107,11 +150,9 @@ public class SelectQueryBuilder extends QueryBuilder {
         query.replace(0, query.length(), query.toString().replace("*", selectQuery.toString()));
     }
 
-    private void addTableToQuery(String clause, Table table) {
-        query.append(" ").append(clause).append(" ");
-        query.append(table.getName()).append(" as ").append(getTableAbbreviation(table.getName()));
+    private void addTableToQuery(Table table) {
+        query.append(getTableName(table));
         tables.add(table);
-        // todo: it's necessary to keep track of all existent abbreviations so none is the same. if a abbr already exists then it must be found a different rule to get the abbr.
     }
 
     private void appendSelectArgumentsToQuery(Table table) {
@@ -121,6 +162,6 @@ public class SelectQueryBuilder extends QueryBuilder {
         if (!selectQuery.isEmpty()) {
             selectQuery.append(", ");
         }
-        selectQuery.append(getMultipleColumnsNameByComma(table.getColumns(), true, true));
+        selectQuery.append(getMultipleColumnsNameByComma(table.getColumns(), true));
     }
 }

@@ -12,23 +12,36 @@ public class UpdateQueryBuilder extends QueryBuilder {
         super(connection);
     }
 
+    public UpdateQueryBuilder set(Column column, Object newValue) {
+        if (!tryAppendKeyword(Clause.SET.value)) {
+            query.append(", ");
+        }
+
+        query.append(column.getName()).append("=? ");
+        values.add(newValue);
+        return this;
+    }
+
     public UpdateQueryBuilder update(Table table) {
-        query.append("update ").append(table.getName());
+        tryAppendKeyword(Clause.UPDATE.value);
+        query.append(table.getName());
         return this;
     }
 
     public UpdateQueryBuilder values(Map<Column, Object> sets) {
-        query.append(" set ");
+        if (!tryAppendKeyword(Clause.SET.value)) {
+            return this;
+        }
 
-        boolean first = true;
+        boolean comma = false;
         for (Map.Entry<Column, Object> entry : sets.entrySet()) {
-            if (first) {
-
-                query.append(getColumnWithTableAbbreviation(entry.getKey())).append("=? ");
-                first = false;
+            if (comma) {
+                query.append(", ");
             }
-            query.append(", ").append(entry.getKey()).append("=? ");
+
+            query.append(entry.getKey().getName()).append("=? ");
             values.add(entry.getValue());
+            comma = true;
         }
 
         return this;

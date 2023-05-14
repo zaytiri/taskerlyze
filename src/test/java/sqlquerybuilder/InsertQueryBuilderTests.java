@@ -29,7 +29,7 @@ public class InsertQueryBuilderTests {
     }
 
     @Test
-    void Should_InsertInAllColumnsIntoTask() {
+    void Should_InsertInAllColumnsIntoTableTask() {
         Connection connection = null;
         try {
             // arrange
@@ -41,6 +41,7 @@ public class InsertQueryBuilderTests {
             query.setCloseConnection(false);
             query.insertInto(tasks).values(1, "a task name");
             Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -53,14 +54,14 @@ public class InsertQueryBuilderTests {
             Assertions.assertEquals("a task name", rs.getString("name"));
 
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Should_InsertInAllColumnsIntoTask: " + e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, "Should_InsertInAllColumnsIntoTableTask: " + e.getMessage(), e);
         } finally {
             DatabaseTestHelper.closeConnection(connection);
         }
     }
 
     @Test
-    void Should_InsertOnlyInNameColumnIntoPeople() {
+    void Should_InsertOnlyInNameColumnIntoTablePeople() {
         Connection connection = null;
         try {
             // arrange
@@ -75,6 +76,7 @@ public class InsertQueryBuilderTests {
                 add(name);
             }}).values("Michael");
             Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -87,7 +89,7 @@ public class InsertQueryBuilderTests {
             Assertions.assertEquals("Michael", rs.getString("name"));
 
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Should_InsertOnlyInNameColumnIntoPeople: " + e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, "Should_InsertOnlyInNameColumnIntoTablePeople: " + e.getMessage(), e);
         } finally {
             DatabaseTestHelper.closeConnection(connection);
         }

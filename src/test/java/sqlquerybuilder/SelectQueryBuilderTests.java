@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.Operators;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.Order;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.SelectQueryBuilder;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
@@ -47,6 +48,7 @@ public class SelectQueryBuilderTests {
             Column id = tasks.getColumn("id");
             query.select().from(tasks).where(id, Operators.EQUALS, "999");
             Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -76,16 +78,17 @@ public class SelectQueryBuilderTests {
 
             query.select(name).from(table);
             Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
 
             // assert
             Assertions.assertTrue(response.isSuccess());
-            Assertions.assertEquals(3, response.getResult().size());
+            Assertions.assertEquals(4, response.getResult().size());
 
-            Assertions.assertEquals("do something weird", response.getResult().get(0).get("name"));
+            Assertions.assertEquals("do something weird", response.getResult().get(0).get("tasks__name"));
 
-            Assertions.assertEquals("dont do that", response.getResult().get(1).get("name"));
+            Assertions.assertEquals("dont do that", response.getResult().get(1).get("tasks__name"));
 
-            Assertions.assertEquals("do anything spectacular", response.getResult().get(2).get("name"));
+            Assertions.assertEquals("do anything spectacular", response.getResult().get(2).get("tasks__name"));
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Should_SelectAllNamesFromTasksTable: " + e.getMessage(), e);
@@ -106,10 +109,11 @@ public class SelectQueryBuilderTests {
             SelectQueryBuilder query = new SelectQueryBuilder(connection);
             query.select().from(table);
             Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
 
             // assert
             Assertions.assertTrue(response.isSuccess());
-            Assertions.assertEquals(4, response.getResult().size());
+            Assertions.assertEquals(6, response.getResult().size());
 
             Assertions.assertEquals("1", response.getResult().get(0).get("id"));
             Assertions.assertEquals("cat", response.getResult().get(0).get("name"));
@@ -157,6 +161,7 @@ public class SelectQueryBuilderTests {
                     .on(peopleId, personId);
 
             Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -174,6 +179,109 @@ public class SelectQueryBuilderTests {
     }
 
     @Test
+    void Should_SelectTaskUsingAndClauseFromPeopleTable() {
+        Connection connection = null;
+        try {
+            // arrange
+            connection = DriverManager.getConnection("jdbc:sqlite:" + DatabaseTestHelper.getDbConnectionPath());
+            Table people = DatabaseTestHelper.getSchema().getTable("people");
+            Column id = people.getColumn("id");
+            Column name = people.getColumn("name");
+
+            // act
+            SelectQueryBuilder query = new SelectQueryBuilder(connection);
+            query.select()
+                    .from(people)
+                    .where(id, Operators.EQUALS, 3)
+                    .and()
+                    .where(name, Operators.EQUALS, "pedro");
+
+            Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
+
+            // assert
+            Assertions.assertTrue(response.isSuccess());
+            Assertions.assertEquals(1, response.getResult().size());
+
+            Assertions.assertEquals("3", response.getResult().get(0).get("id"));
+            Assertions.assertEquals("pedro", response.getResult().get(0).get("name"));
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Should_SelectTaskUsingAndClauseFromPeopleTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
+        }
+    }
+
+    @Test
+    void Should_SelectTaskUsingBetweenOperatorFromPeopleTable() {
+        Connection connection = null;
+        try {
+            // arrange
+            connection = DriverManager.getConnection("jdbc:sqlite:" + DatabaseTestHelper.getDbConnectionPath());
+            Table people = DatabaseTestHelper.getSchema().getTable("people");
+            Column id = people.getColumn("id");
+            Column name = people.getColumn("name");
+
+            // act
+            SelectQueryBuilder query = new SelectQueryBuilder(connection);
+            query.select()
+                    .from(people)
+                    .where(id)
+                    .between(4)
+                    .and(6);
+
+            Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
+
+            // assert
+            Assertions.assertTrue(response.isSuccess());
+            Assertions.assertEquals(3, response.getResult().size());
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Should_SelectTaskUsingBetweenOperatorFromPeopleTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
+        }
+    }
+
+    @Test
+    void Should_SelectTaskUsingOrClauseFromPeopleTable() {
+        Connection connection = null;
+        try {
+            // arrange
+            connection = DriverManager.getConnection("jdbc:sqlite:" + DatabaseTestHelper.getDbConnectionPath());
+            Table people = DatabaseTestHelper.getSchema().getTable("people");
+            Column id = people.getColumn("id");
+            Column name = people.getColumn("name");
+
+            // act
+            SelectQueryBuilder query = new SelectQueryBuilder(connection);
+            query.select()
+                    .from(people)
+                    .where(id, Operators.LESS_OR_EQUAL_THAN, 2)
+                    .or()
+                    .where(name, Operators.IS_NULL);
+
+            Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
+
+            // assert
+            Assertions.assertTrue(response.isSuccess());
+            Assertions.assertEquals(3, response.getResult().size());
+
+            Assertions.assertEquals("1", response.getResult().get(0).get("id"));
+            Assertions.assertEquals("2", response.getResult().get(1).get("id"));
+            Assertions.assertNull(response.getResult().get(2).get("name"));
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Should_SelectTaskUsingOrClauseFromPeopleTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
+        }
+    }
+
+    @Test
     void Should_SelectTaskWithId3FromTasksTable() {
         Connection connection = null;
         try {
@@ -185,8 +293,11 @@ public class SelectQueryBuilderTests {
             SelectQueryBuilder query = new SelectQueryBuilder(connection);
 
             Column id = table.getColumn("id");
-            query.select().from(table).where(id, Operators.EQUALS, "3");
+            query.select()
+                    .from(table)
+                    .where(id, Operators.EQUALS, "3");
             Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
 
             // assert
             Assertions.assertTrue(response.isSuccess());
@@ -197,6 +308,110 @@ public class SelectQueryBuilderTests {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Should_SelectTaskWithId3FromTasksTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
+        }
+    }
+
+    @Test
+    void Should_SelectUsingGroupByOperatorFromPeopleTable() {
+        Connection connection = null;
+        try {
+            // arrange
+            connection = DriverManager.getConnection("jdbc:sqlite:" + DatabaseTestHelper.getDbConnectionPath());
+            Table tasks_people = DatabaseTestHelper.getSchema().getTable("tasks_people");
+            Column peopleId = tasks_people.getColumn("people_id");
+
+            // act
+            SelectQueryBuilder query = new SelectQueryBuilder(connection);
+
+            query.select()
+                    .from(tasks_people)
+                    .groupBy(new ArrayList<>() {{
+                        add(peopleId);
+                    }});
+
+            Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
+
+            // assert
+            Assertions.assertTrue(response.isSuccess());
+            Assertions.assertEquals(2, response.getResult().size());
+
+            Assertions.assertEquals("1", response.getResult().get(0).get("id"));
+            Assertions.assertEquals("3", response.getResult().get(1).get("id"));
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Should_SelectUsingGroupByOperatorFromPeopleTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
+        }
+    }
+
+    @Test
+    void Should_SelectUsingLikeOperatorFromPeopleTable() {
+        Connection connection = null;
+        try {
+            // arrange
+            connection = DriverManager.getConnection("jdbc:sqlite:" + DatabaseTestHelper.getDbConnectionPath());
+            Table people = DatabaseTestHelper.getSchema().getTable("people");
+            Column name = people.getColumn("name");
+
+            // act
+            SelectQueryBuilder query = new SelectQueryBuilder(connection);
+
+            query.select()
+                    .from(people)
+                    .where(name, Operators.LIKE, "%oni%");
+            Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
+
+            // assert
+            Assertions.assertTrue(response.isSuccess());
+            Assertions.assertEquals(2, response.getResult().size());
+
+            Assertions.assertEquals("monica", response.getResult().get(0).get("name"));
+            Assertions.assertEquals("oni", response.getResult().get(1).get("name"));
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Should_SelectUsingLikeOperatorFromPeopleTable: " + e.getMessage(), e);
+        } finally {
+            DatabaseTestHelper.closeConnection(connection);
+        }
+    }
+
+    @Test
+    void Should_SelectUsingOrderByAndLimitOperatorFromPeopleTable() {
+        Connection connection = null;
+        try {
+            // arrange
+            connection = DriverManager.getConnection("jdbc:sqlite:" + DatabaseTestHelper.getDbConnectionPath());
+            Table people = DatabaseTestHelper.getSchema().getTable("people");
+            Column id = people.getColumn("id");
+
+            // act
+            SelectQueryBuilder query = new SelectQueryBuilder(connection);
+
+            query.select()
+                    .from(people)
+                    .orderBy(Order.DESCENDING, new ArrayList<>() {{
+                        add(id);
+                    }})
+                    .limit(3, 3);
+
+            Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
+
+            // assert
+            Assertions.assertTrue(response.isSuccess());
+            Assertions.assertEquals(3, response.getResult().size());
+
+            Assertions.assertEquals("3", response.getResult().get(0).get("id"));
+            Assertions.assertEquals("2", response.getResult().get(1).get("id"));
+            Assertions.assertEquals("1", response.getResult().get(2).get("id"));
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Should_SelectUsingOrderByAndLimitOperatorFromPeopleTable: " + e.getMessage(), e);
         } finally {
             DatabaseTestHelper.closeConnection(connection);
         }

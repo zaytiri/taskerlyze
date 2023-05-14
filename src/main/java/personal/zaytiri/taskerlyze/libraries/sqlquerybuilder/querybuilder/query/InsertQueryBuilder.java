@@ -16,7 +16,9 @@ public class InsertQueryBuilder extends QueryBuilder {
     }
 
     public InsertQueryBuilder insertInto(Table table) {
-        query.append("insert into ").append(table.getName());
+        tryAppendKeyword(Clause.INSERT.value);
+        tryAppendKeyword(Clause.INTO.value);
+        query.append(table.getName());
         return this;
     }
 
@@ -24,7 +26,7 @@ public class InsertQueryBuilder extends QueryBuilder {
         insertInto(table);
 
         query.append(" (");
-        query.append(getMultipleColumnsNameByComma(columns, false));
+        query.append(getMultipleColumnsNameByComma(columns));
         query.append(")");
         return this;
     }
@@ -32,7 +34,8 @@ public class InsertQueryBuilder extends QueryBuilder {
     public InsertQueryBuilder values(Object... values) {
         this.values.addAll(List.of(values));
 
-        query.append(" values (?");
+        appendKeyword(Clause.VALUES.value);
+        query.append("(?");
         query.append(",?".repeat(values.length - 1));
         query.append(")");
         return this;

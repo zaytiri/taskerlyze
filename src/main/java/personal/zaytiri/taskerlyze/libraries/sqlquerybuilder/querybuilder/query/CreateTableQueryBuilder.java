@@ -13,8 +13,9 @@ public class CreateTableQueryBuilder extends QueryBuilder {
     }
 
     public void create(Table table) {
-        query.append("create table ");
-        query.append("if not exists ");
+        appendKeyword(Clause.CREATE.value);
+        appendKeyword(Clause.TABLE.value);
+        appendKeyword(Clause.IF_NOT_EXISTS.value);
         query.append(table.getName());
         query.append(" ( ");
 
@@ -24,8 +25,8 @@ public class CreateTableQueryBuilder extends QueryBuilder {
             query.append(col.getName()).append(" ");
             query.append(col.getType());
 
-            if (!col.getDefaultValue(String.class).equalsIgnoreCase("null")) {
-                query.append(" not null");
+            if (!col.getDefaultValue(String.class).equalsIgnoreCase(Operators.NULL.value)) {
+                appendKeyword(Operators.NOT_NULL.value);
             }
 
             if (col.getIsPrimaryKey()) {

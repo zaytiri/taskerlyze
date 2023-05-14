@@ -40,6 +40,7 @@ public class CreateTableQueryBuilderTests {
             query.setCloseConnection(false);
             query.create(table);
             Response response = query.execute();
+            LOGGER.log(Level.INFO, response.getQueryExecuted());
 
             String tableExists = "SELECT name FROM sqlite_master WHERE type='table' AND name='" + tableName + "'";
             Statement statement = connection.createStatement();

@@ -11,7 +11,9 @@ public class DeleteQueryBuilder extends QueryBuilder {
     }
 
     public DeleteQueryBuilder deleteFrom(Table table) {
-        query.append("delete from ").append(table.getName());
+        tryAppendKeyword(Clause.DELETE.value);
+        tryAppendKeyword(Clause.FROM.value);
+        query.append(table.getName());
         return this;
     }
 }
