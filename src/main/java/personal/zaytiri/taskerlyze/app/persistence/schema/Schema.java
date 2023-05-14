@@ -17,17 +17,17 @@ public class Schema {
 
     private static Database SCHEMA;
 
-    public Schema() {
+    private Schema() {
     }
 
-    public static Database getSchema() {
+    public static Database getSchema(String fileName) {
         if (SCHEMA != null) {
             return SCHEMA;
         }
 
         JSONObject json = null;
         try {
-            json = new JSONObject(U.xmlToJson(convertXmlFileToString()));
+            json = new JSONObject(U.xmlToJson(convertXmlFileToString(fileName)));
         } catch (FileNotFoundException e) {
             System.err.println("ERR: Database schema xml file was not found.");
             return null;
@@ -69,8 +69,8 @@ public class Schema {
         return SCHEMA;
     }
 
-    private static String convertXmlFileToString() throws FileNotFoundException {
-        InputStream xmlFile = Main.class.getClassLoader().getResourceAsStream("database/database.xml"); // todo: name must be given as parameter
+    private static String convertXmlFileToString(String fileName) throws FileNotFoundException {
+        InputStream xmlFile = Main.class.getClassLoader().getResourceAsStream("database/" + fileName + ".xml");
         if (xmlFile == null) {
             throw new FileNotFoundException("");
         }
@@ -84,7 +84,7 @@ public class Schema {
             try {
                 if ((line = br.readLine()) == null) break;
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                return "";
             }
             xml.append(line.trim());
         }

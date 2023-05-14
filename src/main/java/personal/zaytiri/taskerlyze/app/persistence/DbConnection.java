@@ -11,28 +11,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConnection {
-
     private static DbConnection INSTANCE;
-    private static DbConnection CUSTOM_INSTANCE;
-
-    private final String path;
     private final Database schema;
-
+    private String path;
     private Connection connection;
-
-    private DbConnection() {
-        connection = null;
-        schema = Schema.getSchema();
-        // todo: think of a way to maybe pass the db name defined inside the xml file considering I need to have a way to test with a mock database...
-        // ...while having a different xml file just for testing?
-        path = getDbConnectionPath() + "database\\taskerlyze.db";
-    }
 
     private DbConnection(String fileName) {
         connection = null;
-        schema = Schema.getSchema();
-        path = getDbConnectionPath() + "database\\" + fileName + ".db";
-
+        schema = Schema.getSchema(fileName);
+        path = "";
+        if (schema == null) {
+            System.err.println("Schema not correctly configured.");
+            return;
+        }
+        path = getDbConnectionPath() + "database\\" + schema.getName() + ".db";
+        createDatabase();
     }
 
     public void close() {
@@ -49,18 +42,10 @@ public class DbConnection {
         return connection;
     }
 
-    public static DbConnection getCustomInstance(String fileName) {
-        if (CUSTOM_INSTANCE == null) {
-            CUSTOM_INSTANCE = new DbConnection(fileName);
-        }
-        return CUSTOM_INSTANCE;
-    }
-
     public static DbConnection getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new DbConnection();
+            INSTANCE = new DbConnection("database");
         }
-
         return INSTANCE;
     }
 
