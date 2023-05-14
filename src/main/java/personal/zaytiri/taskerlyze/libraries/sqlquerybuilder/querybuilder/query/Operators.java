@@ -7,10 +7,15 @@ public enum Operators {
     LESS_THAN("<"),
     GREATER_OR_EQUAL_THAN(">="),
     LESS_OR_EQUAL_THAN("<="),
-    IN(" in "),
-    NOT_IN(" not in "),
-    LIKE(" like "),
-    IS_NULL("is null");
+    IN("IN"),
+    NOT_IN("NOT IN"),
+    LIKE("LIKE"),
+    IS_NULL("IS NULL"),
+    IS_NOT_NULL("IS NOT NULL"),
+    NULL("NULL"),
+    NOT_NULL("NOT NULL"),
+    BETWEEN("BETWEEN"),
+    NOT_BETWEEN("NOT BETWEEN");
 
     public final String value;
 
