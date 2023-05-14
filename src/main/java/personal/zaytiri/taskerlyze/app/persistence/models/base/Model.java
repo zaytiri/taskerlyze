@@ -1,6 +1,6 @@
 package personal.zaytiri.taskerlyze.app.persistence.models.base;
 
-import personal.zaytiri.taskerlyze.app.persistence.schema.Schema;
+import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
@@ -15,15 +15,15 @@ public abstract class Model {
     private Date createdAt;
 
     protected Model(String tableName) {
-        Database schema = Schema.getSchema();
-        if (schema == null) {
+        Database schema = DbConnection.getInstance().getSchema();
+        table = schema.getTable(tableName);
+        if (table == null) {
             System.err.println("No table was found in schema with the following name: " + tableName);
             return;
         }
-        this.table = schema.getTable(tableName);
 
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
+        createdAt = new Date();
+        updatedAt = new Date();
     }
 
     public Date getCreatedAt() {
