@@ -6,10 +6,7 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -114,6 +111,22 @@ public class DatabaseTestHelper {
         return currentDirectory + "\\src\\test\\resources\\sqlquerybuilder\\" + databaseName;
     }
 
+    public static int getRowCount(Connection connection, String query) {
+        Statement statement = null;
+        int rowCount = 0;
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                rowCount++;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return rowCount;
+    }
+
     public static Database getSchema() {
         return schema;
     }
@@ -130,9 +143,14 @@ public class DatabaseTestHelper {
                     add("insert into people (id, name) values (2, 'nuno')");
                     add("insert into people (id, name) values (3, 'pedro')");
                     add("insert into people (id, name) values (4, 'monica')");
+                    add("insert into people (id, name) values (5, null)");
+                    add("insert into people (id, name) values (6, 'oni')");
+
                     add("insert into tasks (id, name) values (1, 'do something weird')");
                     add("insert into tasks (id, name) values (2, 'dont do that')");
                     add("insert into tasks (id, name) values (3, 'do anything spectacular')");
+                    add("insert into tasks (id, name) values (4, 'do nothing')");
+
                     add("insert into tasks_people (id, tasks_id, people_id) values (1, 1, 1)");
                     add("insert into tasks_people (id, tasks_id, people_id) values (2, 2, 1)");
                     add("insert into tasks_people (id, tasks_id, people_id) values (3, 3, 4)");
