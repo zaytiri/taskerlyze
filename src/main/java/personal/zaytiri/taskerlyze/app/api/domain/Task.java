@@ -50,6 +50,12 @@ public class Task {
         return !response.getResult().isEmpty();
     }
 
+    public List<Task> getAll(Map<String, Pair<String, Object>> filters) {
+        Response response = repository.readFiltered(filters);
+
+        return mapper.toEntity(response.getResult());
+    }
+
     public String getDescription() {
         return description;
     }
