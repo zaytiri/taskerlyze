@@ -5,7 +5,20 @@ import personal.zaytiri.taskerlyze.app.persistence.mappers.base.Mapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.TaskModel;
 
 public class TaskMapper implements Mapper<Task, TaskModel> {
-    public TaskMapper() {}
+    public TaskMapper() {
+    }
+
+    @Override
+    public Task toEntity(TaskModel model) {
+        Task entity = Task.getInstance();
+
+        if (model == null) return null;
+
+        entity.setId(model.getId());
+        entity.setName(model.getName());
+
+        return entity;
+    }
 
     @Override
     public TaskModel toModel(Task entity) {
@@ -16,17 +29,5 @@ public class TaskMapper implements Mapper<Task, TaskModel> {
         model.setId(entity.getId());
         model.setName(entity.getName());
         return model;
-    }
-
-    @Override
-    public Task toEntity(TaskModel model) {
-        Task entity = new Task();
-
-        if (model == null) return null;
-
-        entity.setId(model.getId());
-        entity.setName(model.getName());
-
-        return entity;
     }
 }
