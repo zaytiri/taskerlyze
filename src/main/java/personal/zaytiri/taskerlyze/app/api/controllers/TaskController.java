@@ -46,15 +46,15 @@ public class TaskController implements Controller<Task> {
 
         task.setId(id);
 
-        boolean isPopulated = task.populate();
+        Task taskPopulated = task.populate();
 
         MessageResult message = new MessageResult();
-        if (isPopulated) {
+        if (taskPopulated != null) {
             message.setCode(CodeResult.FOUND);
         } else {
             message.setCode(CodeResult.NOT_FOUND);
         }
 
-        return new OperationResult<>(isPopulated, message, task);
+        return new OperationResult<>(taskPopulated != null, message, taskPopulated);
     }
 }

@@ -2,17 +2,18 @@ package personal.zaytiri.taskerlyze.app.api.domain;
 
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.DaggerAppComponent;
+import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITaskRepository;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import javax.inject.Inject;
-import java.util.Map;
 
 public class Task {
     private final ITaskRepository repository;
     private int id;
     private String name;
     private String description;
+    private TaskMapper mapper;
 
     @Inject
     public Task(ITaskRepository repository) {
@@ -81,19 +82,13 @@ public class Task {
         return this;
     }
 
-    public boolean populate() {
+    public Task populate() {
         if (!exists()) {
-            return false;
+            return null;
         }
 
         Response response = repository.read(this);
 
-        Map<String, String> result = response.getResult().get(0);
-
-        setId(Integer.parseInt(result.get("id")));
-        setName(result.get("name"));
-        setDescription(result.get("description"));
-
-        return true;
+        return mapper.toEntity(response.getResult()).get(0);
     }
 }

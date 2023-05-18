@@ -1,7 +1,13 @@
 package personal.zaytiri.taskerlyze.app.persistence.mappers.base;
 
+import java.util.List;
+import java.util.Map;
+
 public interface Mapper<E, M> {
 
-    M toModel(E entity);
+    List<E> toEntity(List<Map<String, String>> rows);
+
     E toEntity(M model);
+
+    M toModel(E entity);
 }

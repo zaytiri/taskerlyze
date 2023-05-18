@@ -4,6 +4,10 @@ import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.base.Mapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.TaskModel;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class TaskMapper implements Mapper<Task, TaskModel> {
     public TaskMapper() {
     }
@@ -18,6 +22,22 @@ public class TaskMapper implements Mapper<Task, TaskModel> {
         entity.setName(model.getName());
 
         return entity;
+    }
+
+    @Override
+    public List<Task> toEntity(List<Map<String, String>> rows) {
+        List<Task> tasks = new ArrayList<>();
+
+        for (Map<String, String> row : rows) {
+            Task task = Task.getInstance();
+
+            task.setId(Integer.parseInt(row.get("id")));
+            task.setName(row.get("name"));
+            task.setDescription(row.get("description"));
+
+            tasks.add(task);
+        }
+        return tasks;
     }
 
     @Override
