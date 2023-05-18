@@ -1,9 +1,6 @@
 package personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces;
 
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
-
-import java.util.Map;
 
 public interface IRepository<GEntity> {
 
@@ -15,5 +12,5 @@ public interface IRepository<GEntity> {
 
     Response readAll();
 
-    Response update(GEntity entity, Map<Column, Object> sets);
+    Response update(GEntity entity);
 }

@@ -5,6 +5,7 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.util.Date;
+import java.util.Map;
 
 public abstract class Model {
 
@@ -64,5 +65,5 @@ public abstract class Model {
         this.updatedAt = updatedAt;
     }
 
-    public abstract Object[] getValues();
+    public abstract Map<String, Object> getValues();
 }

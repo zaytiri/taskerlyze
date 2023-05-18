@@ -2,8 +2,8 @@ package personal.zaytiri.taskerlyze.app.persistence.models;
 
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TaskModel extends Model {
     //    private Status status;
@@ -24,13 +24,13 @@ public class TaskModel extends Model {
     }
 
     @Override
-    public Object[] getValues() {
-        List<Object> values = new ArrayList<>();
+    public Map<String, Object> getValues() {
+        Map<String, Object> values = new HashMap<>();
 
-        values.add(id);
-        values.add(name);
-        values.add(description);
+        values.put("id", id);
+        values.put("name", name);
+        values.put("description", description);
 
-        return values.toArray();
+        return values;
     }
 }
