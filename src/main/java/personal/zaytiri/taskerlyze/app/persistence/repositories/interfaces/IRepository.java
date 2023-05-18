@@ -18,4 +18,6 @@ public interface IRepository<GEntity> {
     Response readFiltered(Map<String, Pair<String, Object>> filters);
 
     Response update(GEntity entity);
+
+    Response update(GEntity entity, Map<String, Object> values);
 }
