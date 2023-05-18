@@ -6,7 +6,8 @@ public enum CodeResult {
     CREATED,
     UPDATED,
     DELETED,
-    NOTFOUND,
-    NOTCREATED,
-    NOTUPDATED
+    NOT_FOUND,
+    NOT_CREATED,
+    NOT_UPDATED,
+    NOT_DELETED
 }

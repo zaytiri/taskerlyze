@@ -8,48 +8,35 @@ public class MessageResult {
     public MessageResult() {
     }
 
+    public CodeResult getCode() {
+        return code;
+    }
+
     public void setCode(CodeResult code) {
         this.code = code;
         getMessageResult();
-    }
-
-    public void setCode(CodeResult code, String customMessage) {
-        this.code = code;
-        this.message= customMessage;
-    }
-
-    public CodeResult getCode() {
-        return code;
     }
 
     public String getMessage() {
         return message;
     }
 
-    private void getMessageResult(){
+    public void setCode(CodeResult code, String customMessage) {
+        this.code = code;
+        this.message = customMessage;
+    }
 
-        switch (this.code){
-            case FOUND:
-                this.message = "record found with success.";
-                break;
-            case CREATED:
-                this.message = "record created with success.";
-                break;
-            case UPDATED:
-                this.message = "record updated with success.";
-                break;
-            case DELETED:
-                this.message = "record deleted with success. can be recovered in the trash section.";
-                break;
-            case NOTFOUND:
-                this.message = "record not found.";
-                break;
-            case NOTCREATED:
-                this.message = "record not created.";
-                break;
-            case NOTUPDATED:
-                this.message = "record not updated.";
-                break;
+    private void getMessageResult() {
+
+        switch (this.code) {
+            case FOUND -> this.message = "record found with success.";
+            case CREATED -> this.message = "record created with success.";
+            case UPDATED -> this.message = "record updated with success.";
+            case DELETED -> this.message = "record deleted with success. can be recovered in the trash section.";
+            case NOT_FOUND -> this.message = "record not found.";
+            case NOT_CREATED -> this.message = "record not created.";
+            case NOT_UPDATED -> this.message = "record not updated.";
+            case NOT_DELETED -> this.message = "record not deleted.";
         }
     }
 }
