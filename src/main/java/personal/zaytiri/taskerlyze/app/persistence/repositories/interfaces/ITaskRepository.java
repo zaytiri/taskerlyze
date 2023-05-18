@@ -7,5 +7,7 @@ public interface ITaskRepository extends IRepository<Task> {
 
     Response done();
 
+    Response exists(Task task);
+
     Response undone();
 }
