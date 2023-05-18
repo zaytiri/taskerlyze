@@ -22,4 +22,13 @@ public enum Operators {
     Operators(String value) {
         this.value = value;
     }
+
+    public static Operators get(String text) {
+        for (Operators b : Operators.values()) {
+            if (b.value.equalsIgnoreCase(text)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("No constant with value " + text + " found.");
+    }
 }
