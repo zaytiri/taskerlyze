@@ -24,9 +24,12 @@ public class Task {
 
         if (!exists()) {
             response = repository.create(this);
+            setId(response.getLastInsertedId());
         } else {
             response = repository.update(this);
         }
+
+        populate();
 
         return response.isSuccess();
     }
