@@ -4,6 +4,7 @@ import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.base.Mapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.IRepository;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.*;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
@@ -65,6 +66,27 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
         SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
 
         query.select().from(model.getTable());
+
+        return query.execute();
+    }
+
+    @Override
+    public Response readFiltered(Map<String, Pair<String, Object>> filters) {
+
+        SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
+
+        query = query.select().from(model.getTable());
+
+        boolean operator = false;
+        for (Map.Entry<String, Pair<String, Object>> entry : filters.entrySet()) {
+            if (operator) {
+                query = (SelectQueryBuilder) query.and();
+            }
+
+            Column col = model.getTable().getColumn(entry.getKey());
+            query = (SelectQueryBuilder) query.where(col, Operators.get(entry.getValue().key), entry.getValue().value);
+            operator = true;
+        }
 
         return query.execute();
     }
