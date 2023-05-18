@@ -2,9 +2,7 @@ package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query
 
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Query {
@@ -55,12 +53,18 @@ public class Query {
         setValues(statement);
         statement.executeUpdate();
 
+        // get last inserted id from database
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
+        int id = rs.getInt("last_insert_rowid()");
+        stmt.close();
+
         statement.close();
         if (closeConnection) {
             connection.close();
         }
 
-        return new Response();
+        return new Response().setLastInsertedId(id);
     }
 
     protected void setValues(PreparedStatement preparedStatement) throws SQLException {

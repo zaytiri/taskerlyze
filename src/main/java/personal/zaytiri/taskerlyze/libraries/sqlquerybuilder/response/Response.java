@@ -10,12 +10,25 @@ public class Response {
     private String message;
     private List<Map<String, String>> result;
     private String queryExecuted;
+    private int numberOfRows;
+    private int lastInsertedId;
 
     public Response() {
         this.success = true;
         this.message = "Success.";
         this.queryExecuted = "";
         this.result = new ArrayList<>();
+        this.numberOfRows = 0;
+        this.lastInsertedId = 0;
+    }
+
+    public int getLastInsertedId() {
+        return lastInsertedId;
+    }
+
+    public Response setLastInsertedId(int lastInsertedId) {
+        this.lastInsertedId = lastInsertedId;
+        return this;
     }
 
     public String getMessage() {
@@ -24,6 +37,15 @@ public class Response {
 
     public Response setMessage(String message) {
         this.message = message;
+        return this;
+    }
+
+    public int getNumberOfRows() {
+        return numberOfRows;
+    }
+
+    public Response setNumberOfRows(int numberOfRows) {
+        this.numberOfRows = numberOfRows;
         return this;
     }
 

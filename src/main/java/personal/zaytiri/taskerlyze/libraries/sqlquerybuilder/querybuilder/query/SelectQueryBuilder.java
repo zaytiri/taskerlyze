@@ -102,6 +102,7 @@ public class SelectQueryBuilder extends QueryBuilder {
         ResultSetMetaData md = rs.getMetaData();
 
         int numberOfCols = md.getColumnCount();
+        int numberOfRows = 0;
 
         while (rs.next()) {
             Map<String, String> row = new HashMap<>();
@@ -111,13 +112,16 @@ public class SelectQueryBuilder extends QueryBuilder {
                 row.put(columnName, value);
             }
             resultsFromDb.add(row);
+            numberOfRows++;
         }
         statement.close();
         if (closeConnection) {
             connection.close();
         }
 
-        return new Response().setResult(resultsFromDb);
+        return new Response()
+                .setResult(resultsFromDb)
+                .setNumberOfRows(numberOfRows);
     }
 
     @Override
