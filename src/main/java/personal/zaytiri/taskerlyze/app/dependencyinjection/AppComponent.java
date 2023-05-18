@@ -2,12 +2,14 @@ package personal.zaytiri.taskerlyze.app.dependencyinjection;
 
 
 import dagger.Component;
+import personal.zaytiri.taskerlyze.app.api.domain.Task;
 
 import javax.inject.Singleton;
 
 @Singleton
-@Component(modules = {AppModule.class})
+@Component(modules = {RepositoriesModule.class})
 public interface AppComponent {
-//    Type buildType();
+
+    Task getTask();
 
 }
