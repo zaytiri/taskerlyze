@@ -37,6 +37,8 @@ public class MessageResult {
             case NOT_CREATED -> this.message = "record not created.";
             case NOT_UPDATED -> this.message = "record not updated.";
             case NOT_DELETED -> this.message = "record not deleted.";
+            case SUCCESS -> this.message = "the operation was successful.";
+            case FAIL -> this.message = "the operation failed.";
         }
     }
 }

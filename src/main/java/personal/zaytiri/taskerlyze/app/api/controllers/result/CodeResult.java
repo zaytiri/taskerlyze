@@ -9,5 +9,7 @@ public enum CodeResult {
     NOT_FOUND,
     NOT_CREATED,
     NOT_UPDATED,
-    NOT_DELETED
+    NOT_DELETED,
+    SUCCESS,
+    FAIL
 }
