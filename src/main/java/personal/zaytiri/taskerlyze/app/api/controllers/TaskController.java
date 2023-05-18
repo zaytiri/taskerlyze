@@ -57,4 +57,21 @@ public class TaskController implements Controller<Task> {
 
         return new OperationResult<>(taskPopulated != null, message, taskPopulated);
     }
+
+    public OperationResult<Task> setDone(int id) {
+        Task task = Task.getInstance();
+        task.setId(id);
+
+        boolean isTaskUpdated = task.setDone();
+        task = task.populate();
+
+        MessageResult message = new MessageResult();
+        if (isTaskUpdated) {
+            message.setCode(CodeResult.SUCCESS);
+        } else {
+            message.setCode(CodeResult.FAIL);
+        }
+
+        return new OperationResult<>(isTaskUpdated, message, task);
+    }
 }

@@ -22,11 +22,6 @@ public class TaskRepository extends Repository<Task, TaskModel, TaskMapper> impl
     }
 
     @Override
-    public Response done() {
-        return null;
-    }
-
-    @Override
     public Response exists(Task task) {
         model = mapper.toModel(task);
 
@@ -41,10 +36,5 @@ public class TaskRepository extends Repository<Task, TaskModel, TaskMapper> impl
                 .where(name, Operators.EQUALS, model.getName());
 
         return query.execute();
-    }
-
-    @Override
-    public Response undone() {
-        return null;
     }
 }
