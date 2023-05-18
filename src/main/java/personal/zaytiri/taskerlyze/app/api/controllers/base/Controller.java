@@ -3,15 +3,10 @@ package personal.zaytiri.taskerlyze.app.api.controllers.base;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 
-import java.util.concurrent.ExecutionException;
-
 public interface Controller<T> {
-    OperationResult<T> get(int id) throws ExecutionException, InterruptedException;
+    OperationResult<T> createOrUpdate(T request);
 
-    OperationResult<T> create(T request) throws ExecutionException, InterruptedException;
+    OperationResult<T> delete(int id);
 
-    OperationResult<T> update(T request) throws ExecutionException, InterruptedException;
-
-    OperationResult<T> delete(int id) throws ExecutionException, InterruptedException;
-
+    OperationResult<T> get(int id);
 }
