@@ -1,4 +1,4 @@
-package sqlquerybuilder;
+package libraries.sqlquerybuilder;
 
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
@@ -108,7 +108,7 @@ public class DatabaseTestHelper {
     public static String getDbConnectionPath() {
         String currentDirectory = Path.of("").toAbsolutePath().toString();
         String databaseName = "sqlquerybuilder_test.db";
-        return currentDirectory + "\\src\\test\\resources\\sqlquerybuilder\\" + databaseName;
+        return currentDirectory + "\\src\\test\\resources\\libraries\\sqlquerybuilder\\" + databaseName;
     }
 
     public static int getRowCount(Connection connection, String query) {

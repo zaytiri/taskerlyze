@@ -1,4 +1,4 @@
-package sqlquerybuilder;
+package libraries.sqlquerybuilder;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
