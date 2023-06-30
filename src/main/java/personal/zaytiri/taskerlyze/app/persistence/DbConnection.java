@@ -1,8 +1,8 @@
 package personal.zaytiri.taskerlyze.app.persistence;
 
-import personal.zaytiri.taskerlyze.app.persistence.schema.Schema;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.CreateTableQueryBuilder;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Schema;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.nio.file.Path;

@@ -1,12 +1,9 @@
-package personal.zaytiri.taskerlyze.app.persistence.schema;
+package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema;
 
 import com.github.underscore.U;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import personal.zaytiri.taskerlyze.app.presentation.Main;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -20,6 +17,12 @@ public class Schema {
     private Schema() {
     }
 
+    /**
+     * If schema is NULL, then it will read all properties from the user-created xml file with a given fileName and maps them to Database, Table and Column objects.
+     *
+     * @param fileName: the name of the xml file to be read.
+     * @returns a Database object containing every information about the schema depending on xml created properties.
+     */
     public static Database getSchema(String fileName) {
         if (SCHEMA != null) {
             return SCHEMA;
