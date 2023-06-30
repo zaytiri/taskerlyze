@@ -22,6 +22,12 @@ public class Database {
         this.name = name;
     }
 
+    /**
+     * Gets a Table object depending on a given name.
+     *
+     * @param name: table's name.
+     * @returns a Table object.
+     */
     public Table getTable(String name) {
         for (Table tb : tables) {
             if (tb.getName().equals(name)) {

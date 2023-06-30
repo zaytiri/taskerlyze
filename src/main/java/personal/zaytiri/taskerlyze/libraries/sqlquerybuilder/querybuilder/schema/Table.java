@@ -16,6 +16,12 @@ public class Table {
     public Table() {
     }
 
+    /**
+     * Gets a Column object depending on a given name.
+     *
+     * @param name: column's name.
+     * @returns a Column object.
+     */
     public Column getColumn(String name) {
         for (Column col : columns) {
             if (col.getName().equals(name)) {
@@ -25,6 +31,11 @@ public class Table {
         return null;
     }
 
+    /**
+     * Gets all existing columns in a table.
+     *
+     * @returns a list of columns.
+     */
     public List<Column> getColumns() {
         return columns;
     }
@@ -33,6 +44,12 @@ public class Table {
         this.columns = columns;
     }
 
+    /**
+     * Gets all columns which the name is contained in a given list of names.
+     *
+     * @param names: a list of names containing all the columns to be returned.
+     * @returns a list of columns.
+     */
     public List<Column> getColumns(List<String> names) {
         List<Column> columnsToReturn = new ArrayList<>();
 

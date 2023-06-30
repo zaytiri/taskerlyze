@@ -22,6 +22,11 @@ public class Response {
         this.lastInsertedId = 0;
     }
 
+    /**
+     * Gets the last ID that was inserted in the database.
+     *
+     * @returns the last inserted ID of a row.
+     */
     public int getLastInsertedId() {
         return lastInsertedId;
     }
@@ -40,6 +45,11 @@ public class Response {
         return this;
     }
 
+    /**
+     * Gets the number of rows available in a SQL result.
+     *
+     * @returns the number of rows in the result.
+     */
     public int getNumberOfRows() {
         return numberOfRows;
     }
@@ -49,6 +59,11 @@ public class Response {
         return this;
     }
 
+    /**
+     * Gets the SQL query executed in plain text and with all unknown parameters resolved.
+     *
+     * @returns the SQL query executed.
+     */
     public String getQueryExecuted() {
         return queryExecuted;
     }
@@ -58,6 +73,13 @@ public class Response {
         return this;
     }
 
+    /**
+     * Gets the result of a SQL query. This result consists of a List of Map object.
+     * Each entry of the map corresponds to a column pair, which the key is the column name and the value is the column's value.
+     * The list corresponds to all rows while each entry map corresponds to a column in a row.
+     *
+     * @returns a list of rows where each index will have entries of columns.
+     */
     public List<Map<String, String>> getResult() {
         return result;
     }

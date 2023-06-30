@@ -8,13 +8,19 @@ import java.util.List;
 
 public class InsertQueryBuilder extends QueryBuilder {
 
-    // todo: insert variable for last inserted object or last inserted id.
-
-    // todo: implement an automatically way to auto increment an id when inserting something.
     public InsertQueryBuilder(Connection connection) {
         super(connection);
     }
 
+    /**
+     * Generates a partial SQL query to insert data into a given table.
+     * This method should be the entry point of the SQL insert query.
+     * All columns of a table will be expected to be inserted into.
+     * Needs to be followed up by values() method.
+     *
+     * @param table to insert data into.
+     * @returns InsertQueryBuilder
+     */
     public InsertQueryBuilder insertInto(Table table) {
         tryAppendKeyword(Clause.INSERT.value);
         tryAppendKeyword(Clause.INTO.value);
@@ -22,6 +28,16 @@ public class InsertQueryBuilder extends QueryBuilder {
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to insert specific data into a given table.
+     * This method should be the entry point of the SQL insert query.
+     * Also receives a list of columns which define the specific columns the data will be inserted into.
+     * Needs to be followed up by values() method.
+     *
+     * @param table   to insert data into.
+     * @param columns a list of columns to be inserted.
+     * @returns InsertQueryBuilder
+     */
     public InsertQueryBuilder insertInto(Table table, List<Column> columns) {
         insertInto(table);
 
@@ -31,6 +47,14 @@ public class InsertQueryBuilder extends QueryBuilder {
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to insert specific values into a table.
+     * The quantity of values should be the same as the number of columns defined in the previous method.
+     * If insertInto(table) was used, the number of values should be equal to all table's columns and in the correct order of the table's columns' list.
+     *
+     * @param values to be inserted.
+     * @returns InsertQueryBuilder
+     */
     public InsertQueryBuilder values(Object... values) {
         this.values.addAll(List.of(values));
 

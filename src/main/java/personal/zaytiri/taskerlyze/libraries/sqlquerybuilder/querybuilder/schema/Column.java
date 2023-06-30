@@ -18,6 +18,13 @@ public class Column {
     public Column() {
     }
 
+    /**
+     * Gets the default value of a column and returns that value as the given <T> Type.
+     *
+     * @param tClass the class of the type of the default column value. e.g. String.class
+     * @param <T>    optional type class.
+     * @returns the default value of a column in the desired type.
+     */
     public <T> T getDefaultValue(Class<T> tClass) {
         return tClass.cast(defaultValue);
     }

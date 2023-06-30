@@ -12,6 +12,11 @@ public class CreateTableQueryBuilder extends QueryBuilder {
         super(connection);
     }
 
+    /**
+     * Generates an SQL query for creating a given table with all associated columns.
+     *
+     * @param table containing all information about the table and respective columns.
+     */
     public void create(Table table) {
         appendKeyword(Clause.CREATE.value);
         appendKeyword(Clause.TABLE.value);

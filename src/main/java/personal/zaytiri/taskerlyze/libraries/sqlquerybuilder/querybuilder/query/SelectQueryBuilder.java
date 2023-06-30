@@ -20,6 +20,12 @@ public class SelectQueryBuilder extends QueryBuilder {
         tables = new ArrayList<>();
     }
 
+    /**
+     * Generates a partial SQL query to select data from a given table.
+     *
+     * @param table to be queried.
+     * @returns SelectQueryBuilder
+     */
     public SelectQueryBuilder from(Table table) {
         appendSelectArgumentsToQuery(table);
         appendKeyword(Clause.FROM.value);
@@ -78,12 +84,26 @@ public class SelectQueryBuilder extends QueryBuilder {
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to select given column from a table.
+     * It will only select the columns which are contained in a given list.
+     * It should be followed up by from() method.
+     *
+     * @param columns to be selected.
+     * @returns SelectQueryBuilder
+     */
     public SelectQueryBuilder select(List<Column> columns) {
         tryAppendKeyword(Clause.SELECT.value);
         query.append(getMultipleColumnsNameByComma(columns, true));
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to select every column from a table.
+     * It should be followed up by from() method.
+     *
+     * @returns SelectQueryBuilder
+     */
     public SelectQueryBuilder select() {
         tryAppendKeyword(Clause.SELECT.value + " *");
         return this;
