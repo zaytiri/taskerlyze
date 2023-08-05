@@ -49,42 +49,29 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
     }
 
     @Override
-    public Response read(GEntity entity) {
-        model = mapper.toModel(entity);
-
-        SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
-
-        query.select()
-                .from(model.getTable())
-                .where(model.getTable().getColumn("id"), Operators.EQUALS, model.getId());
-
-        return query.execute();
-    }
-
-    @Override
-    public Response readAll() {
-        SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
-
-        query.select().from(model.getTable());
-
-        return query.execute();
-    }
-
-    @Override
-    public Response readFiltered(Map<String, Pair<String, Object>> filters) {
-
+    public Response read(Map<String, Pair<String, Object>> filters) {
         SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
 
         query = query.select().from(model.getTable());
 
+        if (filters.isEmpty()) {
+            return query.execute();
+        }
+
         boolean operator = false;
         for (Map.Entry<String, Pair<String, Object>> entry : filters.entrySet()) {
             if (operator) {
-                query = (SelectQueryBuilder) query.and();
+                query = query.and();
             }
 
             Column col = model.getTable().getColumn(entry.getKey());
-            query = (SelectQueryBuilder) query.where(col, Operators.get(entry.getValue().key), entry.getValue().value);
+
+            if (entry.getValue().value == null) {
+                query = query.where(col, Operators.get(entry.getValue().key));
+            } else {
+                query = query.where(col, Operators.get(entry.getValue().key), entry.getValue().value);
+            }
+
             operator = true;
         }
 

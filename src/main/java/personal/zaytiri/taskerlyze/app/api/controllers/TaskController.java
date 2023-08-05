@@ -5,6 +5,10 @@ import personal.zaytiri.taskerlyze.app.api.controllers.result.CodeResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.MessageResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+
+import java.util.List;
+import java.util.Map;
 
 public class TaskController implements Controller<Task> {
 
@@ -46,7 +50,7 @@ public class TaskController implements Controller<Task> {
 
         task.setId(id);
 
-        Task taskPopulated = task.populate();
+        Task taskPopulated = task.get();
 
         MessageResult message = new MessageResult();
         if (taskPopulated != null) {
@@ -58,12 +62,28 @@ public class TaskController implements Controller<Task> {
         return new OperationResult<>(taskPopulated != null, message, taskPopulated);
     }
 
+    @Override
+    public OperationResult<List<Task>> get(Map<String, Pair<String, Object>> filters) {
+        Task task = Task.getInstance();
+
+        List<Task> tasks = task.get(filters);
+
+        MessageResult message = new MessageResult();
+        if (!tasks.isEmpty()) {
+            message.setCode(CodeResult.FOUND);
+        } else {
+            message.setCode(CodeResult.NOT_FOUND);
+        }
+
+        return new OperationResult<>(!tasks.isEmpty(), message, tasks);
+    }
+
     public OperationResult<Task> setDone(int id) {
         Task task = Task.getInstance();
         task.setId(id);
 
         boolean isTaskUpdated = task.setDone();
-        task = task.populate();
+        task = task.get();
 
         MessageResult message = new MessageResult();
         if (isTaskUpdated) {

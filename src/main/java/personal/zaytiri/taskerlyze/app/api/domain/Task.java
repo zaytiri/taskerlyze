@@ -14,11 +14,11 @@ import java.util.Map;
 
 public class Task {
     private final ITaskRepository repository;
+    private final TaskMapper mapper;
     private int id;
     private String name;
     private String description;
     private boolean done;
-    private final TaskMapper mapper;
 
     @Inject
     public Task(ITaskRepository repository) {
@@ -53,10 +53,21 @@ public class Task {
         return !response.getResult().isEmpty();
     }
 
-    public List<Task> getAll(Map<String, Pair<String, Object>> filters) {
-        Response response = repository.readFiltered(filters);
+    public List<Task> get(Map<String, Pair<String, Object>> filters) {
+        Response response = repository.read(filters);
 
         return mapper.toEntity(response.getResult());
+    }
+
+    public Task get() {
+        if (!exists()) {
+            return null;
+        }
+
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("id", new Pair<>("=", this.id));
+
+        return get(filters).get(0);
     }
 
     public String getDescription() {
@@ -95,18 +106,11 @@ public class Task {
         if (!fromDb) {
             return done;
         }
-        Response response = repository.read(this);
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("id", new Pair<>("=", this.id));
+
+        Response response = repository.read(filters);
         return Boolean.parseBoolean(response.getResult().get(0).get("done"));
-    }
-
-    public Task populate() {
-        if (!exists()) {
-            throw new IllegalArgumentException("No task exists with provided name.");
-        }
-
-        Response response = repository.read(this);
-
-        return mapper.toEntity(response.getResult()).get(0);
     }
 
     public boolean setDone(boolean done) {
