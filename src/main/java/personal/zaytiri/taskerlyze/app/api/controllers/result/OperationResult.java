@@ -17,14 +17,6 @@ public class OperationResult<T> {
     public OperationResult() {
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     public MessageResult getMessageResult() {
         return messageResult;
     }
@@ -39,5 +31,13 @@ public class OperationResult<T> {
 
     public void setResult(T result) {
         this.result = result;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
