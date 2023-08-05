@@ -1,13 +1,34 @@
 package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query;
 
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.sql.Connection;
 
-public class DeleteQueryBuilder extends QueryBuilder {
+public class DeleteQueryBuilder extends QueryBuilder implements IGenericClauses<DeleteQueryBuilder> {
+    private final GenericClauses genericClauses;
 
     public DeleteQueryBuilder(Connection connection) {
         super(connection);
+        genericClauses = new GenericClauses(this);
+    }
+
+    @Override
+    public DeleteQueryBuilder and() {
+        genericClauses.and();
+        return this;
+    }
+
+    @Override
+    public DeleteQueryBuilder and(Object value) {
+        genericClauses.and(query, values, value);
+        return this;
+    }
+
+    @Override
+    public DeleteQueryBuilder between(Object value) {
+        genericClauses.between(query, values, value);
+        return this;
     }
 
     /**
@@ -21,6 +42,36 @@ public class DeleteQueryBuilder extends QueryBuilder {
         tryAppendKeyword(Clause.DELETE.value);
         tryAppendKeyword(Clause.FROM.value);
         query.append(table.getName());
+        return this;
+    }
+
+    @Override
+    public DeleteQueryBuilder or() {
+        genericClauses.or();
+        return this;
+    }
+
+    @Override
+    public DeleteQueryBuilder where(Column leftColumn, Operators operator, Object rightColumn) {
+        genericClauses.where(query, values, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public DeleteQueryBuilder where(Column leftColumn, Operators operator, Column rightColumn) {
+        genericClauses.where(query, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public DeleteQueryBuilder where(Column leftColumn, Operators operator) {
+        genericClauses.where(query, leftColumn, operator);
+        return this;
+    }
+
+    @Override
+    public DeleteQueryBuilder where(Column leftColumn) {
+        genericClauses.where(query, leftColumn);
         return this;
     }
 }

@@ -10,14 +10,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SelectQueryBuilder extends QueryBuilder {
+public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<SelectQueryBuilder> {
     private final StringBuilder selectQuery;
     private final List<Table> tables;
+    private final GenericClauses genericClauses;
 
     public SelectQueryBuilder(Connection connection) {
         super(connection);
         selectQuery = new StringBuilder();
         tables = new ArrayList<>();
+        genericClauses = new GenericClauses(this);
+    }
+
+    @Override
+    public SelectQueryBuilder and() {
+        genericClauses.and();
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder and(Object value) {
+        genericClauses.and(query, values, value);
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder between(Object value) {
+        genericClauses.between(query, values, value);
+        return this;
     }
 
     /**
@@ -75,6 +95,12 @@ public class SelectQueryBuilder extends QueryBuilder {
         return this;
     }
 
+    @Override
+    public SelectQueryBuilder or() {
+        genericClauses.or();
+        return this;
+    }
+
     public SelectQueryBuilder orderBy(Order order, List<Column> columns) {
         if (!tryAppendKeyword(Clause.ORDER_BY.value)) {
             return this;
@@ -106,6 +132,30 @@ public class SelectQueryBuilder extends QueryBuilder {
      */
     public SelectQueryBuilder select() {
         tryAppendKeyword(Clause.SELECT.value + " *");
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder where(Column leftColumn, Operators operator, Object rightColumn) {
+        genericClauses.where(query, values, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder where(Column leftColumn, Operators operator, Column rightColumn) {
+        genericClauses.where(query, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder where(Column leftColumn, Operators operator) {
+        genericClauses.where(query, leftColumn, operator);
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder where(Column leftColumn) {
+        genericClauses.where(query, leftColumn);
         return this;
     }
 

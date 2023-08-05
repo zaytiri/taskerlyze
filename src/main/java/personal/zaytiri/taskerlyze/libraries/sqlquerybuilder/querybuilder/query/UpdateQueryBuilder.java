@@ -6,10 +6,37 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema
 import java.sql.Connection;
 import java.util.Map;
 
-public class UpdateQueryBuilder extends QueryBuilder {
+public class UpdateQueryBuilder extends QueryBuilder implements IGenericClauses<UpdateQueryBuilder> {
+
+    private final GenericClauses genericClauses;
 
     public UpdateQueryBuilder(Connection connection) {
         super(connection);
+        genericClauses = new GenericClauses(this);
+    }
+
+    @Override
+    public UpdateQueryBuilder and() {
+        genericClauses.and();
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder and(Object value) {
+        genericClauses.and(query, values, value);
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder between(Object value) {
+        genericClauses.between(query, values, value);
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder or() {
+        genericClauses.or();
+        return this;
     }
 
     /**
@@ -69,6 +96,30 @@ public class UpdateQueryBuilder extends QueryBuilder {
             comma = true;
         }
 
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder where(Column leftColumn, Operators operator, Object rightColumn) {
+        genericClauses.where(query, values, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder where(Column leftColumn, Operators operator, Column rightColumn) {
+        genericClauses.where(query, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder where(Column leftColumn, Operators operator) {
+        genericClauses.where(query, leftColumn, operator);
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder where(Column leftColumn) {
+        genericClauses.where(query, leftColumn);
         return this;
     }
 }
