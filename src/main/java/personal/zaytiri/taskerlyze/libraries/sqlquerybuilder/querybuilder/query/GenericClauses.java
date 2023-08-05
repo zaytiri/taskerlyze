@@ -39,6 +39,11 @@ public class GenericClauses {
         query.append(builder.getColumnName(leftColumn));
         builder.appendKeyword(operator.value);
         query.append("?");
+
+        if (operator.equals(Operators.LIKE)) {
+            rightColumn = "%" + rightColumn + "%";
+        }
+
         values.add(rightColumn);
     }
 

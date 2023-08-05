@@ -36,6 +36,7 @@ public interface IGenericClauses<QB extends QueryBuilder> {
     /**
      * Adds the WHERE clause to the query and limits the query to search for where the LEFT COLUMN <!OPERATOR!> RIGHT VALUE.
      * The LEFT COLUMN should be always of type column.
+     * When using the LIKE operator, only the needed sub-string should be used. There is no need to add the % between the sub-string.
      *
      * @param leftColumn  to limit the query
      * @param operator

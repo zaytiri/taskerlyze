@@ -362,7 +362,7 @@ public class SelectQueryBuilderTests {
 
             query.select()
                     .from(people)
-                    .where(name, Operators.LIKE, "%oni%");
+                    .where(name, Operators.LIKE, "oni");
             Response response = query.execute();
             LOGGER.log(Level.INFO, response.getQueryExecuted());
 
