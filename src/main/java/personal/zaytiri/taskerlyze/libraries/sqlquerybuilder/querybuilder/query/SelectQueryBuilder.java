@@ -53,6 +53,12 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to group the results by the given values.
+     *
+     * @param columns containing values to group by the results of a query
+     * @return SelectQueryBuilder
+     */
     public SelectQueryBuilder groupBy(List<Column> columns) {
         if (!tryAppendKeyword(Clause.GROUP_BY.value)) {
             return this;
@@ -61,6 +67,12 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to join another table into the query.
+     *
+     * @param table to be joined
+     * @return SelectQueryBuilder
+     */
     public SelectQueryBuilder join(Table table) {
         appendSelectArgumentsToQuery(table);
         appendKeyword(Clause.JOIN.value);
@@ -68,6 +80,13 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to limit the results of the query within a given limit and offset.
+     *
+     * @param limit  which is the maximum number of results to be returned.
+     * @param offset which is the number of rows to be skipped before returning results.
+     * @return SelectQueryBuilder
+     */
     public SelectQueryBuilder limit(int limit, int offset) {
         limit(limit);
         if (!tryAppendKeyword(Clause.OFFSET.value)) {
@@ -77,6 +96,12 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to limit the results of the query within a given limit.
+     *
+     * @param limit which is the maximum number of results to be returned.
+     * @return SelectQueryBuilder
+     */
     public SelectQueryBuilder limit(int limit) {
         if (!tryAppendKeyword(Clause.LIMIT.value)) {
             return this;
@@ -85,6 +110,13 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to return results where both given columns' value are the same.
+     *
+     * @param column1
+     * @param column2
+     * @return SelectQueryBuilder
+     */
     public SelectQueryBuilder on(Column column1, Column column2) {
         appendKeyword(Clause.ON.value);
 
@@ -101,6 +133,13 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
+    /**
+     * Generates a partial SQL query to order the results by the given values with ASC or DESC.
+     *
+     * @param order   which must be ASCENDING or DESCENDING
+     * @param columns containing values to order by the results of a query
+     * @return SelectQueryBuilder
+     */
     public SelectQueryBuilder orderBy(Order order, List<Column> columns) {
         if (!tryAppendKeyword(Clause.ORDER_BY.value)) {
             return this;
