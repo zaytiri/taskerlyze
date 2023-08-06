@@ -105,6 +105,32 @@ public class TaskTests {
     }
 
     @Test
+    void Should_GetAListOfCreatedTasksAfterCurrentDayFromDatabase() {
+        // arrange
+        List<String> queries = new ArrayList<>() {
+            {
+                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create diagrams', true, 'do relation diagrams for all classes', " + getDate(Calendar.HOUR, 12) + ", " + getDate(Calendar.HOUR, -12) + ")");
+                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create scripts', true, 'do some python scripts to help', " + getDate(Calendar.HOUR, 56) + ", " + getDate(Calendar.HOUR, 48) + ")");
+                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create documentation', false, 'do documentation for necessary methods', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, -48) + ")");
+                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create design', false, 'do designs for frontend', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, 24) + ")");
+            }
+        };
+        insertMockData(queries);
+
+        TaskController controller = new TaskController();
+
+        // act
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("created_at", new Pair<>(">=", getDate(Calendar.MINUTE, -24)));
+
+        OperationResult<List<Task>> result = controller.get(filters);
+
+        // assert
+        Assertions.assertTrue(result.getStatus());
+        Assertions.assertEquals(2, result.getResult().size());
+    }
+
+    @Test
     void Should_GetAListOfTasksDoneFromDatabase() {
         // arrange
         List<String> queries = new ArrayList<>() {
