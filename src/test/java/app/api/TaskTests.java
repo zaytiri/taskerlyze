@@ -122,12 +122,42 @@ public class TaskTests {
         // act
         Map<String, Pair<String, Object>> filters = new HashMap<>();
         filters.put("created_at", new Pair<>(">=", getDate(Calendar.MINUTE, -24)));
-
-        OperationResult<List<Task>> result = controller.get(filters);
+        OperationResult<List<Task>> result = controller.get(filters, null);
 
         // assert
         Assertions.assertTrue(result.getStatus());
         Assertions.assertEquals(2, result.getResult().size());
+    }
+
+    @Test
+    void Should_GetAListOfOrderedTasksInAscendingFromDatabase() {
+        // arrange
+        List<String> queries = new ArrayList<>() {
+            {
+                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create diagrams', true, 'do relation diagrams for all classes', " + getDate(Calendar.HOUR, 12) + ", " + getDate(Calendar.HOUR, -12) + ")");
+                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create scripts', true, 'do some python scripts to help', " + getDate(Calendar.HOUR, 56) + ", " + getDate(Calendar.HOUR, 48) + ")");
+                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create documentation', false, 'do documentation for necessary methods', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, -48) + ")");
+                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create design', false, 'do designs for frontend', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, 24) + ")");
+            }
+        };
+        insertMockData(queries);
+
+        TaskController controller = new TaskController();
+
+        // act
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        Pair<String, String> orderByColumn = new Pair<>("asc", "created_at");
+
+        OperationResult<List<Task>> result = controller.get(filters, orderByColumn);
+
+        // assert
+        Assertions.assertTrue(result.getStatus());
+        Assertions.assertEquals(4, result.getResult().size());
+
+        Assertions.assertEquals(3, result.getResult().get(0).getId());
+        Assertions.assertEquals(1, result.getResult().get(1).getId());
+        Assertions.assertEquals(4, result.getResult().get(2).getId());
+        Assertions.assertEquals(2, result.getResult().get(3).getId());
     }
 
     @Test
@@ -149,7 +179,7 @@ public class TaskTests {
         Map<String, Pair<String, Object>> filters = new HashMap<>();
         filters.put("is_done", new Pair<>("=", true));
 
-        OperationResult<List<Task>> result = controller.get(filters);
+        OperationResult<List<Task>> result = controller.get(filters, null);
 
         // assert
         Assertions.assertTrue(result.getStatus());
