@@ -45,25 +45,13 @@ public class Schema {
         List<Table> tables = new ArrayList<>();
         List<Column> columns = new ArrayList<>();
 
-        JSONArray ts = database.getJSONArray("table");
-        for (Object t : ts) {
-            table.setName(((JSONObject) t).getString("name"));
-
-            JSONArray cs = ((JSONObject) t).getJSONArray("column");
-
-            for (Object c : cs) {
-                Column column = new Column();
-                column.setName(((JSONObject) c).getString("name"));
-                column.setType(((JSONObject) c).getString("type"));
-                column.setDefaultValue(((JSONObject) c).getString("default"));
-                column.setIsPrimaryKey(((JSONObject) c).getString("isprimarykey"));
-                column.setTableName(((JSONObject) t).getString("name"));
-                columns.add(column);
+        Object ts = database.get("table");
+        if (ts instanceof JSONArray) {
+            for (Object t : (JSONArray) ts) {
+                populateSchema(table, tables, columns, (JSONObject) t);
             }
-            table.setColumns(columns);
-            tables.add(table);
-            table = new Table();
-            columns = new ArrayList<>();
+        } else if (ts instanceof JSONObject) {
+            populateSchema(table, tables, columns, (JSONObject) ts);
         }
 
         db.setTables(tables);
@@ -93,5 +81,25 @@ public class Schema {
         }
 
         return xml.toString();
+    }
+
+    private static void populateSchema(Table table, List<Table> tables, List<Column> columns, JSONObject t) {
+        table.setName(t.getString("name"));
+
+        JSONArray cs = t.getJSONArray("column");
+
+        for (Object c : cs) {
+            Column column = new Column();
+            column.setName(((JSONObject) c).getString("name"));
+            column.setType(((JSONObject) c).getString("type"));
+            column.setDefaultValue(((JSONObject) c).getString("default"));
+            column.setIsPrimaryKey(((JSONObject) c).getString("isprimarykey"));
+            column.setTableName(t.getString("name"));
+            columns.add(column);
+        }
+        table.setColumns(columns);
+        tables.add(table);
+        table = new Table();
+        columns = new ArrayList<>();
     }
 }
