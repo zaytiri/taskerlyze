@@ -20,6 +20,8 @@ public class TaskMapper implements Mapper<Task, TaskModel> {
 
         entity.setId(model.getId());
         entity.setName(model.getName());
+        entity.setDescription(model.getDescription());
+        entity.setDone(model.isDone());
 
         return entity;
     }
@@ -34,6 +36,7 @@ public class TaskMapper implements Mapper<Task, TaskModel> {
             task.setId(Integer.parseInt(row.get("id")));
             task.setName(row.get("name"));
             task.setDescription(row.get("description"));
+            task.setDone(Integer.parseInt(row.get("is_done")) != 0);
 
             tasks.add(task);
         }
@@ -48,6 +51,8 @@ public class TaskMapper implements Mapper<Task, TaskModel> {
 
         model.setId(entity.getId());
         model.setName(entity.getName());
+        model.setDescription(entity.getDescription());
+        model.setDone(entity.isDone(false));
         return model;
     }
 }
