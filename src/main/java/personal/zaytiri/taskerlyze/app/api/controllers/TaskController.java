@@ -82,7 +82,7 @@ public class TaskController implements Controller<Task> {
         Task task = Task.getInstance();
         task.setId(id);
 
-        boolean isTaskUpdated = task.setDone();
+        boolean isTaskUpdated = task.setTaskStatus();
         task = task.get();
 
         MessageResult message = new MessageResult();

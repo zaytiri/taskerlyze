@@ -8,6 +8,7 @@ import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,8 @@ public class Task {
     public Task(ITaskRepository repository) {
         this.repository = repository;
         this.mapper = new TaskMapper();
+
+        this.done = false;
     }
 
     public boolean createOrUpdate() {
@@ -39,11 +42,11 @@ public class Task {
     }
 
     public boolean delete() {
-        if (!exists()) {
+        Response response = repository.delete(this);
+        if (get() != null) {
             return false;
         }
 
-        Response response = repository.delete(this);
         return response.isSuccess();
     }
 
@@ -60,14 +63,15 @@ public class Task {
     }
 
     public Task get() {
-        if (!exists()) {
-            return null;
-        }
-
         Map<String, Pair<String, Object>> filters = new HashMap<>();
         filters.put("id", new Pair<>("=", this.id));
 
-        return get(filters).get(0);
+        List<Task> results = get(filters);
+        if (results.isEmpty()) {
+            return null;
+        }
+
+        return results.get(0);
     }
 
     public String getDescription() {
@@ -90,6 +94,7 @@ public class Task {
 
     public static Task getInstance() {
         AppComponent component = DaggerAppComponent.create();
+
         return component.getTask();
     }
 
@@ -102,21 +107,25 @@ public class Task {
         return this;
     }
 
-    public boolean isDone(boolean fromDb) {
-        if (!fromDb) {
+    public boolean isDone(boolean getFromDb) {
+        if (!getFromDb) {
             return done;
         }
         Map<String, Pair<String, Object>> filters = new HashMap<>();
         filters.put("id", new Pair<>("=", this.id));
 
         Response response = repository.read(filters);
-        return Boolean.parseBoolean(response.getResult().get(0).get("done"));
+        return Boolean.parseBoolean(response.getResult().get(0).get("is_done"));
     }
 
-    public boolean setDone(boolean done) {
-        Map<String, Object> sets = new HashMap<>();
+    public void setDone(boolean done) {
+        this.done = done;
+    }
 
-        sets.put("done", done);
+    public boolean setTaskStatus(boolean done) {
+        List<Pair<String, Object>> sets = new ArrayList<>();
+
+        sets.add(new Pair<>("is_done", done));
 
         Response response = repository.update(this, sets);
         this.done = done;
@@ -124,7 +133,7 @@ public class Task {
         return response.isSuccess();
     }
 
-    public boolean setDone() {
-        return setDone(!isDone(true));
+    public boolean setTaskStatus() {
+        return setTaskStatus(!isDone(true));
     }
 }
