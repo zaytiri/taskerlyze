@@ -9,7 +9,9 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class Repository<GEntity, GModel extends Model, GMapper extends Mapper<GEntity, GModel>> implements IRepository<GEntity> {
@@ -30,8 +32,11 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
 
         InsertQueryBuilder query = new InsertQueryBuilder(connection.open());
 
-        query.insertInto(model.getTable(), model.getTable().getColumns())
-                .values(model.getValues().values());
+        List<String> exclude = new ArrayList<>();
+        exclude.add("id");
+
+        query.insertInto(model.getTable(), model.getTable().getAllColumnsExcept(exclude))
+                .values(model.getValues());
 
         return query.execute();
     }
