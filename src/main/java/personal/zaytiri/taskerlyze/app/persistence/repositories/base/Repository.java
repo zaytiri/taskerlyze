@@ -89,20 +89,20 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
     }
 
     @Override
-    public Response update(GEntity entity, Map<String, Object> values) {
+    public Response update(GEntity entity, List<Pair<String, Object>> values) {
         model = mapper.toModel(entity);
 
         UpdateQueryBuilder query = new UpdateQueryBuilder(connection.open());
 
         Map<Column, Object> sets = new HashMap<>();
 
-        for (Map.Entry<String, Object> entry : values.entrySet()) {
-            if (entry.getKey().equals("id")) {
+        for (Pair<String, Object> entry : values) {
+            if (entry.key.equals("id")) {
                 continue;
             }
 
-            Column col = model.getTable().getColumn(entry.getKey());
-            sets.put(col, entry.getValue());
+            Column col = model.getTable().getColumn(entry.key);
+            sets.put(col, entry.value);
         }
 
         query.update(model.getTable())

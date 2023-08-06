@@ -3,6 +3,7 @@ package personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IRepository<GEntity> {
@@ -51,5 +52,5 @@ public interface IRepository<GEntity> {
      * @param values to be updated
      * @return type Response object
      */
-    Response update(GEntity entity, Map<String, Object> values);
+    Response update(GEntity entity, List<Pair<String, Object>> values);
 }
