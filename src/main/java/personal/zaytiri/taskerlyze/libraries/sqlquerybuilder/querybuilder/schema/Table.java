@@ -17,6 +17,24 @@ public class Table {
     }
 
     /**
+     * Gets all columns except the columns which the names are contained inside the exclude parameter.
+     *
+     * @param exclude: a list of names to exclude.
+     * @returns a list of columns.
+     */
+    public List<Column> getAllColumnsExcept(List<String> exclude) {
+        List<Column> columnsToReturn = new ArrayList<>();
+
+        for (Column col : columns) {
+            if (exclude.contains(col.getName())) {
+                continue;
+            }
+            columnsToReturn.add(col);
+        }
+        return columnsToReturn;
+    }
+
+    /**
      * Gets a Column object depending on a given name.
      *
      * @param name: column's name.
@@ -29,19 +47,6 @@ public class Table {
             }
         }
         return null;
-    }
-
-    /**
-     * Gets all existing columns in a table.
-     *
-     * @returns a list of columns.
-     */
-    public List<Column> getColumns() {
-        return columns;
-    }
-
-    public void setColumns(List<Column> columns) {
-        this.columns = columns;
     }
 
     /**
@@ -59,6 +64,19 @@ public class Table {
             }
         }
         return columnsToReturn;
+    }
+
+    /**
+     * Gets all existing columns in a table.
+     *
+     * @returns a list of columns.
+     */
+    public List<Column> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<Column> columns) {
+        this.columns = columns;
     }
 
     public String getName() {
