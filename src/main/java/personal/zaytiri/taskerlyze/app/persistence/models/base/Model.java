@@ -1,11 +1,12 @@
 package personal.zaytiri.taskerlyze.app.persistence.models.base;
 
 import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 public abstract class Model {
 
@@ -13,7 +14,7 @@ public abstract class Model {
     protected int id;
     protected String name;
     protected Date updatedAt;
-    private Date createdAt;
+    protected Date createdAt;
 
     protected Model(String tableName) {
         Database schema = DbConnection.getInstance().getSchema();
@@ -65,5 +66,5 @@ public abstract class Model {
         this.updatedAt = updatedAt;
     }
 
-    public abstract Map<String, Object> getValues();
+    public abstract List<Pair<String, Object>> getValues();
 }
