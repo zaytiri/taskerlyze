@@ -54,14 +54,10 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
     }
 
     @Override
-    public Response read(Map<String, Pair<String, Object>> filters) {
+    public Response read(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
         SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
 
         query = query.select().from(model.getTable());
-
-        if (filters.isEmpty()) {
-            return query.execute();
-        }
 
         boolean operator = false;
         for (Map.Entry<String, Pair<String, Object>> entry : filters.entrySet()) {
@@ -78,6 +74,13 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
             }
 
             operator = true;
+        }
+
+        if (orderByColumn != null) {
+            Column orderBy = connection.getSchema().getTable(model.getTable().getName()).getColumn(orderByColumn.value);
+            List<Column> columnsToOrderBy = new ArrayList<>();
+            columnsToOrderBy.add(orderBy);
+            query = query.orderBy(Order.get(orderByColumn.key), columnsToOrderBy);
         }
 
         return query.execute();

@@ -63,10 +63,10 @@ public class TaskController implements Controller<Task> {
     }
 
     @Override
-    public OperationResult<List<Task>> get(Map<String, Pair<String, Object>> filters) {
+    public OperationResult<List<Task>> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
         Task task = Task.getInstance();
 
-        List<Task> tasks = task.get(filters);
+        List<Task> tasks = task.get(filters, orderByColumn);
 
         MessageResult message = new MessageResult();
         if (!tasks.isEmpty()) {

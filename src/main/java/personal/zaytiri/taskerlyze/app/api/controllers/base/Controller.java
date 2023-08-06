@@ -37,9 +37,11 @@ public interface Controller<T> {
     /**
      * Returns a list of objects of type T considering a set of filters.
      * A filter should consist of the name of the column, an operator and the value.
+     * The order by consists of a Pair containing the order (Pair's key) and the column's name (Pair's value).
+     * If no order is necessary, input null.
      *
      * @param filters to get results from database.
      * @return OperationResult<T>
      */
-    OperationResult<List<T>> get(Map<String, Pair<String, Object>> filters);
+    OperationResult<List<T>> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn);
 }

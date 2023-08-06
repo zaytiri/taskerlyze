@@ -30,12 +30,15 @@ public interface IRepository<GEntity> {
      * If no filters are given, all found results are returned.
      * A filter consists of a column's name, the desired operator and a value respectively.
      * The Map's key must be the column's name while the Pair object consists of the operator (Pair's key) and the value (Pair's value).
-     * If the value is null, it means the condition does not need the value, e.g to use the IS NULL operator, this does not need a second value.
+     * If the value is null, it means the condition does not need the value, e.g. to use the IS NULL operator, this does not need a second value.
+     * <p>
+     * The order by value is set by instantiating a Pair containing the order (Pair's key) and the column's name (Pair's value).
+     * If no order is necessary, input null.
      *
      * @param filters a set of 3 values, the column's name, the operator and a value.
      * @return type Response object
      */
-    Response read(Map<String, Pair<String, Object>> filters);
+    Response read(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn);
 
     /**
      * Updates an entity with all values from that entity.

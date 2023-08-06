@@ -56,8 +56,8 @@ public class Task {
         return !response.getResult().isEmpty();
     }
 
-    public List<Task> get(Map<String, Pair<String, Object>> filters) {
-        Response response = repository.read(filters);
+    public List<Task> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
+        Response response = repository.read(filters, orderByColumn);
 
         return mapper.toEntity(response.getResult());
     }
@@ -66,7 +66,7 @@ public class Task {
         Map<String, Pair<String, Object>> filters = new HashMap<>();
         filters.put("id", new Pair<>("=", this.id));
 
-        List<Task> results = get(filters);
+        List<Task> results = get(filters, null);
         if (results.isEmpty()) {
             return null;
         }
@@ -114,7 +114,7 @@ public class Task {
         Map<String, Pair<String, Object>> filters = new HashMap<>();
         filters.put("id", new Pair<>("=", this.id));
 
-        Response response = repository.read(filters);
+        Response response = repository.read(filters, null);
         return Boolean.parseBoolean(response.getResult().get(0).get("is_done"));
     }
 
