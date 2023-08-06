@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query;
 
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
@@ -61,6 +62,26 @@ public class InsertQueryBuilder extends QueryBuilder {
         appendKeyword(Clause.VALUES.value);
         query.append("(?");
         query.append(",?".repeat(values.length - 1));
+        query.append(")");
+        return this;
+    }
+
+    /**
+     * Generates a partial SQL query to insert specific values into a table.
+     * The quantity of values should be the same as the number of columns defined in the previous method.
+     * If insertInto(table) was used, the number of values should be equal to all table's columns and in the correct order of the table's columns' list.
+     *
+     * @param values to be inserted.
+     * @returns InsertQueryBuilder
+     */
+    public InsertQueryBuilder values(List<Pair<String, Object>> values) {
+        for (Pair<String, Object> entry : values) {
+            this.values.add(entry.value);
+        }
+
+        appendKeyword(Clause.VALUES.value);
+        query.append("(?");
+        query.append(",?".repeat(values.size() - 1));
         query.append(")");
         return this;
     }
