@@ -24,6 +24,7 @@ public class DbConnection {
             System.err.println("Schema not correctly configured.");
             return;
         }
+
         path = getDbConnectionPath() + "database\\" + schema.getName() + ".db";
         createDatabase();
     }
@@ -63,6 +64,10 @@ public class DbConnection {
         }
 
         return connection;
+    }
+
+    public void resetInstance() {
+        INSTANCE = null;
     }
 
     private void createDatabase() {
