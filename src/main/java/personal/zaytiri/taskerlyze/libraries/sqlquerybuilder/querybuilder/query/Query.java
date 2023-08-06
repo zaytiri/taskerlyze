@@ -80,7 +80,11 @@ public class Query {
         for (int i = 0; i < splittedQueryBy.length; i++) {
             resolvedQuery.append(splittedQueryBy[i]);
             if (i < values.size()) {
-                resolvedQuery.append(values.get(i));
+                Object value = values.get(i);
+                if (value instanceof java.util.Date) {
+                    value = ((java.util.Date) value).getTime();
+                }
+                resolvedQuery.append(value);
             }
         }
         return resolvedQuery.toString();
