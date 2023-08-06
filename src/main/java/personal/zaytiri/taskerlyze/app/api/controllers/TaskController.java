@@ -78,6 +78,13 @@ public class TaskController implements Controller<Task> {
         return new OperationResult<>(!tasks.isEmpty(), message, tasks);
     }
 
+    /**
+     * Sets the status of a task with a specific given id.
+     * It will set the done property to the opposite that is already on the database.
+     *
+     * @param id to set the status
+     * @return OperationResult<Task>
+     */
     public OperationResult<Task> setDone(int id) {
         Task task = Task.getInstance();
         task.setId(id);
