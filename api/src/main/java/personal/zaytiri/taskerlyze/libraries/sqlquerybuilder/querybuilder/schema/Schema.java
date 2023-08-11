@@ -92,8 +92,16 @@ public class Schema {
             Column column = new Column();
             column.setName(((JSONObject) c).getString("name"));
             column.setType(((JSONObject) c).getString("type"));
-            column.setDefaultValue(((JSONObject) c).getString("default"));
-            column.setIsPrimaryKey(((JSONObject) c).getString("isprimarykey"));
+
+            Object defaultValue = ((JSONObject) c).get("default");
+            if(defaultValue instanceof String){
+                column.setDefaultValue(((JSONObject) c).getString("default"));
+            }else if(defaultValue instanceof Integer){
+                column.setDefaultValue(((JSONObject) c).getInt("default"));
+            }
+
+            column.setIsPrimaryKey(((JSONObject) c).getBoolean("isprimarykey"));
+
             column.setTableName(t.getString("name"));
             columns.add(column);
         }
