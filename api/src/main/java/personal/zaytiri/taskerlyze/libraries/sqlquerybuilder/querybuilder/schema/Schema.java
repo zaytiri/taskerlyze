@@ -1,8 +1,8 @@
 package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema;
 
-import com.github.underscore.U;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.XML;
 import personal.zaytiri.taskerlyze.app.presentation.Main;
 
 import java.io.*;
@@ -30,7 +30,7 @@ public class Schema {
 
         JSONObject json = null;
         try {
-            json = new JSONObject(U.xmlToJson(convertXmlFileToString(fileName)));
+            json = XML.toJSONObject(convertXmlFileToString(fileName));
         } catch (FileNotFoundException e) {
             System.err.println("ERR: Database schema xml file was not found.");
             return null;
