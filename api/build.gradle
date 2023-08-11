@@ -14,9 +14,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 
-    // dagger DI
-    implementation 'com.google.dagger:dagger:2.47'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.47'
+    // dagger DI -- dapper is a dagger fork which supports modular projects.
+    implementation('io.github.jbock-java:dapper:2.41.2')
+    annotationProcessor('io.github.jbock-java:dapper-compiler:2.41.2')
 
     // sqlite jdbc database
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.41.2.1'

@@ -1,6 +1,6 @@
 package personal.zaytiri.taskerlyze.app.api.domain;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.DaggerAppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;

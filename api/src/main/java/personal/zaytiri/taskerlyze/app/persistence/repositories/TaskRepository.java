@@ -1,6 +1,6 @@
 package personal.zaytiri.taskerlyze.app.persistence.repositories;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.TaskModel;
