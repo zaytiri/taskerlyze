@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.app.persistence.repositories;
 
+import javax.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.TaskModel;
@@ -10,7 +11,6 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 

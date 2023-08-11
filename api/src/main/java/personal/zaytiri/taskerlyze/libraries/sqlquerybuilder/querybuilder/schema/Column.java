@@ -4,10 +4,10 @@ public class Column {
     private String name;
     private String type;
     private String defaultValue;
-    private String isPrimaryKey;
+    private boolean isPrimaryKey;
     private String tableName;
 
-    public Column(String name, String type, String defaultValue, String isPrimaryKey, String tableName) {
+    public Column(String name, String type, String defaultValue, boolean isPrimaryKey, String tableName) {
         this.name = name;
         this.type = type;
         this.defaultValue = defaultValue;
@@ -30,10 +30,10 @@ public class Column {
     }
 
     public boolean getIsPrimaryKey() {
-        return Boolean.parseBoolean(isPrimaryKey);
+        return isPrimaryKey;
     }
 
-    public void setIsPrimaryKey(String isPrimaryKey) {
+    public void setIsPrimaryKey(boolean isPrimaryKey) {
         this.isPrimaryKey = isPrimaryKey;
     }
 
@@ -63,5 +63,8 @@ public class Column {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+    public void setDefaultValue(int defaultValue) {
+        this.defaultValue = String.valueOf(defaultValue);
     }
 }

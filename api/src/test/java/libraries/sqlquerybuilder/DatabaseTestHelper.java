@@ -31,8 +31,8 @@ public class DatabaseTestHelper {
         Table tasks = new Table();
         tasks.setName("tasks");
 
-        Column id = new Column("id", "integer", "1", "true", tasks.getName());
-        Column name = new Column("name", "varchar(255)", "null", "false", tasks.getName());
+        Column id = new Column("id", "integer", "1", true, tasks.getName());
+        Column name = new Column("name", "varchar(255)", "null", false, tasks.getName());
         List<Column> tasksColumns = new ArrayList<>();
         tasksColumns.add(id);
         tasksColumns.add(name);
@@ -43,8 +43,8 @@ public class DatabaseTestHelper {
         Table people = new Table();
         people.setName("people");
 
-        id = new Column("id", "integer", "1", "true", people.getName());
-        name = new Column("name", "varchar(255)", "null", "false", people.getName());
+        id = new Column("id", "integer", "1", true, people.getName());
+        name = new Column("name", "varchar(255)", "null", false, people.getName());
         List<Column> peopleColumns = new ArrayList<>();
         peopleColumns.add(id);
         peopleColumns.add(name);
@@ -55,9 +55,9 @@ public class DatabaseTestHelper {
         Table tasksPeople = new Table();
         tasksPeople.setName("tasks_people");
 
-        id = new Column("id", "integer", "1", "true", tasksPeople.getName());
-        Column tasksId = new Column("tasks_id", "integer", "1", "false", tasksPeople.getName());
-        Column peopleId = new Column("people_id", "integer", "1", "false", tasksPeople.getName());
+        id = new Column("id", "integer", "1", true, tasksPeople.getName());
+        Column tasksId = new Column("tasks_id", "integer", "1", false, tasksPeople.getName());
+        Column peopleId = new Column("people_id", "integer", "1", false, tasksPeople.getName());
         List<Column> tasksPeopleColumns = new ArrayList<>();
         tasksPeopleColumns.add(id);
         tasksPeopleColumns.add(tasksId);

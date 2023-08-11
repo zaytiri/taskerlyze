@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.app.api.domain;
 
+import javax.inject.Inject;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.DaggerAppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
@@ -7,7 +8,6 @@ import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITask
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,6 +96,7 @@ public class Task {
         AppComponent component = DaggerAppComponent.create();
 
         return component.getTask();
+//        return null;
     }
 
     public String getName() {
