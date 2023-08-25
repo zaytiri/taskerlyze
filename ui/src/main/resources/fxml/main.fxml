@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="961.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personal.zaytiri.taskerlyze.ui.controllers.MainController">
+   <children>
+      <BorderPane fx:id="mainBorderPane" style="-fx-background-color: #333333;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <HBox id="menu-view" prefHeight="56.0" prefWidth="446.0" stylesheets="@../css/menu-bottom-view.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button id="menu-btn" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/statistics.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" right="30.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button id="menu-btn" contentDisplay="CENTER" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" right="30.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button id="menu-btn" mnemonicParsing="false">
+                     <graphic>
+                        <ImageView fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="30.0" right="30.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+         <top>
+            <BorderPane id="cal-background" prefHeight="172.0" prefWidth="446.0" stylesheets="@../css/calendar-top-view.css" BorderPane.alignment="CENTER">
+               <top>
+                  <Label id="month" alignment="BOTTOM_CENTER" prefHeight="55.0" prefWidth="241.0" text="August," textFill="#434040">
+                     <font>
+                        <Font name="Calibri Bold" size="1.0" />
+                     </font>
+                  </Label>
+               </top>
+               <center>
+                  <HBox prefHeight="126.0" prefWidth="323.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="MON" textAlignment="CENTER" textFill="#434040" wrapText="true">
+                           <graphic>
+                              <Label id="cal-day" text="7" textFill="#434040">
+                                 <font>
+                                    <Font name="Calibri Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Calibri Bold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="10.0" top="25.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="TUE" textAlignment="CENTER" textFill="#434040" wrapText="true">
+                           <graphic>
+                              <Label id="cal-day" text="7" textFill="#434040">
+                                 <font>
+                                    <Font name="Calibri Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Calibri Bold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="10.0" top="25.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="WED" textAlignment="CENTER" textFill="#434040" wrapText="true">
+                           <graphic>
+                              <Label id="cal-day" text="13" textFill="#434040">
+                                 <font>
+                                    <Font name="Calibri Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Calibri Bold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="10.0" top="25.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="THU" textAlignment="CENTER" textFill="#434040" wrapText="true">
+                           <graphic>
+                              <Label id="cal-day" text="7" textFill="#434040">
+                                 <font>
+                                    <Font name="Calibri Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Calibri Bold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="10.0" top="25.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="FRI" textAlignment="CENTER" textFill="#434040" wrapText="true">
+                           <graphic>
+                              <Label id="cal-day" text="7" textFill="#434040">
+                                 <font>
+                                    <Font name="Calibri Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Calibri Bold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="10.0" top="25.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SAT" textAlignment="CENTER" textFill="#434040" wrapText="true">
+                           <graphic>
+                              <Label id="cal-day" text="13" textFill="#434040">
+                                 <font>
+                                    <Font name="Calibri Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Calibri Bold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="10.0" top="25.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SUN" textAlignment="CENTER" textFill="#434040" wrapText="true">
+                           <graphic>
+                              <Label id="cal-day" text="13" textFill="#434040">
+                                 <font>
+                                    <Font name="Calibri Bold" size="25.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Calibri Bold" size="10.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="10.0" top="25.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </center>
+               <left>
+                  <VBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="126.0" prefWidth="66.0">
+                     <children>
+                        <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" prefHeight="32.0" prefWidth="167.0" text="2" textAlignment="RIGHT" textFill="#434040">
+                           <font>
+                              <Font name="Calibri Bold" size="1.0" />
+                           </font>
+                           <padding>
+                              <Insets right="10.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="-5.0" right="5.0" top="-5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" prefHeight="32.0" prefWidth="139.0" text="0" textAlignment="RIGHT" textFill="#434040">
+                           <font>
+                              <Font name="Calibri Bold" size="1.0" />
+                           </font>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="-5.0" right="5.0" top="-5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" prefHeight="32.0" prefWidth="117.0" text="2" textAlignment="RIGHT" textFill="#434040">
+                           <font>
+                              <Font name="Calibri Bold" size="1.0" />
+                           </font>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="-5.0" right="5.0" top="-5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" prefHeight="32.0" prefWidth="126.0" text="3" textAlignment="RIGHT" textFill="#434040">
+                           <font>
+                              <Font name="Calibri Bold" size="1.0" />
+                           </font>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="-5.0" right="5.0" top="-5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </left>
+            </BorderPane>
+         </top>
+         <center>
+<!--            <TabPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/tasks-tab-view.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">-->
+<!--              <tabs>-->
+<!--                <Tab text="Category">-->
+<!--                  <content>-->
+<!--                    <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="450.0">-->
+<!--                           <children>-->
+<!--                              <ScrollPane hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" vbarPolicy="NEVER" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">-->
+<!--                                 <content>-->
+<!--                                    <AnchorPane minHeight="0.0" minWidth="0.0">-->
+<!--                                       <children>-->
+<!--                                          <VBox pickOnBounds="false" prefWidth="449.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--                                             <children>-->
+<!--                                                <Accordion>-->
+<!--                                                  <panes>-->
+<!--                                                    <TitledPane contentDisplay="RIGHT" expanded="false" prefWidth="449.0" textAlignment="JUSTIFY">-->
+<!--                                                      <content>-->
+<!--                                                        <AnchorPane>-->
+<!--                                                               <children>-->
+<!--                                                                  <BorderPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--                                                                     <center>-->
+<!--                                                                        <VBox BorderPane.alignment="CENTER">-->
+<!--                                                                           <children>-->
+<!--                                                                              <Accordion id="sub-tasks-accordion">-->
+<!--                                                                                <panes>-->
+<!--                                                                                  <TitledPane animated="false" collapsible="false" expanded="false">-->
+<!--                                                                                    <content>-->
+<!--                                                                                      <AnchorPane />-->
+<!--                                                                                    </content>-->
+<!--                                                                                       <graphic>-->
+<!--                                                                                          <BorderPane id="sub-tasks-border-pane" fx:id="taskBorderPane3">-->
+<!--                                                                                             <right>-->
+<!--                                                                                                <CheckBox fx:id="taskCheckBox3" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />-->
+<!--                                                                                             </right>-->
+<!--                                                                                             <left>-->
+<!--                                                                                                <Label id="sub-tasks-name" fx:id="taskName3" text="a sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub task" textAlignment="JUSTIFY" wrapText="true" BorderPane.alignment="CENTER" />-->
+<!--                                                                                             </left>-->
+<!--                                                                                          </BorderPane>-->
+<!--                                                                                       </graphic>-->
+<!--                                                                                  </TitledPane>-->
+<!--                                                                                    <TitledPane animated="false" collapsible="false" expanded="false">-->
+<!--                                                                                       <content>-->
+<!--                                                                                          <AnchorPane />-->
+<!--                                                                                       </content>-->
+<!--                                                                                       <graphic>-->
+<!--                                                                                          <BorderPane id="sub-tasks-border-pane" fx:id="taskBorderPane31">-->
+<!--                                                                                             <right>-->
+<!--                                                                                                <CheckBox fx:id="taskCheckBox31" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />-->
+<!--                                                                                             </right>-->
+<!--                                                                                             <left>-->
+<!--                                                                                                <Label id="sub-tasks-name" fx:id="taskName31" text="sasfsdfdsfdfsdfsdfsdfsdfsdf" textAlignment="JUSTIFY" wrapText="true" BorderPane.alignment="CENTER" />-->
+<!--                                                                                             </left>-->
+<!--                                                                                          </BorderPane>-->
+<!--                                                                                       </graphic>-->
+<!--                                                                                    </TitledPane>-->
+<!--                                                                                    <TitledPane animated="false" collapsible="false" expanded="false">-->
+<!--                                                                                       <content>-->
+<!--                                                                                          <AnchorPane />-->
+<!--                                                                                       </content>-->
+<!--                                                                                       <graphic>-->
+<!--                                                                                          <BorderPane id="sub-tasks-border-pane" fx:id="taskBorderPane32">-->
+<!--                                                                                             <right>-->
+<!--                                                                                                <CheckBox fx:id="taskCheckBox32" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />-->
+<!--                                                                                             </right>-->
+<!--                                                                                             <left>-->
+<!--                                                                                                <Label id="sub-tasks-name" fx:id="taskName32" text="sdfdsfsdfffffffffffffffffffffffffffffffffffffffffffffffdsfsdfsdfsdfdsfsdf" textAlignment="JUSTIFY" wrapText="true" BorderPane.alignment="CENTER" />-->
+<!--                                                                                             </left>-->
+<!--                                                                                          </BorderPane>-->
+<!--                                                                                       </graphic>-->
+<!--                                                                                    </TitledPane>-->
+<!--                                                                                </panes>-->
+<!--                                                                              </Accordion>-->
+<!--                                                                           </children>-->
+<!--                                                                        </VBox>-->
+<!--                                                                     </center>-->
+<!--                                                                     <bottom>-->
+<!--                                                                        <BorderPane BorderPane.alignment="CENTER">-->
+<!--                                                                           <center>-->
+<!--                                                                              <HBox id="task-bottom-pane" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">-->
+<!--                                                                                 <children>-->
+<!--                                                                                    <Button id="swap-button" alignment="CENTER" mnemonicParsing="false" text="See Sub-Tasks">-->
+<!--                                                                                       <graphic>-->
+<!--                                                                                          <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">-->
+<!--                                                                                             <image>-->
+<!--                                                                                                <Image url="@../icons/swap.png" />-->
+<!--                                                                                             </image>-->
+<!--                                                                                          </ImageView>-->
+<!--                                                                                       </graphic>-->
+<!--                                                                                    </Button>-->
+<!--                                                                                 </children>-->
+<!--                                                                              </HBox>-->
+<!--                                                                           </center>-->
+<!--                                                                           <left>-->
+<!--                                                                              <VBox id="task-open-bottom-style" BorderPane.alignment="CENTER" />-->
+<!--                                                                           </left>-->
+<!--                                                                        </BorderPane>-->
+<!--                                                                     </bottom>-->
+<!--                                                                  </BorderPane>-->
+<!--                                                               </children></AnchorPane>-->
+<!--                                                      </content>-->
+<!--                                                         <graphic>-->
+<!--                                                         </graphic>-->
+<!--                                                         <graphic>-->
+<!--                                                            <BorderPane>-->
+<!--                                                               <center>-->
+<!--                                                                  <BorderPane id="task-border-pane" BorderPane.alignment="CENTER">-->
+<!--                                                                     <right>-->
+<!--                                                                        <CheckBox fx:id="taskCheckBox" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />-->
+<!--                                                                     </right>-->
+<!--                                                                     <left>-->
+<!--                                                                        <Label id="task-name" text="talk to client" BorderPane.alignment="CENTER" />-->
+<!--                                                                     </left>-->
+<!--                                                                  </BorderPane>-->
+<!--                                                               </center>-->
+<!--                                                               <left>-->
+<!--                                                                  <VBox id="task-open-top-style" BorderPane.alignment="CENTER" />-->
+<!--                                                               </left>-->
+<!--                                                            </BorderPane>-->
+<!--                                                         </graphic>-->
+<!--                                                    </TitledPane>-->
+<!--                                                      <TitledPane contentDisplay="RIGHT" expanded="false" textAlignment="JUSTIFY">-->
+<!--                                                         <content>-->
+<!--                                                            <AnchorPane>-->
+<!--                                                               <children>-->
+<!--                                                                  <BorderPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--                                                                     <bottom>-->
+<!--                                                                        <BorderPane BorderPane.alignment="CENTER">-->
+<!--                                                                           <center>-->
+<!--                                                                              <HBox id="task-bottom-pane" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">-->
+<!--                                                                                 <children>-->
+<!--                                                                                    <Button id="swap-button" alignment="CENTER" mnemonicParsing="false" text="See Sub-Tasks">-->
+<!--                                                                                       <graphic>-->
+<!--                                                                                          <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">-->
+<!--                                                                                             <image>-->
+<!--                                                                                                <Image url="@../icons/swap.png" />-->
+<!--                                                                                             </image>-->
+<!--                                                                                          </ImageView>-->
+<!--                                                                                       </graphic>-->
+<!--                                                                                    </Button>-->
+<!--                                                                                 </children>-->
+<!--                                                                              </HBox>-->
+<!--                                                                           </center>-->
+<!--                                                                           <left>-->
+<!--                                                                              <VBox id="task-open-bottom-style" BorderPane.alignment="CENTER" />-->
+<!--                                                                           </left>-->
+<!--                                                                        </BorderPane>-->
+<!--                                                                     </bottom>-->
+<!--                                                                     <top>-->
+<!--                                                                        <HBox alignment="CENTER" BorderPane.alignment="CENTER">-->
+<!--                                                                           <children>-->
+<!--                                                                              <VBox id="details-content">-->
+<!--                                                                                 <children>-->
+<!--                                                                                    <Label id="details-title" text="Due Date" />-->
+<!--                                                                                    <Label text="25-AUG-2023" />-->
+<!--                                                                                 </children>-->
+<!--                                                                              </VBox>-->
+<!--                                                                              <VBox id="details-content">-->
+<!--                                                                                 <children>-->
+<!--                                                                                    <Label id="details-title" text="Completed Date" />-->
+<!--                                                                                    <Label text="-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;" />-->
+<!--                                                                                 </children>-->
+<!--                                                                              </VBox>-->
+<!--                                                                              <VBox id="details-content">-->
+<!--                                                                                 <children>-->
+<!--                                                                                    <Label id="details-title" text="Priority" />-->
+<!--                                                                                    <Label text="HIGH" />-->
+<!--                                                                                 </children>-->
+<!--                                                                              </VBox>-->
+<!--                                                                           </children>-->
+<!--                                                                        </HBox>-->
+<!--                                                                     </top>-->
+<!--                                                                     <center>-->
+<!--                                                                        <VBox alignment="CENTER" BorderPane.alignment="CENTER">-->
+<!--                                                                           <children>-->
+<!--                                                                              <Label id="description" text="to prepare presentation i need the following bullet points: 1. introduction; 2. painting industry; 3.any questions?" />-->
+<!--                                                                              <Button id="edit-task-button" mnemonicParsing="false">-->
+<!--                                                                                 <graphic>-->
+<!--                                                                                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">-->
+<!--                                                                                       <image>-->
+<!--                                                                                          <Image url="@../icons/edit.png" />-->
+<!--                                                                                       </image>-->
+<!--                                                                                    </ImageView>-->
+<!--                                                                                 </graphic>-->
+<!--                                                                              </Button>-->
+<!--                                                                           </children>-->
+<!--                                                                        </VBox>-->
+<!--                                                                     </center>-->
+<!--                                                                  </BorderPane>-->
+<!--                                                               </children>-->
+<!--                                                            </AnchorPane>-->
+<!--                                                         </content>-->
+<!--                                                         <graphic>-->
+<!--                                                            <BorderPane>-->
+<!--                                                               <center>-->
+<!--                                                                  <BorderPane id="task-border-pane" BorderPane.alignment="CENTER">-->
+<!--                                                                     <right>-->
+<!--                                                                        <CheckBox fx:id="taskCheckBox1" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />-->
+<!--                                                                     </right>-->
+<!--                                                                     <left>-->
+<!--                                                                        <Label id="task-name" text="prepare the presentation about airlines paint industry" BorderPane.alignment="CENTER" />-->
+<!--                                                                     </left>-->
+<!--                                                                  </BorderPane>-->
+<!--                                                               </center>-->
+<!--                                                               <left>-->
+<!--                                                                  <VBox id="task-open-top-style" BorderPane.alignment="CENTER" />-->
+<!--                                                               </left>-->
+<!--                                                            </BorderPane>-->
+<!--                                                         </graphic>-->
+<!--                                                      </TitledPane>-->
+<!--                                                  </panes>-->
+<!--                                                </Accordion>-->
+<!--                                             </children></VBox>-->
+<!--                                       </children>-->
+<!--                                    </AnchorPane>-->
+<!--                                 </content>-->
+<!--                              </ScrollPane>-->
+<!--                           </children>-->
+<!--                        </AnchorPane>-->
+<!--                  </content>-->
+<!--                </Tab>-->
+<!--              </tabs>-->
+<!--            </TabPane>-->
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

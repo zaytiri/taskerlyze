@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'DancingScript';
+    src: url('../fonts/DancingScript/static/DancingScript-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Prompt';
+    src: url('../fonts/Prompt/Prompt-Regular.ttf');
+}
+
+#cal-background {
+    -fx-background-color:  #0E6367;/*#094549; /*rgba(115, 173, 176, 0.425);*/
+    -fx-background-radius:  0 0 50 50;
+}
+
+#month {
+    -fx-font-family: "Dancing Script";
+    -fx-font-size: 40px;
+    -fx-text-fill: #F5E3E0;
+}
+
+#year {
+    -fx-font-family: "Dancing Script";
+    -fx-font-size: 25px;
+    -fx-text-fill: #F5E3E0;
+}
+
+#cal-week-day {
+    -fx-font-family: "Prompt";
+    -fx-font-size: 10px;
+}
+
+#cal-day {
+    -fx-font-family: "Prompt";
+    -fx-font-size: 20px;
+}
+
+.button {
+    -fx-background-color: #B8B8B8;
+    -fx-background-radius: 23px;
+    -fx-effect:  dropshadow(one-pass-box , rgba(0,0,0,0.5), 10, 0.1, -2, 2);
+    -fx-text-fill: #0E131F;
+}
+
+.button:focused {
+    -fx-background-color: #73ADB0;
+    -fx-effect:  dropshadow(one-pass-box , rgba(14, 99, 103, 0.75), 10, 0.1, -2, 2);
+    -fx-text-fill: #0E6367;
+
+    -fx-padding: -10px 0 10px 0;
+    -fx-border-insets: -10px 0 10px 0;
+    -fx-background-insets: -10px 0 10px 0;
+}
+
+.button:focused #cal-day{
+    -fx-text-fill: #F5E3E0;/*rgba(14, 99, 103, 1);*/
+    -fx-font-size: 20px;
+}

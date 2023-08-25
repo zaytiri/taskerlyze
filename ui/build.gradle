@@ -38,6 +38,7 @@ dependencies {
     implementation ("personal.zaytiri.taskerlyze:api:1.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation 'io.github.palexdev:materialfx:11.16.1'
 }
 
 test {
