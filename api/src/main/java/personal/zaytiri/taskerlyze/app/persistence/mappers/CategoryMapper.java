@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CategoryMapper implements Mapper<Category, CategoryModel> {
+public class CategoryMapper extends Mapper<Category, CategoryModel> {
+    public CategoryMapper() {
+        super("categories__");
+    }
+
     @Override
     public List<Category> toEntity(List<Map<String, String>> rows, boolean mixedResult) {
         List<Category> categories = new ArrayList<>();
@@ -16,8 +20,8 @@ public class CategoryMapper implements Mapper<Category, CategoryModel> {
         for (Map<String, String> row : rows) {
             Category category = new Category().getInstance();
 
-            category.setId(Integer.parseInt(row.get(getFormattedName(mixedResult, "id"))));
-            category.setName(row.get(getFormattedName(mixedResult, "name")));
+            category.setId(getRowIntValue(row, mixedResult, "id"));
+            category.setName(getRowStringValue(row, mixedResult, "name"));
 
             categories.add(category);
         }
@@ -46,12 +50,5 @@ public class CategoryMapper implements Mapper<Category, CategoryModel> {
         model.setName(entity.getName());
 
         return model;
-    }
-
-    private String getFormattedName(boolean mixedResult, String columnName) {
-        if (mixedResult) {
-            return "categories__" + columnName;
-        }
-        return columnName;
     }
 }

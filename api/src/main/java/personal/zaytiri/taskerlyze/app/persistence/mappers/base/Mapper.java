@@ -1,13 +1,46 @@
 package personal.zaytiri.taskerlyze.app.persistence.mappers.base;
 
-import java.util.List;
 import java.util.Map;
 
-public interface Mapper<E, M> {
+public abstract class Mapper<E, M> implements IMapper<E, M> {
+    protected String tablePrefix;
 
-    List<E> toEntity(List<Map<String, String>> rows, boolean mixedResult);
+    protected Mapper(String tablePrefix) {
+        this.tablePrefix = tablePrefix;
+    }
 
-    E toEntity(M model);
+    protected String getFormattedName(boolean mixedResult, String columnName) {
+        if (mixedResult) {
+            return tablePrefix + columnName;
+        }
+        return columnName;
+    }
 
-    M toModel(E entity);
+    protected Boolean getRowBooleanValue(Map<String, String> row, boolean mixedResult, String columnName) {
+        String value = getRowValue(row, mixedResult, columnName);
+        if (value == null) {
+            return false;
+        }
+        return Integer.parseInt(value) != 0;
+    }
+
+    protected int getRowIntValue(Map<String, String> row, boolean mixedResult, String columnName) {
+        String value = getRowValue(row, mixedResult, columnName);
+        if (value == null) {
+            return -1;
+        }
+        return Integer.parseInt(value);
+    }
+
+    protected String getRowStringValue(Map<String, String> row, boolean mixedResult, String columnName) {
+        String value = getRowValue(row, mixedResult, columnName);
+        if (value == null) {
+            return "";
+        }
+        return value;
+    }
+
+    private String getRowValue(Map<String, String> row, boolean mixedResult, String columnName) {
+        return row.get(getFormattedName(mixedResult, columnName));
+    }
 }

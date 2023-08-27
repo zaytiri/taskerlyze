@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class TaskMapper implements Mapper<Task, TaskModel> {
+public class TaskMapper extends Mapper<Task, TaskModel> {
     public TaskMapper() {
+        super("tasks__");
     }
 
     @Override
@@ -19,11 +20,11 @@ public class TaskMapper implements Mapper<Task, TaskModel> {
         for (Map<String, String> row : rows) {
             Task task = new Task().getInstance();
 
-            task.setId(Integer.parseInt(row.get(getFormattedName(mixedResult, "id"))));
-            task.setName(row.get(getFormattedName(mixedResult, "name")));
-            task.setDescription(row.get(getFormattedName(mixedResult, "description")));
-            task.setCategoryId(Integer.parseInt(row.get(getFormattedName(mixedResult, "category_id"))));
-            task.setDone(Integer.parseInt(row.get(getFormattedName(mixedResult, "is_done"))) != 0);
+            task.setId(getRowIntValue(row, mixedResult, "id"));
+            task.setName(getRowStringValue(row, mixedResult, "name"));
+            task.setDescription(getRowStringValue(row, mixedResult, "description"));
+            task.setCategoryId(getRowIntValue(row, mixedResult, "category_id"));
+            task.setDone(getRowBooleanValue(row, mixedResult, "is_done"));
 
             tasks.add(task);
         }
@@ -57,12 +58,5 @@ public class TaskMapper implements Mapper<Task, TaskModel> {
         model.setCategoryId(entity.getCategoryId());
         model.setDone(entity.isDone(false));
         return model;
-    }
-
-    private String getFormattedName(boolean mixedResult, String columnName) {
-        if (mixedResult) {
-            return "tasks__" + columnName;
-        }
-        return columnName;
     }
 }
