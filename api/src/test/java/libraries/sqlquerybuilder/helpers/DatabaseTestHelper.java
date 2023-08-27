@@ -1,4 +1,4 @@
-package libraries.sqlquerybuilder;
+package libraries.sqlquerybuilder.helpers;
 
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;

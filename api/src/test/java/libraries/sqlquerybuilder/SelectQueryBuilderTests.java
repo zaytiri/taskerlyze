@@ -1,5 +1,6 @@
 package libraries.sqlquerybuilder;
 
+import libraries.sqlquerybuilder.helpers.DatabaseTestHelper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
