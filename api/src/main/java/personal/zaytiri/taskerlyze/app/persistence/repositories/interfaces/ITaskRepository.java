@@ -5,5 +5,6 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 public interface ITaskRepository extends IRepository<Task> {
     Response exists(Task task);
+    Response getTasksByCategory(int categoryId);
 
 }

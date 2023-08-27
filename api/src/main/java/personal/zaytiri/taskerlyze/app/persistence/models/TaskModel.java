@@ -9,6 +9,7 @@ import java.util.List;
 public class TaskModel extends Model {
     private boolean done;
     private String description;
+    private int categoryId;
 
     public TaskModel() {
         super("tasks");
@@ -23,6 +24,14 @@ public class TaskModel extends Model {
         return this;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public List<Pair<String, Object>> getValues() {
         List<Pair<String, Object>> values = new ArrayList<>();
@@ -31,6 +40,7 @@ public class TaskModel extends Model {
         values.add(new Pair<>("name", name));
         values.add(new Pair<>("is_done", done));
         values.add(new Pair<>("description", description));
+        values.add(new Pair<>("category_id", categoryId));
         values.add(new Pair<>("updated_at", updatedAt));
         values.add(new Pair<>("created_at", createdAt));
 
