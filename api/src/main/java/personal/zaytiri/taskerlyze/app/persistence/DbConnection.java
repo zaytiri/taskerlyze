@@ -72,11 +72,14 @@ public class DbConnection {
 
     private void createDatabase() {
         CreateTableQueryBuilder query = new CreateTableQueryBuilder(open());
+        query.setCloseConnection(false);
 
         for (Table tb : schema.getTables()) {
             query.create(tb);
             query.execute();
         }
+
+        close();
     }
 
     private String getDbConnectionPath() {
