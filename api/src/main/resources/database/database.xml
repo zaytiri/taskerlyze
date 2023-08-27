@@ -28,6 +28,39 @@
             <isprimarykey>false</isprimarykey>
         </column>
         <column>
+            <name>category_id</name>
+            <type>integer</type>
+            <default>1</default>
+            <isprimarykey>false</isprimarykey>
+        </column>
+        <column>
+            <name>updated_at</name>
+            <type>numeric</type>
+            <default>null</default>
+            <isprimarykey>false</isprimarykey>
+        </column>
+        <column>
+            <name>created_at</name>
+            <type>numeric</type>
+            <default>null</default>
+            <isprimarykey>false</isprimarykey>
+        </column>
+    </table>
+    <table>
+        <name>categories</name>
+        <column>
+            <name>id</name>
+            <type>integer</type>
+            <default>1</default>
+            <isprimarykey>true</isprimarykey>
+        </column>
+        <column>
+            <name>name</name>
+            <type>text</type>
+            <default>null</default>
+            <isprimarykey>false</isprimarykey>
+        </column>
+        <column>
             <name>updated_at</name>
             <type>numeric</type>
             <default>null</default>
