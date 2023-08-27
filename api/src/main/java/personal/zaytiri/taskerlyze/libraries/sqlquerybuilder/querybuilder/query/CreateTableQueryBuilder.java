@@ -18,6 +18,7 @@ public class CreateTableQueryBuilder extends QueryBuilder {
      * @param table containing all information about the table and respective columns.
      */
     public void create(Table table) {
+        resetQuery();
         appendKeyword(Clause.CREATE.value);
         appendKeyword(Clause.TABLE.value);
         appendKeyword(Clause.IF_NOT_EXISTS.value);

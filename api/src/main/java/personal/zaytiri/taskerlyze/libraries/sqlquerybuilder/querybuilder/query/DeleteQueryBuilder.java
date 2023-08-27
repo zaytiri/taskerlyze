@@ -31,20 +31,6 @@ public class DeleteQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
-    /**
-     * Generates an SQL query to delete data from a given table only needing the table's name.
-     * This method could be used alone (without a subsequent where clause) but doing so will delete everything from the given table.
-     *
-     * @param table to delete data.
-     * @returns DeleteQueryBuilder.
-     */
-    public DeleteQueryBuilder deleteFrom(Table table) {
-        tryAppendKeyword(Clause.DELETE.value);
-        tryAppendKeyword(Clause.FROM.value);
-        query.append(table.getName());
-        return this;
-    }
-
     @Override
     public DeleteQueryBuilder or() {
         genericClauses.or();
@@ -72,6 +58,21 @@ public class DeleteQueryBuilder extends QueryBuilder implements IGenericClauses<
     @Override
     public DeleteQueryBuilder where(Column leftColumn) {
         genericClauses.where(query, leftColumn);
+        return this;
+    }
+
+    /**
+     * Generates an SQL query to delete data from a given table only needing the table's name.
+     * This method could be used alone (without a subsequent where clause) but doing so will delete everything from the given table.
+     *
+     * @param table to delete data.
+     * @returns DeleteQueryBuilder.
+     */
+    public DeleteQueryBuilder deleteFrom(Table table) {
+        resetQuery();
+        tryAppendKeyword(Clause.DELETE.value);
+        tryAppendKeyword(Clause.FROM.value);
+        query.append(table.getName());
         return this;
     }
 }

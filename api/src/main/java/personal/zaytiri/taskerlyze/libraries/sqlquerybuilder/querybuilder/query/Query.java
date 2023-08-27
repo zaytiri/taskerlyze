@@ -67,6 +67,11 @@ public class Query {
         return new Response().setLastInsertedId(id);
     }
 
+    protected void resetQuery() {
+        this.query = new StringBuilder();
+        this.values = new ArrayList<>();
+    }
+
     protected void setValues(PreparedStatement preparedStatement) throws SQLException {
         for (int i = 0; i < values.size(); i++) {
             preparedStatement.setObject(i + 1, values.get(i));

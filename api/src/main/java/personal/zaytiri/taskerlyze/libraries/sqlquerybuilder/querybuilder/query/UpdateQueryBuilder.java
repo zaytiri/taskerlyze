@@ -39,6 +39,30 @@ public class UpdateQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
+    @Override
+    public UpdateQueryBuilder where(Column leftColumn, Operators operator, Object rightColumn) {
+        genericClauses.where(query, values, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder where(Column leftColumn, Operators operator, Column rightColumn) {
+        genericClauses.where(query, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder where(Column leftColumn, Operators operator) {
+        genericClauses.where(query, leftColumn, operator);
+        return this;
+    }
+
+    @Override
+    public UpdateQueryBuilder where(Column leftColumn) {
+        genericClauses.where(query, leftColumn);
+        return this;
+    }
+
     /**
      * Generates a partial SQL query to set a value to a specific column.
      * It is an alternative to values() method.
@@ -67,6 +91,7 @@ public class UpdateQueryBuilder extends QueryBuilder implements IGenericClauses<
      * @return
      */
     public UpdateQueryBuilder update(Table table) {
+        resetQuery();
         tryAppendKeyword(Clause.UPDATE.value);
         query.append(table.getName());
         return this;
@@ -96,30 +121,6 @@ public class UpdateQueryBuilder extends QueryBuilder implements IGenericClauses<
             comma = true;
         }
 
-        return this;
-    }
-
-    @Override
-    public UpdateQueryBuilder where(Column leftColumn, Operators operator, Object rightColumn) {
-        genericClauses.where(query, values, leftColumn, operator, rightColumn);
-        return this;
-    }
-
-    @Override
-    public UpdateQueryBuilder where(Column leftColumn, Operators operator, Column rightColumn) {
-        genericClauses.where(query, leftColumn, operator, rightColumn);
-        return this;
-    }
-
-    @Override
-    public UpdateQueryBuilder where(Column leftColumn, Operators operator) {
-        genericClauses.where(query, leftColumn, operator);
-        return this;
-    }
-
-    @Override
-    public UpdateQueryBuilder where(Column leftColumn) {
-        genericClauses.where(query, leftColumn);
         return this;
     }
 }

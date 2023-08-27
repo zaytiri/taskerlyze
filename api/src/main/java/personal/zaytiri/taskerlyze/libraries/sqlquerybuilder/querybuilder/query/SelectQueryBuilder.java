@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<SelectQueryBuilder> {
-    private final StringBuilder selectQuery;
-    private final List<Table> tables;
     private final GenericClauses genericClauses;
+    private StringBuilder selectQuery;
+    private List<Table> tables;
 
     public SelectQueryBuilder(Connection connection) {
         super(connection);
@@ -37,6 +37,36 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
     @Override
     public SelectQueryBuilder between(Object value) {
         genericClauses.between(query, values, value);
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder or() {
+        genericClauses.or();
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder where(Column leftColumn, Operators operator, Object rightColumn) {
+        genericClauses.where(query, values, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder where(Column leftColumn, Operators operator, Column rightColumn) {
+        genericClauses.where(query, leftColumn, operator, rightColumn);
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder where(Column leftColumn, Operators operator) {
+        genericClauses.where(query, leftColumn, operator);
+        return this;
+    }
+
+    @Override
+    public SelectQueryBuilder where(Column leftColumn) {
+        genericClauses.where(query, leftColumn);
         return this;
     }
 
@@ -69,6 +99,7 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
 
     /**
      * Generates a partial SQL query to join another table into the query.
+     * The on() method must be used subsequently to join the two columns together by one column of first table and one column of the second table.
      *
      * @param table to be joined
      * @return SelectQueryBuilder
@@ -127,12 +158,6 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
         return this;
     }
 
-    @Override
-    public SelectQueryBuilder or() {
-        genericClauses.or();
-        return this;
-    }
-
     /**
      * Generates a partial SQL query to order the results by the given values with ASC or DESC.
      *
@@ -158,6 +183,7 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
      * @returns SelectQueryBuilder
      */
     public SelectQueryBuilder select(List<Column> columns) {
+        resetSelectQuery();
         tryAppendKeyword(Clause.SELECT.value);
         query.append(getMultipleColumnsNameByComma(columns, true));
         return this;
@@ -170,31 +196,8 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
      * @returns SelectQueryBuilder
      */
     public SelectQueryBuilder select() {
+        resetSelectQuery();
         tryAppendKeyword(Clause.SELECT.value + " *");
-        return this;
-    }
-
-    @Override
-    public SelectQueryBuilder where(Column leftColumn, Operators operator, Object rightColumn) {
-        genericClauses.where(query, values, leftColumn, operator, rightColumn);
-        return this;
-    }
-
-    @Override
-    public SelectQueryBuilder where(Column leftColumn, Operators operator, Column rightColumn) {
-        genericClauses.where(query, leftColumn, operator, rightColumn);
-        return this;
-    }
-
-    @Override
-    public SelectQueryBuilder where(Column leftColumn, Operators operator) {
-        genericClauses.where(query, leftColumn, operator);
-        return this;
-    }
-
-    @Override
-    public SelectQueryBuilder where(Column leftColumn) {
-        genericClauses.where(query, leftColumn);
         return this;
     }
 
@@ -276,5 +279,11 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
             selectQuery.append(", ");
         }
         selectQuery.append(getMultipleColumnsNameByComma(table.getColumns(), true));
+    }
+
+    private void resetSelectQuery() {
+        resetQuery();
+        this.tables = new ArrayList<>();
+        this.selectQuery = new StringBuilder();
     }
 }

@@ -23,6 +23,7 @@ public class InsertQueryBuilder extends QueryBuilder {
      * @returns InsertQueryBuilder
      */
     public InsertQueryBuilder insertInto(Table table) {
+        resetQuery();
         tryAppendKeyword(Clause.INSERT.value);
         tryAppendKeyword(Clause.INTO.value);
         query.append(table.getName());
@@ -40,6 +41,7 @@ public class InsertQueryBuilder extends QueryBuilder {
      * @returns InsertQueryBuilder
      */
     public InsertQueryBuilder insertInto(Table table, List<Column> columns) {
+        resetQuery();
         insertInto(table);
 
         query.append(" (");
