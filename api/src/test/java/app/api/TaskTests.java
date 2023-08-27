@@ -1,5 +1,6 @@
 package app.api;
 
+import app.api.helpers.ApiTestHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,15 +14,11 @@ import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TaskTests {
+class TaskTests {
     private final static Logger LOGGER = Logger.getLogger(TaskTests.class.getName());
 
     @BeforeEach
@@ -40,32 +37,6 @@ public class TaskTests {
         } catch (Exception e) {
             // if any error occurs
             LOGGER.log(Level.SEVERE, "deleteDatabase: " + e.getMessage(), e);
-        }
-    }
-
-    public static void insertMockData(List<String> queries) {
-        Connection connection = null;
-        try {
-            // create a database connection
-            String currentDirectory = Path.of("").toAbsolutePath().toString();
-            connection = DriverManager.getConnection("jdbc:sqlite:" + currentDirectory + "\\src\\main\\resources\\database\\taskerlyze.db");
-
-            Statement statement = connection.createStatement();
-            for (String query : queries) {
-                statement.executeUpdate(query);
-            }
-            statement.close();
-
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "insertMockData: " + e.getMessage(), e);
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
         }
     }
 
@@ -91,14 +62,7 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("do something good");
                     add(false);
                     add("i need to do something good");
@@ -108,7 +72,7 @@ public class TaskTests {
                 }}));
             }
         };
-        insertMockData(queries);
+        ApiTestHelper.insertMockData(queries);
 
         TaskController controller = new TaskController();
 
@@ -124,75 +88,47 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create diagrams");
                     add(true);
                     add("do relation diagrams for all classes");
                     add(1);
-                    add(getDate(Calendar.HOUR, 12));
-                    add(getDate(Calendar.HOUR, -12));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 12));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -12));
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create scripts");
                     add(true);
                     add("do some python scripts to help");
                     add(1);
-                    add(getDate(Calendar.HOUR, 56));
-                    add(getDate(Calendar.HOUR, 48));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 56));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 48));
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create documentation");
                     add(false);
                     add("do documentation for necessary methods");
                     add(1);
-                    add(getDate(Calendar.HOUR, -24));
-                    add(getDate(Calendar.HOUR, -48));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -48));
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create design");
                     add(false);
                     add("do designs for frontend");
                     add(1);
-                    add(getDate(Calendar.HOUR, -24));
-                    add(getDate(Calendar.HOUR, 24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 24));
                 }}));
             }
         };
-        insertMockData(queries);
+        ApiTestHelper.insertMockData(queries);
 
         TaskController controller = new TaskController();
 
         // act
         Map<String, Pair<String, Object>> filters = new HashMap<>();
-        filters.put("created_at", new Pair<>(">=", getDate(Calendar.MINUTE, -24)));
+        filters.put("created_at", new Pair<>(">=", ApiTestHelper.getDate(Calendar.MINUTE, -24)));
         OperationResult<List<Task>> result = controller.get(filters, null);
 
         // assert
@@ -205,69 +141,41 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create diagrams");
                     add(true);
                     add("do relation diagrams for all classes");
                     add(1);
-                    add(getDate(Calendar.HOUR, 12));
-                    add(getDate(Calendar.HOUR, -12));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 12));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -12));
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create scripts");
                     add(true);
                     add("do some python scripts to help");
                     add(1);
-                    add(getDate(Calendar.HOUR, 56));
-                    add(getDate(Calendar.HOUR, 48));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 56));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 48));
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create documentation");
                     add(false);
                     add("do documentation for necessary methods");
                     add(1);
-                    add(getDate(Calendar.HOUR, -24));
-                    add(getDate(Calendar.HOUR, -48));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -48));
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create design");
                     add(false);
                     add("do designs for frontend");
                     add(1);
-                    add(getDate(Calendar.HOUR, -24));
-                    add(getDate(Calendar.HOUR, 24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 24));
                 }}));
             }
         };
-        insertMockData(queries);
+        ApiTestHelper.insertMockData(queries);
 
         TaskController controller = new TaskController();
 
@@ -292,69 +200,41 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create diagrams");
                     add(true);
                     add("do relation diagrams for all classes");
                     add(1);
-                    add(getDate(Calendar.HOUR, 12));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 12));
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create scripts");
                     add(true);
                     add("do some python scripts to help");
                     add(1);
-                    add(getDate(Calendar.HOUR, 56));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 56));
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create documentation");
                     add(false);
                     add("do documentation for necessary methods");
                     add(1);
-                    add(getDate(Calendar.HOUR, -24));
-                    add(getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create design");
                     add(false);
                     add("do designs for frontend");
                     add(1);
-                    add(getDate(Calendar.HOUR, -24));
-                    add(getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
                 }}));
             }
         };
-        insertMockData(queries);
+        ApiTestHelper.insertMockData(queries);
 
         TaskController controller = new TaskController();
 
@@ -376,14 +256,7 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("do something good");
                     add(false);
                     add("i need to do something good");
@@ -393,7 +266,7 @@ public class TaskTests {
                 }}));
             }
         };
-        insertMockData(queries);
+        ApiTestHelper.insertMockData(queries);
 
         TaskController controller = new TaskController();
 
@@ -413,32 +286,17 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add(getFormattedInsertQuery("categories", new ArrayList<>() {{
-                    add("name");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("work");
                     add(new Date().getTime());
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("categories", new ArrayList<>() {{
-                    add("name");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("personal");
                     add(new Date().getTime());
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("take sandy for a walk");
                     add(false);
                     add("need to take sandy for a walk in the park for happiness");
@@ -448,7 +306,7 @@ public class TaskTests {
                 }}));
             }
         };
-        insertMockData(queries);
+        ApiTestHelper.insertMockData(queries);
 
         TaskController controller = new TaskController();
 
@@ -465,32 +323,17 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add(getFormattedInsertQuery("categories", new ArrayList<>() {{
-                    add("name");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForCategoriesTable(new ArrayList<>() {{
                     add("work");
                     add(new Date().getTime());
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("categories", new ArrayList<>() {{
-                    add("name");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForCategoriesTable(new ArrayList<>() {{
                     add("personal");
                     add(new Date().getTime());
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create diagrams");
                     add(true);
                     add("do relation diagrams for all classes");
@@ -498,14 +341,7 @@ public class TaskTests {
                     add(new Date().getTime());
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create scripts");
                     add(true);
                     add("do some python scripts to help");
@@ -513,14 +349,7 @@ public class TaskTests {
                     add(new Date().getTime());
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create documentation");
                     add(false);
                     add("do documentation for necessary methods");
@@ -528,14 +357,7 @@ public class TaskTests {
                     add(new Date().getTime());
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("take sandy for a walk");
                     add(false);
                     add("need to take sandy for a walk in the park for happiness");
@@ -545,7 +367,7 @@ public class TaskTests {
                 }}));
             }
         };
-        insertMockData(queries);
+        ApiTestHelper.insertMockData(queries);
 
         TaskController controller = new TaskController();
 
@@ -566,69 +388,41 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create diagrams");
                     add(true);
                     add("do relation diagrams for all classes");
                     add(1);
-                    add(getDate(Calendar.HOUR, 12));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 12));
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create scripts");
                     add(true);
                     add("do some python scripts to help");
                     add(1);
-                    add(getDate(Calendar.HOUR, 56));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, 56));
                     add(new Date().getTime());
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create documentation");
                     add(false);
                     add("do documentation for necessary methods");
                     add(1);
-                    add(getDate(Calendar.HOUR, -24));
-                    add(getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
                 }}));
-                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
-                    add("name");
-                    add("is_done");
-                    add("description");
-                    add("category_id");
-                    add("updated_at");
-                    add("created_at");
-                }}, new ArrayList<>() {{
+                add(ApiTestHelper.getInsertQueryForTasksTable(new ArrayList<>() {{
                     add("create design");
                     add(false);
                     add("do designs for frontend");
                     add(1);
-                    add(getDate(Calendar.HOUR, -24));
-                    add(getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
+                    add(ApiTestHelper.getDate(Calendar.HOUR, -24));
                 }}));
             }
         };
-        insertMockData(queries);
+        ApiTestHelper.insertMockData(queries);
 
         TaskController controller = new TaskController();
 
@@ -638,49 +432,5 @@ public class TaskTests {
         // assert
         Assertions.assertTrue(result.getStatus());
         Assertions.assertTrue(result.getResult().isDone(false));
-    }
-
-    private static long getDate(int calendarParcel, int minutesToAdd) {
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-
-        cal.setTime(date);
-        cal.add(calendarParcel, minutesToAdd);
-
-        return cal.getTime().getTime();
-    }
-
-    private String getFormattedInsertQuery(String table, List<String> columns, List<Object> values) {
-        StringBuilder query = new StringBuilder();
-
-        query.append("insert into ").append(table).append(" (");
-
-        boolean useComma = false;
-        for (String column : columns) {
-            if (useComma) {
-                query.append(", ");
-            }
-            query.append(column);
-            useComma = true;
-        }
-
-        query.append(") values ( ");
-
-        useComma = false;
-        for (Object value : values) {
-            if (useComma) {
-                query.append(", ");
-            }
-            if (value instanceof String)
-                query.append("'").append(value).append("'");
-            else {
-                query.append(value);
-            }
-            useComma = true;
-        }
-
-        query.append(")");
-
-        return query.toString();
     }
 }
