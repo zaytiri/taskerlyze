@@ -1,47 +1,78 @@
 package personal.zaytiri.taskerlyze.app.api.controllers.base;
 
-
+import personal.zaytiri.taskerlyze.app.api.controllers.result.CodeResult;
+import personal.zaytiri.taskerlyze.app.api.controllers.result.MessageResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
+import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.util.List;
 import java.util.Map;
 
-public interface Controller<T> {
-    /**
-     * Creates or updates an object of type T.
-     * The object needs to have all the necessary properties set to some value to create new data into the database.
-     * If the data already exists, it will update every data that's different.
-     *
-     * @param request an object of type T.
-     * @return OperationResult<T>
-     */
-    OperationResult<T> createOrUpdate(T request);
+public abstract class Controller<T extends IStorageOperations<T>> implements IController<T> {
 
-    /**
-     * Deletes a given object of type T with a given id.
-     *
-     * @param id to delete from database.
-     * @return OperationResult<T>
-     */
-    OperationResult<T> delete(int id);
+    @Override
+    public OperationResult<T> createOrUpdate(T request) {
+        boolean isCreated = request.createOrUpdate();
 
-    /**
-     * Returns an object of type T with a given id.
-     *
-     * @param id to get from database.
-     * @return OperationResult<T>
-     */
-    OperationResult<T> get(int id);
+        MessageResult message = new MessageResult();
+        if (isCreated) {
+            message.setCode(CodeResult.CREATED);
+        } else {
+            message.setCode(CodeResult.NOT_CREATED);
+        }
 
-    /**
-     * Returns a list of objects of type T considering a set of filters.
-     * A filter should consist of the name of the column, an operator and the value.
-     * The order by consists of a Pair containing the order (Pair's key) and the column's name (Pair's value).
-     * If no order is necessary, input null.
-     *
-     * @param filters to get results from database.
-     * @return OperationResult<T>
-     */
-    OperationResult<List<T>> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn);
+        return new OperationResult<>(isCreated, message, request);
+    }
+
+    @Override
+    public OperationResult<T> delete(int id) {
+        T toBeDeleted = getEntityInstance(id);
+
+        boolean isDeleted = toBeDeleted.delete();
+
+        MessageResult message = new MessageResult();
+        if (isDeleted) {
+            message.setCode(CodeResult.DELETED);
+        } else {
+            message.setCode(CodeResult.NOT_DELETED);
+        }
+
+        return new OperationResult<>(isDeleted, message, null);
+    }
+
+    @Override
+    public OperationResult<T> get(int id) {
+        T entity = getEntityInstance(id);
+
+        T entityPopulated = entity.get();
+
+        MessageResult message = new MessageResult();
+        if (entityPopulated != null) {
+            message.setCode(CodeResult.FOUND);
+        } else {
+            message.setCode(CodeResult.NOT_FOUND);
+        }
+
+        return new OperationResult<>(entityPopulated != null, message, entityPopulated);
+    }
+
+    @Override
+    public OperationResult<List<T>> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
+        T entity = getEntityInstance();
+
+        List<T> entities = entity.get(filters, orderByColumn);
+
+        MessageResult message = new MessageResult();
+        if (!entities.isEmpty()) {
+            message.setCode(CodeResult.FOUND);
+        } else {
+            message.setCode(CodeResult.NOT_FOUND);
+        }
+
+        return new OperationResult<>(!entities.isEmpty(), message, entities);
+    }
+
+    protected abstract T getEntityInstance(int id);
+    protected abstract T getEntityInstance();
 }
