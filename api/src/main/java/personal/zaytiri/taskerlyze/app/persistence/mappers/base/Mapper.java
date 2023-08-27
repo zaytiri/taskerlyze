@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface Mapper<E, M> {
 
-    List<E> toEntity(List<Map<String, String>> rows);
+    List<E> toEntity(List<Map<String, String>> rows, boolean mixedResult);
 
     E toEntity(M model);
 
