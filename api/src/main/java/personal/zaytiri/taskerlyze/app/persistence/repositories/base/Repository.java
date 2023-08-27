@@ -67,20 +67,20 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
 
             Column col = model.getTable().getColumn(entry.getKey());
 
-            if (entry.getValue().value == null) {
-                query = query.where(col, Operators.get(entry.getValue().key));
+            if (entry.getValue().getValue() == null) {
+                query = query.where(col, Operators.get(entry.getValue().getKey()));
             } else {
-                query = query.where(col, Operators.get(entry.getValue().key), entry.getValue().value);
+                query = query.where(col, Operators.get(entry.getValue().getKey()), entry.getValue().getValue());
             }
 
             operator = true;
         }
 
         if (orderByColumn != null) {
-            Column orderBy = connection.getSchema().getTable(model.getTable().getName()).getColumn(orderByColumn.value);
+            Column orderBy = connection.getSchema().getTable(model.getTable().getName()).getColumn(orderByColumn.getValue());
             List<Column> columnsToOrderBy = new ArrayList<>();
             columnsToOrderBy.add(orderBy);
-            query = query.orderBy(Order.get(orderByColumn.key), columnsToOrderBy);
+            query = query.orderBy(Order.get(orderByColumn.getKey()), columnsToOrderBy);
         }
 
         return query.execute();
@@ -100,12 +100,12 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
         Map<Column, Object> sets = new HashMap<>();
 
         for (Pair<String, Object> entry : values) {
-            if (entry.key.equals("id")) {
+            if (entry.getKey().equals("id")) {
                 continue;
             }
 
-            Column col = model.getTable().getColumn(entry.key);
-            sets.put(col, entry.value);
+            Column col = model.getTable().getColumn(entry.getKey());
+            sets.put(col, entry.getValue());
         }
 
         query.update(model.getTable())

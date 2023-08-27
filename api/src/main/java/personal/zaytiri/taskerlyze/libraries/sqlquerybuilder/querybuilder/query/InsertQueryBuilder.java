@@ -78,7 +78,7 @@ public class InsertQueryBuilder extends QueryBuilder {
      */
     public InsertQueryBuilder values(List<Pair<String, Object>> values) {
         for (Pair<String, Object> entry : values) {
-            this.values.add(entry.value);
+            this.values.add(entry.getValue());
         }
 
         appendKeyword(Clause.VALUES.value);
