@@ -73,7 +73,7 @@ public class TaskTests {
         // arrange
         TaskController controller = new TaskController();
 
-        Task task = Task.getInstance();
+        Task task = new Task().getInstance();
         task.setName("a new task")
                 .setDescription("a new task to test the task");
 
@@ -90,7 +90,21 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('do something good', false, 'i need to do something good', " + new Date().getTime() + ", " + new Date().getTime() + ")");
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("do something good");
+                    add(false);
+                    add("i need to do something good");
+                    add(0);
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
             }
         };
         insertMockData(queries);
@@ -104,15 +118,72 @@ public class TaskTests {
         Assertions.assertTrue(result.getStatus());
     }
 
+
     @Test
     void Should_GetAListOfCreatedTasksAfterCurrentDayFromDatabase() {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create diagrams', true, 'do relation diagrams for all classes', " + getDate(Calendar.HOUR, 12) + ", " + getDate(Calendar.HOUR, -12) + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create scripts', true, 'do some python scripts to help', " + getDate(Calendar.HOUR, 56) + ", " + getDate(Calendar.HOUR, 48) + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create documentation', false, 'do documentation for necessary methods', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, -48) + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create design', false, 'do designs for frontend', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, 24) + ")");
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create diagrams");
+                    add(true);
+                    add("do relation diagrams for all classes");
+                    add(1);
+                    add(getDate(Calendar.HOUR, 12));
+                    add(getDate(Calendar.HOUR, -12));
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create scripts");
+                    add(true);
+                    add("do some python scripts to help");
+                    add(1);
+                    add(getDate(Calendar.HOUR, 56));
+                    add(getDate(Calendar.HOUR, 48));
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create documentation");
+                    add(false);
+                    add("do documentation for necessary methods");
+                    add(1);
+                    add(getDate(Calendar.HOUR, -24));
+                    add(getDate(Calendar.HOUR, -48));
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create design");
+                    add(false);
+                    add("do designs for frontend");
+                    add(1);
+                    add(getDate(Calendar.HOUR, -24));
+                    add(getDate(Calendar.HOUR, 24));
+                }}));
             }
         };
         insertMockData(queries);
@@ -134,10 +205,66 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create diagrams', true, 'do relation diagrams for all classes', " + getDate(Calendar.HOUR, 12) + ", " + getDate(Calendar.HOUR, -12) + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create scripts', true, 'do some python scripts to help', " + getDate(Calendar.HOUR, 56) + ", " + getDate(Calendar.HOUR, 48) + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create documentation', false, 'do documentation for necessary methods', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, -48) + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create design', false, 'do designs for frontend', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, 24) + ")");
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create diagrams");
+                    add(true);
+                    add("do relation diagrams for all classes");
+                    add(1);
+                    add(getDate(Calendar.HOUR, 12));
+                    add(getDate(Calendar.HOUR, -12));
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create scripts");
+                    add(true);
+                    add("do some python scripts to help");
+                    add(1);
+                    add(getDate(Calendar.HOUR, 56));
+                    add(getDate(Calendar.HOUR, 48));
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create documentation");
+                    add(false);
+                    add("do documentation for necessary methods");
+                    add(1);
+                    add(getDate(Calendar.HOUR, -24));
+                    add(getDate(Calendar.HOUR, -48));
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create design");
+                    add(false);
+                    add("do designs for frontend");
+                    add(1);
+                    add(getDate(Calendar.HOUR, -24));
+                    add(getDate(Calendar.HOUR, 24));
+                }}));
             }
         };
         insertMockData(queries);
@@ -165,10 +292,66 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create diagrams', true, 'do relation diagrams for all classes', " + getDate(Calendar.MINUTE, 12) + ", " + new Date().getTime() + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create scripts', true, 'do some python scripts to help', " + getDate(Calendar.MINUTE, 56) + ", " + new Date().getTime() + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create documentation', false, 'do documentation for necessary methods', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, -24) + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create design', false, 'do designs for frontend', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, -24) + ")");
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create diagrams");
+                    add(true);
+                    add("do relation diagrams for all classes");
+                    add(1);
+                    add(getDate(Calendar.HOUR, 12));
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create scripts");
+                    add(true);
+                    add("do some python scripts to help");
+                    add(1);
+                    add(getDate(Calendar.HOUR, 56));
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create documentation");
+                    add(false);
+                    add("do documentation for necessary methods");
+                    add(1);
+                    add(getDate(Calendar.HOUR, -24));
+                    add(getDate(Calendar.HOUR, -24));
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create design");
+                    add(false);
+                    add("do designs for frontend");
+                    add(1);
+                    add(getDate(Calendar.HOUR, -24));
+                    add(getDate(Calendar.HOUR, -24));
+                }}));
             }
         };
         insertMockData(queries);
@@ -193,7 +376,21 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('do something good', false, 'i need to do something good', " + new Date().getTime() + ", " + new Date().getTime() + ")");
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("do something good");
+                    add(false);
+                    add("i need to do something good");
+                    add(0);
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
             }
         };
         insertMockData(queries);
@@ -216,10 +413,66 @@ public class TaskTests {
         // arrange
         List<String> queries = new ArrayList<>() {
             {
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create diagrams', true, 'do relation diagrams for all classes', " + getDate(Calendar.MINUTE, 12) + ", " + new Date().getTime() + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create scripts', true, 'do some python scripts to help', " + getDate(Calendar.MINUTE, 56) + ", " + new Date().getTime() + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create documentation', false, 'do documentation for necessary methods', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, -24) + ")");
-                add("insert into tasks (name, is_done, description, updated_at, created_at) values ('create design', false, 'do designs for frontend', " + getDate(Calendar.HOUR, -24) + ", " + getDate(Calendar.HOUR, -24) + ")");
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create diagrams");
+                    add(true);
+                    add("do relation diagrams for all classes");
+                    add(1);
+                    add(getDate(Calendar.HOUR, 12));
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create scripts");
+                    add(true);
+                    add("do some python scripts to help");
+                    add(1);
+                    add(getDate(Calendar.HOUR, 56));
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create documentation");
+                    add(false);
+                    add("do documentation for necessary methods");
+                    add(1);
+                    add(getDate(Calendar.HOUR, -24));
+                    add(getDate(Calendar.HOUR, -24));
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create design");
+                    add(false);
+                    add("do designs for frontend");
+                    add(1);
+                    add(getDate(Calendar.HOUR, -24));
+                    add(getDate(Calendar.HOUR, -24));
+                }}));
             }
         };
         insertMockData(queries);
@@ -242,5 +495,39 @@ public class TaskTests {
         cal.add(calendarParcel, minutesToAdd);
 
         return cal.getTime().getTime();
+    }
+
+    private String getFormattedInsertQuery(String table, List<String> columns, List<Object> values) {
+        StringBuilder query = new StringBuilder();
+
+        query.append("insert into ").append(table).append(" (");
+
+        boolean useComma = false;
+        for (String column : columns) {
+            if (useComma) {
+                query.append(", ");
+            }
+            query.append(column);
+            useComma = true;
+        }
+
+        query.append(") values ( ");
+
+        useComma = false;
+        for (Object value : values) {
+            if (useComma) {
+                query.append(", ");
+            }
+            if (value instanceof String)
+                query.append("'").append(value).append("'");
+            else {
+                query.append(value);
+            }
+            useComma = true;
+        }
+
+        query.append(")");
+
+        return query.toString();
     }
 }
