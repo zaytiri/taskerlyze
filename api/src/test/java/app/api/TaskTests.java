@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
+import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
@@ -117,7 +118,6 @@ public class TaskTests {
         // assert
         Assertions.assertTrue(result.getStatus());
     }
-
 
     @Test
     void Should_GetAListOfCreatedTasksAfterCurrentDayFromDatabase() {
@@ -406,6 +406,159 @@ public class TaskTests {
         Assertions.assertEquals("do something good", result.getResult().getName());
         Assertions.assertFalse(result.getResult().isDone(false));
         Assertions.assertEquals("i need to do something good", result.getResult().getDescription());
+    }
+
+    @Test
+    void Should_GetNoTasksByCategoryId5FromDatabase() {
+        // arrange
+        List<String> queries = new ArrayList<>() {
+            {
+                add(getFormattedInsertQuery("categories", new ArrayList<>() {{
+                    add("name");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("work");
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("categories", new ArrayList<>() {{
+                    add("name");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("personal");
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("take sandy for a walk");
+                    add(false);
+                    add("need to take sandy for a walk in the park for happiness");
+                    add(2);
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+            }
+        };
+        insertMockData(queries);
+
+        TaskController controller = new TaskController();
+
+        // act
+        OperationResult<Pair<Category, List<Task>>> noCategoryTasks = controller.getTasksByCategory(5);
+
+        // assert
+        Assertions.assertFalse(noCategoryTasks.getStatus());
+        Assertions.assertEquals(0, noCategoryTasks.getResult().getValue().size());
+    }
+
+    @Test
+    void Should_GetTasksByCategoryIdFromDatabase() {
+        // arrange
+        List<String> queries = new ArrayList<>() {
+            {
+                add(getFormattedInsertQuery("categories", new ArrayList<>() {{
+                    add("name");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("work");
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("categories", new ArrayList<>() {{
+                    add("name");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("personal");
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create diagrams");
+                    add(true);
+                    add("do relation diagrams for all classes");
+                    add(1);
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create scripts");
+                    add(true);
+                    add("do some python scripts to help");
+                    add(1);
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("create documentation");
+                    add(false);
+                    add("do documentation for necessary methods");
+                    add(1);
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+                add(getFormattedInsertQuery("tasks", new ArrayList<>() {{
+                    add("name");
+                    add("is_done");
+                    add("description");
+                    add("category_id");
+                    add("updated_at");
+                    add("created_at");
+                }}, new ArrayList<>() {{
+                    add("take sandy for a walk");
+                    add(false);
+                    add("need to take sandy for a walk in the park for happiness");
+                    add(2);
+                    add(new Date().getTime());
+                    add(new Date().getTime());
+                }}));
+            }
+        };
+        insertMockData(queries);
+
+        TaskController controller = new TaskController();
+
+        // act
+        OperationResult<Pair<Category, List<Task>>> workTasks = controller.getTasksByCategory(1);
+        OperationResult<Pair<Category, List<Task>>> personalTasks = controller.getTasksByCategory(2);
+
+        // assert
+        Assertions.assertTrue(workTasks.getStatus());
+        Assertions.assertEquals(3, workTasks.getResult().getValue().size());
+
+        Assertions.assertTrue(personalTasks.getStatus());
+        Assertions.assertEquals(1, personalTasks.getResult().getValue().size());
     }
 
     @Test
