@@ -1,8 +1,9 @@
 package personal.zaytiri.taskerlyze.app.api.domain;
 
 import jakarta.inject.Inject;
+import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
+import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
-import personal.zaytiri.taskerlyze.app.dependencyinjection.DaggerAppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITaskRepository;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
@@ -13,11 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Task {
-    private final ITaskRepository repository;
-    private final TaskMapper mapper;
-    private int id;
-    private String name;
+public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements IStorageOperations<Task> {
     private String description;
     private boolean done;
 
@@ -27,6 +24,9 @@ public class Task {
         this.mapper = new TaskMapper();
 
         this.done = false;
+    }
+
+    public Task() {
     }
 
     public boolean createOrUpdate() {
@@ -56,12 +56,6 @@ public class Task {
         return !response.getResult().isEmpty();
     }
 
-    public List<Task> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
-        Response response = repository.read(filters, orderByColumn);
-
-        return mapper.toEntity(response.getResult());
-    }
-
     public Task get() {
         Map<String, Pair<String, Object>> filters = new HashMap<>();
         filters.put("id", new Pair<>("=", this.id));
@@ -74,6 +68,17 @@ public class Task {
         return results.get(0);
     }
 
+    public List<Task> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
+        Response response = repository.read(filters, orderByColumn);
+
+        return mapper.toEntity(response.getResult(), false);
+    }
+
+    }
+
+        return this;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -83,30 +88,6 @@ public class Task {
         return this;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public Task setId(int id) {
-        this.id = id;
-        return this;
-    }
-
-    public static Task getInstance() {
-        AppComponent component = DaggerAppComponent.create();
-
-        return component.getTask();
-//        return null;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Task setName(String name) {
-        this.name = name;
-        return this;
-    }
 
     public boolean isDone(boolean getFromDb) {
         if (!getFromDb) {
@@ -123,6 +104,16 @@ public class Task {
         this.done = done;
     }
 
+    public Task setId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public Task setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public boolean setTaskStatus(boolean done) {
         List<Pair<String, Object>> sets = new ArrayList<>();
 
@@ -136,5 +127,10 @@ public class Task {
 
     public boolean setTaskStatus() {
         return setTaskStatus(!isDone(true));
+    }
+
+    @Override
+    protected Task getInjectedComponent(AppComponent component) {
+        return component.getTask();
     }
 }
