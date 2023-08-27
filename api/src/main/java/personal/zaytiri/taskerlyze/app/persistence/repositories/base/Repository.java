@@ -1,7 +1,7 @@
 package personal.zaytiri.taskerlyze.app.persistence.repositories.base;
 
 import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
-import personal.zaytiri.taskerlyze.app.persistence.mappers.base.Mapper;
+import personal.zaytiri.taskerlyze.app.persistence.mappers.base.IMapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.IRepository;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Repository<GEntity, GModel extends Model, GMapper extends Mapper<GEntity, GModel>> implements IRepository<GEntity> {
+public abstract class Repository<GEntity, GModel extends Model, GMapper extends IMapper<GEntity, GModel>> implements IRepository<GEntity> {
 
     protected final GMapper mapper;
     protected GModel model;
