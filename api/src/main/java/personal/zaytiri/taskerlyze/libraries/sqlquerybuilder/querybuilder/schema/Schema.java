@@ -49,6 +49,8 @@ public class Schema {
         if (ts instanceof JSONArray) {
             for (Object t : (JSONArray) ts) {
                 populateSchema(table, tables, columns, (JSONObject) t);
+                table = new Table();
+                columns = new ArrayList<>();
             }
         } else if (ts instanceof JSONObject) {
             populateSchema(table, tables, columns, (JSONObject) ts);
@@ -94,9 +96,9 @@ public class Schema {
             column.setType(((JSONObject) c).getString("type"));
 
             Object defaultValue = ((JSONObject) c).get("default");
-            if(defaultValue instanceof String){
+            if (defaultValue instanceof String) {
                 column.setDefaultValue(((JSONObject) c).getString("default"));
-            }else if(defaultValue instanceof Integer){
+            } else if (defaultValue instanceof Integer) {
                 column.setDefaultValue(((JSONObject) c).getInt("default"));
             }
 
@@ -107,7 +109,5 @@ public class Schema {
         }
         table.setColumns(columns);
         tables.add(table);
-        table = new Table();
-        columns = new ArrayList<>();
     }
 }
