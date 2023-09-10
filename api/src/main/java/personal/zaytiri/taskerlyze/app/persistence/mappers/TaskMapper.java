@@ -25,6 +25,10 @@ public class TaskMapper extends Mapper<Task, TaskModel> {
             task.setDescription(getRowStringValue(row, mixedResult, "description"));
             task.setCategoryId(getRowIntValue(row, mixedResult, "category_id"));
             task.setDone(getRowBooleanValue(row, mixedResult, "is_done"));
+            task.setCompletedAt(getRowDateValue(row, mixedResult, "completed_at"));
+            task.setAchieved(getRowStringValue(row, mixedResult, "achieved"));
+            task.setPriority(getRowIntValue(row, mixedResult, "priority"));
+            task.setUrl(getRowStringValue(row, mixedResult, "url"));
 
             tasks.add(task);
         }
@@ -42,6 +46,10 @@ public class TaskMapper extends Mapper<Task, TaskModel> {
         entity.setDescription(model.getDescription());
         entity.setCategoryId(model.getCategoryId());
         entity.setDone(model.isDone());
+        entity.setCompletedAt(model.getCompletedAt());
+        entity.setAchieved(model.getAchieved());
+        entity.setPriority(model.getPriority());
+        entity.setUrl(model.getUrl());
 
         return entity;
     }
@@ -57,6 +65,11 @@ public class TaskMapper extends Mapper<Task, TaskModel> {
         model.setDescription(entity.getDescription());
         model.setCategoryId(entity.getCategoryId());
         model.setDone(entity.isDone(false));
+        model.setCompletedAt(entity.getCompletedAt());
+        model.setAchieved(entity.getAchieved());
+        model.setPriority(entity.getPriority());
+        model.setUrl(entity.getUrl());
+
         return model;
     }
 }

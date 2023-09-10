@@ -10,15 +10,16 @@ import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITask
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements IStorageOperations<Task> {
     private String description;
     private boolean done;
     private int categoryId;
+    private Date completedAt;
+    private String achieved;
+    private String url;
+    private int priority;
 
     @Inject
     public Task(ITaskRepository repository) {
@@ -76,6 +77,14 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return mapper.toEntity(response.getResult(), false);
     }
 
+    public String getAchieved() {
+        return achieved;
+    }
+
+    public void setAchieved(String achieved) {
+        this.achieved = achieved;
+    }
+
     public int getCategoryId() {
         return categoryId;
     }
@@ -85,6 +94,14 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return this;
     }
 
+    public Date getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setCompletedAt(Date completedAt) {
+        this.completedAt = completedAt;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -92,6 +109,14 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
     public Task setDescription(String description) {
         this.description = description;
         return this;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public Pair<Category, List<Task>> getTasksByCategory() {
@@ -108,6 +133,14 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         result.setValue(mapper.toEntity(response.getResult(), true));
 
         return result;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public boolean isDone(boolean getFromDb) {

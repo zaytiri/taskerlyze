@@ -31,7 +31,7 @@ public class CreateTableQueryBuilder extends QueryBuilder {
             query.append(col.getName()).append(" ");
             query.append(col.getType());
 
-            if (col.getDefaultValue(String.class) == null) {
+            if (col.getDefaultValue(String.class) != null) {
                 appendKeyword(Operators.NOT_NULL.value);
             }
 

@@ -28,6 +28,30 @@
             <isprimarykey>false</isprimarykey>
         </column>
         <column>
+            <name>completed_at</name>
+            <type>numeric</type>
+            <default>null</default>
+            <isprimarykey>false</isprimarykey>
+        </column>
+        <column>
+            <name>priority</name>
+            <type>integer</type>
+            <default>1</default>
+            <isprimarykey>false</isprimarykey>
+        </column>
+        <column>
+            <name>achieved</name>
+            <type>text</type>
+            <default>null</default>
+            <isprimarykey>false</isprimarykey>
+        </column>
+        <column>
+            <name>url</name>
+            <type>text</type>
+            <default>null</default>
+            <isprimarykey>false</isprimarykey>
+        </column>
+        <column>
             <name>category_id</name>
             <type>integer</type>
             <default>1</default>
