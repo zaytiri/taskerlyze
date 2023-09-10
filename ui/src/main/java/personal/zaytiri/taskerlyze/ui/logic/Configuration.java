@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui;
+package personal.zaytiri.taskerlyze.ui.logic;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -32,7 +32,7 @@ public class Configuration {
     public static Pair<Double, Double> getStageSize(){
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         double height = screenSize.getHeight() - 25;
-        double width = 450;
+        double width = 520;
         return new Pair<>(height, width);
     }
 

@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import personal.zaytiri.taskerlyze.ui.Configuration;
+import personal.zaytiri.taskerlyze.ui.logic.Configuration;
 import personal.zaytiri.taskerlyze.ui.controllers.MainController;
 
 import java.io.IOException;
