@@ -1,9 +1,0 @@
-#menu-view {
-    -fx-alignment: center;
-    -fx-background-color: #0E6367;
-    -fx-background-radius: 50px 50px 0 0;
-}
-
-.button {
-    -fx-background-color: transparent;
-}

@@ -14,6 +14,15 @@
     src: url('../fonts/Prompt/Prompt-SemiBold.ttf');
 }
 
+#new-task-button {
+    -fx-font-family: "Prompt";
+    -fx-font-size: 12px;
+    -fx-effect:  dropshadow(one-pass-box , rgba(184, 184, 184, 0.5), 10, 0.1, -2, 2);
+    -fx-background-radius: 7px;
+    -fx-background-color: #B8B8B8;
+    -fx-text-fill: #0E131F;
+    -fx-alignment: center;
+}
 
 /* Tab Pane style */
 .tab-header-background {
@@ -21,10 +30,8 @@
 }
 
 .tab-pane {
-    -fx-tab-min-width: 90px;
-    -fx-tab-min-height: 30px;
-    -fx-effect:  dropshadow(one-pass-box , rgba(0,0,0,0.5), 10, 0.1, -2, 2);
-    -fx-padding: 10px 0 20px 0;
+    -fx-effect:  dropshadow(one-pass-box , rgba(9, 55, 58, 0.5), 10, 0.1, -2, 2);
+    -fx-padding: 10px 0 20px 20px;
 }
 
 .tab-label {
@@ -33,15 +40,13 @@
 }
 
 .tab {
-    -fx-background-radius: 50px;
+    -fx-background-radius: 25px;
     -fx-background-color: #B8B8B8;
     -fx-text-fill: #0E131F;
     -fx-alignment: center;
 
     /*** the following code is equivalent to setting margin in a component */
-    -fx-padding: 0 10px 0 0;
-    -fx-border-insets: 0 10px 0 0;
-    -fx-background-insets: 0 10px 0 0;
+    -fx-padding: 5px 5px 5px 5px;
 }
 
 .tab:selected {
@@ -68,12 +73,16 @@
 }
 
 /* Accordion TitlePane Style */
-.accordion > .titled-pane > .title {
-    -fx-background-color: #B8B8B8;
+#tasks-accordion {
+    /* -fx-padding: 0 0 0 -20px; */
+}
+
+#tasks-accordion > .titled-pane > .title {
+    -fx-background-color: #0E6367;
     
-    -fx-padding: 30px 30px 15px 50px;
-    -fx-border-insets: 15px 30px 0 30px;
-    -fx-background-insets: 15px 30px 0 30px;
+    -fx-padding: 15px 30px 15px 25px;
+    -fx-border-insets: 10px 30px 10px 30px;
+    -fx-background-insets: 10px 30px 10px 30px;
 }
 
 #task-name {
@@ -82,54 +91,49 @@
     -fx-pref-width: 280px;
     -fx-wrap-text: true;
     -fx-text-alignment: justify;
-    -fx-text-fill: #0E131F;
+    -fx-text-fill: #F5E3E0;
+    -fx-padding: 0 0 0 10px;
 }
 
 .accordion > .titled-pane:expanded > .title #task-name {
     -fx-font-family: "Prompt Bold";
 }
 
-#task-border-pane {
-    -fx-pref-width: 340px;
-}
-
 #task-open-top-style {
-    -fx-background-color: #094549;
+    -fx-background-color: #09373a;
     -fx-pref-width: 15px;
-
-    -fx-background-radius: 15px 0 0 15px;
     
-    -fx-padding: -16px 10px -16px -21px;
-    -fx-border-insets: -16px 10px -16px -21px;
-    -fx-background-insets: -16px 10px -16px -21px;
+    -fx-padding: -5px 15px -5px 0;
+    -fx-border-insets: -5px 0 -5px 0;
+    -fx-background-insets: -5px 0 -5px 0;
 }
 
-.accordion > .titled-pane:collapsed > .title #task-open-top-style {
-    -fx-background-radius: 15px 0 0 15px;
+#tasks-accordion > .titled-pane:collapsed > .title #task-open-top-style {
+    -fx-background-radius: 7px 0 0 7px;
 }
 
-.accordion > .titled-pane:expanded > .title #task-open-top-style {
-    -fx-background-radius: 15px 0 0 0;
+#tasks-accordion > .titled-pane:expanded > .title #task-open-top-style {
+    -fx-background-radius: 7px 0 0 0;
 }
 
 .titled-pane > *.content {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 
-    -fx-background-radius: 0 0 15px 15px;
+    -fx-background-radius: 0 0 7px 7px;
     
     -fx-padding: 0;
     -fx-border-insets: 0 30px 0 30px;
     -fx-background-insets: 0 30px 0 30px;
 }
 
-.accordion > .titled-pane:collapsed > .title {
-    -fx-background-radius: 15px 15px 15px 15px;
+#tasks-accordion > .titled-pane:collapsed > .title {
+    -fx-background-radius: 7px 7px 7px 7px;
 }
 
-.accordion > .titled-pane:expanded > .title {
+#tasks-accordion > .titled-pane:expanded > .title {
     -fx-font-family: "Prompt";
-    -fx-background-radius: 15px 15px 0 0;
+    -fx-background-radius: 7px 7px 0 0;
 }
 
 /*** remove arrow */
@@ -153,26 +157,29 @@
 }
 
 /*** Sub-task specific style */
-#sub-tasks-border-pane {
-    -fx-pref-width: 270px;
-}
 
 #sub-tasks-name {
     -fx-font-size: 12px;
-    -fx-pref-width: 220px;
+    -fx-pref-width: 270px;
     -fx-font-family: "Prompt";
-    -fx-text-fill: #0E131F;
+    -fx-text-fill: #F5E3E0;
 }
 
 #sub-tasks-accordion > .titled-pane > .title {
-    -fx-background-color: #8F8F8F;
+    -fx-background-color: #73ADB0;
+    -fx-background-radius: 7px;
+    -fx-padding: 10px 10px 10px 10px;
+}
+
+#sub-tasks-accordion > .titled-pane {
+    -fx-padding: 10px 0 10px 0;
 }
 
 /*** Details specific style */
 #details-content {
     -fx-alignment: center;
     -fx-background-color: #73ADB0;
-    -fx-background-radius: 10px 10px 10px 10px;
+    -fx-background-radius: 7px 7px 7px 7px;
 
     -fx-padding: 5px 25px 5px 25px;
     -fx-border-insets: 5px 18px 0 18px;
@@ -193,7 +200,7 @@
 
     -fx-alignment: center;
     -fx-background-color: #8F8F8F;
-    -fx-background-radius: 10px 10px 10px 10px;
+    -fx-background-radius: 7px 7px 7px 7px;
 
     -fx-padding: 30px 20px 30px 20px;
     -fx-border-insets: 20px 10px 20px 10px;
@@ -206,32 +213,31 @@
 
 /*** Task bottom menu */
 #task-bottom-pane {
-    -fx-background-color: #B8B8B8;
-    -fx-pref-height: 30px;
-    -fx-background-radius: 0 0 15px 15px;
+    -fx-background-color: #0E6367;
+    -fx-background-radius: 0 0 7px 7px;
 
-    -fx-padding: 10px -10px -10px -10px;
-    -fx-border-insets: 10px -10px -10px -10px;
-    -fx-background-insets: 10px -10px -10px -10px;
+    -fx-padding: 10px 0 0 0;
+    -fx-border-insets: 10px 0 0 0;
+    -fx-background-insets: 10px -10px 0 -20px;
 
     -fx-alignment: center;
 }
 
 #swap-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #0E131F;
+    -fx-text-fill: #B8B8B8;
     -fx-font-family: "Prompt SemiBold";
 }
 
 #task-open-bottom-style {
-    -fx-background-color: #094549;
+    -fx-background-color: #09373a;
     -fx-pref-width: 7px;
 
-    -fx-background-radius: 0 0 0 15px;
+    -fx-background-radius: 0 0 0 7px;
     
-    -fx-padding: 9px -10px -11px -10px;
-    -fx-border-insets: 9px -10px -11px -10px;
-    -fx-background-insets: 9px -10px -11px -10px;
+    -fx-padding: 10px 8px -1px -15px;
+    -fx-border-insets: 10px 8px -1px -15px;
+    -fx-background-insets: 10px 8px -1px -15px;
 }
 
 /* Checkbox Style for tasks and sub-tasks*/
@@ -241,7 +247,7 @@
 }
 
 .check-box .box {
-    -fx-background-color:  #333333;
+    -fx-background-color:  #B8B8B8;
     -fx-background-radius: 7px;
     -fx-padding: 4px;
 }
@@ -256,5 +262,5 @@
 }
 
 .check-box:selected .box {
-    -fx-background-color: rgba(14, 99, 103, 1);
+    -fx-background-color: #094549;
 }
