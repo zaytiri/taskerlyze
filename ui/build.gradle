@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'personal.zaytiri.taskerlyze.ui'
-    mainClass = 'personal.zaytiri.taskerlyze.ui.HelloApplication'
+    mainClass = 'personal.zaytiri.taskerlyze.ui.views.Main'
 }
 
 javafx {
