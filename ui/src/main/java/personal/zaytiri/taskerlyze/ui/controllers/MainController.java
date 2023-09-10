@@ -39,6 +39,11 @@ public class MainController {
 
     public void createMainScene() {
         mainTabPane.getStylesheets().add("css/tasks-tab-view.css");
+
+        CalendarView calView = new CalendarView();
+        calView.populateCalendar(vboxYear, labelMonth, hboxDaysOfTheWeek);
+
+
     }
 
     private void loadData(){
