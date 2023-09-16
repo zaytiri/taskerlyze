@@ -115,8 +115,9 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public Task setPriority(int priority) {
         this.priority = priority;
+        return this;
     }
 
     public Pair<Category, List<Task>> getTasksByCategory() {
@@ -139,8 +140,9 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return url;
     }
 
-    public void setUrl(String url) {
+    public Task setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     public boolean isDone(boolean getFromDb) {
