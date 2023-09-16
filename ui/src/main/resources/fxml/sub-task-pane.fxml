@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml" type="javafx.scene.control.TitledPane"
+         xmlns="http://javafx.com/javafx"
+         collapsible="false">
+    <graphic>
+        <AnchorPane
+                prefWidth="340.0">
+            <BorderPane
+                    id="sub-tasks-border-pane"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+                <right>
+                    <CheckBox
+                            fx:id="checkBox"
+                            alignment="CENTER_RIGHT"
+                            mnemonicParsing="false"
+                            nodeOrientation="LEFT_TO_RIGHT"
+                            prefHeight="26.0"
+                            prefWidth="7.0"
+                            BorderPane.alignment="CENTER"/>
+                </right>
+                <left>
+                    <Label id="sub-tasks-name"
+                           fx:id="subTask"
+                           textAlignment="JUSTIFY"
+                           wrapText="true"
+                           BorderPane.alignment="CENTER"/>
+                </left>
+            </BorderPane>
+        </AnchorPane>
+    </graphic>
+</fx:root>
