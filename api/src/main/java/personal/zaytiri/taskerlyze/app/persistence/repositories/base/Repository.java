@@ -59,6 +59,10 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
 
         query = query.select().from(model.getTable());
 
+        if (filters == null) {
+            filters = new HashMap<>();
+        }
+
         boolean operator = false;
         for (Map.Entry<String, Pair<String, Object>> entry : filters.entrySet()) {
             if (operator) {
