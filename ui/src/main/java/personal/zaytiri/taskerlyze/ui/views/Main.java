@@ -6,12 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import personal.zaytiri.taskerlyze.ui.logic.Configuration;
 import personal.zaytiri.taskerlyze.ui.controllers.MainController;
+import personal.zaytiri.taskerlyze.ui.logic.Configuration;
 
 import java.io.IOException;
 
 public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch();
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,11 +31,7 @@ public class Main extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
-
-    private Scene configureMainScene(Parent root, Stage stage){
+    private Scene configureMainScene(Parent root, Stage stage) {
 
         Pair<Double, Double> size = Configuration.getStageSize();
         Scene scene = new Scene(root, size.getValue(), size.getKey());
