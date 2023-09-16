@@ -173,10 +173,19 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
     public boolean setTaskStatus(boolean done) {
         List<Pair<String, Object>> sets = new ArrayList<>();
 
+        Date today = null;
         sets.add(new Pair<>("is_done", done));
 
+        if (done) {
+            today = new Date();
+        }
+        sets.add(new Pair<>("completed_at", today));
+
         Response response = repository.update(this, sets);
-        this.done = done;
+        if (response.isSuccess()) {
+            this.done = done;
+            this.completedAt = today;
+        }
 
         return response.isSuccess();
     }
