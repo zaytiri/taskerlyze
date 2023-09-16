@@ -1,371 +1,267 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personal.zaytiri.taskerlyze.ui.controllers.MainController">
-   <children>
-      <BorderPane id="main-border-pane" fx:id="mainBorderPane" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <BorderPane id="main-border-pane" stylesheets="@../css/main.css" BorderPane.alignment="CENTER">
-               <top>
-                  <BorderPane id="cal-background" prefHeight="172.0" prefWidth="446.0" stylesheets="@../css/calendar-top-view.css" BorderPane.alignment="CENTER">
-                     <top>
-                        <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" prefHeight="55.0" prefWidth="241.0" text="August," textFill="#434040">
-                           <font>
-                              <Font name="Calibri Bold" size="1.0" />
-                           </font>
-                        </Label>
-                     </top>
-                     <center>
-                        <HBox fx:id="hboxDaysOfTheWeek" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
-                           <children>
-                              <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="MON" textAlignment="CENTER" textFill="#434040" wrapText="true">
-                                 <graphic>
-                                    <Label id="cal-day" text="1" textFill="#434040">
-                                       <font>
-                                          <Font name="Calibri Bold" size="25.0" />
-                                       </font>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import personal.zaytiri.taskerlyze.ui.components.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="668.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/20.0.1"
+            fx:controller="personal.zaytiri.taskerlyze.ui.controllers.MainController">
+    <BorderPane id="main-border-pane" fx:id="mainBorderPane" stylesheets="@../css/main.css"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+        <center>
+            <BorderPane id="main-border-pane" BorderPane.alignment="CENTER">
+                <top>
+                    <BorderPane id="cal-background" prefHeight="172.0" prefWidth="446.0"
+                                stylesheets="@../css/calendar-top-view.css" BorderPane.alignment="CENTER">
+                        <top>
+                            <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" prefHeight="55.0"
+                                   prefWidth="241.0" text="August," textFill="#434040">
+                                <font>
+                                    <Font name="Calibri Bold" size="1.0"/>
+                                </font>
+                            </Label>
+                        </top>
+                        <center>
+                            <HBox fx:id="hboxDaysOfTheWeek" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+                                <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
+                                              mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="MON"
+                                              textAlignment="CENTER" textFill="#434040" wrapText="true">
+                                    <graphic>
+                                        <DayLabel id="cal-day" month="1"/>
+                                    </graphic>
+                                    <font>
+                                        <Font name="Calibri Bold" size="10.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                    </HBox.margin>
+                                </ToggleButton>
+                                <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
+                                              mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="TUE"
+                                              textAlignment="CENTER" textFill="#434040" wrapText="true">
+                                    <graphic>
+                                        <DayLabel id="cal-day" month="1"/>
+                                    </graphic>
+                                    <font>
+                                        <Font name="Calibri Bold" size="10.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                    </HBox.margin>
+                                </ToggleButton>
+                                <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
+                                              mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="WED"
+                                              textAlignment="CENTER" textFill="#434040" wrapText="true">
+                                    <graphic>
+                                        <DayLabel id="cal-day" month="1"/>
+                                    </graphic>
+                                    <font>
+                                        <Font name="Calibri Bold" size="10.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                    </HBox.margin>
+                                </ToggleButton>
+                                <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
+                                              mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="THU"
+                                              textAlignment="CENTER" textFill="#434040" wrapText="true">
+                                    <graphic>
+                                        <DayLabel id="cal-day" month="1"/>
+                                    </graphic>
+                                    <font>
+                                        <Font name="Calibri Bold" size="10.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                    </HBox.margin>
+                                </ToggleButton>
+                                <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
+                                              mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="FRI"
+                                              textAlignment="CENTER" textFill="#434040" wrapText="true">
+                                    <graphic>
+                                        <DayLabel id="cal-day" month="1"/>
+                                    </graphic>
+                                    <font>
+                                        <Font name="Calibri Bold" size="10.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                    </HBox.margin>
+                                </ToggleButton>
+                                <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
+                                              mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SAT"
+                                              textAlignment="CENTER" textFill="#434040" wrapText="true">
+                                    <graphic>
+                                        <DayLabel id="cal-day" month="1"/>
+                                    </graphic>
+                                    <font>
+                                        <Font name="Calibri Bold" size="10.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                    </HBox.margin>
+                                </ToggleButton>
+                                <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
+                                              mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SUN"
+                                              textAlignment="CENTER" textFill="#434040" wrapText="true">
+                                    <graphic>
+                                        <DayLabel id="cal-day" month="1"/>
+                                    </graphic>
+                                    <font>
+                                        <Font name="Calibri Bold" size="10.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                    </HBox.margin>
+                                </ToggleButton>
+                            </HBox>
+                        </center>
+                        <left>
+                            <VBox fx:id="vboxYear" alignment="CENTER_RIGHT" fillWidth="false"
+                                  nodeOrientation="LEFT_TO_RIGHT" prefHeight="126.0" prefWidth="66.0"
+                                  BorderPane.alignment="CENTER_RIGHT">
+                                <children>
+                                    <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2"
+                                           textAlignment="RIGHT" textFill="#434040">
+                                        <font>
+                                            <Font name="Calibri Bold" size="1.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets right="10.0" top="5.0"/>
+                                        </padding>
+                                        <VBox.margin>
+                                            <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                                        </VBox.margin>
                                     </Label>
-                                 </graphic>
-                                 <font>
-                                    <Font name="Calibri Bold" size="10.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="30.0" left="10.0" top="25.0" />
-                                 </HBox.margin>
-                              </ToggleButton>
-                              <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="TUE" textAlignment="CENTER" textFill="#434040" wrapText="true">
-                                 <graphic>
-                                    <Label id="cal-day" text="2" textFill="#434040">
-                                       <font>
-                                          <Font name="Calibri Bold" size="25.0" />
-                                       </font>
+                                    <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="0"
+                                           textAlignment="RIGHT" textFill="#434040">
+                                        <font>
+                                            <Font name="Calibri Bold" size="1.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets right="10.0"/>
+                                        </padding>
+                                        <VBox.margin>
+                                            <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                                        </VBox.margin>
                                     </Label>
-                                 </graphic>
-                                 <font>
-                                    <Font name="Calibri Bold" size="10.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="30.0" left="10.0" top="25.0" />
-                                 </HBox.margin>
-                              </ToggleButton>
-                              <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="WED" textAlignment="CENTER" textFill="#434040" wrapText="true">
-                                 <graphic>
-                                    <Label id="cal-day" text="3" textFill="#434040">
-                                       <font>
-                                          <Font name="Calibri Bold" size="25.0" />
-                                       </font>
+                                    <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2"
+                                           textAlignment="RIGHT" textFill="#434040">
+                                        <font>
+                                            <Font name="Calibri Bold" size="1.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets right="10.0"/>
+                                        </padding>
+                                        <VBox.margin>
+                                            <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                                        </VBox.margin>
                                     </Label>
-                                 </graphic>
-                                 <font>
-                                    <Font name="Calibri Bold" size="10.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="30.0" left="10.0" top="25.0" />
-                                 </HBox.margin>
-                              </ToggleButton>
-                              <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="THU" textAlignment="CENTER" textFill="#434040" wrapText="true">
-                                 <graphic>
-                                    <Label id="cal-day" text="4" textFill="#434040">
-                                       <font>
-                                          <Font name="Calibri Bold" size="25.0" />
-                                       </font>
+                                    <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="3"
+                                           textAlignment="RIGHT" textFill="#434040">
+                                        <font>
+                                            <Font name="Calibri Bold" size="1.0"/>
+                                        </font>
+                                        <padding>
+                                            <Insets right="10.0"/>
+                                        </padding>
+                                        <VBox.margin>
+                                            <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                                        </VBox.margin>
                                     </Label>
-                                 </graphic>
-                                 <font>
-                                    <Font name="Calibri Bold" size="10.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="30.0" left="10.0" top="25.0" />
-                                 </HBox.margin>
-                              </ToggleButton>
-                              <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="FRI" textAlignment="CENTER" textFill="#434040" wrapText="true">
-                                 <graphic>
-                                    <Label id="cal-day" text="5" textFill="#434040">
-                                       <font>
-                                          <Font name="Calibri Bold" size="25.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <font>
-                                    <Font name="Calibri Bold" size="10.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="30.0" left="10.0" top="25.0" />
-                                 </HBox.margin>
-                              </ToggleButton>
-                              <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SAT" textAlignment="CENTER" textFill="#434040" wrapText="true">
-                                 <graphic>
-                                    <Label id="cal-day" text="6" textFill="#434040">
-                                       <font>
-                                          <Font name="Calibri Bold" size="25.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <font>
-                                    <Font name="Calibri Bold" size="10.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="30.0" left="10.0" top="25.0" />
-                                 </HBox.margin>
-                              </ToggleButton>
-                              <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SUN" textAlignment="CENTER" textFill="#434040" wrapText="true">
-                                 <graphic>
-                                    <Label id="cal-day" text="7" textFill="#434040">
-                                       <font>
-                                          <Font name="Calibri Bold" size="25.0" />
-                                       </font>
-                                    </Label>
-                                 </graphic>
-                                 <font>
-                                    <Font name="Calibri Bold" size="10.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="30.0" left="10.0" top="25.0" />
-                                 </HBox.margin>
-                              </ToggleButton>
-                           </children>
-                        </HBox>
-                     </center>
-                     <left>
-                        <VBox fx:id="vboxYear" alignment="CENTER_RIGHT" fillWidth="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="126.0" prefWidth="66.0" BorderPane.alignment="CENTER_RIGHT">
-                           <children>
-                              <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2" textAlignment="RIGHT" textFill="#434040">
-                                 <font>
-                                    <Font name="Calibri Bold" size="1.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets right="10.0" top="5.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets bottom="-5.0" right="5.0" top="-5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="0" textAlignment="RIGHT" textFill="#434040">
-                                 <font>
-                                    <Font name="Calibri Bold" size="1.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets bottom="-5.0" right="5.0" top="-5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2" textAlignment="RIGHT" textFill="#434040">
-                                 <font>
-                                    <Font name="Calibri Bold" size="1.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets bottom="-5.0" right="5.0" top="-5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="3" textAlignment="RIGHT" textFill="#434040">
-                                 <font>
-                                    <Font name="Calibri Bold" size="1.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets bottom="-5.0" right="5.0" top="-5.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </left>
-                  </BorderPane>
-               </top>
-               <center>
-                  <AnchorPane BorderPane.alignment="CENTER">
-                     <children>
-                        <TabPane fx:id="mainTabPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/tasks-tab-view.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <!-- comment from here -->
-                           <tabs>
-                            <Tab>
-                              <content>
-                                <AnchorPane prefWidth="427.0">
-                                       <children>
-                                          <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <content>
-                                                <AnchorPane>
-                                                   <children>
-                                                      <Accordion id="tasks-accordion">
-                                                        <panes>
-                                                          <TitledPane contentDisplay="RIGHT" expanded="false" textAlignment="JUSTIFY">
-                                                            <content>
-                                                              <AnchorPane>
-                                                                     <children>
-                                                                        <BorderPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                           <bottom>
-                                                                              <BorderPane BorderPane.alignment="CENTER">
-                                                                                 <center>
-                                                                                    <HBox id="task-bottom-pane" fillHeight="false" BorderPane.alignment="CENTER">
-                                                                                       <children>
-                                                                                          <Button id="swap-button" alignment="CENTER" mnemonicParsing="false" text="See Sub-Tasks">
-                                                                                             <graphic>
-                                                                                                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                                                                                   <image>
-                                                                                                      <Image url="@../icons/swap.png" />
-                                                                                                   </image>
-                                                                                                </ImageView>
-                                                                                             </graphic>
-                                                                                          </Button>
-                                                                                       </children>
-                                                                                    </HBox>
-                                                                                 </center>
-                                                                                 <left>
-                                                                                    <VBox id="task-open-bottom-style" BorderPane.alignment="CENTER" />
-                                                                                 </left>
-                                                                              </BorderPane>
-                                                                           </bottom>
-                                                                           <center>
-                                                                              <Accordion id="sub-tasks-accordion" BorderPane.alignment="CENTER">
-                                                                                <panes>
-                                                                                  <TitledPane animated="false">
-                                                                                       <graphic>
-                                                                                          <AnchorPane prefWidth="340.0">
-                                                                                             <children>
-                                                                                                <BorderPane id="sub-tasks-border-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                                                   <right>
-                                                                                                      <CheckBox alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />
-                                                                                                   </right>
-                                                                                                   <left>
-                                                                                                      <Label id="sub-tasks-name" text="a sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub taska sub task" textAlignment="JUSTIFY" wrapText="true" BorderPane.alignment="CENTER" />
-                                                                                                   </left>
-                                                                                                </BorderPane>
-                                                                                             </children>
-                                                                                          </AnchorPane>
-                                                                                       </graphic>
-                                                                                  </TitledPane>
-                                                                                </panes>
-                                                                              </Accordion>
-                                                                           </center>
-                                                                        </BorderPane>
-                                                                     </children>
-                                                                  </AnchorPane>
-                                                            </content>
-                                                               <graphic>
-                                                         </graphic>
-                                                               <graphic>
-                                                                  <AnchorPane prefWidth="360.0">
-                                                                     <children>
-                                                                        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                                           <left>
-                                                                              <VBox id="task-open-top-style" BorderPane.alignment="CENTER" />
-                                                                           </left>
-                                                                           <right>
-                                                                              <CheckBox alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />
-                                                                           </right>
-                                                                           <center>
-                                                                              <Label id="task-name" text="talk to client" BorderPane.alignment="CENTER" />
-                                                                           </center>
-                                                                        </BorderPane>
-                                                                     </children>
-                                                                  </AnchorPane>
-                                                               </graphic>
-                                                          </TitledPane>
-                                                        </panes>
-                                                      </Accordion>
-                                                   </children>
-                                                </AnchorPane>
-                                             </content>
-                                          </ScrollPane>
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../icons/plus.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children>
-                  </AnchorPane>
-               </center>
+                                </children>
+                            </VBox>
+                        </left>
+                    </BorderPane>
+                </top>
+                <center>
+                    <AnchorPane BorderPane.alignment="CENTER">
+                        <children>
+                            <TabPane fx:id="mainTabPane" prefHeight="200.0" prefWidth="200.0"
+                                     stylesheets="@../css/tasks-tab-view.css" tabClosingPolicy="UNAVAILABLE"
+                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            </TabPane>
+                        </children>
+                    </AnchorPane>
+                </center>
             </BorderPane>
-         </center>
-         <right>
-            <AnchorPane prefHeight="284.0" prefWidth="66.0" stylesheets="@../css/vertical-tab-menu.css" BorderPane.alignment="CENTER">
-               <children>
-                  <ScrollPane fitToHeight="true" hbarPolicy="NEVER" layoutX="-8.0" prefWidth="66.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane>
-                           <children>
-                              <BorderPane layoutY="55.0" prefHeight="485.0" prefWidth="105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <center>
-                                    <BorderPane BorderPane.alignment="CENTER">
-                                       <bottom>
-                                          <VBox BorderPane.alignment="CENTER">
-                                             <children>
-                                                <Button mnemonicParsing="false" text="Settings" VBox.vgrow="ALWAYS" />
-                                                <Button mnemonicParsing="false" text="Switch">
-                                                   <graphic>
-                                                      <Label contentDisplay="TOP" text="Profile" />
-                                                   </graphic>
-                                                </Button>
-                                             </children>
-                                          </VBox>
-                                       </bottom>
-                                       <center>
-                                          <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER_LEFT">
-                                             <children>
-                                                <VBox alignment="CENTER_LEFT" fillWidth="false">
-                                                   <children>
-                                                      <Button contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false" text="New" textAlignment="JUSTIFY" wrapText="true">
-                                                         <graphic>
-                                                            <Label contentDisplay="TOP" text="Task" />
-                                                         </graphic>
-                                                      </Button>
-                                                      <Button contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false" text="New" textAlignment="RIGHT">
-                                                         <graphic>
-                                                            <Label graphicTextGap="0.0" text="Sub-Task" textAlignment="JUSTIFY" textOverrun="LEADING_ELLIPSIS" />
-                                                         </graphic>
-                                                      </Button>
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
-                                       </center>
+        </center>
+        <right>
+            <AnchorPane prefHeight="284.0" prefWidth="66.0" stylesheets="@../css/vertical-tab-menu.css"
+                        BorderPane.alignment="CENTER">
+                <children>
+                    <ScrollPane fitToHeight="true" hbarPolicy="NEVER" layoutX="-8.0" prefWidth="66.0" vbarPolicy="NEVER"
+                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                AnchorPane.topAnchor="0.0">
+                        <content>
+                            <AnchorPane>
+                                <children>
+                                    <BorderPane fx:id="menuBorderPane" layoutY="55.0" prefHeight="485.0"
+                                                prefWidth="105.0" AnchorPane.bottomAnchor="0.0"
+                                                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                AnchorPane.topAnchor="0.0">
+                                        <center>
+                                            <BorderPane BorderPane.alignment="CENTER">
+                                                <bottom>
+                                                    <VBox BorderPane.alignment="CENTER">
+                                                        <children>
+                                                            <Button mnemonicParsing="false" text="Settings"
+                                                                    VBox.vgrow="ALWAYS"/>
+                                                            <Button mnemonicParsing="false" text="Switch">
+                                                                <graphic>
+                                                                    <Label contentDisplay="TOP" text="Profile"/>
+                                                                </graphic>
+                                                            </Button>
+                                                        </children>
+                                                    </VBox>
+                                                </bottom>
+                                                <center>
+                                                    <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER_LEFT">
+                                                        <children>
+                                                            <VBox alignment="CENTER_LEFT" fillWidth="false">
+                                                                <children>
+                                                                    <Button contentDisplay="BOTTOM" graphicTextGap="0.0"
+                                                                            mnemonicParsing="false" text="New"
+                                                                            textAlignment="JUSTIFY" wrapText="true">
+                                                                        <graphic>
+                                                                            <Label contentDisplay="TOP" text="Task"/>
+                                                                        </graphic>
+                                                                    </Button>
+                                                                    <Button contentDisplay="BOTTOM" graphicTextGap="0.0"
+                                                                            mnemonicParsing="false" text="New"
+                                                                            textAlignment="RIGHT">
+                                                                        <graphic>
+                                                                            <Label graphicTextGap="0.0" text="Sub-Task"
+                                                                                   textAlignment="JUSTIFY"
+                                                                                   textOverrun="LEADING_ELLIPSIS"/>
+                                                                        </graphic>
+                                                                    </Button>
+                                                                </children>
+                                                            </VBox>
+                                                        </children>
+                                                    </HBox>
+                                                </center>
+                                            </BorderPane>
+                                        </center>
+                                        <top>
+                                            <HBox id="exit" BorderPane.alignment="CENTER">
+                                                <children>
+                                                    <Button mnemonicParsing="false" text="Exit"/>
+                                                </children>
+                                            </HBox>
+                                        </top>
                                     </BorderPane>
-                                 </center>
-                                 <top>
-                                    <HBox id="exit" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Button mnemonicParsing="false" text="Exit" />
-                                       </children></HBox>
-                                 </top>
-                              </BorderPane>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
-               </children>
+                                </children>
+                            </AnchorPane>
+                        </content>
+                    </ScrollPane>
+                </children>
             </AnchorPane>
-         </right>
-      </BorderPane>
-   </children>
+        </right>
+    </BorderPane>
 </AnchorPane>
