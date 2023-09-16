@@ -25,7 +25,7 @@ public class DbConnection {
             return;
         }
 
-        path = getDbConnectionPath() + "database\\" + schema.getName() + ".db";
+        path = getDbConnectionPath() + schema.getName() + ".db";
         createDatabase();
     }
 

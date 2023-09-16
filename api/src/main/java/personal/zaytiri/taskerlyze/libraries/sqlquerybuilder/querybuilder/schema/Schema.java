@@ -3,7 +3,6 @@ package personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schem
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
-import personal.zaytiri.taskerlyze.app.presentation.Main;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -63,9 +62,12 @@ public class Schema {
     }
 
     private static String convertXmlFileToString(String fileName) throws FileNotFoundException {
-        InputStream xmlFile = Main.class.getClassLoader().getResourceAsStream("database/" + fileName + ".xml");
-        if (xmlFile == null) {
-            throw new FileNotFoundException("");
+        InputStream xmlFile = null;
+        try {
+            String path = fileName + ".xml";
+            xmlFile = Schema.class.getClassLoader().getResource(path).openStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         InputStreamReader streamReader = new InputStreamReader(xmlFile, StandardCharsets.UTF_8);
