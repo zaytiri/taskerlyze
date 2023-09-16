@@ -45,8 +45,9 @@
     -fx-text-fill: #0E131F;
     -fx-alignment: center;
 
-    /*** the following code is equivalent to setting margin in a component */
-    -fx-padding: 5px 5px 5px 5px;
+    -fx-padding: 5px 5px 5px 10px;
+    -fx-border-insets: 0 0 0 5px;
+    -fx-background-insets: 0 0 0 5px;
 }
 
 .tab:selected {
@@ -74,21 +75,22 @@
 
 /* Accordion TitlePane Style */
 #tasks-accordion {
-    /* -fx-padding: 0 0 0 -20px; */
+    -fx-padding: 0 0 30px 0;
 }
 
 #tasks-accordion > .titled-pane > .title {
     -fx-background-color: #0E6367;
-    
-    -fx-padding: 15px 30px 15px 25px;
-    -fx-border-insets: 10px 30px 10px 30px;
-    -fx-background-insets: 10px 30px 10px 30px;
+}
+
+.accordion > .titled-pane {
+    -fx-padding: 10px;
+    -fx-pref-width: 400px;
 }
 
 #task-name {
     -fx-font-family: "Prompt";
     -fx-font-size: 15px;
-    -fx-pref-width: 280px;
+    -fx-pref-width: 300px;
     -fx-wrap-text: true;
     -fx-text-alignment: justify;
     -fx-text-fill: #F5E3E0;
@@ -104,8 +106,8 @@
     -fx-pref-width: 15px;
     
     -fx-padding: -5px 15px -5px 0;
-    -fx-border-insets: -5px 0 -5px 0;
-    -fx-background-insets: -5px 0 -5px 0;
+    -fx-border-insets: -5px 10px -5px -9px;
+    -fx-background-insets: -5px 10px -5px -9px;
 }
 
 #tasks-accordion > .titled-pane:collapsed > .title #task-open-top-style {
@@ -116,15 +118,9 @@
     -fx-background-radius: 7px 0 0 0;
 }
 
-.titled-pane > *.content {
+.accordion > .titled-pane > *.content {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-
-    -fx-background-radius: 0 0 7px 7px;
-    
-    -fx-padding: 0;
-    -fx-border-insets: 0 30px 0 30px;
-    -fx-background-insets: 0 30px 0 30px;
 }
 
 #tasks-accordion > .titled-pane:collapsed > .title {
@@ -172,7 +168,7 @@
 }
 
 #sub-tasks-accordion > .titled-pane {
-    -fx-padding: 10px 0 10px 0;
+    -fx-padding: 10px 0 5px 0;
 }
 
 /*** Details specific style */
@@ -235,15 +231,14 @@
 
     -fx-background-radius: 0 0 0 7px;
     
-    -fx-padding: 10px 8px -1px -15px;
-    -fx-border-insets: 10px 8px -1px -15px;
-    -fx-background-insets: 10px 8px -1px -15px;
+    -fx-padding: 10px 5px -1px -15px;
+    -fx-border-insets: 10px 5px -1px -15px;
+    -fx-background-insets: 10px 5px -1px -15px;
 }
 
 /* Checkbox Style for tasks and sub-tasks*/
 .check-box {
-    -fx-background-color: transparent;
-    
+    -fx-background-color: transparent;    
 }
 
 .check-box .box {
