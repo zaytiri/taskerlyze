@@ -13,7 +13,7 @@ public class Configuration {
     private Configuration() {
     }
 
-    public static void configureStage(Stage stage, Parent root){
+    public static void configureStage(Stage stage, Parent root) {
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
 
@@ -23,20 +23,20 @@ public class Configuration {
         setStageDraggable(root, stage);
     }
 
-    private static void positionStageAtRightSide(Stage stage, double width, double height){
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - width - 10);
-        stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - height - 12.5);
-    }
-
-    public static Pair<Double, Double> getStageSize(){
+    public static Pair<Double, Double> getStageSize() {
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         double height = screenSize.getHeight() - 25;
         double width = 520;
         return new Pair<>(height, width);
     }
 
-    private static void setStageDraggable(Parent root, Stage stage){
+    private static void positionStageAtRightSide(Stage stage, double width, double height) {
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - width - 10);
+        stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - height - 12.5);
+    }
+
+    private static void setStageDraggable(Parent root, Stage stage) {
         root.setOnMousePressed(pressEvent -> root.setOnMouseDragged(dragEvent -> {
             stage.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
             stage.setY(dragEvent.getScreenY() - pressEvent.getSceneY());
