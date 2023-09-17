@@ -44,14 +44,14 @@ public class MainController {
         calView.populateCalendar(LocalDate.now());
 
         CategoryView catView = new CategoryView(mainTabPane);
-        catView.populateCategoryView();
         catView.setPrimaryStage(primaryStage);
+        catView.populateCategoryView();
 
         TasksView tasksView = new TasksView(catView, calView);
         tasksView.populateTasksView();
 
         MenuView menu = new MenuView(tasksView, calView);
-        menu.setButtonsSetOnAction(menuBorderPane);
         menu.setPrimaryStage(primaryStage);
+        menu.setButtonsSetOnAction(menuBorderPane);
     }
 }
