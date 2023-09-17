@@ -1,6 +1,7 @@
 package personal.zaytiri.taskerlyze.ui.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -11,6 +12,8 @@ import personal.zaytiri.taskerlyze.ui.views.CalendarView;
 import personal.zaytiri.taskerlyze.ui.views.CategoryView;
 import personal.zaytiri.taskerlyze.ui.views.MenuView;
 import personal.zaytiri.taskerlyze.ui.views.TasksView;
+
+import java.time.LocalDate;
 
 
 public class MainController {
@@ -31,10 +34,14 @@ public class MainController {
 
     @FXML
     public HBox hboxDaysOfTheWeek;
+    @FXML
+    private Button previousWeekButton;
+    @FXML
+    private Button nextWeekButton;
 
     public void createMainScene(Stage primaryStage) {
-        CalendarView calView = new CalendarView();
-        calView.populateCalendar(vboxYear, labelMonth, hboxDaysOfTheWeek);
+        CalendarView calView = new CalendarView(vboxYear, labelMonth, hboxDaysOfTheWeek, previousWeekButton, nextWeekButton);
+        calView.populateCalendar(LocalDate.now());
 
         CategoryView catView = new CategoryView(mainTabPane);
         catView.populateCategoryView();

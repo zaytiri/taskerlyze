@@ -56,3 +56,8 @@
     -fx-text-fill: #F5E3E0;
     -fx-font-size: 20px;
 }
+
+#prev-next-btn {
+    -fx-background-color: transparent;
+    -fx-padding: 50px 5px 50px 5px;
+}

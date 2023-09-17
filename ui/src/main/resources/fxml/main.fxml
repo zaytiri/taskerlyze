@@ -2,11 +2,12 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import personal.zaytiri.taskerlyze.ui.components.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="668.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/20.0.1"
             fx:controller="personal.zaytiri.taskerlyze.ui.controllers.MainController">
     <BorderPane id="main-border-pane" fx:id="mainBorderPane" stylesheets="@../css/main.css"
@@ -27,6 +28,16 @@
                         </top>
                         <center>
                             <HBox fx:id="hboxDaysOfTheWeek" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+                                <Button id="prev-next-btn" fx:id="previousWeekButton" mnemonicParsing="false">
+                                    <graphic>
+                                        <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../icons/left-arrow.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
                                 <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
                                               mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="MON"
                                               textAlignment="CENTER" textFill="#434040" wrapText="true">
@@ -37,7 +48,7 @@
                                         <Font name="Calibri Bold" size="10.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                                     </HBox.margin>
                                 </ToggleButton>
                                 <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
@@ -50,7 +61,7 @@
                                         <Font name="Calibri Bold" size="10.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                                     </HBox.margin>
                                 </ToggleButton>
                                 <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
@@ -63,7 +74,7 @@
                                         <Font name="Calibri Bold" size="10.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                                     </HBox.margin>
                                 </ToggleButton>
                                 <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
@@ -76,7 +87,7 @@
                                         <Font name="Calibri Bold" size="10.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                                     </HBox.margin>
                                 </ToggleButton>
                                 <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
@@ -89,7 +100,7 @@
                                         <Font name="Calibri Bold" size="10.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                                     </HBox.margin>
                                 </ToggleButton>
                                 <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
@@ -102,7 +113,7 @@
                                         <Font name="Calibri Bold" size="10.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                                     </HBox.margin>
                                 </ToggleButton>
                                 <ToggleButton id="cal-week-day" alignment="CENTER" contentDisplay="BOTTOM"
@@ -115,9 +126,19 @@
                                         <Font name="Calibri Bold" size="10.0"/>
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="10.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                                     </HBox.margin>
                                 </ToggleButton>
+                                <Button id="prev-next-btn" fx:id="nextWeekButton" mnemonicParsing="false">
+                                    <graphic>
+                                        <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../icons/right-arrow.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
                             </HBox>
                         </center>
                         <left>
