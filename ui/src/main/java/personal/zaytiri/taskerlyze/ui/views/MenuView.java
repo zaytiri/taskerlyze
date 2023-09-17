@@ -24,25 +24,31 @@ public class MenuView {
     public void setButtonsSetOnAction(BorderPane menuButtons) {
         HBox hboxT = (HBox) menuButtons.getTop();
         VBox vboxT = (VBox) hboxT.getChildren().get(0);
-        Button exitButton = (Button) vboxT.getChildren().get(0);
+        Button exit = (Button) vboxT.getChildren().get(0);
         Button today = (Button) vboxT.getChildren().get(1);
 
         BorderPane bp = (BorderPane) menuButtons.getCenter();
         VBox vboxB = (VBox) bp.getBottom();
-        Button settingsButton = (Button) vboxB.getChildren().get(0);
-        Button swicthProfileButton = (Button) vboxB.getChildren().get(1);
+        Button settings = (Button) vboxB.getChildren().get(0);
+        Button swicthProfile = (Button) vboxB.getChildren().get(1);
 
         HBox hboxC = (HBox) bp.getCenter();
         VBox vbox = (VBox) hboxC.getChildren().get(0);
         Button newTask = (Button) vbox.getChildren().get(0);
         Button newSubTask = (Button) vbox.getChildren().get(1);
 
+        setExitButtonOnAction(exit);
         setNewTaskButtonOnAction(newTask);
         setTodayButtonOnAction(today);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    private void setExitButtonOnAction(Button exit) {
+        exit.setOnAction(event -> primaryStage.close());
+        primaryStage.setOnCloseRequest(event -> primaryStage.close());
     }
 
     private void setNewTaskButtonOnAction(Button newTask) {
