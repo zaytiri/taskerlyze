@@ -4,12 +4,14 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import personal.zaytiri.taskerlyze.ui.components.NewTaskDialog;
+import javafx.stage.Stage;
+import personal.zaytiri.taskerlyze.ui.components.DialogNewTask;
 import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 public class MenuView {
     private final TasksView tasksView;
+    private Stage primaryStage;
 
     public MenuView(TasksView tasksView) {
         this.tasksView = tasksView;
@@ -32,14 +34,18 @@ public class MenuView {
         setNewTaskButtonOnAction(newTask);
     }
 
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
     private void setNewTaskButtonOnAction(Button newTask) {
         newTask.setOnAction(event -> {
             Result<TaskEntity> taskResult = new Result<>(new TaskEntity());
-            NewTaskDialog dialog = new NewTaskDialog(taskResult);
+            DialogNewTask dialog = new DialogNewTask(taskResult, primaryStage);
             dialog.showStage();
 
             if (taskResult.getResult() != null) {
-                tasksView.populateTasksView();
+                tasksView.refreshTabContent();
             }
             event.consume();
         });

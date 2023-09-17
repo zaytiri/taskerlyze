@@ -1,129 +1,98 @@
 package personal.zaytiri.taskerlyze.ui.views;
 
 import javafx.collections.FXCollections;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.ui.components.NewCategoryDialog;
-import personal.zaytiri.taskerlyze.ui.components.TaskComponent;
-import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
+import personal.zaytiri.taskerlyze.ui.components.ComponentTask;
+import personal.zaytiri.taskerlyze.ui.components.LabelDay;
+import personal.zaytiri.taskerlyze.ui.components.TabCategory;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TasksView {
-    private final TabPane mainTabPane;
-    private Tab defaultTab;
+    private final CalendarView calView;
+    private final CategoryView catView;
 
-    public TasksView(TabPane mainTabPane) {
-        this.mainTabPane = mainTabPane;
-        createDefaultTab();
+    public TasksView(CategoryView catView, CalendarView calView) {
+        this.calView = calView;
+        this.catView = catView;
     }
 
     public void populateTasksView() {
-        mainTabPane.getTabs().clear();
+        setLabelDaysOnAction();
+        setTabCategoriesOnAction();
+    }
 
-        CategoryController catController = new CategoryController();
-        OperationResult<List<Category>> categories = catController.get(null, null);
+    public void refreshTabContent() {
+        setTabContent(catView.getActiveTabCategory(), calView.getActiveDayInToggleGroup());
+    }
 
-        if (!categories.getStatus()) {
-            BorderPane pane = new BorderPane();
-            pane.setCenter(new Label("No categories found. Create a new category to get started."));
-            defaultTab.setContent(pane);
-        }
+    private void setLabelDaysOnAction() {
+        for (ToggleButton tb : calView.getDayToggleButtons()) {
 
-        mainTabPane.getTabs().add(defaultTab);
-
-        if (categories.getStatus()) {
-            for (Category category : categories.getResult()) {
-                int categoryId = category.getId();
-                Tab newTab = new Tab(category.getName());
-                newTab.setContextMenu(getTabContextMenu(categoryId));
-
-                newTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                    if (Boolean.TRUE.equals(newValue)) {
-                        setTabContent(newTab, categoryId);
-                    }
-                });
-                mainTabPane.getTabs().add(newTab);
-            }
+            tb.setOnMouseClicked(event -> {
+                setTabContent(catView.getActiveTabCategory(), (LabelDay) tb.getGraphic());
+            });
         }
     }
 
-    private void createDefaultTab() {
-        ImageView imageView = new ImageView("icons/plus.png");
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(20);
-
-        Label image = new Label();
-        image.setGraphic(imageView);
-
-        defaultTab = new Tab();
-        defaultTab.setId("default-tab");
-        defaultTab.setGraphic(image);
-
-        setDefaultTabOnAction();
+    private void setTabCategoriesOnAction() {
+        for (TabCategory tab : catView.getTabs()) {
+            tab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if (Boolean.TRUE.equals(newValue)) {
+                    setTabContent(tab, calView.getActiveDayInToggleGroup());
+                }
+            });
+        }
     }
 
-    private ContextMenu getTabContextMenu(int categoryId) {
-        CategoryController catController = new CategoryController();
-
-        ContextMenu tabContextMenu = new ContextMenu();
-        MenuItem removeCategoryMenuItem = new MenuItem();
-        removeCategoryMenuItem.setText("Remove");
-        removeCategoryMenuItem.setOnAction(event -> {
-            OperationResult<Category> result = catController.delete(categoryId);
-            if (result.getStatus()) {
-                populateTasksView();
-            }
-        });
-        tabContextMenu.getItems().add(removeCategoryMenuItem);
-        return tabContextMenu;
-    }
-
-    private void setDefaultTabOnAction() {
-        Label image = (Label) defaultTab.getGraphic();
-        image.setOnMouseClicked(event -> {
-            Result<Category> categoryResult = new Result<>(new Category());
-            NewCategoryDialog dialog = new NewCategoryDialog(categoryResult);
-            dialog.showStage();
-
-            if (categoryResult.getResult() != null) {
-                populateTasksView();
-            }
-            event.consume();
-        });
-    }
-
-    private void setTabContent(Tab tab, int categoryId) {
+    private void setTabContent(TabCategory tabCategory, LabelDay activeDay) {
         Accordion tasks = new Accordion();
         tasks.setId("tasks-accordion");
 
         TaskController taskController = new TaskController();
-        OperationResult<Pair<Category, List<Task>>> taskResult = taskController.getTasksByCategory(categoryId);
+        OperationResult<Pair<Category, List<Task>>> taskResult = taskController.getTasksByCategory(tabCategory.getCategoryId());
 
         if (!taskResult.getStatus()) {
             BorderPane pane = new BorderPane();
             pane.setCenter(new Label("No tasks found. Create a new task to get started."));
-            tab.setContent(pane);
+            tabCategory.setContent(pane);
             return;
         }
 
-        boolean first = true;
+        LocalDate activeDayTask = LocalDate.of(activeDay.getYear(), activeDay.getMonth(), activeDay.getDay());
         for (Task t : taskResult.getResult().getValue()) {
-            TaskComponent comp = new TaskComponent();
+            ComponentTask comp = new ComponentTask();
+
+            LocalDate completedAtTask = null;
+            if (t.getCompletedAt() != null) {
+                completedAtTask = t.getCompletedAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                if (activeDayTask.getDayOfMonth() != completedAtTask.getDayOfMonth()) {
+                    continue;
+                }
+            } else {
+                if (activeDayTask.getDayOfMonth() != LocalDate.now().getDayOfMonth()) {
+                    continue;
+                }
+            }
 
             comp.setTaskId(t.getId());
             comp.setTaskName(t.getName());
-            comp.setIsTaskDone(t.isDone(true));
+            comp.setIsTaskDone(t.isDone(false));
             comp.setSubTasks(FXCollections.observableList(new ArrayList<>() {{
                 add(new TaskEntity(1, "asdsad", true));
             }}));
@@ -137,6 +106,6 @@ public class TasksView {
         AnchorPane mainPane = new AnchorPane();
         mainPane.getChildren().add(scrollPane);
 
-        tab.setContent(mainPane);
+        tabCategory.setContent(mainPane);
     }
 }

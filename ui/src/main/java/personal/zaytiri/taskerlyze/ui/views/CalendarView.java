@@ -1,6 +1,7 @@
 package personal.zaytiri.taskerlyze.ui.views;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -8,21 +9,27 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import personal.zaytiri.taskerlyze.ui.components.DayLabel;
+import personal.zaytiri.taskerlyze.ui.components.LabelDay;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 
 public class CalendarView {
     private ToggleGroup daysView;
+    private ObservableList<ToggleButton> daysToggleButtons;
 
-    public ToggleGroup getDaysView() {
-        return daysView;
+    public LabelDay getActiveDayInToggleGroup() {
+        ToggleButton activeToggle = (ToggleButton) daysView.getSelectedToggle();
+        return (LabelDay) activeToggle.getGraphic();
+    }
+
+    public ObservableList<ToggleButton> getDayToggleButtons() {
+        return daysToggleButtons;
     }
 
     public void populateCalendar(VBox vboxYear, Label labelMonth, HBox hboxDaysOfTheWeek) {
-
         populateYear(vboxYear);
         populateMonth(labelMonth);
 
@@ -30,7 +37,6 @@ public class CalendarView {
         populateDaysOfTheWeek(hboxDaysOfTheWeek, daysView);
 
         setOneToggleAlwaysSelected(daysView);
-        setButtonsAction(hboxDaysOfTheWeek);
     }
 
     private void populateDaysOfTheWeek(HBox hboxDaysOfTheWeek, ToggleGroup group) {
@@ -38,10 +44,11 @@ public class CalendarView {
 
         int increment = 1;
         DayOfWeek dayOfWeek = now.getDayOfWeek();
+        daysToggleButtons = FXCollections.observableList(new ArrayList<>());
         for (Node node : hboxDaysOfTheWeek.getChildren()) {
             ToggleButton tbtn = (ToggleButton) node;
             tbtn.setToggleGroup(group);
-            DayLabel labelDay = (DayLabel) tbtn.getGraphic();
+            LabelDay labelDay = (LabelDay) tbtn.getGraphic();
 
             LocalDate day = now.minus(Period.ofDays(dayOfWeek.getValue() - increment++));
             labelDay.setText(String.valueOf(day.getDayOfMonth()));
@@ -53,6 +60,8 @@ public class CalendarView {
             if (day.getDayOfMonth() == now.getDayOfMonth()) {
                 Platform.runLater(() -> tbtn.setSelected(true));
             }
+
+            daysToggleButtons.add(tbtn);
         }
     }
 
@@ -69,16 +78,6 @@ public class CalendarView {
         for (int i = 0; i < 4; i++) {
             Label digit = (Label) year.get(i);
             digit.setText(String.valueOf(now.getYear()).substring(i, i + 1));
-        }
-    }
-
-    private void setButtonsAction(HBox hboxDaysOfTheWeek) {
-        for (Node node : hboxDaysOfTheWeek.getChildren()) {
-            ToggleButton tbtn = (ToggleButton) node;
-
-            tbtn.setOnMouseClicked(event -> {
-                DayLabel labelDay = (DayLabel) tbtn.getGraphic();
-            });
         }
     }
 

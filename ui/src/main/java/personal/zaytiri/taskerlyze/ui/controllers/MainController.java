@@ -34,7 +34,10 @@ public class MainController {
         CalendarView calView = new CalendarView();
         calView.populateCalendar(vboxYear, labelMonth, hboxDaysOfTheWeek);
 
-        TasksView tasksView = new TasksView(mainTabPane);
+        CategoryView catView = new CategoryView(mainTabPane);
+        catView.populateCategoryView();
+
+        TasksView tasksView = new TasksView(catView, calView);
         tasksView.populateTasksView();
 
         MenuView menu = new MenuView(tasksView);
