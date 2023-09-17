@@ -103,8 +103,11 @@ public class Schema {
             } else if (defaultValue instanceof Integer) {
                 column.setDefaultValue(((JSONObject) c).getInt("default"));
             }
-
-            column.setIsPrimaryKey(((JSONObject) c).getBoolean("isprimarykey"));
+            if (((JSONObject) c).has("isprimarykey")) {
+                column.setIsPrimaryKey(((JSONObject) c).getBoolean("isprimarykey"));
+            } else {
+                column.setIsPrimaryKey(false);
+            }
 
             column.setTableName(t.getString("name"));
             columns.add(column);
