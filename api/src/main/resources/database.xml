@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
     <name>taskerlyze</name>
-    <table>
+    <table> <!-- table tasks -->
         <name>tasks</name>
         <column>
             <name>id</name>
@@ -13,64 +13,54 @@
             <name>name</name>
             <type>text</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>is_done</name>
             <type>boolean</type>
             <default>false</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>description</name>
             <type>text</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>completed_at</name>
             <type>numeric</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>priority</name>
             <type>integer</type>
             <default>1</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>achieved</name>
             <type>text</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>url</name>
             <type>text</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>category_id</name>
             <type>integer</type>
             <default>1</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>updated_at</name>
             <type>numeric</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>created_at</name>
             <type>numeric</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
     </table>
-    <table>
+    <table> <!-- table categories -->
         <name>categories</name>
         <column>
             <name>id</name>
@@ -82,19 +72,55 @@
             <name>name</name>
             <type>text</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>updated_at</name>
             <type>numeric</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
         </column>
         <column>
             <name>created_at</name>
             <type>numeric</type>
             <default>null</default>
-            <isprimarykey>false</isprimarykey>
+        </column>
+    </table>
+    <table> <!-- table subtasks -->
+        <name>subtasks</name>
+        <column>
+            <name>id</name>
+            <type>integer</type>
+            <default>1</default>
+            <isprimarykey>true</isprimarykey>
+        </column>
+        <column>
+            <name>name</name>
+            <type>text</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>task_id</name>
+            <type>integer</type>
+            <default>1</default>
+        </column>
+        <column>
+            <name>is_done</name>
+            <type>boolean</type>
+            <default>false</default>
+        </column>
+        <column>
+            <name>completed_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>updated_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>created_at</name>
+            <type>numeric</type>
+            <default>null</default>
         </column>
     </table>
 </database>
