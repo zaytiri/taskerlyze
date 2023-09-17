@@ -33,7 +33,7 @@ public class TaskController extends Controller<Task> {
 
         return new OperationResult<>(!tasks.getValue().isEmpty(), message, tasks);
     }
-    
+
     /**
      * Sets the status of a task with a specific given id.
      * It will set the done property to the opposite that is already on the database.
@@ -41,11 +41,11 @@ public class TaskController extends Controller<Task> {
      * @param id to set the status
      * @return OperationResult<Task>
      */
-    public OperationResult<Task> setDone(int id) {
+    public OperationResult<Task> setDone(int id, boolean isDone) {
         Task task = new Task().getInstance();
         task.setId(id);
 
-        boolean isTaskUpdated = task.setTaskStatus();
+        boolean isTaskUpdated = task.setTaskStatus(isDone);
         task = task.get();
 
         MessageResult message = new MessageResult();

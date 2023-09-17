@@ -190,10 +190,6 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return response.isSuccess();
     }
 
-    public boolean setTaskStatus() {
-        return setTaskStatus(!isDone(true));
-    }
-
     @Override
     protected Task getInjectedComponent(AppComponent component) {
         return component.getTask();
