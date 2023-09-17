@@ -73,7 +73,7 @@ public class TasksView {
             return;
         }
 
-        LocalDate activeDayTask = LocalDate.of(activeDay.getYear(), activeDay.getMonth(), activeDay.getDay());
+        LocalDate activeDayTask = calView.labelDayToLocalDate(activeDay);
         for (Task t : taskResult.getResult().getValue()) {
             ComponentTask comp = new ComponentTask();
 
