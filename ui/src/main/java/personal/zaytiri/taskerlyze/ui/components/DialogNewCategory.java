@@ -17,6 +17,7 @@ import java.io.IOException;
 
 public class DialogNewCategory extends DialogPane {
     private final Stage stage;
+    private final Stage primaryStage;
     @FXML
     public TextField textField;
     @FXML
@@ -24,6 +25,7 @@ public class DialogNewCategory extends DialogPane {
     Result<Category> result;
 
     public DialogNewCategory(Result<Category> result, Stage primaryStage) {
+        this.primaryStage = primaryStage;
         this.result = result;
 
         stage = new Stage();
@@ -42,6 +44,20 @@ public class DialogNewCategory extends DialogPane {
     }
 
     public void showStage() {
+        double centerXPosition = primaryStage.getX() + primaryStage.getWidth() / 2d;
+        double centerYPosition = primaryStage.getY() + primaryStage.getHeight() / 2d;
+
+        // Hide the pop-up stage before it is shown and becomes relocated
+        stage.setOnShowing(ev -> stage.hide());
+
+        // Relocate the pop-up Stage
+        stage.setOnShown(ev -> {
+            stage.setX(centerXPosition - stage.getWidth() / 2d - 35);
+            stage.setY(centerYPosition - stage.getHeight() / 2d - 50);
+            stage.show();
+        });
+
+        stage.initOwner(primaryStage);
         stage.showAndWait();
     }
 

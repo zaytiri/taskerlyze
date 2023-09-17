@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class DialogNewTask extends AnchorPane {
+    private final Stage primaryStage;
     private final Stage stage;
     @FXML
     public TextField name;
@@ -36,6 +37,7 @@ public class DialogNewTask extends AnchorPane {
     Result<TaskEntity> result;
 
     public DialogNewTask(Result<TaskEntity> result, Stage primaryStage) {
+        this.primaryStage = primaryStage;
         this.result = result;
 
         stage = new Stage();
@@ -54,6 +56,20 @@ public class DialogNewTask extends AnchorPane {
     }
 
     public void showStage() {
+        double centerXPosition = primaryStage.getX() + primaryStage.getWidth() / 2d;
+        double centerYPosition = primaryStage.getY() + primaryStage.getHeight() / 2d;
+
+        // Hide the pop-up stage before it is shown and becomes relocated
+        stage.setOnShowing(ev -> stage.hide());
+
+        // Relocate the pop-up Stage
+        stage.setOnShown(ev -> {
+            stage.setX(centerXPosition - stage.getWidth() / 2d - 35);
+            stage.setY(centerYPosition - stage.getHeight() / 2d - 50);
+            stage.show();
+        });
+        
+        stage.initOwner(primaryStage);
         stage.showAndWait();
     }
 
