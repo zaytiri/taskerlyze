@@ -19,7 +19,7 @@ import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import java.io.IOException;
 import java.util.List;
 
-public class NewTaskDialog extends AnchorPane {
+public class DialogNewTask extends AnchorPane {
     private final Stage stage;
     @FXML
     public TextField name;
@@ -35,13 +35,13 @@ public class NewTaskDialog extends AnchorPane {
     public Button buttonCreate;
     Result<TaskEntity> result;
 
-    public NewTaskDialog(Result<TaskEntity> result) {
+    public DialogNewTask(Result<TaskEntity> result, Stage primaryStage) {
         this.result = result;
 
         stage = new Stage();
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/new-task-dialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/dialog-new-task.fxml"));
             loader.setRoot(this);
             loader.setController(this);
 

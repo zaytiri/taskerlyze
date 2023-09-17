@@ -8,15 +8,15 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 
-public class DayLabel extends Label {
+public class LabelDay extends Label {
     private final IntegerProperty month = new SimpleIntegerProperty();
     private final IntegerProperty year = new SimpleIntegerProperty();
     private final IntegerProperty day = new SimpleIntegerProperty();
     @FXML
     public Label label;
 
-    public DayLabel() {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/day-label.fxml"));
+    public LabelDay() {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/label-day.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {

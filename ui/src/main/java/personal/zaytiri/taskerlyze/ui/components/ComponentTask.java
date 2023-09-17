@@ -6,11 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.io.IOException;
 
-public class TaskComponent extends TitledPane {
+public class ComponentTask extends TitledPane {
     private final IntegerProperty taskId = new SimpleIntegerProperty();
     private final StringProperty taskName = new SimpleStringProperty();
     private final BooleanProperty isTaskDone = new SimpleBooleanProperty();
@@ -24,10 +25,11 @@ public class TaskComponent extends TitledPane {
     @FXML
     BorderPane mainBorderPane;
 
-    public TaskComponent() {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/task-pane.fxml"));
+    public ComponentTask() {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-task.fxml"));
         loader.setRoot(this);
         loader.setController(this);
+
         try {
             loader.load();
         } catch (IOException ex) {
@@ -53,9 +55,9 @@ public class TaskComponent extends TitledPane {
             tp.setGraphic(pane);
             subTasksView.getPanes().add(tp);
         }
-        
+
         for (TaskEntity st : subTasks) {
-            SubTaskComponent comp = new SubTaskComponent();
+            ComponentSubTask comp = new ComponentSubTask();
             comp.setTaskName(st.getTaskName());
             comp.setTaskId(st.getTaskId());
             comp.setIsTaskDone(st.isTaskDone());
@@ -106,5 +108,17 @@ public class TaskComponent extends TitledPane {
 
     public StringProperty taskNameProperty() {
         return taskName;
+    }
+
+    @FXML
+    private void initialize() {
+        setCheckBoxOnAction();
+    }
+
+    private void setCheckBoxOnAction() {
+        checkBox.setOnAction(event -> {
+            TaskController taskController = new TaskController();
+            taskController.setDone(getTaskId(), checkBox.isSelected());
+        });
     }
 }

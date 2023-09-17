@@ -31,7 +31,7 @@
                                               mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="MON"
                                               textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <DayLabel id="cal-day" month="1"/>
+                                        <LabelDay id="cal-day" month="1"/>
                                     </graphic>
                                     <font>
                                         <Font name="Calibri Bold" size="10.0"/>
@@ -44,7 +44,7 @@
                                               mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="TUE"
                                               textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <DayLabel id="cal-day" month="1"/>
+                                        <LabelDay id="cal-day" month="1"/>
                                     </graphic>
                                     <font>
                                         <Font name="Calibri Bold" size="10.0"/>
@@ -57,7 +57,7 @@
                                               mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="WED"
                                               textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <DayLabel id="cal-day" month="1"/>
+                                        <LabelDay id="cal-day" month="1"/>
                                     </graphic>
                                     <font>
                                         <Font name="Calibri Bold" size="10.0"/>
@@ -70,7 +70,7 @@
                                               mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="THU"
                                               textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <DayLabel id="cal-day" month="1"/>
+                                        <LabelDay id="cal-day" month="1"/>
                                     </graphic>
                                     <font>
                                         <Font name="Calibri Bold" size="10.0"/>
@@ -83,7 +83,7 @@
                                               mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="FRI"
                                               textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <DayLabel id="cal-day" month="1"/>
+                                        <LabelDay id="cal-day" month="1"/>
                                     </graphic>
                                     <font>
                                         <Font name="Calibri Bold" size="10.0"/>
@@ -96,7 +96,7 @@
                                               mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SAT"
                                               textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <DayLabel id="cal-day" month="1"/>
+                                        <LabelDay id="cal-day" month="1"/>
                                     </graphic>
                                     <font>
                                         <Font name="Calibri Bold" size="10.0"/>
@@ -109,7 +109,7 @@
                                               mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SUN"
                                               textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <DayLabel id="cal-day" month="1"/>
+                                        <LabelDay id="cal-day" month="1"/>
                                     </graphic>
                                     <font>
                                         <Font name="Calibri Bold" size="10.0"/>

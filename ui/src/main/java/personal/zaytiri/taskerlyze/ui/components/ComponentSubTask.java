@@ -9,7 +9,7 @@ import javafx.scene.control.TitledPane;
 
 import java.io.IOException;
 
-public class SubTaskComponent extends TitledPane {
+public class ComponentSubTask extends TitledPane {
     private final IntegerProperty taskId = new SimpleIntegerProperty();
     private final StringProperty taskName = new SimpleStringProperty();
     private final BooleanProperty isTaskDone = new SimpleBooleanProperty();
@@ -18,8 +18,8 @@ public class SubTaskComponent extends TitledPane {
     @FXML
     Label subTask;
 
-    public SubTaskComponent() {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/sub-task-pane.fxml"));
+    public ComponentSubTask() {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-sub-task.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {

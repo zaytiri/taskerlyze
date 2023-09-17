@@ -15,7 +15,7 @@ import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 
 import java.io.IOException;
 
-public class NewCategoryDialog extends DialogPane {
+public class DialogNewCategory extends DialogPane {
     private final Stage stage;
     @FXML
     public TextField textField;
@@ -23,13 +23,13 @@ public class NewCategoryDialog extends DialogPane {
     public ButtonType buttonTypeCreate;
     Result<Category> result;
 
-    public NewCategoryDialog(Result<Category> result) {
+    public DialogNewCategory(Result<Category> result, Stage primaryStage) {
         this.result = result;
 
         stage = new Stage();
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/new-category-dialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/dialog-new-category.fxml"));
             loader.setRoot(this);
             loader.setController(this);
 
