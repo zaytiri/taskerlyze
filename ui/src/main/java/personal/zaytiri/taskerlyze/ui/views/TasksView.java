@@ -44,7 +44,13 @@ public class TasksView {
         for (ToggleButton tb : calView.getDayToggleButtons()) {
 
             tb.setOnMouseClicked(event -> {
-                setTabContent(catView.getActiveTabCategory(), (LabelDay) tb.getGraphic());
+                LabelDay day = (LabelDay) tb.getGraphic();
+                
+                LocalDate date = calView.labelDayToLocalDate(day);
+                calView.populateMonth(date);
+                calView.populateYear(date);
+
+                setTabContent(catView.getActiveTabCategory(), day);
             });
         }
     }
