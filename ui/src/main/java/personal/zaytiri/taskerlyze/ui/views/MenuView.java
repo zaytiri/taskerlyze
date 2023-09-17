@@ -9,17 +9,23 @@ import personal.zaytiri.taskerlyze.ui.components.DialogNewTask;
 import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
+import java.time.LocalDate;
+
 public class MenuView {
     private final TasksView tasksView;
+    private final CalendarView calView;
     private Stage primaryStage;
 
-    public MenuView(TasksView tasksView) {
+    public MenuView(TasksView tasksView, CalendarView calView) {
         this.tasksView = tasksView;
+        this.calView = calView;
     }
 
     public void setButtonsSetOnAction(BorderPane menuButtons) {
         HBox hboxT = (HBox) menuButtons.getTop();
-        Button exitButton = (Button) hboxT.getChildren().get(0);
+        VBox vboxT = (VBox) hboxT.getChildren().get(0);
+        Button exitButton = (Button) vboxT.getChildren().get(0);
+        Button today = (Button) vboxT.getChildren().get(1);
 
         BorderPane bp = (BorderPane) menuButtons.getCenter();
         VBox vboxB = (VBox) bp.getBottom();
@@ -32,6 +38,7 @@ public class MenuView {
         Button newSubTask = (Button) vbox.getChildren().get(1);
 
         setNewTaskButtonOnAction(newTask);
+        setTodayButtonOnAction(today);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -48,6 +55,12 @@ public class MenuView {
                 tasksView.refreshTabContent();
             }
             event.consume();
+        });
+    }
+
+    private void setTodayButtonOnAction(Button today) {
+        today.setOnAction(event -> {
+            calView.populateCalendar(LocalDate.now());
         });
     }
 }

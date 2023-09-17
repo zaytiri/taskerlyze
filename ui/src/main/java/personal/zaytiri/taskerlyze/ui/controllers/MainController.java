@@ -50,7 +50,7 @@ public class MainController {
         TasksView tasksView = new TasksView(catView, calView);
         tasksView.populateTasksView();
 
-        MenuView menu = new MenuView(tasksView);
+        MenuView menu = new MenuView(tasksView, calView);
         menu.setButtonsSetOnAction(menuBorderPane);
         menu.setPrimaryStage(primaryStage);
     }

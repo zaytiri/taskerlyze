@@ -272,7 +272,14 @@
                                         <top>
                                             <HBox id="exit" BorderPane.alignment="CENTER">
                                                 <children>
-                                                    <Button mnemonicParsing="false" text="Exit"/>
+                                                    <VBox alignment="CENTER_LEFT" fillWidth="false">
+                                                        <children>
+                                                            <Button mnemonicParsing="false" text="Exit"/>
+                                                            <Button contentDisplay="BOTTOM" graphicTextGap="0.0"
+                                                                    mnemonicParsing="false" text="Today"
+                                                                    textAlignment="JUSTIFY" wrapText="true"/>
+                                                        </children>
+                                                    </VBox>
                                                 </children>
                                             </HBox>
                                         </top>
