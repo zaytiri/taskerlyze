@@ -65,8 +65,6 @@ public class MenuView {
     }
 
     private void setTodayButtonOnAction(Button today) {
-        today.setOnAction(event -> {
-            calView.populateCalendar(LocalDate.now());
-        });
+        today.setOnAction(event -> calView.populateCalendar(LocalDate.now()));
     }
 }
