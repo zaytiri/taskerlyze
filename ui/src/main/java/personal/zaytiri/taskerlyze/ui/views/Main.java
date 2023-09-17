@@ -23,7 +23,7 @@ public class Main extends Application {
         Parent root = loader.load();
 
         MainController mainController = loader.getController();
-        mainController.createMainScene();
+        mainController.createMainScene(stage);
 
         Scene scene = configureMainScene(root, stage);
 
