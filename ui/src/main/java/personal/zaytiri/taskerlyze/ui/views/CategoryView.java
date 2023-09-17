@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.ui.views;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
@@ -55,6 +56,7 @@ public class CategoryView {
         mainTabPane.getTabs().add(defaultTab);
         tabs.add(defaultTab);
 
+        boolean selectFirst = true;
         if (categories.getStatus()) {
             for (Category category : categories.getResult()) {
                 TabCategory newTab = new TabCategory();
@@ -62,6 +64,11 @@ public class CategoryView {
                 newTab.setCategoryName(category.getName());
 
                 newTab.setContextMenu(getTabContextMenu(newTab.getCategoryId()));
+
+                if (selectFirst) {
+                    Platform.runLater(() -> mainTabPane.getSelectionModel().select(newTab));
+                    selectFirst = false;
+                }
 
                 mainTabPane.getTabs().add(newTab);
                 tabs.add(newTab);
