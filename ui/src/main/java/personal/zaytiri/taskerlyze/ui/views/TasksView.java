@@ -7,11 +7,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import personal.zaytiri.taskerlyze.app.api.controllers.SubTaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
-import personal.zaytiri.taskerlyze.app.api.domain.Category;
+import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.components.ComponentTask;
 import personal.zaytiri.taskerlyze.ui.components.LabelDay;
 import personal.zaytiri.taskerlyze.ui.components.TabCategory;
@@ -45,7 +45,7 @@ public class TasksView {
 
             tb.setOnMouseClicked(event -> {
                 LabelDay day = (LabelDay) tb.getGraphic();
-                
+
                 LocalDate date = calView.labelDayToLocalDate(day);
                 calView.populateMonth(date);
                 calView.populateYear(date);
@@ -69,8 +69,7 @@ public class TasksView {
         Accordion tasks = new Accordion();
         tasks.setId("tasks-accordion");
 
-        TaskController taskController = new TaskController();
-        OperationResult<Pair<Category, List<Task>>> taskResult = taskController.getTasksByCategory(tabCategory.getCategoryId());
+        OperationResult<List<Task>> taskResult = new TaskController().getTasksByCategory(tabCategory.getCategoryId());
 
         if (!taskResult.getStatus()) {
             BorderPane pane = new BorderPane();
@@ -80,7 +79,7 @@ public class TasksView {
         }
 
         LocalDate activeDayTask = calView.labelDayToLocalDate(activeDay);
-        for (Task t : taskResult.getResult().getValue()) {
+        for (Task t : taskResult.getResult()) {
             ComponentTask comp = new ComponentTask();
 
             LocalDate completedAtTask = null;
@@ -99,9 +98,12 @@ public class TasksView {
             comp.setTaskId(t.getId());
             comp.setTaskName(t.getName());
             comp.setIsTaskDone(t.isDone(false));
-            comp.setSubTasks(FXCollections.observableList(new ArrayList<>() {{
-                add(new TaskEntity(1, "asdsad", true));
-            }}));
+            List<SubTask> subTasks = new SubTaskController().getSubTaskByTask(t.getId()).getResult();
+            List<TaskEntity> subTaskEntities = new ArrayList<>();
+            for (SubTask st : subTasks) {
+                subTaskEntities.add(new TaskEntity(st.getId(), st.getName(), st.isDone(false)));
+            }
+            comp.setSubTasks(FXCollections.observableList(subTaskEntities));
             tasks.getPanes().add(comp);
         }
 
