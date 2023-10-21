@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
-import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
@@ -311,11 +310,11 @@ class TaskTests {
         TaskController controller = new TaskController();
 
         // act
-        OperationResult<Pair<Category, List<Task>>> noCategoryTasks = controller.getTasksByCategory(5);
+        OperationResult<List<Task>> noCategoryTasks = controller.getTasksByCategory(5);
 
         // assert
         Assertions.assertFalse(noCategoryTasks.getStatus());
-        Assertions.assertEquals(0, noCategoryTasks.getResult().getValue().size());
+        Assertions.assertEquals(0, noCategoryTasks.getResult().size());
     }
 
     @Test
@@ -372,15 +371,15 @@ class TaskTests {
         TaskController controller = new TaskController();
 
         // act
-        OperationResult<Pair<Category, List<Task>>> workTasks = controller.getTasksByCategory(1);
-        OperationResult<Pair<Category, List<Task>>> personalTasks = controller.getTasksByCategory(2);
+        OperationResult<List<Task>> workTasks = controller.getTasksByCategory(1);
+        OperationResult<List<Task>> personalTasks = controller.getTasksByCategory(2);
 
         // assert
         Assertions.assertTrue(workTasks.getStatus());
-        Assertions.assertEquals(3, workTasks.getResult().getValue().size());
+        Assertions.assertEquals(3, workTasks.getResult().size());
 
         Assertions.assertTrue(personalTasks.getStatus());
-        Assertions.assertEquals(1, personalTasks.getResult().getValue().size());
+        Assertions.assertEquals(1, personalTasks.getResult().size());
     }
 
     @Test
@@ -427,7 +426,7 @@ class TaskTests {
         TaskController controller = new TaskController();
 
         // act
-        OperationResult<Task> result = controller.setDone(3);
+        OperationResult<Task> result = controller.setDone(3, true);
 
         // assert
         Assertions.assertTrue(result.getStatus());

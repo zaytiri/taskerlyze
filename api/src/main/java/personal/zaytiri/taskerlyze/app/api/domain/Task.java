@@ -4,7 +4,6 @@ import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
-import personal.zaytiri.taskerlyze.app.persistence.mappers.CategoryMapper;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITaskRepository;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
@@ -120,20 +119,10 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return this;
     }
 
-    public Pair<Category, List<Task>> getTasksByCategory() {
+    public List<Task> getTasksByCategory() {
         Response response = repository.getTasksByCategory(this.categoryId);
 
-        Pair<Category, List<Task>> result = new Pair<>();
-
-        Category category = new Category();
-        if (!response.getResult().isEmpty()) {
-            category = new CategoryMapper().toEntity(response.getResult(), true).get(0);
-        }
-        result.setKey(category);
-
-        result.setValue(mapper.toEntity(response.getResult(), true));
-
-        return result;
+        return mapper.toEntity(response.getResult(), true);
     }
 
     public String getUrl() {
