@@ -1,0 +1,155 @@
+package personal.zaytiri.taskerlyze.app.api.domain;
+
+import jakarta.inject.Inject;
+import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
+import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
+import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
+import personal.zaytiri.taskerlyze.app.persistence.mappers.SubTaskMapper;
+import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ISubTaskRepository;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
+
+import java.util.*;
+
+public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> implements IStorageOperations<SubTask> {
+    private boolean done;
+    private int taskId;
+    private Date completedAt;
+
+    @Inject
+    public SubTask(ISubTaskRepository repository) {
+        this.repository = repository;
+        this.mapper = new SubTaskMapper();
+        this.done = false;
+    }
+
+    public SubTask() {
+    }
+
+    @Override
+    public boolean createOrUpdate() {
+        Response response;
+
+        if (!exists()) {
+            response = repository.create(this);
+            this.id = response.getLastInsertedId();
+        } else {
+            response = repository.update(this);
+        }
+        return response.isSuccess();
+    }
+
+    @Override
+    public boolean delete() {
+        Response response = repository.delete(this);
+        if (get() != null) {
+            return false;
+        }
+
+        return response.isSuccess();
+    }
+
+    @Override
+    public boolean exists() {
+        return get() != null;
+    }
+
+    @Override
+    public SubTask get() {
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("id", new Pair<>("=", this.id));
+
+        List<SubTask> results = get(filters, null);
+        if (results.isEmpty()) {
+            return null;
+        }
+
+        return results.get(0);
+    }
+
+    @Override
+    public List<SubTask> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
+        Response response = repository.read(filters, orderByColumn);
+
+        return mapper.toEntity(response.getResult(), false);
+    }
+
+    public Date getCompletedAt() {
+        return completedAt;
+    }
+
+    public SubTask setCompletedAt(Date completedAt) {
+        this.completedAt = completedAt;
+        return this;
+    }
+
+    public List<SubTask> getSubTasksByTask() {
+        Response response = repository.getSubTasksByTask(this.taskId);
+
+        return mapper.toEntity(response.getResult(), true);
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public SubTask setTaskId(int taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+
+    public boolean isDone(boolean getFromDb) {
+        if (!getFromDb) {
+            return done;
+        }
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("id", new Pair<>("=", this.id));
+
+        Response response = repository.read(filters, null);
+        return Boolean.parseBoolean(response.getResult().get(0).get("is_done"));
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public SubTask setDone(boolean done) {
+        this.done = done;
+        return this;
+    }
+
+    public SubTask setId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public SubTask setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public boolean setTaskStatus(boolean done) {
+        List<Pair<String, Object>> sets = new ArrayList<>();
+
+        Date today = null;
+        sets.add(new Pair<>("is_done", done));
+
+        if (done) {
+            today = new Date();
+        }
+        sets.add(new Pair<>("completed_at", today));
+
+        Response response = repository.update(this, sets);
+        if (response.isSuccess()) {
+            this.done = done;
+            this.completedAt = today;
+        }
+
+        return response.isSuccess();
+    }
+
+    @Override
+    protected SubTask getInjectedComponent(AppComponent component) {
+        return component.getSubTask();
+    }
+}

@@ -4,6 +4,7 @@ package personal.zaytiri.taskerlyze.app.dependencyinjection;
 import dagger.Component;
 import jakarta.inject.Singleton;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
+import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 
 
@@ -11,8 +12,9 @@ import personal.zaytiri.taskerlyze.app.api.domain.Task;
 @Component(modules = {RepositoriesModule.class})
 public interface AppComponent {
 
-    Task getTask();
-
     Category getCategory();
 
+    SubTask getSubTask();
+
+    Task getTask();
 }
