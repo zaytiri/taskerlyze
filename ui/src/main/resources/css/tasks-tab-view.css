@@ -171,6 +171,16 @@
     -fx-padding: 10px 0 5px 0;
 }
 
+#add-sub-task-btn {
+    -fx-background-color: transparent;
+}
+
+#sub-tasks-accordion > #sub-task-titled-pane > .title {
+    -fx-padding: -10px 0 0 0;
+    -fx-border-insets: -10px 0 0 0;
+    -fx-background-insets: -10px 165px 0 165px;
+}
+
 /*** Details specific style */
 #details-content {
     -fx-alignment: center;
