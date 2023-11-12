@@ -38,7 +38,7 @@ public class SubTaskModel extends Model {
 
 //        values.put("id", id); // its commented out because it does not need to be inserted, it will auto increment
         values.add(new Pair<>("name", name));
-        values.add(new Pair<>("task_id", done));
+        values.add(new Pair<>("task_id", taskId));
         values.add(new Pair<>("is_done", done));
         values.add(new Pair<>("completed_at", completedAt));
         values.add(new Pair<>("updated_at", updatedAt));

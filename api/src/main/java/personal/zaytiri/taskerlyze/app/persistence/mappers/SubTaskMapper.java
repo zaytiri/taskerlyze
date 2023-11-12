@@ -54,6 +54,7 @@ public class SubTaskMapper extends Mapper<SubTask, SubTaskModel> {
         model.setName(entity.getName());
         model.setDone(entity.isDone());
         model.setCompletedAt(entity.getCompletedAt());
+        model.setTaskId(entity.getTaskId());
 
         return model;
     }
