@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.Tab">
-
+    <graphic>
+        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../icons/plus.png"/>
+        </ImageView>
+    </graphic>
+    <BorderPane
+            fx:id="tasksNotFoundBorderPane"
+            visible="false">
+        <center>
+            <Label text="No tasks found. Create a new task to get started."/>
+        </center>
+    </BorderPane>
+    <AnchorPane prefWidth="427.0">
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
+                    prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER"
+                    AnchorPane.bottomAnchor="-20.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+            <AnchorPane>
+                <Accordion
+                        fx:id="tasksAccordion"
+                        id="tasks-accordion">
+                </Accordion>
+            </AnchorPane>
+        </ScrollPane>
+    </AnchorPane>
 </fx:root>

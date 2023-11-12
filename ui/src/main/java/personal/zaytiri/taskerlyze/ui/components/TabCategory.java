@@ -4,14 +4,23 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
 public class TabCategory extends Tab {
     private final StringProperty categoryName = new SimpleStringProperty();
     private final IntegerProperty categoryId = new SimpleIntegerProperty();
+
+    @FXML
+    private BorderPane tasksNotFoundBorderPane;
+
+    @FXML
+    private Accordion tasksAccordion;
 
     public TabCategory() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/tab-category.fxml"));
@@ -49,5 +58,11 @@ public class TabCategory extends Tab {
         setText(categoryName);
     }
 
+    public Accordion getTasksAccordion() {
+        return tasksAccordion;
+    }
 
+    public void showNotFoundMessage() {
+        tasksNotFoundBorderPane.setVisible(true);
+    }
 }

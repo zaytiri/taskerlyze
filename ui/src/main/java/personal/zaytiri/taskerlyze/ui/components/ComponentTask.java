@@ -21,14 +21,14 @@ public class ComponentTask extends TitledPane {
     Label task;
     @FXML
     Button swapButton;
-
     @FXML
     Button addNewSubTaskButton;
     @FXML
     Accordion subTasksAccordion;
-
     @FXML
     TitledPane subTasksNotFoundTitledPane;
+    @FXML
+    TitledPane mainTaskTitledPane;
 
     public ComponentTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-task.fxml"));

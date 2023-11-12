@@ -16,7 +16,7 @@ public class Result<T> {
         this.result = result;
     }
 
-    public boolean isStatus() {
+    public boolean isSuccessful() {
         return status;
     }
 

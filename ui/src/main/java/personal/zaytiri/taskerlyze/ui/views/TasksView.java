@@ -2,11 +2,8 @@ package personal.zaytiri.taskerlyze.ui.views;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.app.api.controllers.SubTaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
@@ -25,6 +22,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TasksView {
     private final CalendarView calView;
@@ -40,8 +38,33 @@ public class TasksView {
         setTabCategoriesOnAction();
     }
 
-    public void refreshTabContent() {
-        setTabContent(catView.getActiveTabCategory(), calView.getActiveDayInToggleGroup());
+    public void refreshTasks() {
+        setTasks(catView.getActiveTabCategory(), calView.getActiveDayInToggleGroup());
+    }
+
+    public void setSubTasksButtonOnAction(ComponentTask comp) {
+        comp.getAddNewSubTaskButton().setOnAction(event -> {
+            Result<TaskEntity> taskEntityResult = new Result<>(new TaskEntity());
+            DialogNewSubTask dialog = new DialogNewSubTask(taskEntityResult, new Stage());
+            dialog.setTaskId(comp.getTaskId());
+            dialog.showStage();
+
+            if (taskEntityResult.isSuccessful()) {
+                refreshTasks();
+            }
+
+            event.consume();
+        });
+    }
+
+    public void setSubTasksList(ComponentTask comp) {
+        List<SubTask> subTasks = new SubTaskController().getSubTaskByTask(Integer.parseInt(comp.getId())).getResult();
+        List<SubTaskEntity> subTaskEntities = new ArrayList<>();
+        for (SubTask st : subTasks) {
+            subTaskEntities.add(new SubTaskEntity(st.getId(), st.getName(), st.isDone(false), Integer.parseInt(comp.getId())));
+        }
+        comp.setSubTasks(FXCollections.observableList(subTaskEntities));
+        setSubTasksButtonOnAction(comp);
     }
 
     private void setLabelDaysOnAction() {
@@ -54,7 +77,7 @@ public class TasksView {
                 calView.populateMonth(date);
                 calView.populateYear(date);
 
-                setTabContent(catView.getActiveTabCategory(), day);
+                setTasks(catView.getActiveTabCategory(), day);
             });
         }
     }
@@ -63,22 +86,22 @@ public class TasksView {
         for (TabCategory tab : catView.getTabs()) {
             tab.selectedProperty().addListener((observable, oldValue, newValue) -> {
                 if (Boolean.TRUE.equals(newValue)) {
-                    setTabContent(tab, calView.getActiveDayInToggleGroup());
+                    setTasks(tab, calView.getActiveDayInToggleGroup());
                 }
             });
         }
     }
 
-    private void setTabContent(TabCategory tabCategory, LabelDay activeDay) {
-        Accordion tasks = new Accordion();
-        tasks.setId("tasks-accordion");
+    private void setTasks(TabCategory tabCategory, LabelDay activeDay) {
+        Accordion tasks = tabCategory.getTasksAccordion();
+
+        TitledPane expandedPane = tasks.getExpandedPane();
+        tasks.getPanes().clear();
 
         OperationResult<List<Task>> taskResult = new TaskController().getTasksByCategory(tabCategory.getCategoryId());
 
         if (!taskResult.getStatus()) {
-            BorderPane pane = new BorderPane();
-            pane.setCenter(new Label("No tasks found. Create a new task to get started."));
-            tabCategory.setContent(pane);
+            tabCategory.showNotFoundMessage();
             return;
         }
 
@@ -99,36 +122,18 @@ public class TasksView {
                 }
             }
 
+            comp.setId(String.valueOf(t.getId()));
             comp.setTaskId(t.getId());
             comp.setTaskName(t.getName());
             comp.setIsTaskDone(t.isDone(false));
-            List<SubTask> subTasks = new SubTaskController().getSubTaskByTask(t.getId()).getResult();
-            List<SubTaskEntity> subTaskEntities = new ArrayList<>();
-            for (SubTask st : subTasks) {
-                subTaskEntities.add(new SubTaskEntity(t.getId(), st.getName(), st.isDone(false), st.getId()));
-            }
-            comp.setSubTasks(FXCollections.observableList(subTaskEntities));
-            comp.getAddNewSubTaskButton().setOnAction(event -> {
-                Result<TaskEntity> taskEntityResult = new Result<>(new TaskEntity());
-                DialogNewSubTask dialog = new DialogNewSubTask(taskEntityResult, new Stage());
-                dialog.setTaskId(comp.getTaskId());
-                dialog.showStage();
 
-                if (taskResult.getResult() != null) {
-                    refreshTabContent();
-                }
-                event.consume();
-            });
+            setSubTasksList(comp);
+
+            if (expandedPane != null && Objects.equals(expandedPane.getId(), comp.getId())) {
+                tasks.setExpandedPane(comp);
+            }
+
             tasks.getPanes().add(comp);
         }
-
-        AnchorPane scrollAnchorPane = new AnchorPane();
-        scrollAnchorPane.getChildren().add(tasks);
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(scrollAnchorPane);
-        AnchorPane mainPane = new AnchorPane();
-        mainPane.getChildren().add(scrollPane);
-
-        tabCategory.setContent(mainPane);
     }
 }

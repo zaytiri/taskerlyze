@@ -58,7 +58,7 @@ public class MenuView {
             dialog.showStage();
 
             if (taskResult.getResult() != null) {
-                tasksView.refreshTabContent();
+                tasksView.refreshTasks();
             }
             event.consume();
         });
