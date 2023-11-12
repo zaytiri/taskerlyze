@@ -3,18 +3,34 @@ package personal.zaytiri.taskerlyze.ui.logic.entities;
 import java.util.List;
 
 public class TaskEntity {
-    private int taskId;
-    private String taskName;
+    private int id;
+    private String name;
     private boolean isTaskDone;
     private List<TaskEntity> subtasks;
 
-    public TaskEntity(int taskId, String taskName, boolean isTaskDone) {
-        this.taskId = taskId;
-        this.taskName = taskName;
+    public TaskEntity(int id, String name, boolean isTaskDone) {
+        this.id = id;
+        this.name = name;
         this.isTaskDone = isTaskDone;
     }
 
     public TaskEntity() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<TaskEntity> getSubtasks() {
@@ -23,22 +39,6 @@ public class TaskEntity {
 
     public void setSubtasks(List<TaskEntity> subtasks) {
         this.subtasks = subtasks;
-    }
-
-    public int getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    }
-
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
     }
 
     public boolean isTaskDone() {

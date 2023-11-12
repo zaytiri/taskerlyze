@@ -76,7 +76,52 @@
                 </BorderPane>
             </bottom>
             <center>
-                <!--                        list of sub tasks pane goes here-->
+                <Accordion
+                        fx:id="subTasksAccordion"
+                        id="sub-tasks-accordion">
+                    <panes>
+                        <TitledPane
+                                fx:id="subTasksNotFoundTitledPane"
+                                collapsible="false"
+                                visible="false">
+                            <graphic>
+                                <BorderPane>
+                                    <center>
+                                        <Label text="No sub tasks found."/>
+                                    </center>
+                                </BorderPane>
+                            </graphic>
+                        </TitledPane>
+                        <TitledPane
+                                id="sub-task-titled-pane"
+                                collapsible="false">
+                            <graphic>
+                                <AnchorPane
+                                        prefWidth="365"
+                                        AnchorPane.rightAnchor="0.0"
+                                        AnchorPane.leftAnchor="0.0">
+                                    <HBox
+                                            alignment="CENTER"
+                                            AnchorPane.rightAnchor="0.0"
+                                            AnchorPane.leftAnchor="0.0">
+                                        <Button
+                                                fx:id="addNewSubTaskButton"
+                                                id="add-sub-task-btn">
+                                            <graphic>
+                                                <ImageView
+                                                        fitHeight="20"
+                                                        fitWidth="20">
+                                                    <Image url="@../icons/plus.png"/>
+                                                </ImageView>
+                                            </graphic>
+                                        </Button>
+                                    </HBox>
+                                </AnchorPane>
+                            </graphic>
+                        </TitledPane>
+                        <!-- populate list of ComponentSubTask-->
+                    </panes>
+                </Accordion>
             </center>
         </BorderPane>
     </AnchorPane>

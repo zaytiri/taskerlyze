@@ -4,16 +4,9 @@ import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
-import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
-import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 
 import java.io.IOException;
 
@@ -21,15 +14,21 @@ public class ComponentTask extends TitledPane {
     private final IntegerProperty taskId = new SimpleIntegerProperty();
     private final StringProperty taskName = new SimpleStringProperty();
     private final BooleanProperty isTaskDone = new SimpleBooleanProperty();
-    private final ListProperty<TaskEntity> subTasks = new SimpleListProperty<>();
+    private final ListProperty<SubTaskEntity> subTasks = new SimpleListProperty<>();
     @FXML
     CheckBox checkBox;
     @FXML
     Label task;
     @FXML
     Button swapButton;
+
     @FXML
-    BorderPane mainBorderPane;
+    Button addNewSubTaskButton;
+    @FXML
+    Accordion subTasksAccordion;
+
+    @FXML
+    TitledPane subTasksNotFoundTitledPane;
 
     public ComponentTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-task.fxml"));
@@ -43,70 +42,30 @@ public class ComponentTask extends TitledPane {
         }
     }
 
-    public ObservableList<TaskEntity> getSubTasks() {
+    public Button getAddNewSubTaskButton() {
+        return addNewSubTaskButton;
+    }
+
+    public ObservableList<SubTaskEntity> getSubTasks() {
         return subTasks.get();
     }
 
-    public void setSubTasks(ObservableList<TaskEntity> subTasks) {
+    public void setSubTasks(ObservableList<SubTaskEntity> subTasks) {
         this.subTasks.set(subTasks);
 
-        Accordion subTasksView = new Accordion();
-        subTasksView.setId("sub-tasks-accordion");
-
         if (subTasks.isEmpty()) {
-            TitledPane tp = new TitledPane();
-            tp.setCollapsible(false);
-            BorderPane pane = new BorderPane();
-            pane.setCenter(new Label("No sub tasks found."));
-            tp.setGraphic(pane);
-            subTasksView.getPanes().add(tp);
+            subTasksNotFoundTitledPane.setVisible(true);
         }
 
-        // todo: put this code into the fxml file for sub task
-        Button addSubTask = new Button();
-        addSubTask.setId("add-sub-task-btn");
-        ImageView img = new ImageView("icons/plus.png");
-        img.setFitHeight(20);
-        img.setFitWidth(20);
-        addSubTask.setGraphic(img);
-
-        HBox hbox = new HBox();
-        hbox.getChildren().add(addSubTask);
-        hbox.setAlignment(Pos.CENTER);
-
-        TitledPane tp = new TitledPane();
-        tp.setId("sub-task-titled-pane");
-        tp.setCollapsible(false);
-        AnchorPane pane = new AnchorPane();
-        AnchorPane.setRightAnchor(hbox, 0.0);
-        AnchorPane.setLeftAnchor(hbox, 0.0);
-        pane.getChildren().add(hbox);
-        pane.setPrefWidth(365);
-
-        tp.setGraphic(pane);
-        subTasksView.getPanes().add(tp);
-
-        for (TaskEntity st : subTasks) {
+        for (SubTaskEntity st : subTasks) {
             ComponentSubTask comp = new ComponentSubTask();
-            comp.setTaskName(st.getTaskName());
-            comp.setTaskId(st.getTaskId());
+            comp.setTaskName(st.getName());
+            comp.setTaskId(st.getId());
             comp.setIsTaskDone(st.isTaskDone());
+            comp.setSubTaskId(st.getTaskId());
 
-            subTasksView.getPanes().add(comp);
+            subTasksAccordion.getPanes().add(comp);
         }
-
-        addSubTask.setOnAction(event -> {
-            Result<TaskEntity> taskResult = new Result<>(new TaskEntity());
-            DialogNewSubTask dialog = new DialogNewSubTask(taskResult, new Stage());
-            dialog.showStage();
-
-//            if (taskResult.getResult() != null) {
-//                tasksView.refreshTabContent();
-//            }
-            event.consume();
-        });
-
-        mainBorderPane.setCenter(subTasksView);
     }
 
     public int getTaskId() {
@@ -139,7 +98,7 @@ public class ComponentTask extends TitledPane {
         return isTaskDone;
     }
 
-    public ListProperty<TaskEntity> subTasksProperty() {
+    public ListProperty<SubTaskEntity> subTasksProperty() {
         return subTasks;
     }
 

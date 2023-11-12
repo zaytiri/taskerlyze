@@ -23,6 +23,7 @@ public class DialogNewSubTask extends AnchorPane {
     @FXML
     public Button buttonCreate;
     Result<TaskEntity> result;
+    private int taskId;
 
     public DialogNewSubTask(Result<TaskEntity> result, Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -41,6 +42,10 @@ public class DialogNewSubTask extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     public void showStage() {
@@ -67,6 +72,7 @@ public class DialogNewSubTask extends AnchorPane {
             SubTask newTask = new SubTask().getInstance();
 
             newTask.setName(name.getText());
+            newTask.setTaskId(this.taskId);
 
             OperationResult<SubTask> newSubTaskResult = subTaskController.createOrUpdate(newTask);
 

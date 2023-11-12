@@ -13,6 +13,8 @@ public class ComponentSubTask extends TitledPane {
     private final IntegerProperty taskId = new SimpleIntegerProperty();
     private final StringProperty taskName = new SimpleStringProperty();
     private final BooleanProperty isTaskDone = new SimpleBooleanProperty();
+    private final IntegerProperty subTaskId = new SimpleIntegerProperty();
+
     @FXML
     CheckBox checkBox;
     @FXML
@@ -29,6 +31,13 @@ public class ComponentSubTask extends TitledPane {
         }
     }
 
+    public int getSubTaskId() {
+        return subTaskId.get();
+    }
+
+    public void setSubTaskId(int subTaskId) {
+        this.subTaskId.set(subTaskId);
+    }
 
     public int getTaskId() {
         return taskId.get();
@@ -58,6 +67,10 @@ public class ComponentSubTask extends TitledPane {
 
     public BooleanProperty isTaskDoneProperty() {
         return isTaskDone;
+    }
+
+    public IntegerProperty subTaskIdProperty() {
+        return subTaskId;
     }
 
     public IntegerProperty taskIdProperty() {

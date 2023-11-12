@@ -7,14 +7,18 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.app.api.controllers.SubTaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.ui.components.ComponentTask;
+import personal.zaytiri.taskerlyze.ui.components.DialogNewSubTask;
 import personal.zaytiri.taskerlyze.ui.components.LabelDay;
 import personal.zaytiri.taskerlyze.ui.components.TabCategory;
+import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
+import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.time.LocalDate;
@@ -99,11 +103,22 @@ public class TasksView {
             comp.setTaskName(t.getName());
             comp.setIsTaskDone(t.isDone(false));
             List<SubTask> subTasks = new SubTaskController().getSubTaskByTask(t.getId()).getResult();
-            List<TaskEntity> subTaskEntities = new ArrayList<>();
+            List<SubTaskEntity> subTaskEntities = new ArrayList<>();
             for (SubTask st : subTasks) {
-                subTaskEntities.add(new TaskEntity(st.getId(), st.getName(), st.isDone(false)));
+                subTaskEntities.add(new SubTaskEntity(t.getId(), st.getName(), st.isDone(false), st.getId()));
             }
             comp.setSubTasks(FXCollections.observableList(subTaskEntities));
+            comp.getAddNewSubTaskButton().setOnAction(event -> {
+                Result<TaskEntity> taskEntityResult = new Result<>(new TaskEntity());
+                DialogNewSubTask dialog = new DialogNewSubTask(taskEntityResult, new Stage());
+                dialog.setTaskId(comp.getTaskId());
+                dialog.showStage();
+
+                if (taskResult.getResult() != null) {
+                    refreshTabContent();
+                }
+                event.consume();
+            });
             tasks.getPanes().add(comp);
         }
 
