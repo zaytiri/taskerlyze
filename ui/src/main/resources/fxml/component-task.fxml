@@ -61,9 +61,7 @@
                                             fitWidth="22.0"
                                             pickOnBounds="true"
                                             preserveRatio="true">
-                                        <image>
-                                            <Image url="@../icons/swap.png"/>
-                                        </image>
+                                        <Image url="@../icons/swap.png"/>
                                     </ImageView>
                                 </graphic>
                             </Button>
@@ -82,8 +80,7 @@
                     <panes>
                         <TitledPane
                                 fx:id="subTasksNotFoundTitledPane"
-                                collapsible="false"
-                                visible="false">
+                                collapsible="false">
                             <graphic>
                                 <BorderPane>
                                     <center>

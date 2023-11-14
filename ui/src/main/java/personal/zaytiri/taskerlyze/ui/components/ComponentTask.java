@@ -53,8 +53,8 @@ public class ComponentTask extends TitledPane {
     public void setSubTasks(ObservableList<SubTaskEntity> subTasks) {
         this.subTasks.set(subTasks);
 
-        if (subTasks.isEmpty()) {
-            subTasksNotFoundTitledPane.setVisible(true);
+        if (!subTasks.isEmpty()) {
+            subTasksAccordion.getPanes().remove(0);
         }
 
         for (SubTaskEntity st : subTasks) {
@@ -91,6 +91,7 @@ public class ComponentTask extends TitledPane {
 
     public void setIsTaskDone(boolean isTaskDone) {
         this.isTaskDone.set(isTaskDone);
+
         checkBox.setSelected(this.isTaskDone.get());
     }
 
