@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.Tab">
-    <graphic>
-        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image url="@../icons/plus.png"/>
-        </ImageView>
-    </graphic>
     <BorderPane
             fx:id="tasksNotFoundBorderPane"
             visible="false">
