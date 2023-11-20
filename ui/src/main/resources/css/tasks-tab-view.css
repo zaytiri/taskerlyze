@@ -14,6 +14,15 @@
     src: url('../fonts/Prompt/Prompt-SemiBold.ttf');
 }
 
+/* remove dropdown menu in tab pane*/
+.tab-down-button {
+    -fx-padding: 0;
+}
+    
+.tab-down-button .arrow {
+    -fx-padding: 0;
+}
+
 #new-task-button {
     -fx-font-family: "Prompt";
     -fx-font-size: 12px;
