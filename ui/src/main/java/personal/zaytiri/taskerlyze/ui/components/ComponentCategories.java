@@ -3,11 +3,15 @@ package personal.zaytiri.taskerlyze.ui.components;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.ui.logic.CategoryLoader;
@@ -39,6 +43,7 @@ public class ComponentCategories extends TabPane {
 
     @FXML
     public void initialize() {
+        reverseTabPaneScrollingDirection();
         setDefaultTabOnAction();
         populateCategoryView();
     }
@@ -69,6 +74,32 @@ public class ComponentCategories extends TabPane {
 
             mainTabPane.getTabs().add(newTab);
         }
+    }
+
+    public void reverseTabPaneScrollingDirection() {
+        EventDispatcher originalDispatcher = mainTabPane.getEventDispatcher();
+        mainTabPane.setEventDispatcher(new EventDispatcher() {
+            @Override
+            public Event dispatchEvent(Event event, EventDispatchChain tail) {
+                if (event instanceof ScrollEvent e) {
+                    ScrollEvent reversedEvent = new ScrollEvent(
+                            e.getEventType(), e.getX(), e.getY(), e.getScreenX(),
+                            e.getScreenY(), e.isShiftDown(), e.isControlDown(), e.isAltDown(),
+                            e.isMetaDown(), e.isDirect(), e.isInertia(), e.getDeltaX(),
+                            -e.getDeltaY(), // reverse it
+                            e.getTotalDeltaX(),
+                            -e.getTotalDeltaY(), // reverse it
+                            e.getMultiplierX(), e.getMultiplierY(), e.getTextDeltaXUnits(),
+                            e.getTextDeltaX(), e.getTextDeltaYUnits(), e.getTextDeltaY(),
+                            e.getTouchCount(), e.getPickResult()
+                    );
+
+                    return originalDispatcher.dispatchEvent(reversedEvent, tail);
+                }
+
+                return originalDispatcher.dispatchEvent(event, tail);
+            }
+        });
     }
 
     private void setDefaultTabOnAction() {
