@@ -11,6 +11,10 @@
 #cal-background {
     -fx-background-color:  #0E6367;
     -fx-background-radius:  0 0 0 18;
+
+    -fx-padding: 0 0 10px 0;
+    -fx-border-insets: 0 0 10px 0;
+    -fx-background-insets: 0 0 10px 0;
 }
 
 #month {

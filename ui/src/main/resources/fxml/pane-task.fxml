@@ -21,7 +21,6 @@
                     <CheckBox
                             fx:id="checkBox"
                             alignment="CENTER_RIGHT"
-                            contentDisplay="RIGHT"
                             mnemonicParsing="false"
                             nodeOrientation="LEFT_TO_RIGHT"
                             prefHeight="26.0"

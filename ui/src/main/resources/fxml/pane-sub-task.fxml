@@ -8,8 +8,7 @@
          xmlns="http://javafx.com/javafx"
          collapsible="false">
     <graphic>
-        <AnchorPane
-                prefWidth="340.0">
+        <AnchorPane>
             <BorderPane
                     id="sub-tasks-border-pane"
                     AnchorPane.bottomAnchor="0.0"

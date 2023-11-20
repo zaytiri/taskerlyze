@@ -40,7 +40,7 @@
 
 .tab-pane {
     -fx-effect:  dropshadow(one-pass-box , rgba(9, 55, 58, 0.5), 10, 0.1, -2, 2);
-    -fx-padding: 10px 0 20px 20px;
+    -fx-padding: 15px 0 0 0;
 }
 
 .tab-label {
@@ -80,6 +80,10 @@
 /* the following code is to remove the default borders in scroll-pane */
 .viewport, .scroll-pane {
     -fx-background-color: transparent;
+
+    -fx-padding: 15px 0 0  0;
+    -fx-border-insets: 15px 0 0 0;
+    -fx-background-insets: 15px 0 0 0;
 }
 
 /* Accordion TitlePane Style */
@@ -93,7 +97,7 @@
 
 .accordion > .titled-pane {
     -fx-padding: 10px;
-    -fx-pref-width: 400px;
+    /* -fx-pref-width: 400px; */
 }
 
 #task-name {
@@ -165,7 +169,7 @@
 
 #sub-tasks-name {
     -fx-font-size: 12px;
-    -fx-pref-width: 270px;
+    -fx-pref-width: 370px;
     -fx-font-family: "Prompt";
     -fx-text-fill: #F5E3E0;
 }
