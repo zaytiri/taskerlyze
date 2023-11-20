@@ -26,9 +26,6 @@ public class LabelDay extends Label {
         }
     }
 
-    public IntegerProperty dayProperty() {
-        return day;
-    }
 
     public int getDay() {
         return day.get();
@@ -54,11 +51,4 @@ public class LabelDay extends Label {
         this.year.set(year);
     }
 
-    public IntegerProperty monthProperty() {
-        return month;
-    }
-
-    public IntegerProperty yearProperty() {
-        return year;
-    }
 }

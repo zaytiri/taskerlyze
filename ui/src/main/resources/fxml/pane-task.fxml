@@ -79,17 +79,6 @@
                         id="sub-tasks-accordion">
                     <panes>
                         <TitledPane
-                                fx:id="subTasksNotFoundTitledPane"
-                                collapsible="false">
-                            <graphic>
-                                <BorderPane>
-                                    <center>
-                                        <Label text="No sub tasks found."/>
-                                    </center>
-                                </BorderPane>
-                            </graphic>
-                        </TitledPane>
-                        <TitledPane
                                 id="sub-task-titled-pane"
                                 collapsible="false">
                             <graphic>
@@ -114,6 +103,17 @@
                                         </Button>
                                     </HBox>
                                 </AnchorPane>
+                            </graphic>
+                        </TitledPane>
+                        <TitledPane
+                                fx:id="notFoundMessage"
+                                collapsible="false">
+                            <graphic>
+                                <BorderPane>
+                                    <center>
+                                        <Label text="No sub tasks found."/>
+                                    </center>
+                                </BorderPane>
                             </graphic>
                         </TitledPane>
                         <!-- populate list of ComponentSubTask-->

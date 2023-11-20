@@ -7,10 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import personal.zaytiri.taskerlyze.app.api.controllers.SubTaskController;
-import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
-import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
 import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
+import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.io.IOException;
@@ -66,17 +64,16 @@ public class DialogNewSubTask extends AnchorPane {
 
     @FXML
     private void initialize() {
+        setOnActionCreateButton();
+    }
 
+    private void setOnActionCreateButton() {
         buttonCreate.setOnAction(event -> {
-            SubTaskController subTaskController = new SubTaskController();
-            SubTask newTask = new SubTask().getInstance();
+            SubTaskEntity newTask = new SubTaskEntity()
+                    .setName(name.getText())
+                    .setTaskId(taskId);
 
-            newTask.setName(name.getText());
-            newTask.setTaskId(this.taskId);
-
-            OperationResult<SubTask> newSubTaskResult = subTaskController.createOrUpdate(newTask);
-
-            result.setStatus(newSubTaskResult.getStatus());
+            result.setStatus(newTask.createOrUpdate());
             stage.close();
         });
     }

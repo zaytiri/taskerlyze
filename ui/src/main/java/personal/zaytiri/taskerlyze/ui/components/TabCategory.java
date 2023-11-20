@@ -4,23 +4,21 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Accordion;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
-import javafx.scene.layout.BorderPane;
+import personal.zaytiri.taskerlyze.ui.logic.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 
 import java.io.IOException;
 
 public class TabCategory extends Tab {
     private final StringProperty categoryName = new SimpleStringProperty();
     private final IntegerProperty categoryId = new SimpleIntegerProperty();
-
-    @FXML
-    private BorderPane tasksNotFoundBorderPane;
-
-    @FXML
-    private Accordion tasksAccordion;
 
     public TabCategory() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/tab-category.fxml"));
@@ -33,14 +31,6 @@ public class TabCategory extends Tab {
         }
     }
 
-    public IntegerProperty categoryIdProperty() {
-        return categoryId;
-    }
-
-    public StringProperty categoryNameProperty() {
-        return categoryName;
-    }
-
     public int getCategoryId() {
         return categoryId.get();
     }
@@ -49,8 +39,9 @@ public class TabCategory extends Tab {
         this.categoryId.set(categoryId);
     }
 
-    public String getCategoryName() {
-        return categoryName.get();
+    @FXML
+    public void initialize() {
+        setOnAction();
     }
 
     public void setCategoryName(String categoryName) {
@@ -58,11 +49,31 @@ public class TabCategory extends Tab {
         setText(categoryName);
     }
 
-    public Accordion getTasksAccordion() {
-        return tasksAccordion;
+    public void setContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        setContextMenu(getTabContextMenu(ifSuccessful));
     }
 
-    public void showNotFoundMessage() {
-        tasksNotFoundBorderPane.setVisible(true);
+    public void setOnAction() {
+        selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (Boolean.TRUE.equals(newValue)) {
+                TaskLoader.getTaskLoader().setActiveCategoryId(getCategoryId());
+            }
+        });
+    }
+
+    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        ContextMenu tabContextMenu = new ContextMenu();
+        MenuItem removeCategoryMenuItem = new MenuItem();
+
+        removeCategoryMenuItem.setText("Remove");
+        removeCategoryMenuItem.setOnAction(event -> {
+            CategoryEntity category = new CategoryEntity().setId(getCategoryId());
+
+            if (category.remove()) {
+                ifSuccessful.handle(event);
+            }
+        });
+        tabContextMenu.getItems().add(removeCategoryMenuItem);
+        return tabContextMenu;
     }
 }

@@ -8,9 +8,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
-import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
+import personal.zaytiri.taskerlyze.ui.logic.Configuration;
+import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 
 import java.io.IOException;
@@ -24,8 +24,8 @@ public class DialogNewCategory extends DialogPane {
     public ButtonType buttonTypeCreate;
     Result<Category> result;
 
-    public DialogNewCategory(Result<Category> result, Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public DialogNewCategory(Result<Category> result) {
+        this.primaryStage = Configuration.getInstance().getPrimaryStage();
         this.result = result;
 
         stage = new Stage();
@@ -63,13 +63,16 @@ public class DialogNewCategory extends DialogPane {
 
     @FXML
     private void initialize() {
+        setOnActionCreateButton();
+    }
 
+    private void setOnActionCreateButton() {
         Button btn = (Button) lookupButton(buttonTypeCreate);
         btn.setOnAction(event -> {
-            CategoryController catController = new CategoryController();
-            Category newCat = new Category().getInstance().setName(textField.getText());
-            OperationResult<Category> newCatResult = catController.createOrUpdate(newCat);
-            result.setStatus(newCatResult.getStatus());
+            CategoryEntity newCat = new CategoryEntity()
+                    .setName(textField.getText());
+
+            result.setStatus(newCat.createOrUpdate());
             stage.close();
         });
     }

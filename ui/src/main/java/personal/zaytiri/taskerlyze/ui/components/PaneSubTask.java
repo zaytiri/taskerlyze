@@ -6,22 +6,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 
 import java.io.IOException;
 
-public class ComponentSubTask extends TitledPane {
+public class PaneSubTask extends TitledPane {
     private final IntegerProperty taskId = new SimpleIntegerProperty();
     private final StringProperty taskName = new SimpleStringProperty();
     private final BooleanProperty isTaskDone = new SimpleBooleanProperty();
     private final IntegerProperty subTaskId = new SimpleIntegerProperty();
-
     @FXML
     CheckBox checkBox;
     @FXML
     Label subTask;
 
-    public ComponentSubTask() {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-sub-task.fxml"));
+    public PaneSubTask() {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-sub-task.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -39,25 +39,9 @@ public class ComponentSubTask extends TitledPane {
         this.subTaskId.set(subTaskId);
     }
 
-    public int getTaskId() {
-        return taskId.get();
-    }
-
-    public void setTaskId(int taskId) {
-        this.taskId.set(taskId);
-    }
-
-    public String getTaskName() {
-        return taskName.get();
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName.set(taskName);
-        subTask.setText(this.taskName.get());
-    }
-
-    public boolean isIsTaskDone() {
-        return isTaskDone.get();
+    @FXML
+    public void initialize() {
+        setCheckBoxOnAction();
     }
 
     public void setIsTaskDone(boolean isTaskDone) {
@@ -65,19 +49,21 @@ public class ComponentSubTask extends TitledPane {
         checkBox.setSelected(this.isTaskDone.get());
     }
 
-    public BooleanProperty isTaskDoneProperty() {
-        return isTaskDone;
+    public void setTaskId(int taskId) {
+        this.taskId.set(taskId);
     }
 
-    public IntegerProperty subTaskIdProperty() {
-        return subTaskId;
+    public void setTaskName(String taskName) {
+        this.taskName.set(taskName);
+        subTask.setText(this.taskName.get());
     }
 
-    public IntegerProperty taskIdProperty() {
-        return taskId;
-    }
-
-    public StringProperty taskNameProperty() {
-        return taskName;
+    private void setCheckBoxOnAction() {
+        checkBox.setOnAction(event -> {
+            SubTaskEntity subTask = new SubTaskEntity()
+                    .setId(getSubTaskId())
+                    .setTaskDone(checkBox.isSelected());
+            subTask.setDone();
+        });
     }
 }

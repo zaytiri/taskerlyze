@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.*?>
+<?import personal.zaytiri.taskerlyze.ui.components.ComponentTasks?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.Tab">
-    <BorderPane
-            fx:id="tasksNotFoundBorderPane"
-            visible="false">
-        <center>
-            <Label text="No tasks found. Create a new task to get started."/>
-        </center>
-    </BorderPane>
     <AnchorPane prefWidth="427.0">
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
                     prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER"
@@ -17,10 +12,7 @@
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="0.0">
             <AnchorPane>
-                <Accordion
-                        fx:id="tasksAccordion"
-                        id="tasks-accordion">
-                </Accordion>
+                <ComponentTasks/>
             </AnchorPane>
         </ScrollPane>
     </AnchorPane>

@@ -10,6 +10,9 @@ import javafx.util.Pair;
 import java.awt.*;
 
 public class Configuration {
+    private static Configuration INSTANCE;
+    private Stage primaryStage;
+
     private Configuration() {
     }
 
@@ -21,6 +24,21 @@ public class Configuration {
         positionStageAtRightSide(stage, size.getValue(), size.getKey());
 
         setStageDraggable(root, stage);
+    }
+
+    public static Configuration getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Configuration();
+        }
+        return INSTANCE;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage currentPrimaryStage) {
+        primaryStage = currentPrimaryStage;
     }
 
     public static Pair<Double, Double> getStageSize() {

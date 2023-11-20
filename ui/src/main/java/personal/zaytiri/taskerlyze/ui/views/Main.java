@@ -19,11 +19,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Configuration.getInstance().setPrimaryStage(stage);
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
         Parent root = loader.load();
-
-        MainController mainController = loader.getController();
-        mainController.createMainScene(stage);
+        
+        MainController main = loader.getController();
+        main.setAppPreConfigurations();
 
         Scene scene = configureMainScene(root, stage);
 

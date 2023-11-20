@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import personal.zaytiri.taskerlyze.ui.components.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml"
+         xmlns="http://javafx.com/javafx" type="javafx.scene.layout.BorderPane"
+>
+    <top>
+        <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" prefHeight="55.0"
+               prefWidth="241.0" text="August," textFill="#434040">
+            <font>
+                <Font name="Calibri Bold" size="1.0"/>
+            </font>
+        </Label>
+    </top>
+    <center>
+        <HBox fx:id="hboxDaysOfTheWeek" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+            <Button id="prev-next-btn" fx:id="previousWeekButton" mnemonicParsing="false">
+                <graphic>
+                    <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
+                               preserveRatio="true">
+                        <Image url="@../icons/left-arrow.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
+                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="MON"
+                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+                <graphic>
+                    <LabelDay id="cal-day" month="1"/>
+                </graphic>
+                <font>
+                    <Font name="Calibri Bold" size="10.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
+                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="TUE"
+                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+                <graphic>
+                    <LabelDay id="cal-day" month="1"/>
+                </graphic>
+                <font>
+                    <Font name="Calibri Bold" size="10.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
+                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="WED"
+                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+                <graphic>
+                    <LabelDay id="cal-day" month="1"/>
+                </graphic>
+                <font>
+                    <Font name="Calibri Bold" size="10.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
+                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="THU"
+                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+                <graphic>
+                    <LabelDay id="cal-day" month="1"/>
+                </graphic>
+                <font>
+                    <Font name="Calibri Bold" size="10.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
+                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="FRI"
+                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+                <graphic>
+                    <LabelDay id="cal-day" month="1"/>
+                </graphic>
+                <font>
+                    <Font name="Calibri Bold" size="10.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
+                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SAT"
+                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+                <graphic>
+                    <LabelDay id="cal-day" month="1"/>
+                </graphic>
+                <font>
+                    <Font name="Calibri Bold" size="10.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                </HBox.margin>
+            </ToggleButton>
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
+                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SUN"
+                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+                <graphic>
+                    <LabelDay id="cal-day" month="1"/>
+                </graphic>
+                <font>
+                    <Font name="Calibri Bold" size="10.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                </HBox.margin>
+            </ToggleButton>
+            <Button id="prev-next-btn" fx:id="nextWeekButton" mnemonicParsing="false">
+                <graphic>
+                    <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
+                               preserveRatio="true">
+                        <image>
+                            <Image url="@../icons/right-arrow.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </center>
+    <left>
+        <VBox fx:id="vboxYear" alignment="CENTER_RIGHT" fillWidth="false"
+              nodeOrientation="LEFT_TO_RIGHT" prefHeight="126.0" prefWidth="66.0"
+              BorderPane.alignment="CENTER_RIGHT">
+            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2"
+                   textAlignment="RIGHT" textFill="#434040">
+                <font>
+                    <Font name="Calibri Bold" size="1.0"/>
+                </font>
+                <padding>
+                    <Insets right="10.0" top="5.0"/>
+                </padding>
+                <VBox.margin>
+                    <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                </VBox.margin>
+            </Label>
+            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="0"
+                   textAlignment="RIGHT" textFill="#434040">
+                <font>
+                    <Font name="Calibri Bold" size="1.0"/>
+                </font>
+                <padding>
+                    <Insets right="10.0"/>
+                </padding>
+                <VBox.margin>
+                    <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                </VBox.margin>
+            </Label>
+            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2"
+                   textAlignment="RIGHT" textFill="#434040">
+                <font>
+                    <Font name="Calibri Bold" size="1.0"/>
+                </font>
+                <padding>
+                    <Insets right="10.0"/>
+                </padding>
+                <VBox.margin>
+                    <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                </VBox.margin>
+            </Label>
+            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="3"
+                   textAlignment="RIGHT" textFill="#434040">
+                <font>
+                    <Font name="Calibri Bold" size="1.0"/>
+                </font>
+                <padding>
+                    <Insets right="10.0"/>
+                </padding>
+                <VBox.margin>
+                    <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                </VBox.margin>
+            </Label>
+        </VBox>
+    </left>
+</fx:root>

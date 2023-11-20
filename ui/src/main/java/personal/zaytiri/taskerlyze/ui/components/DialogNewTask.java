@@ -8,15 +8,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
-import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
-import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
-import personal.zaytiri.taskerlyze.app.api.domain.Category;
-import personal.zaytiri.taskerlyze.app.api.domain.Task;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.CategoryLoader;
+import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DialogNewTask extends AnchorPane {
@@ -35,6 +34,8 @@ public class DialogNewTask extends AnchorPane {
     @FXML
     public Button buttonCreate;
     Result<TaskEntity> result;
+    private List<Pair<Integer, String>> categoryPairs;
+    private int categoryId;
 
     public DialogNewTask(Result<TaskEntity> result, Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -55,7 +56,11 @@ public class DialogNewTask extends AnchorPane {
         }
     }
 
-    public void showStage() {
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setStageSize() {
         double centerXPosition = primaryStage.getX() + primaryStage.getWidth() / 2d;
         double centerYPosition = primaryStage.getY() + primaryStage.getHeight() / 2d;
 
@@ -68,41 +73,64 @@ public class DialogNewTask extends AnchorPane {
             stage.setY(centerYPosition - stage.getHeight() / 2d - 50);
             stage.show();
         });
-        
+
         stage.initOwner(primaryStage);
+    }
+
+    public void showStage() {
+        populateCategories();
+        setStageSize();
         stage.showAndWait();
+    }
+
+    private int getCategoryId(String byName) {
+        for (Pair<Integer, String> categoryPair : categoryPairs) {
+            if (!categoryPair.getValue().equals(byName)) {
+                continue;
+            }
+            return categoryPair.getKey();
+        }
+        return 0;
+    }
+
+    private String getCategoryName(int id) {
+        for (Pair<Integer, String> categoryPair : categoryPairs) {
+            if (!categoryPair.getKey().equals(id)) {
+                continue;
+            }
+            return categoryPair.getValue();
+        }
+        return "";
     }
 
     @FXML
     private void initialize() {
-
-        populateCategories();
-
-        buttonCreate.setOnAction(event -> {
-            TaskController taskController = new TaskController();
-            Task newTask = new Task().getInstance();
-
-            System.out.println(priority.getText());
-            newTask
-                    .setName(name.getText())
-                    .setDescription(description.getText())
-                    .setCategoryId(1)
-                    .setUrl(url.getText())
-                    .setPriority(Integer.parseInt(priority.getText()));
-
-            OperationResult<Task> newTaskResult = taskController.createOrUpdate(newTask);
-
-            result.setStatus(newTaskResult.getStatus());
-            stage.close();
-        });
+        setOnActionCreateButton();
     }
 
     private void populateCategories() {
-        CategoryController catController = new CategoryController();
-        OperationResult<List<Category>> categories = catController.get(null, null);
+        CategoryLoader loader = new CategoryLoader();
 
-        for (Category cat : categories.getResult()) {
+        categoryPairs = new ArrayList<>();
+
+        for (CategoryEntity cat : loader.load()) {
+            categoryPairs.add(cat.getPair());
             category.getItems().add(cat.getName());
         }
+        category.getSelectionModel().select(getCategoryName(categoryId));
+    }
+
+    private void setOnActionCreateButton() {
+        buttonCreate.setOnAction(event -> {
+            TaskEntity newTask = new TaskEntity()
+                    .setName(name.getText())
+                    .setDescription(description.getText())
+                    .setCategoryId(getCategoryId(category.getSelectionModel().getSelectedItem()))
+                    .setUrl(url.getText())
+                    .setPriority(Integer.parseInt(priority.getText()));
+
+            result.setStatus(newTask.createOrUpdate());
+            stage.close();
+        });
     }
 }
