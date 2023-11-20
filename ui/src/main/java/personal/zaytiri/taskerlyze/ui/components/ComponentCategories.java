@@ -76,7 +76,7 @@ public class ComponentCategories extends TabPane {
         image.setOnMouseClicked(event -> {
             Result<Category> categoryResult = new Result<>(new Category());
             DialogNewCategory dialog = new DialogNewCategory(categoryResult);
-            dialog.showStage();
+            dialog.showDialog();
 
             if (categoryResult.getResult() != null) {
                 populateCategoryView();

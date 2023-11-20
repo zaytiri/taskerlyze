@@ -69,9 +69,9 @@ public class ComponentSideMenu extends AnchorPane {
     private void setNewTaskButtonOnAction(Button newTask) {
         newTask.setOnAction(event -> {
             Result<TaskEntity> taskResult = new Result<>(new TaskEntity());
-            DialogNewTask dialog = new DialogNewTask(taskResult, Configuration.getInstance().getPrimaryStage());
+            DialogNewTask dialog = new DialogNewTask(taskResult);
             dialog.setCategoryId(TaskLoader.getTaskLoader().getActiveCategoryId());
-            dialog.showStage();
+            dialog.showDialog();
 
             if (taskResult.getResult() != null) {
                 TaskLoader.getTaskLoader().refresh();

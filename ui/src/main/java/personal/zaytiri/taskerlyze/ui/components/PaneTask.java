@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.ui.logic.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
@@ -47,9 +46,9 @@ public class PaneTask extends TitledPane {
     public void addSubTaskButtonSetOnAction() {
         addNewSubTaskButton.setOnAction(event -> {
             Result<TaskEntity> taskEntityResult = new Result<>(new TaskEntity());
-            DialogNewSubTask dialog = new DialogNewSubTask(taskEntityResult, new Stage());
+            DialogNewSubTask dialog = new DialogNewSubTask(taskEntityResult);
             dialog.setTaskId(getTaskId());
-            dialog.showStage();
+            dialog.showDialog();
 
             if (taskEntityResult.isSuccessful()) {
                 setSubTasks();
