@@ -84,9 +84,9 @@ public class PaneTask extends TitledPane {
         for (SubTaskEntity st : subTasks) {
             PaneSubTask comp = new PaneSubTask();
             comp.setTaskName(st.getName());
-            comp.setTaskId(st.getId());
+            comp.setSubTaskId(st.getId());
             comp.setIsTaskDone(st.isTaskDone());
-            comp.setSubTaskId(st.getTaskId());
+            comp.setTaskId(st.getTaskId());
 
             subTasksAccordion.getPanes().add(comp);
         }
