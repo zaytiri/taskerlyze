@@ -9,12 +9,33 @@ import personal.zaytiri.taskerlyze.app.persistence.repositories.base.Repository;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ISubTaskRepository;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.Operators;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.SelectQueryBuilder;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubTaskRepository extends Repository<SubTask, SubTaskModel, SubTaskMapper> implements ISubTaskRepository {
     @Inject
     public SubTaskRepository() {
         super(new SubTaskModel(), new SubTaskMapper());
+    }
+
+    @Override
+    public Response exists(SubTask subTask) {
+        model = mapper.toModel(subTask);
+
+        SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
+
+        Column name = model.getTable().getColumn("name");
+        List<Column> columns = new ArrayList<>();
+        columns.add(name);
+
+        query.select(columns)
+                .from(model.getTable())
+                .where(name, Operators.EQUALS, model.getName());
+
+        return query.execute();
     }
 
     @Override

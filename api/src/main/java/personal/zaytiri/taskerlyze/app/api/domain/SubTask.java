@@ -49,7 +49,9 @@ public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> 
 
     @Override
     public boolean exists() {
-        return get() != null;
+        Response response = repository.exists(this); // check done by name
+
+        return !response.getResult().isEmpty();
     }
 
     @Override
