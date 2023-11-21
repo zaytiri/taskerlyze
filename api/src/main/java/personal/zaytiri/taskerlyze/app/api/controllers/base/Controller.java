@@ -12,8 +12,8 @@ import java.util.Map;
 public abstract class Controller<T extends IStorageOperations<T>> implements IController<T> {
 
     @Override
-    public OperationResult<T> createOrUpdate(T request) {
-        boolean isCreated = request.createOrUpdate();
+    public OperationResult<T> create(T request) {
+        boolean isCreated = request.create();
 
         MessageResult message = new MessageResult();
         if (isCreated) {
@@ -73,6 +73,21 @@ public abstract class Controller<T extends IStorageOperations<T>> implements ICo
         return new OperationResult<>(!entities.isEmpty(), message, entities);
     }
 
+    @Override
+    public OperationResult<T> update(T request) {
+        boolean isUpdated = request.update();
+
+        MessageResult message = new MessageResult();
+        if (isUpdated) {
+            message.setCode(CodeResult.UPDATED);
+        } else {
+            message.setCode(CodeResult.NOT_UPDATED);
+        }
+
+        return new OperationResult<>(isUpdated, message, request);
+    }
+
     protected abstract T getEntityInstance(int id);
+
     protected abstract T getEntityInstance();
 }

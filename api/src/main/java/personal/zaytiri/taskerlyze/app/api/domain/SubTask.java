@@ -26,16 +26,14 @@ public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> 
     public SubTask() {
     }
 
-    @Override
-    public boolean createOrUpdate() {
-        Response response;
-
-        if (!exists()) {
-            response = repository.create(this);
-            this.id = response.getLastInsertedId();
-        } else {
-            response = repository.update(this);
+    public boolean create() {
+        if (exists()) {
+            return false;
         }
+
+        Response response = repository.create(this);
+        this.id = response.getLastInsertedId();
+
         return response.isSuccess();
     }
 
@@ -72,6 +70,11 @@ public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> 
         Response response = repository.read(filters, orderByColumn);
 
         return mapper.toEntity(response.getResult(), false);
+    }
+
+    public boolean update() {
+        //todo: test what happens if i try to update but theres no entry to update because its not created yet.
+        return repository.update(this).isSuccess();
     }
 
     public Date getCompletedAt() {

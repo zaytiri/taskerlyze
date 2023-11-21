@@ -9,14 +9,13 @@ import java.util.Map;
 
 public interface IController<T> {
     /**
-     * Creates or updates an object of type T.
+     * Creates an object of type T.
      * The object needs to have all the necessary properties set to some value to create new data into the database.
-     * If the data already exists, it will update every data that's different.
      *
      * @param request an object of type T.
      * @return OperationResult<T>
      */
-    OperationResult<T> createOrUpdate(T request);
+    OperationResult<T> create(T request);
 
     /**
      * Deletes a given object of type T with a given id.
@@ -44,4 +43,13 @@ public interface IController<T> {
      * @return OperationResult<T>
      */
     OperationResult<List<T>> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn);
+
+    /**
+     * Updates an already existing object of type T.
+     * The object needs to have all properties set and it will update all fields that are different.
+     *
+     * @param request an object of type T.
+     * @return OperationResult<T>
+     */
+    OperationResult<T> update(T request);
 }

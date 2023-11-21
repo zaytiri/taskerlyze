@@ -7,9 +7,15 @@ import java.util.Map;
 
 public interface IStorageOperations<T> {
 
-    boolean createOrUpdate();
+    boolean create();
+
     boolean delete();
+
     boolean exists();
+
     T get();
+
     List<T> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn);
+
+    boolean update();
 }

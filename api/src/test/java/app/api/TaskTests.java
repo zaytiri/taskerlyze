@@ -49,7 +49,7 @@ class TaskTests {
                 .setDescription("a new task to test the task");
 
         // act
-        OperationResult<Task> result = controller.createOrUpdate(task);
+        OperationResult<Task> result = controller.create(task);
 
         // assert
         Assertions.assertTrue(result.getStatus());
