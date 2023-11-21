@@ -1,6 +1,7 @@
 package personal.zaytiri.taskerlyze.ui.logic.entities;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
+import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
@@ -23,10 +24,11 @@ public class CategoryEntity {
         api = new CategoryController();
     }
 
-    public boolean createOrUpdate() {
+    public Pair<Boolean, String> create() {
         Category newCat = new Category().getInstance().setName(name);
+        OperationResult<Category> result = api.create(newCat);
 
-        return api.createOrUpdate(newCat).getStatus();
+        return new Pair<>(result.getStatus(), result.getMessageResult().getMessage());
     }
 
     public int getId() {

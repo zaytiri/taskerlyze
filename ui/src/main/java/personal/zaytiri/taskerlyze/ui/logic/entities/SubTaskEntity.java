@@ -3,6 +3,7 @@ package personal.zaytiri.taskerlyze.ui.logic.entities;
 import personal.zaytiri.taskerlyze.app.api.controllers.SubTaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 public class SubTaskEntity {
     private final SubTaskController api;
@@ -27,14 +28,14 @@ public class SubTaskEntity {
         this(subTask.getId(), subTask.getName(), subTask.isDone(false), subTask.getTaskId());
     }
 
-    public boolean createOrUpdate() {
+    public Pair<Boolean, String> create() {
         SubTask newTask = new SubTask().getInstance();
         newTask
                 .setName(name)
                 .setTaskId(taskId);
 
-        OperationResult<SubTask> result = api.createOrUpdate(newTask);
-        return result.getStatus();
+        OperationResult<SubTask> result = api.create(newTask);
+        return new Pair<>(result.getStatus(), result.getMessageResult().getMessage());
     }
 
     public int getId() {

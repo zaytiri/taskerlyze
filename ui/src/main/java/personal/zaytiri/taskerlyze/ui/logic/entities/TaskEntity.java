@@ -3,8 +3,10 @@ package personal.zaytiri.taskerlyze.ui.logic.entities;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 public class TaskEntity {
+    private final TaskController api;
     private int id;
     private String name;
     private boolean isTaskDone;
@@ -12,7 +14,6 @@ public class TaskEntity {
     private int categoryId;
     private String url;
     private int priority;
-    private final TaskController api;
 
     public TaskEntity(Task task) {
         this(task.getId(), task.getName(), task.isDone(false));
@@ -29,7 +30,7 @@ public class TaskEntity {
         api = new TaskController();
     }
 
-    public boolean createOrUpdate() {
+    public Pair<Boolean, String> create() {
         Task newTask = new Task().getInstance();
         newTask
                 .setName(name)
@@ -38,8 +39,8 @@ public class TaskEntity {
                 .setUrl(url)
                 .setPriority(priority);
 
-        OperationResult<Task> result = api.createOrUpdate(newTask);
-        return result.getStatus();
+        OperationResult<Task> result = api.create(newTask);
+        return new Pair<>(result.getStatus(), result.getMessageResult().getMessage());
     }
 
     public int getId() {
