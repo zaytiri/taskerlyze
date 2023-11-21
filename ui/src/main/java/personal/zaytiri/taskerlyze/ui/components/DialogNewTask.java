@@ -3,6 +3,7 @@ package personal.zaytiri.taskerlyze.ui.components;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.CategoryLoader;
@@ -26,6 +27,8 @@ public class DialogNewTask extends Dialog {
     public TextField priority;
     @FXML
     public Button buttonCreate;
+    @FXML
+    public Label errorMessage;
     Result<TaskEntity> result;
     private List<Pair<Integer, String>> categoryPairs;
     private int categoryId;
@@ -42,6 +45,14 @@ public class DialogNewTask extends Dialog {
     public void showDialog() {
         populateCategories();
         show();
+    }
+
+    public Integer tryParseInt(String value) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
     private int getCategoryId(String byName) {
@@ -83,14 +94,30 @@ public class DialogNewTask extends Dialog {
 
     private void setOnActionCreateButton() {
         buttonCreate.setOnAction(event -> {
+            Integer priorityAsNumber = tryParseInt(priority.getText());
+            if (priorityAsNumber == null) {
+                errorMessage.setText("Priority must be a number.");
+                return;
+            }
+
             TaskEntity newTask = new TaskEntity()
                     .setName(name.getText())
                     .setDescription(description.getText())
                     .setCategoryId(getCategoryId(category.getSelectionModel().getSelectedItem()))
                     .setUrl(url.getText())
-                    .setPriority(Integer.parseInt(priority.getText()));
+                    .setPriority(priorityAsNumber);
 
-            result.setStatus(newTask.createOrUpdate());
+            Pair<Boolean, String> response = newTask.create();
+            boolean isSuccessfulFromApi = response.getKey();
+            String errorMessageFromApi = response.getValue();
+
+            result.setStatus(isSuccessfulFromApi);
+
+            if (!result.isSuccessful()) {
+                errorMessage.setText(errorMessageFromApi);
+                return;
+            }
+
             closeDialog();
         });
     }

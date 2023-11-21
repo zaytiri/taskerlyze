@@ -35,6 +35,11 @@
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="url"/>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="priority"/>
         </GridPane>
+        <Label fx:id="errorMessage" textFill="darkred">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </Label>
         <Button mnemonicParsing="false" text="Create" fx:id="buttonCreate">
             <VBox.margin>
                 <Insets top="10.0"/>
