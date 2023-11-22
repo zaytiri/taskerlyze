@@ -10,8 +10,10 @@ import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITask
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.Operators;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.SelectQueryBuilder;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,17 +42,30 @@ public class TaskRepository extends Repository<Task, TaskModel, TaskMapper> impl
     }
 
     @Override
-    public Response getTasksByCategory(int categoryId) {
+    public Response getTasksByCategoryAndCompletedAtDate(int categoryId, LocalDate date) {
         model = new TaskModel();
         CategoryModel categoryModel = new CategoryModel();
 
         SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
 
+        Table taskTable = model.getTable();
+        Table categoryTable = categoryModel.getTable();
+        
         query.select()
-                .from(model.getTable())
-                .join(categoryModel.getTable())
-                .on(model.getTable().getColumn("category_id"), categoryModel.getTable().getColumn("id"))
-                .where(categoryModel.getTable().getColumn("id"), Operators.EQUALS, categoryId);
+                .from(taskTable)
+                .join(categoryTable)
+                .on(taskTable.getColumn("category_id"), categoryTable.getColumn("id"))
+                .where(categoryTable.getColumn("id"), Operators.EQUALS, categoryId);
+
+        if (date.isEqual(LocalDate.now())) {
+            query.and(2)
+                    .where(taskTable.getColumn("is_done"), Operators.EQUALS, false)
+                    .or()
+                    .where(taskTable.getColumn("completed_at"), Operators.EQUALS, date);
+        } else {
+            query.and()
+                    .where(taskTable.getColumn("completed_at"), Operators.EQUALS, date);
+        }
 
         return query.execute();
     }

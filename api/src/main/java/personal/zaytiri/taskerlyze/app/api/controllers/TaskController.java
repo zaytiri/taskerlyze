@@ -6,6 +6,7 @@ import personal.zaytiri.taskerlyze.app.api.controllers.result.MessageResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TaskController extends Controller<Task> {
@@ -16,11 +17,12 @@ public class TaskController extends Controller<Task> {
      * @param categoryId which is the identifier for a specific category.
      * @return OperationResult<Task>
      */
-    public OperationResult<List<Task>> getTasksByCategory(int categoryId) {
+    public OperationResult<List<Task>> getTasksByCategoryAndCompletedAtDate(int categoryId, LocalDate date) {
         Task task = new Task().getInstance();
         task.setCategoryId(categoryId);
+        task.setCompletedAt(date);
 
-        List<Task> tasks = task.getTasksByCategory();
+        List<Task> tasks = task.getTasksByCategoryAndCompletedAtDate();
 
         MessageResult message = new MessageResult();
         if (tasks.isEmpty()) {

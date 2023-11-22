@@ -127,8 +127,8 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return this;
     }
 
-    public List<Task> getTasksByCategory() {
-        Response response = repository.getTasksByCategory(this.categoryId);
+    public List<Task> getTasksByCategoryAndCompletedAtDate() {
+        Response response = repository.getTasksByCategoryAndCompletedAtDate(this.categoryId, this.completedAt);
 
         return mapper.toEntity(response.getResult(), true);
     }
