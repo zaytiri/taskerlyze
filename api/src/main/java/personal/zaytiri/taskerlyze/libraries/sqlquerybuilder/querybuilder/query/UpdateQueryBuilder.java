@@ -16,8 +16,14 @@ public class UpdateQueryBuilder extends QueryBuilder implements IGenericClauses<
     }
 
     @Override
+    public UpdateQueryBuilder and(int numberOfConditions) {
+        genericClauses.and(numberOfConditions);
+        return this;
+    }
+
+    @Override
     public UpdateQueryBuilder and() {
-        genericClauses.and();
+        genericClauses.and(0);
         return this;
     }
 
@@ -34,8 +40,14 @@ public class UpdateQueryBuilder extends QueryBuilder implements IGenericClauses<
     }
 
     @Override
+    public UpdateQueryBuilder or(int numberOfConditions) {
+        genericClauses.or(numberOfConditions);
+        return this;
+    }
+
+    @Override
     public UpdateQueryBuilder or() {
-        genericClauses.or();
+        genericClauses.or(0);
         return this;
     }
 

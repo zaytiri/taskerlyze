@@ -23,8 +23,14 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
     }
 
     @Override
+    public SelectQueryBuilder and(int numberOfConditions) {
+        genericClauses.and(numberOfConditions);
+        return this;
+    }
+
+    @Override
     public SelectQueryBuilder and() {
-        genericClauses.and();
+        genericClauses.and(0);
         return this;
     }
 
@@ -41,8 +47,14 @@ public class SelectQueryBuilder extends QueryBuilder implements IGenericClauses<
     }
 
     @Override
+    public SelectQueryBuilder or(int numberOfConditions) {
+        genericClauses.or(numberOfConditions);
+        return this;
+    }
+
+    @Override
     public SelectQueryBuilder or() {
-        genericClauses.or();
+        genericClauses.or(0);
         return this;
     }
 

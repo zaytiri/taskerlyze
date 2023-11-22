@@ -4,6 +4,14 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema
 
 public interface IGenericClauses<QB extends QueryBuilder> {
     /**
+     * Adds the AND clause to the query considering the number of conditions that needs to be connected to this clause.
+     * E.g. ... AND (condition1 AND condition2) ... => and(2).where(condition1).and().where(condition2);
+     *
+     * @return QB specific class
+     */
+    QB and(int numberOfConditions);
+
+    /**
      * Adds the AND clause to the query.
      *
      * @return QB specific class
@@ -25,6 +33,14 @@ public interface IGenericClauses<QB extends QueryBuilder> {
      * @return QB specific class
      */
     QB between(Object value);
+
+    /**
+     * Adds the OR clause to the query considering the number of conditions that needs to be connected to this clause.
+     * * E.g. ... OR (condition1 OR condition2) ... => or(2).where(condition1).or().where(condition2);
+     *
+     * @return QB specific class
+     */
+    QB or(int numberOfConditions);
 
     /**
      * Adds the OR clause to the query.

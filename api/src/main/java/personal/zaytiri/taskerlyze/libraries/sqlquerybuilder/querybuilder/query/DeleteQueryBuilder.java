@@ -14,8 +14,14 @@ public class DeleteQueryBuilder extends QueryBuilder implements IGenericClauses<
     }
 
     @Override
+    public DeleteQueryBuilder and(int numberOfConditions) {
+        genericClauses.and(numberOfConditions);
+        return this;
+    }
+
+    @Override
     public DeleteQueryBuilder and() {
-        genericClauses.and();
+        genericClauses.and(0);
         return this;
     }
 
@@ -32,8 +38,14 @@ public class DeleteQueryBuilder extends QueryBuilder implements IGenericClauses<
     }
 
     @Override
+    public DeleteQueryBuilder or(int numberOfConditions) {
+        genericClauses.or(numberOfConditions);
+        return this;
+    }
+
+    @Override
     public DeleteQueryBuilder or() {
-        genericClauses.or();
+        genericClauses.or(0);
         return this;
     }
 
