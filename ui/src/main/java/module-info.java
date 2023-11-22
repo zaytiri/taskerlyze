@@ -3,6 +3,7 @@ module ui.main {
     requires javafx.fxml;
     requires api.main;
     requires java.desktop;
+    requires com.google.common;
 
     opens personal.zaytiri.taskerlyze.ui.views to javafx.fxml;
     opens personal.zaytiri.taskerlyze.ui.controllers to javafx.fxml;
