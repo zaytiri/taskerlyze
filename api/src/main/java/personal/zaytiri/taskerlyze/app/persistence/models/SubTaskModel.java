@@ -3,24 +3,24 @@ package personal.zaytiri.taskerlyze.app.persistence.models;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class SubTaskModel extends Model {
     private boolean done;
     private int taskId;
-    private Date completedAt;
+    private LocalDate completedAt;
 
     public SubTaskModel() {
         super("subtasks");
     }
 
-    public Date getCompletedAt() {
+    public LocalDate getCompletedAt() {
         return completedAt;
     }
 
-    public void setCompletedAt(Date completedAt) {
+    public void setCompletedAt(LocalDate completedAt) {
         this.completedAt = completedAt;
     }
 

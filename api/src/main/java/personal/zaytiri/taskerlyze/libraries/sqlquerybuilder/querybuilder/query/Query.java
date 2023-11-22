@@ -86,9 +86,6 @@ public class Query {
             resolvedQuery.append(splittedQueryBy[i]);
             if (i < values.size()) {
                 Object value = values.get(i);
-                if (value instanceof java.util.Date) {
-                    value = ((java.util.Date) value).getTime();
-                }
                 resolvedQuery.append(value);
             }
         }

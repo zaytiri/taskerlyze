@@ -9,13 +9,17 @@ import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITask
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements IStorageOperations<Task> {
     private String description;
     private boolean done;
     private int categoryId;
-    private Date completedAt;
+    private LocalDate completedAt;
     private String achieved;
     private String url;
     private int priority;
@@ -97,11 +101,11 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return this;
     }
 
-    public Date getCompletedAt() {
+    public LocalDate getCompletedAt() {
         return completedAt;
     }
 
-    public void setCompletedAt(Date completedAt) {
+    public void setCompletedAt(LocalDate completedAt) {
         this.completedAt = completedAt;
     }
 
@@ -166,11 +170,11 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
     public boolean setTaskStatus(boolean done) {
         List<Pair<String, Object>> sets = new ArrayList<>();
 
-        Date today = null;
+        LocalDate today = null;
         sets.add(new Pair<>("is_done", done));
 
         if (done) {
-            today = new Date();
+            today = LocalDate.now();
         }
         sets.add(new Pair<>("completed_at", today));
 

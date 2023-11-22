@@ -9,12 +9,16 @@ import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ISubT
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> implements IStorageOperations<SubTask> {
     private boolean done;
     private int taskId;
-    private Date completedAt;
+    private LocalDate completedAt;
 
     @Inject
     public SubTask(ISubTaskRepository repository) {
@@ -79,11 +83,11 @@ public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> 
         return repository.update(this).isSuccess();
     }
 
-    public Date getCompletedAt() {
+    public LocalDate getCompletedAt() {
         return completedAt;
     }
 
-    public SubTask setCompletedAt(Date completedAt) {
+    public SubTask setCompletedAt(LocalDate completedAt) {
         this.completedAt = completedAt;
         return this;
     }
@@ -136,11 +140,11 @@ public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> 
     public boolean setTaskStatus(boolean done) {
         List<Pair<String, Object>> sets = new ArrayList<>();
 
-        Date today = null;
+        LocalDate today = null;
         sets.add(new Pair<>("is_done", done));
 
         if (done) {
-            today = new Date();
+            today = LocalDate.now();
         }
         sets.add(new Pair<>("completed_at", today));
 

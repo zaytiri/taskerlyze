@@ -5,7 +5,7 @@ import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public abstract class Model {
@@ -13,8 +13,8 @@ public abstract class Model {
     protected Table table;
     protected int id;
     protected String name;
-    protected Date updatedAt;
-    protected Date createdAt;
+    protected LocalDate updatedAt;
+    protected LocalDate createdAt;
 
     protected Model(String tableName) {
         Database schema = DbConnection.getInstance().getSchema();
@@ -24,15 +24,15 @@ public abstract class Model {
             return;
         }
 
-        createdAt = new Date();
-        updatedAt = new Date();
+        createdAt = LocalDate.now();
+        updatedAt = LocalDate.now();
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    protected void setCreatedAt(Date createdAt) {
+    protected void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -58,11 +58,11 @@ public abstract class Model {
         return table;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    protected void setUpdatedAt(Date updatedAt) {
+    protected void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 

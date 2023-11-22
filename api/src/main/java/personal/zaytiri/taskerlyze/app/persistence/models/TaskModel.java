@@ -3,15 +3,15 @@ package personal.zaytiri.taskerlyze.app.persistence.models;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TaskModel extends Model {
     private boolean done;
     private String description;
     private int categoryId;
-    private Date completedAt;
+    private LocalDate completedAt;
     private String achieved;
     private String url;
     private int priority;
@@ -37,11 +37,11 @@ public class TaskModel extends Model {
         this.categoryId = categoryId;
     }
 
-    public Date getCompletedAt() {
+    public LocalDate getCompletedAt() {
         return completedAt;
     }
 
-    public TaskModel setCompletedAt(Date completedAt) {
+    public TaskModel setCompletedAt(LocalDate completedAt) {
         this.completedAt = completedAt;
         return this;
     }

@@ -1,6 +1,6 @@
 package personal.zaytiri.taskerlyze.app.persistence.mappers.base;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Map;
 
 public abstract class Mapper<E, M> implements IMapper<E, M> {
@@ -25,14 +25,12 @@ public abstract class Mapper<E, M> implements IMapper<E, M> {
         return Integer.parseInt(value) != 0;
     }
 
-    protected Date getRowDateValue(Map<String, String> row, boolean mixedResult, String columnName) {
+    protected LocalDate getRowDateValue(Map<String, String> row, boolean mixedResult, String columnName) {
         String value = getRowValue(row, mixedResult, columnName);
         if (value == null) {
-            return null; // todo: return the minimum date like 0001-01-01
+            return LocalDate.MIN;
         }
-        Date date = new Date();
-        date.setTime(Long.parseLong(value));
-        return date; // todo: test if this actually works
+        return LocalDate.parse(value);
     }
 
     protected int getRowIntValue(Map<String, String> row, boolean mixedResult, String columnName) {
