@@ -102,6 +102,15 @@ public class PaneTask extends TitledPane {
         subTaskLoader = new SubTaskLoader();
         setCheckBoxOnAction();
         addSubTaskButtonSetOnAction();
+        populateSubTasksWhenTaskExpands();
+    }
+
+    private void populateSubTasksWhenTaskExpands() {
+        this.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+            if (Boolean.TRUE.equals(isNowExpanded)) {
+                setSubTasks();
+            }
+        });
     }
 
     private void setCheckBoxOnAction() {
