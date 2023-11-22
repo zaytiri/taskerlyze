@@ -85,10 +85,11 @@ public class ComponentCategories extends TabPane {
                     ScrollEvent reversedEvent = new ScrollEvent(
                             e.getEventType(), e.getX(), e.getY(), e.getScreenX(),
                             e.getScreenY(), e.isShiftDown(), e.isControlDown(), e.isAltDown(),
-                            e.isMetaDown(), e.isDirect(), e.isInertia(), e.getDeltaX(),
-                            -e.getDeltaY(), // reverse it
-                            e.getTotalDeltaX(),
-                            -e.getTotalDeltaY(), // reverse it
+                            e.isMetaDown(), e.isDirect(), e.isInertia(),
+                            -e.getDeltaX(), // reverse it
+                            e.getDeltaY(),
+                            -e.getTotalDeltaX(), // reverse it
+                            e.getTotalDeltaY(),
                             e.getMultiplierX(), e.getMultiplierY(), e.getTextDeltaXUnits(),
                             e.getTextDeltaX(), e.getTextDeltaYUnits(), e.getTextDeltaY(),
                             e.getTouchCount(), e.getPickResult()
