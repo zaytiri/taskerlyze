@@ -21,6 +21,7 @@ public class ComponentTasks extends Accordion implements PropertyChangeListener 
     private Accordion mainTasks;
     @FXML
     private TitledPane notFoundMessage;
+    private int categoryId;
 
     public ComponentTasks() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-tasks.fxml"));
@@ -41,7 +42,13 @@ public class ComponentTasks extends Accordion implements PropertyChangeListener 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         this.tasks = FXCollections.observableList((List<TaskEntity>) evt.getNewValue());
-        setTasks();
+        if (this.tasks.isEmpty() || this.tasks.get(0).getCategoryId() == this.categoryId) {
+            setTasks();
+        }
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     private void setTasks() {
@@ -59,8 +66,6 @@ public class ComponentTasks extends Accordion implements PropertyChangeListener 
             comp.setTaskId(t.getId());
             comp.setTaskName(t.getName());
             comp.setIsTaskDone(t.isTaskDone());
-
-            comp.setSubTasks();
 
             if (expandedPane != null && Objects.equals(expandedPane.getId(), comp.getId())) {
                 mainTasks.setExpandedPane(comp);

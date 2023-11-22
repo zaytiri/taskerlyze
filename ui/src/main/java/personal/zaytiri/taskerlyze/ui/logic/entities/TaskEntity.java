@@ -14,7 +14,6 @@ public class TaskEntity {
     private int categoryId;
     private String url;
     private int priority;
-
     public TaskEntity(Task task) {
         this(task.getId(), task.getName(), task.isDone(false));
     }
@@ -43,6 +42,15 @@ public class TaskEntity {
         return new Pair<>(result.getStatus(), result.getMessageResult().getMessage());
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public TaskEntity setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+        return this;
+    }
+
     public int getId() {
         return id;
     }
@@ -67,11 +75,6 @@ public class TaskEntity {
 
     public TaskEntity setTaskDone(boolean taskDone) {
         isTaskDone = taskDone;
-        return this;
-    }
-
-    public TaskEntity setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
         return this;
     }
 

@@ -19,6 +19,8 @@ import java.io.IOException;
 public class TabCategory extends Tab {
     private final StringProperty categoryName = new SimpleStringProperty();
     private final IntegerProperty categoryId = new SimpleIntegerProperty();
+    @FXML
+    private ComponentTasks componentTasks;
 
     public TabCategory() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/tab-category.fxml"));
@@ -37,6 +39,7 @@ public class TabCategory extends Tab {
 
     public void setCategoryId(int categoryId) {
         this.categoryId.set(categoryId);
+        this.componentTasks.setCategoryId(categoryId);
     }
 
     @FXML
