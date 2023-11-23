@@ -11,9 +11,7 @@
                     AnchorPane.bottomAnchor="-20.0"
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="0.0">
-            <AnchorPane>
-                <ComponentTasks fx:id="componentTasks"/>
-            </AnchorPane>
+            <ComponentTasks fx:id="componentTasks"/>
         </ScrollPane>
     </AnchorPane>
 </fx:root>

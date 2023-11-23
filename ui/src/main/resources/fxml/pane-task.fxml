@@ -110,7 +110,7 @@
                             <graphic>
                                 <BorderPane>
                                     <center>
-                                        <Label text="No sub tasks found."/>
+                                        <Label id="not-found-message" text="No sub tasks found."/>
                                     </center>
                                 </BorderPane>
                             </graphic>
