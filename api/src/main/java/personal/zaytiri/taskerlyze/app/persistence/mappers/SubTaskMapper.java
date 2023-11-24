@@ -24,6 +24,7 @@ public class SubTaskMapper extends Mapper<SubTask, SubTaskModel> {
             task.setName(getRowStringValue(row, mixedResult, "name"));
             task.setDone(getRowBooleanValue(row, mixedResult, "is_done"));
             task.setCompletedAt(getRowDateValue(row, mixedResult, "completed_at"));
+            task.setTaskId(getRowIntValue(row, mixedResult, "task_id"));
 
             tasks.add(task);
         }
@@ -40,6 +41,7 @@ public class SubTaskMapper extends Mapper<SubTask, SubTaskModel> {
         entity.setName(model.getName());
         entity.setDone(model.isDone());
         entity.setCompletedAt(model.getCompletedAt());
+        entity.setTaskId(model.getTaskId());
 
         return entity;
     }
