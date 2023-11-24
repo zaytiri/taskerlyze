@@ -92,7 +92,7 @@ public abstract class Repository<GEntity, GModel extends Model, GMapper extends 
 
     @Override
     public Response update(GEntity entity) {
-        return update(entity, model.getValues());
+        return update(entity, mapper.toModel(entity).getValues());
     }
 
     @Override
