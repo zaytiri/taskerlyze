@@ -6,9 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.ui.logic.Configuration;
-import personal.zaytiri.taskerlyze.ui.logic.TaskLoader;
-import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
-import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -25,8 +22,6 @@ public class ComponentSideMenu extends AnchorPane {
     private Button settings;
     @FXML
     private Button switchProfile;
-    @FXML
-    private Button newTask;
 
     public ComponentSideMenu() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-side-menu.fxml"));
@@ -55,7 +50,6 @@ public class ComponentSideMenu extends AnchorPane {
 
     public void setButtonsSetOnAction() {
         setExitButtonOnAction(exit);
-        setNewTaskButtonOnAction(newTask);
         setTodayButtonOnAction(today);
     }
 
@@ -64,20 +58,6 @@ public class ComponentSideMenu extends AnchorPane {
         Stage primaryStage = Configuration.getInstance().getPrimaryStage();
         exit.setOnAction(event -> primaryStage.close());
         primaryStage.setOnCloseRequest(event -> primaryStage.close());
-    }
-
-    private void setNewTaskButtonOnAction(Button newTask) {
-        newTask.setOnAction(event -> {
-            Result<TaskEntity> taskResult = new Result<>(new TaskEntity());
-            DialogNewTask dialog = new DialogNewTask(taskResult);
-            dialog.setCategoryId(TaskLoader.getTaskLoader().getActiveCategoryId());
-            dialog.showDialog();
-
-            if (taskResult.getResult() != null) {
-                TaskLoader.getTaskLoader().refresh();
-            }
-            event.consume();
-        });
     }
 
     private void setTodayButtonOnAction(Button today) {
