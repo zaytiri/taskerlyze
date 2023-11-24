@@ -5,23 +5,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
-import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
-public class DialogNewSubTask extends Dialog {
+public class DialogNewSubTask extends Dialog<SubTaskEntity> {
     @FXML
     public TextField name;
     @FXML
     public Button buttonCreate;
     @FXML
     public Label errorMessage;
-    Result<TaskEntity> result;
     private int taskId;
+    private SubTaskEntity newOrExistingSubTask;
 
-    public DialogNewSubTask(Result<TaskEntity> result) {
+    public DialogNewSubTask() {
         super("dialog-new-sub-task", "Add new subtask:");
-        this.result = result;
     }
 
     public void setTaskId(int taskId) {
@@ -30,6 +27,7 @@ public class DialogNewSubTask extends Dialog {
 
     @Override
     public void showDialog() {
+        populate();
         show();
     }
 
@@ -38,15 +36,24 @@ public class DialogNewSubTask extends Dialog {
         setOnActionCreateButton();
     }
 
+    private void populate() {
+        if (this.id == 0) {
+            newOrExistingSubTask = new SubTaskEntity();
+            return;
+        }
+        newOrExistingSubTask = new SubTaskEntity().get(this.id);
+        name.setText(newOrExistingSubTask.getName());
+    }
+
     private void setOnActionCreateButton() {
         buttonCreate.setOnAction(event -> {
-            SubTaskEntity newTask = new SubTaskEntity()
+            newOrExistingSubTask
                     .setName(name.getText())
                     .setTaskId(taskId);
 
-            Pair<Boolean, String> response = newTask.create();
-            boolean isSuccessfulFromApi = response.getKey();
-            String errorMessageFromApi = response.getValue();
+            Pair<SubTaskEntity, Pair<Boolean, String>> response = newOrExistingSubTask.createOrUpdate();
+            boolean isSuccessfulFromApi = response.getValue().getKey();
+            String errorMessageFromApi = response.getValue().getValue();
 
             result.setStatus(isSuccessfulFromApi);
 
