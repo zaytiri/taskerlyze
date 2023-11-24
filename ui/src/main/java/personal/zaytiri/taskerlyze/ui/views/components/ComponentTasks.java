@@ -5,10 +5,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneTask;
 
 import java.beans.PropertyChangeEvent;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ComponentTasks extends AnchorPane implements PropertyChangeListener {
+    private final MenuOptions contextMenu;
     private ObservableList<TaskEntity> tasks;
     @FXML
     private Accordion mainTasks;
@@ -27,6 +31,8 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
 
     public ComponentTasks() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-tasks.fxml"));
+        this.contextMenu = new MenuOptions();
+
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -39,6 +45,7 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
     @FXML
     public void initialize() {
         TaskLoader.getTaskLoader().addPropertyChangeListener(this);
+        this.notFoundMessage.setContextMenu(getTabContextMenu());
     }
 
     @Override
@@ -51,6 +58,16 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    private void addAddTaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(TaskLoader.getTaskLoader().getActiveCategoryId(), ifSuccessful -> TaskLoader.getTaskLoader().load()));
+    }
+
+    private ContextMenu getTabContextMenu() {
+        addAddTaskOptionForContextMenu();
+
+        return contextMenu.buildContextMenu();
     }
 
     private void setTasks() {
