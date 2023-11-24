@@ -31,14 +31,32 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
         api = new TaskController();
     }
 
-    public List<TaskEntity> findBySubString(String subString) {
-        OperationResult<List<Task>> result = api.findBySubString(subString);
-        List<TaskEntity> tasksToBeReturned = new ArrayList<>();
+    public List<String> findBySubString(String subString) {
+        OperationResult<List<Task>> result = api.findNameBySubString(subString);
+        List<String> tasksToBeReturned = new ArrayList<>();
         for (Task task : result.getResult()) {
-            tasksToBeReturned.add(mapToUiObject(task));
-            System.out.println(task.getName());
+            tasksToBeReturned.add(task.getName());
         }
         return tasksToBeReturned;
+    }
+
+    public Task mapToApiObject() {
+        return new Task().getInstance()
+                .setId(id)
+                .setName(name)
+                .setDescription(description)
+                .setCategoryId(categoryId)
+                .setUrl(url)
+                .setPriority(priority);
+    }
+
+    public TaskEntity mapToUiObject(Task entity) {
+        return new TaskEntity(entity);
+    }
+
+    public TaskEntity setId(int id) {
+        this.id = id;
+        return this;
     }
 
     public int getCategoryId() {
@@ -92,25 +110,6 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
 
     public TaskEntity setTaskDone(boolean taskDone) {
         isTaskDone = taskDone;
-        return this;
-    }
-
-    public Task mapToApiObject() {
-        return new Task().getInstance()
-                .setId(id)
-                .setName(name)
-                .setDescription(description)
-                .setCategoryId(categoryId)
-                .setUrl(url)
-                .setPriority(priority);
-    }
-
-    public TaskEntity mapToUiObject(Task entity) {
-        return new TaskEntity(entity);
-    }
-
-    public TaskEntity setId(int id) {
-        this.id = id;
         return this;
     }
 

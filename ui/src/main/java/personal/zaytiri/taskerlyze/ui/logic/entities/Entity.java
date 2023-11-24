@@ -4,6 +4,8 @@ import personal.zaytiri.taskerlyze.app.api.controllers.base.IController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
+import java.util.List;
+
 public abstract class Entity<TModel, TEntity, TController extends IController<TModel>> {
     protected int id;
     protected TController api;
@@ -27,6 +29,8 @@ public abstract class Entity<TModel, TEntity, TController extends IController<TM
             return update();
         }
     }
+
+    public abstract List<String> findBySubString(String subString);
 
     public TEntity get() {
         return get(this.id);
