@@ -13,10 +13,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
-import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.ui.logic.CategoryLoader;
+import personal.zaytiri.taskerlyze.ui.logic.PopupAction;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
-import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 
 import java.io.IOException;
 
@@ -105,15 +104,6 @@ public class ComponentCategories extends TabPane {
 
     private void setDefaultTabOnAction() {
         Label image = (Label) defaultTab.getGraphic();
-        image.setOnMouseClicked(event -> {
-            Result<Category> categoryResult = new Result<>(new Category());
-            DialogNewCategory dialog = new DialogNewCategory(categoryResult);
-            dialog.showDialog();
-
-            if (categoryResult.getResult() != null) {
-                populateCategoryView();
-            }
-            event.consume();
-        });
+        image.setOnMouseClicked(event -> PopupAction.showDialogForAddingCategory(ifSuccessful -> populateCategoryView()));
     }
 }
