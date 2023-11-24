@@ -6,4 +6,5 @@ module api.main {
     exports personal.zaytiri.taskerlyze.app.api.domain;
     exports personal.zaytiri.taskerlyze.app.api.controllers.result;
     exports personal.zaytiri.taskerlyze.libraries.pairs;
+    exports personal.zaytiri.taskerlyze.app.api.controllers.base;
 }
