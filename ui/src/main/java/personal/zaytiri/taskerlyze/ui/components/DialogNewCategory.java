@@ -4,27 +4,25 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
-import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 
-public class DialogNewCategory extends Dialog {
+public class DialogNewCategory extends Dialog<CategoryEntity> {
     @FXML
     public TextField name;
     @FXML
     public Button buttonCreate;
     @FXML
     public Label errorMessage;
-    Result<Category> result;
+    private CategoryEntity newOrExistingCategory;
 
-    public DialogNewCategory(Result<Category> result) {
+    public DialogNewCategory() {
         super("dialog-new-category", "Add new category:");
-        this.result = result;
     }
 
     @Override
     public void showDialog() {
+        populate();
         show();
     }
 
@@ -33,14 +31,24 @@ public class DialogNewCategory extends Dialog {
         setOnActionCreateButton();
     }
 
+    private void populate() {
+        if (this.id == 0) {
+            newOrExistingCategory = new CategoryEntity();
+            return;
+        }
+
+        newOrExistingCategory = new CategoryEntity().get(this.id);
+        name.setText(newOrExistingCategory.getName());
+    }
+
     private void setOnActionCreateButton() {
         buttonCreate.setOnAction(event -> {
-            CategoryEntity newCat = new CategoryEntity()
+            newOrExistingCategory
                     .setName(name.getText());
 
-            Pair<Boolean, String> response = newCat.create();
-            boolean isSuccessfulFromApi = response.getKey();
-            String errorMessageFromApi = response.getValue();
+            Pair<CategoryEntity, Pair<Boolean, String>> response = newOrExistingCategory.createOrUpdate();
+            boolean isSuccessfulFromApi = response.getValue().getKey();
+            String errorMessageFromApi = response.getValue().getValue();
 
             result.setStatus(isSuccessfulFromApi);
 
@@ -48,6 +56,8 @@ public class DialogNewCategory extends Dialog {
                 errorMessage.setText(errorMessageFromApi);
                 return;
             }
+
+            result.setResult(response.getKey());
 
             closeDialog();
         });
