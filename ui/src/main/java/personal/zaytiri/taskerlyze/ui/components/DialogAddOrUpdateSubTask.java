@@ -5,19 +5,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
+import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 
-public class DialogNewCategory extends Dialog<CategoryEntity> {
+public class DialogAddOrUpdateSubTask extends Dialog<SubTaskEntity> {
     @FXML
     public TextField name;
     @FXML
     public Button buttonCreate;
     @FXML
     public Label errorMessage;
-    private CategoryEntity newOrExistingCategory;
+    private int taskId;
+    private SubTaskEntity newOrExistingSubTask;
 
-    public DialogNewCategory() {
-        super("dialog-new-category", "Add new category:");
+    public DialogAddOrUpdateSubTask() {
+        super("dialog-new-sub-task", "Add new subtask:");
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     @Override
@@ -33,20 +38,20 @@ public class DialogNewCategory extends Dialog<CategoryEntity> {
 
     private void populate() {
         if (this.id == 0) {
-            newOrExistingCategory = new CategoryEntity();
+            newOrExistingSubTask = new SubTaskEntity();
             return;
         }
-
-        newOrExistingCategory = new CategoryEntity().get(this.id);
-        name.setText(newOrExistingCategory.getName());
+        newOrExistingSubTask = new SubTaskEntity().get(this.id);
+        name.setText(newOrExistingSubTask.getName());
     }
 
     private void setOnActionCreateButton() {
         buttonCreate.setOnAction(event -> {
-            newOrExistingCategory
-                    .setName(name.getText());
+            newOrExistingSubTask
+                    .setName(name.getText())
+                    .setTaskId(taskId);
 
-            Pair<CategoryEntity, Pair<Boolean, String>> response = newOrExistingCategory.createOrUpdate();
+            Pair<SubTaskEntity, Pair<Boolean, String>> response = newOrExistingSubTask.createOrUpdate();
             boolean isSuccessfulFromApi = response.getValue().getKey();
             String errorMessageFromApi = response.getValue().getValue();
 
@@ -56,8 +61,6 @@ public class DialogNewCategory extends Dialog<CategoryEntity> {
                 errorMessage.setText(errorMessageFromApi);
                 return;
             }
-
-            result.setResult(response.getKey());
 
             closeDialog();
         });

@@ -13,7 +13,7 @@ import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialogNewTask extends Dialog<TaskEntity> {
+public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
     @FXML
     public TextField name;
     @FXML
@@ -32,7 +32,7 @@ public class DialogNewTask extends Dialog<TaskEntity> {
     private int categoryId;
     private TaskEntity newOrExistingTask;
 
-    public DialogNewTask() {
+    public DialogAddOrUpdateTask() {
         super("dialog-new-task", "Add new task:");
     }
 
