@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.components;
+package personal.zaytiri.taskerlyze.ui.views.components;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,8 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
-import personal.zaytiri.taskerlyze.ui.logic.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.views.elements.PaneTask;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

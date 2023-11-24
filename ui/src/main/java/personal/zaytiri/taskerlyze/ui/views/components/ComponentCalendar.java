@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.components;
+package personal.zaytiri.taskerlyze.ui.views.components;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -13,7 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
-import personal.zaytiri.taskerlyze.ui.logic.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.views.elements.LabelDay;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

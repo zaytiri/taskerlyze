@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.components;
+package personal.zaytiri.taskerlyze.ui.views.elements;
 
 import javafx.beans.property.*;
 import javafx.event.ActionEvent;
@@ -9,10 +9,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
-import personal.zaytiri.taskerlyze.ui.logic.Clipboard;
-import personal.zaytiri.taskerlyze.ui.logic.MenuOptions;
-import personal.zaytiri.taskerlyze.ui.logic.PopupAction;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Clipboard;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
 import java.io.IOException;
 

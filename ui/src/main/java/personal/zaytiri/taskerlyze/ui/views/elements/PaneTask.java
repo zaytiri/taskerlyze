@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.components;
+package personal.zaytiri.taskerlyze.ui.views.elements;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -8,12 +8,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import personal.zaytiri.taskerlyze.ui.logic.Clipboard;
-import personal.zaytiri.taskerlyze.ui.logic.MenuOptions;
-import personal.zaytiri.taskerlyze.ui.logic.PopupAction;
-import personal.zaytiri.taskerlyze.ui.logic.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Clipboard;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
 import java.io.IOException;
 

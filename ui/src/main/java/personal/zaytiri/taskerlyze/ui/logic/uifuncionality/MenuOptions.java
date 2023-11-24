@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.logic;
+package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

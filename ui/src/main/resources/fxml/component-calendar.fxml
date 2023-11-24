@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import personal.zaytiri.taskerlyze.ui.components.*?>
+<?import personal.zaytiri.taskerlyze.ui.views.elements.*?>
 <fx:root xmlns:fx="http://javafx.com/fxml"
          xmlns="http://javafx.com/javafx" type="javafx.scene.layout.BorderPane"
 >

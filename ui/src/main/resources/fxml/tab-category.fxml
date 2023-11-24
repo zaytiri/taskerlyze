@@ -3,7 +3,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.*?>
-<?import personal.zaytiri.taskerlyze.ui.components.ComponentTasks?>
+<?import personal.zaytiri.taskerlyze.ui.views.components.ComponentTasks?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.Tab">
     <AnchorPane prefWidth="427.0">
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"

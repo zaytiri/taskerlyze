@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.components;
+package personal.zaytiri.taskerlyze.ui.views.components;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,9 +13,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
-import personal.zaytiri.taskerlyze.ui.logic.CategoryLoader;
-import personal.zaytiri.taskerlyze.ui.logic.PopupAction;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
 import java.io.IOException;
 

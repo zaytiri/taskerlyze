@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.logic;
+package personal.zaytiri.taskerlyze.ui.logic.loaders;
 
 import com.google.common.base.Stopwatch;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;

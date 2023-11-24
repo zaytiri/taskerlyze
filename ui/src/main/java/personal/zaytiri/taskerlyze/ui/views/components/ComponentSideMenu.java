@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.components;
+package personal.zaytiri.taskerlyze.ui.views.components;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

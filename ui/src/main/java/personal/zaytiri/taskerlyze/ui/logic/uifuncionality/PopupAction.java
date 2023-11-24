@@ -1,10 +1,10 @@
-package personal.zaytiri.taskerlyze.ui.logic;
+package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import personal.zaytiri.taskerlyze.ui.components.DialogAddOrUpdateCategory;
-import personal.zaytiri.taskerlyze.ui.components.DialogAddOrUpdateSubTask;
-import personal.zaytiri.taskerlyze.ui.components.DialogAddOrUpdateTask;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateCategory;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateSubTask;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateTask;
 
 public class PopupAction {
     private PopupAction() {

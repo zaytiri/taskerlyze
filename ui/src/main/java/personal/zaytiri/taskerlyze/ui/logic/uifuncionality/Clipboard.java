@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.logic;
+package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
 
 import javafx.scene.input.ClipboardContent;
 

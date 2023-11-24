@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.components;
+package personal.zaytiri.taskerlyze.ui.views.popups;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Dialog;
 
 public class DialogAddOrUpdateSubTask extends Dialog<SubTaskEntity> {
     @FXML

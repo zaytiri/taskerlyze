@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.logic;
+package personal.zaytiri.taskerlyze.ui.logic.loaders;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.SubTaskController;
 import personal.zaytiri.taskerlyze.app.api.domain.SubTask;

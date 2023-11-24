@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.logic.entities;
+package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
 
 public class Result<T> {
     private T result;

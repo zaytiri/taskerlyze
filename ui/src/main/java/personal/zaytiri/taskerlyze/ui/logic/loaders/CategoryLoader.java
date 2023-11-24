@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.logic;
+package personal.zaytiri.taskerlyze.ui.logic.loaders;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryLoader {
-    
+
     public List<CategoryEntity> load() {
         List<CategoryEntity> categoriesToBeReturned = new ArrayList<>();
 
