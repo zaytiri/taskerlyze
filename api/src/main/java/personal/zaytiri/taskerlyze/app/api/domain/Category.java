@@ -9,6 +9,7 @@ import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ICate
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,25 @@ public class Category extends Entity<Category, ICategoryRepository, CategoryMapp
         return !response.getResult().isEmpty();
     }
 
+    public List<Category> findNameBySubString(String subString) {
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("name", new Pair<>("LIKE", subString));
+
+        List<Category> results = get(filters, null);
+        if (results.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return results;
+    }
+
+    @Override
+    public List<Category> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
+        Response response = repository.read(filters, orderByColumn);
+
+        return mapper.toEntity(response.getResult(), false);
+    }
+
     @Override
     public Category get() {
         Map<String, Pair<String, Object>> filters = new HashMap<>();
@@ -63,13 +83,6 @@ public class Category extends Entity<Category, ICategoryRepository, CategoryMapp
         }
 
         return results.get(0);
-    }
-
-    @Override
-    public List<Category> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
-        Response response = repository.read(filters, orderByColumn);
-
-        return mapper.toEntity(response.getResult(), false);
     }
 
     public boolean update() {

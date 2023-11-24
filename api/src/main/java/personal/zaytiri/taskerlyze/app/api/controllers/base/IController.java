@@ -26,12 +26,13 @@ public interface IController<T> {
     OperationResult<T> delete(int id);
 
     /**
-     * Returns an object of type T with a given id.
+     * Finds entities which the name contains a given substring.
+     * If nothing is found, it returns an empty list.
      *
-     * @param id to get from database.
-     * @return OperationResult<T>
+     * @param subString to search for.
+     * @return OperationResult<List < T>>
      */
-    OperationResult<T> get(int id);
+    OperationResult<List<T>> findNameBySubString(String subString);
 
     /**
      * Returns a list of objects of type T considering a set of filters.
@@ -43,6 +44,14 @@ public interface IController<T> {
      * @return OperationResult<T>
      */
     OperationResult<List<T>> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn);
+
+    /**
+     * Returns an object of type T with a given id.
+     *
+     * @param id to get from database.
+     * @return OperationResult<T>
+     */
+    OperationResult<T> get(int id);
 
     /**
      * Updates an already existing object of type T.

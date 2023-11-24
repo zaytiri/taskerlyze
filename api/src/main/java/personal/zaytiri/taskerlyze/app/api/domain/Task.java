@@ -61,6 +61,24 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return !response.getResult().isEmpty();
     }
 
+    public List<Task> findNameBySubString(String subString) {
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("name", new Pair<>("LIKE", subString));
+
+        List<Task> results = get(filters, null);
+        if (results.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return results;
+    }
+
+    public List<Task> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
+        Response response = repository.read(filters, orderByColumn);
+
+        return mapper.toEntity(response.getResult(), false);
+    }
+
     public Task get() {
         Map<String, Pair<String, Object>> filters = new HashMap<>();
         filters.put("id", new Pair<>("=", this.id));
@@ -73,27 +91,9 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return results.get(0);
     }
 
-    public List<Task> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
-        Response response = repository.read(filters, orderByColumn);
-
-        return mapper.toEntity(response.getResult(), false);
-    }
-
     public boolean update() {
         //todo: test what happens if i try to update but theres no entry to update because its not created yet.
         return repository.update(this).isSuccess();
-    }
-
-    public List<Task> findBySubString(String subString) {
-        Map<String, Pair<String, Object>> filters = new HashMap<>();
-        filters.put("name", new Pair<>("LIKE", subString));
-
-        List<Task> results = get(filters, null);
-        if (results.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return results;
     }
 
     public String getAchieved() {

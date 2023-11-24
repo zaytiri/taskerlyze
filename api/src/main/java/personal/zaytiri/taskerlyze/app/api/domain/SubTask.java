@@ -58,6 +58,25 @@ public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> 
         return !response.getResult().isEmpty();
     }
 
+    public List<SubTask> findNameBySubString(String subString) {
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("name", new Pair<>("LIKE", subString));
+
+        List<SubTask> results = get(filters, null);
+        if (results.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return results;
+    }
+
+    @Override
+    public List<SubTask> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
+        Response response = repository.read(filters, orderByColumn);
+
+        return mapper.toEntity(response.getResult(), false);
+    }
+
     @Override
     public SubTask get() {
         Map<String, Pair<String, Object>> filters = new HashMap<>();
@@ -69,13 +88,6 @@ public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> 
         }
 
         return results.get(0);
-    }
-
-    @Override
-    public List<SubTask> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
-        Response response = repository.read(filters, orderByColumn);
-
-        return mapper.toEntity(response.getResult(), false);
     }
 
     public boolean update() {

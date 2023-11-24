@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Controller<T extends IStorageOperations<T>> implements IController<T> {
-
     @Override
     public OperationResult<T> create(T request) {
         boolean isCreated = request.create();
@@ -41,20 +40,19 @@ public abstract class Controller<T extends IStorageOperations<T>> implements ICo
         return new OperationResult<>(isDeleted, message, null);
     }
 
-    @Override
-    public OperationResult<T> get(int id) {
-        T entity = getEntityInstance(id);
+    public OperationResult<List<T>> findNameBySubString(String subString) {
+        T entity = getEntityInstance();
 
-        T entityPopulated = entity.get();
+        List<T> tasksBySubString = entity.findNameBySubString(subString);
 
         MessageResult message = new MessageResult();
-        if (entityPopulated != null) {
-            message.setCode(CodeResult.FOUND);
-        } else {
+        if (tasksBySubString.isEmpty()) {
             message.setCode(CodeResult.NOT_FOUND);
+        } else {
+            message.setCode(CodeResult.FOUND);
         }
 
-        return new OperationResult<>(entityPopulated != null, message, entityPopulated);
+        return new OperationResult<>(!tasksBySubString.isEmpty(), message, tasksBySubString);
     }
 
     @Override
@@ -71,6 +69,22 @@ public abstract class Controller<T extends IStorageOperations<T>> implements ICo
         }
 
         return new OperationResult<>(!entities.isEmpty(), message, entities);
+    }
+
+    @Override
+    public OperationResult<T> get(int id) {
+        T entity = getEntityInstance(id);
+
+        T entityPopulated = entity.get();
+
+        MessageResult message = new MessageResult();
+        if (entityPopulated != null) {
+            message.setCode(CodeResult.FOUND);
+        } else {
+            message.setCode(CodeResult.NOT_FOUND);
+        }
+
+        return new OperationResult<>(entityPopulated != null, message, entityPopulated);
     }
 
     @Override
