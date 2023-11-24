@@ -1,13 +1,10 @@
 package personal.zaytiri.taskerlyze.ui.logic.entities;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
-import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
-public class TaskEntity {
-    private final TaskController api;
-    private int id;
+public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
+
     private String name;
     private boolean isTaskDone;
     private String description;
@@ -17,29 +14,14 @@ public class TaskEntity {
     public TaskEntity(Task task) {
         this(task.getId(), task.getName(), task.isDone(false));
     }
-
     public TaskEntity(int id, String name, boolean isTaskDone) {
         this();
         this.id = id;
         this.name = name;
         this.isTaskDone = isTaskDone;
     }
-
     public TaskEntity() {
         api = new TaskController();
-    }
-
-    public Pair<Boolean, String> create() {
-        Task newTask = new Task().getInstance();
-        newTask
-                .setName(name)
-                .setDescription(description)
-                .setCategoryId(categoryId)
-                .setUrl(url)
-                .setPriority(priority);
-
-        OperationResult<Task> result = api.create(newTask);
-        return new Pair<>(result.getStatus(), result.getMessageResult().getMessage());
     }
 
     public int getCategoryId() {
@@ -51,12 +33,12 @@ public class TaskEntity {
         return this;
     }
 
-    public int getId() {
-        return id;
+    public String getDescription() {
+        return description;
     }
 
-    public TaskEntity setId(int id) {
-        this.id = id;
+    public TaskEntity setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -69,6 +51,24 @@ public class TaskEntity {
         return this;
     }
 
+    public int getPriority() {
+        return priority;
+    }
+
+    public TaskEntity setPriority(int priority) {
+        this.priority = priority;
+        return this;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public TaskEntity setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+
     public boolean isTaskDone() {
         return isTaskDone;
     }
@@ -78,8 +78,22 @@ public class TaskEntity {
         return this;
     }
 
-    public TaskEntity setDescription(String description) {
-        this.description = description;
+    public Task mapToApiObject() {
+        return new Task().getInstance()
+                .setId(id)
+                .setName(name)
+                .setDescription(description)
+                .setCategoryId(categoryId)
+                .setUrl(url)
+                .setPriority(priority);
+    }
+
+    public TaskEntity mapToUiObject(Task entity) {
+        return new TaskEntity(entity);
+    }
+
+    public TaskEntity setId(int id) {
+        this.id = id;
         return this;
     }
 
@@ -87,13 +101,5 @@ public class TaskEntity {
         api.setDone(id, isTaskDone);
     }
 
-    public TaskEntity setPriority(int priority) {
-        this.priority = priority;
-        return this;
-    }
 
-    public TaskEntity setUrl(String url) {
-        this.url = url;
-        return this;
-    }
 }

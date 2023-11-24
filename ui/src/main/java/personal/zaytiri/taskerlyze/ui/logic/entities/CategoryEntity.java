@@ -1,13 +1,10 @@
 package personal.zaytiri.taskerlyze.ui.logic.entities;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
-import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
-public class CategoryEntity {
-    private final CategoryController api;
-    private int id;
+public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryController> {
     private String name;
 
     public CategoryEntity(int id, String name) {
@@ -21,23 +18,7 @@ public class CategoryEntity {
     }
 
     public CategoryEntity() {
-        api = new CategoryController();
-    }
-
-    public Pair<Boolean, String> create() {
-        Category newCat = new Category().getInstance().setName(name);
-        OperationResult<Category> result = api.create(newCat);
-
-        return new Pair<>(result.getStatus(), result.getMessageResult().getMessage());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public CategoryEntity setId(int id) {
-        this.id = id;
-        return this;
+        this.api = new CategoryController();
     }
 
     public String getName() {
@@ -56,7 +37,19 @@ public class CategoryEntity {
         return pair;
     }
 
-    public boolean remove() {
-        return api.delete(id).getStatus();
+    public Category mapToApiObject() {
+        return new Category().getInstance()
+                .setId(id)
+                .setName(name);
     }
+
+    public CategoryEntity mapToUiObject(Category entity) {
+        return new CategoryEntity(entity);
+    }
+
+    public CategoryEntity setId(int id) {
+        this.id = id;
+        return this;
+    }
+
 }
