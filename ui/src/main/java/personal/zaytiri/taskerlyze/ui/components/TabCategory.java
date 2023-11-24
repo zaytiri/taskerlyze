@@ -9,8 +9,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import personal.zaytiri.taskerlyze.ui.logic.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.PopupAction;
 import personal.zaytiri.taskerlyze.ui.logic.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 
@@ -19,11 +20,14 @@ import java.io.IOException;
 public class TabCategory extends Tab {
     private final StringProperty categoryName = new SimpleStringProperty();
     private final IntegerProperty categoryId = new SimpleIntegerProperty();
+    private final MenuOptions contextMenu;
     @FXML
     private ComponentTasks componentTasks;
 
     public TabCategory() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/tab-category.fxml"));
+        this.contextMenu = new MenuOptions();
+
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -64,19 +68,30 @@ public class TabCategory extends Tab {
         });
     }
 
-    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        ContextMenu tabContextMenu = new ContextMenu();
-        MenuItem removeCategoryMenuItem = new MenuItem();
+    private void addAddCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(ifSuccessful));
+    }
 
-        removeCategoryMenuItem.setText("Remove");
-        removeCategoryMenuItem.setOnAction(event -> {
+    private void addEditCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingCategory(getCategoryId(), ifSuccessful));
+    }
+
+    private void addRemoveCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             CategoryEntity category = new CategoryEntity().setId(getCategoryId());
-
             if (category.remove()) {
                 ifSuccessful.handle(event);
             }
         });
-        tabContextMenu.getItems().add(removeCategoryMenuItem);
-        return tabContextMenu;
     }
+
+    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        addAddCategoryOptionForContextMenu(ifSuccessful);
+        addEditCategoryOptionForContextMenu(ifSuccessful);
+        addRemoveCategoryOptionForContextMenu(ifSuccessful);
+
+        return contextMenu.buildContextMenu();
+    }
+
+
 }
