@@ -1,11 +1,17 @@
 package personal.zaytiri.taskerlyze.ui.components;
 
 import javafx.beans.property.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import personal.zaytiri.taskerlyze.ui.logic.Clipboard;
+import personal.zaytiri.taskerlyze.ui.logic.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.PopupAction;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 
 import java.io.IOException;
@@ -15,6 +21,7 @@ public class PaneSubTask extends TitledPane {
     private final StringProperty taskName = new SimpleStringProperty();
     private final BooleanProperty isTaskDone = new SimpleBooleanProperty();
     private final IntegerProperty subTaskId = new SimpleIntegerProperty();
+    private final MenuOptions contextMenu;
     @FXML
     CheckBox checkBox;
     @FXML
@@ -22,6 +29,8 @@ public class PaneSubTask extends TitledPane {
 
     public PaneSubTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-sub-task.fxml"));
+        this.contextMenu = new MenuOptions();
+
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -39,9 +48,30 @@ public class PaneSubTask extends TitledPane {
         this.subTaskId.set(subTaskId);
     }
 
+    public int getTaskId() {
+        return taskId.get();
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId.set(taskId);
+    }
+
+    public String getTaskName() {
+        return taskName.get();
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName.set(taskName);
+        subTask.setText(this.taskName.get());
+    }
+
     @FXML
     public void initialize() {
         setCheckBoxOnAction();
+    }
+
+    public void setContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        setContextMenu(getTabContextMenu(ifSuccessful));
     }
 
     public void setIsTaskDone(boolean isTaskDone) {
@@ -49,13 +79,34 @@ public class PaneSubTask extends TitledPane {
         checkBox.setSelected(this.isTaskDone.get());
     }
 
-    public void setTaskId(int taskId) {
-        this.taskId.set(taskId);
+    private void addAddSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Add new sub-task", event -> PopupAction.showDialogForAddingSubTask(getTaskId(), ifSuccessful));
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName.set(taskName);
-        subTask.setText(this.taskName.get());
+    private void addCopyTextOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Copy text", event -> Clipboard.addTo(getTaskName()));
+    }
+
+    private void addEditSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingSubTask(getSubTaskId(), ifSuccessful));
+    }
+
+    private void addRemoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
+            SubTaskEntity subtask = new SubTaskEntity().setId(getSubTaskId());
+            if (subtask.remove()) {
+                ifSuccessful.handle(event);
+            }
+        });
+    }
+
+    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        addRemoveSubtaskOptionForContextMenu(ifSuccessful);
+        addEditSubtaskOptionForContextMenu(ifSuccessful);
+        addAddSubtaskOptionForContextMenu(ifSuccessful);
+        addCopyTextOptionForContextMenu();
+
+        return contextMenu.buildContextMenu();
     }
 
     private void setCheckBoxOnAction() {
