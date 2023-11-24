@@ -5,12 +5,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.ui.logic.Configuration;
+import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 
 import java.io.IOException;
 
-public abstract class Dialog extends AnchorPane {
+public abstract class Dialog<T> extends AnchorPane {
     private final Stage primaryStage;
     private final Stage stage;
+    protected Result<T> result = new Result<>();
+    protected int id;
 
     protected Dialog(String fileName, String dialogTitle) {
         this.primaryStage = Configuration.getInstance().getPrimaryStage();
@@ -27,6 +30,14 @@ public abstract class Dialog extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Result<T> getResult() {
+        return this.result;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public abstract void showDialog();
