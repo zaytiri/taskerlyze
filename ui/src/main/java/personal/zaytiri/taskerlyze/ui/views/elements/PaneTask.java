@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Clipboard;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
@@ -102,7 +103,7 @@ public class PaneTask extends TitledPane {
     }
 
     private void addAddTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(ifSuccessful));
+        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(TaskLoader.getTaskLoader().getActiveCategoryId(), ifSuccessful));
     }
 
     private void addCopyTextOptionForContextMenu() {

@@ -29,8 +29,9 @@ public class PopupAction {
         }
     }
 
-    public static void showDialogForAddingTask(EventHandler<ActionEvent> ifSuccessful) {
+    public static void showDialogForAddingTask(int categoryId, EventHandler<ActionEvent> ifSuccessful) {
         DialogAddOrUpdateTask dialog = new DialogAddOrUpdateTask();
+        dialog.setCategoryId(categoryId);
         dialog.showDialog();
 
         if (dialog.getResult().isSuccessful()) {
