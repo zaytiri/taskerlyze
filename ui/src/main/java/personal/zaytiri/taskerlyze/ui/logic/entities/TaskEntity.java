@@ -1,7 +1,11 @@
 package personal.zaytiri.taskerlyze.ui.logic.entities;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
+import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
 
@@ -11,17 +15,30 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
     private int categoryId;
     private String url;
     private int priority;
+
     public TaskEntity(Task task) {
         this(task.getId(), task.getName(), task.isDone(false));
     }
+
     public TaskEntity(int id, String name, boolean isTaskDone) {
         this();
         this.id = id;
         this.name = name;
         this.isTaskDone = isTaskDone;
     }
+
     public TaskEntity() {
         api = new TaskController();
+    }
+
+    public List<TaskEntity> findBySubString(String subString) {
+        OperationResult<List<Task>> result = api.findBySubString(subString);
+        List<TaskEntity> tasksToBeReturned = new ArrayList<>();
+        for (Task task : result.getResult()) {
+            tasksToBeReturned.add(mapToUiObject(task));
+            System.out.println(task.getName());
+        }
+        return tasksToBeReturned;
     }
 
     public int getCategoryId() {
