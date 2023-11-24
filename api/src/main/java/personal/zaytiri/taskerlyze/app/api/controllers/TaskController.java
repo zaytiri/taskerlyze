@@ -12,6 +12,28 @@ import java.util.List;
 public class TaskController extends Controller<Task> {
 
     /**
+     * Finds tasks which the name contains a given substring.
+     * If nothing is found, it returns an empty list.
+     *
+     * @param subString to search for.
+     * @return OperationResult<List < Task>>
+     */
+    public OperationResult<List<Task>> findBySubString(String subString) {
+        Task task = new Task().getInstance();
+
+        List<Task> tasksBySubString = task.findBySubString(subString);
+
+        MessageResult message = new MessageResult();
+        if (tasksBySubString.isEmpty()) {
+            message.setCode(CodeResult.NOT_FOUND);
+        } else {
+            message.setCode(CodeResult.FOUND);
+        }
+
+        return new OperationResult<>(!tasksBySubString.isEmpty(), message, tasksBySubString);
+    }
+
+    /**
      * Gets all tasks associated to a category.
      *
      * @param categoryId which is the identifier for a specific category.

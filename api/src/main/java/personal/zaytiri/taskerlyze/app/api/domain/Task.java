@@ -84,6 +84,18 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return repository.update(this).isSuccess();
     }
 
+    public List<Task> findBySubString(String subString) {
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("name", new Pair<>("LIKE", subString));
+
+        List<Task> results = get(filters, null);
+        if (results.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return results;
+    }
+
     public String getAchieved() {
         return achieved;
     }
