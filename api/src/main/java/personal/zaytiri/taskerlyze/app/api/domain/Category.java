@@ -74,7 +74,8 @@ public class Category extends Entity<Category, ICategoryRepository, CategoryMapp
 
     public boolean update() {
         //todo: test what happens if i try to update but theres no entry to update because its not created yet.
-        return repository.update(this).isSuccess();
+        Response response = repository.update(this);
+        return response.isSuccess();
     }
 
     public Category setId(int id) {
