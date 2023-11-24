@@ -8,13 +8,12 @@ import javafx.scene.control.TextField;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
-import personal.zaytiri.taskerlyze.ui.logic.entities.Result;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DialogNewTask extends Dialog {
+public class DialogNewTask extends Dialog<TaskEntity> {
     @FXML
     public TextField name;
     @FXML
@@ -29,13 +28,12 @@ public class DialogNewTask extends Dialog {
     public Button buttonCreate;
     @FXML
     public Label errorMessage;
-    Result<TaskEntity> result;
     private List<Pair<Integer, String>> categoryPairs;
     private int categoryId;
+    private TaskEntity newOrExistingTask;
 
-    public DialogNewTask(Result<TaskEntity> result) {
+    public DialogNewTask() {
         super("dialog-new-task", "Add new task:");
-        this.result = result;
     }
 
     public void setCategoryId(int categoryId) {
@@ -43,6 +41,7 @@ public class DialogNewTask extends Dialog {
     }
 
     public void showDialog() {
+        populate();
         populateCategories();
         show();
     }
@@ -80,6 +79,21 @@ public class DialogNewTask extends Dialog {
         setOnActionCreateButton();
     }
 
+    private void populate() {
+        if (this.id == 0) {
+            newOrExistingTask = new TaskEntity();
+            return;
+        }
+
+        newOrExistingTask = new TaskEntity().get(this.id);
+
+        name.setText(newOrExistingTask.getName());
+        setCategoryId(newOrExistingTask.getCategoryId());
+        description.setText(newOrExistingTask.getDescription());
+        url.setText(newOrExistingTask.getUrl());
+        priority.setText(String.valueOf(newOrExistingTask.getPriority()));
+    }
+
     private void populateCategories() {
         CategoryLoader loader = new CategoryLoader();
 
@@ -100,16 +114,16 @@ public class DialogNewTask extends Dialog {
                 return;
             }
 
-            TaskEntity newTask = new TaskEntity()
+            newOrExistingTask
                     .setName(name.getText())
                     .setDescription(description.getText())
                     .setCategoryId(getCategoryId(category.getSelectionModel().getSelectedItem()))
                     .setUrl(url.getText())
                     .setPriority(priorityAsNumber);
 
-            Pair<Boolean, String> response = newTask.create();
-            boolean isSuccessfulFromApi = response.getKey();
-            String errorMessageFromApi = response.getValue();
+            Pair<TaskEntity, Pair<Boolean, String>> response = newOrExistingTask.create();
+            boolean isSuccessfulFromApi = response.getValue().getKey();
+            String errorMessageFromApi = response.getValue().getValue();
 
             result.setStatus(isSuccessfulFromApi);
 
