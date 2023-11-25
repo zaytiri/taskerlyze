@@ -150,6 +150,9 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
     }
 
     public Task setUrl(String url) {
+        if (!url.contains("http://") && !url.contains("https://")) {
+            url = "https://" + url;
+        }
         this.url = url;
         return this;
     }
