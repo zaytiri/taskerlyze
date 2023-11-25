@@ -97,7 +97,7 @@ public class PaneSubTask extends TitledPane {
 
     private void addRemoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            SubTaskEntity subtask = new SubTaskEntity().setId(getSubTaskId());
+            SubTaskEntity subtask = new SubTaskEntity(getSubTaskId());
             if (subtask.remove()) {
                 ifSuccessful.handle(event);
             }
@@ -116,8 +116,7 @@ public class PaneSubTask extends TitledPane {
 
     private void setCheckBoxOnAction() {
         checkBox.setOnAction(event -> {
-            SubTaskEntity subTask = new SubTaskEntity()
-                    .setId(getSubTaskId())
+            SubTaskEntity subTask = new SubTaskEntity(getSubTaskId())
                     .setTaskDone(checkBox.isSelected());
             subTask.setDone();
         });

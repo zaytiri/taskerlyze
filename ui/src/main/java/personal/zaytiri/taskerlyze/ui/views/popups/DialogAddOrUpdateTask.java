@@ -76,7 +76,7 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
             return;
         }
 
-        newOrExistingTask = new TaskEntity().get(this.id);
+        newOrExistingTask = new TaskEntity(this.id).get();
 
         name.setText(newOrExistingTask.getName());
         setCategoryId(newOrExistingTask.getCategoryId());

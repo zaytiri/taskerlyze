@@ -46,7 +46,7 @@ public class DialogAddOrUpdateSubTask extends Dialog<SubTaskEntity> {
             newOrExistingSubTask = new SubTaskEntity();
             return;
         }
-        newOrExistingSubTask = new SubTaskEntity().get(this.id);
+        newOrExistingSubTask = new SubTaskEntity(this.id).get();
         name.setText(newOrExistingSubTask.getName());
     }
 

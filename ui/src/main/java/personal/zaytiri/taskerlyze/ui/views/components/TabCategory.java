@@ -78,7 +78,7 @@ public class TabCategory extends Tab {
 
     private void addRemoveCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            CategoryEntity category = new CategoryEntity().setId(getCategoryId());
+            CategoryEntity category = new CategoryEntity(getCategoryId());
             if (category.remove()) {
                 ifSuccessful.handle(event);
             }

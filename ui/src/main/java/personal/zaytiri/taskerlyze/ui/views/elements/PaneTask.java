@@ -111,7 +111,7 @@ public class PaneTask extends TitledPane {
     }
 
     private void addCopyUrlOptionForContextMenu() {
-        String taskUrl = new TaskEntity().get(getTaskId()).getUrl();
+        String taskUrl = new TaskEntity(getTaskId()).get().getUrl();
         this.contextMenu.addMenuItem("Copy URL", event -> Clipboard.addTo(taskUrl));
     }
 
@@ -121,7 +121,7 @@ public class PaneTask extends TitledPane {
 
     private void addRemoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            TaskEntity task = new TaskEntity().setId(getTaskId());
+            TaskEntity task = new TaskEntity(getTaskId());
             if (task.remove()) {
                 ifSuccessful.handle(event);
             }
@@ -156,8 +156,7 @@ public class PaneTask extends TitledPane {
 
     private void setCheckBoxOnAction() {
         checkBox.setOnAction(event -> {
-            TaskEntity task = new TaskEntity()
-                    .setId(getTaskId())
+            TaskEntity task = new TaskEntity(getTaskId())
                     .setTaskDone(checkBox.isSelected());
             task.setDone();
         });

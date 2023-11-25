@@ -38,7 +38,7 @@ public class DialogAddOrUpdateCategory extends Dialog<CategoryEntity> {
             return;
         }
 
-        newOrExistingCategory = new CategoryEntity().get(this.id);
+        newOrExistingCategory = new CategoryEntity(this.id).get();
         name.setText(newOrExistingCategory.getName());
     }
 

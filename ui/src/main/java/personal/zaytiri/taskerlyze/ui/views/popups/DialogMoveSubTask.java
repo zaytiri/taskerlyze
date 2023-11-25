@@ -20,7 +20,7 @@ public class DialogMoveSubTask extends DialogMoveEntity<TaskEntity, Integer> {
                 return;
             }
 
-            SubTaskEntity entityToBeMoved = new SubTaskEntity().get(entityIdToBeMoved);
+            SubTaskEntity entityToBeMoved = new SubTaskEntity(entityIdToBeMoved).get();
 
             entityToBeMoved.setTaskId(selectedItem.getItemId());
 
