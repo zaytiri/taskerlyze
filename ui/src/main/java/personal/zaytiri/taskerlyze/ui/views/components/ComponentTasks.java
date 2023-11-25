@@ -18,7 +18,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 public class ComponentTasks extends AnchorPane implements PropertyChangeListener {
     private final MenuOptions contextMenu;
@@ -71,7 +70,6 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
     }
 
     private void setTasks() {
-        TitledPane expandedPane = mainTasks.getExpandedPane();
         mainTasks.getPanes().remove(0, mainTasks.getPanes().size());
 
         if (tasks.isEmpty()) {
@@ -87,10 +85,6 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
             comp.setIsTaskDone(t.isTaskDone());
 
             comp.setContextMenu(event -> setTasks());
-
-            if (expandedPane != null && Objects.equals(expandedPane.getId(), comp.getId())) {
-                mainTasks.setExpandedPane(comp);
-            }
 
             mainTasks.getPanes().add(comp);
         }
