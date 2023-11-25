@@ -116,7 +116,7 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
                     .setUrl(url.getText())
                     .setPriority(priorityAsNumber);
 
-            Pair<TaskEntity, Pair<Boolean, String>> response = newOrExistingTask.create();
+            Pair<TaskEntity, Pair<Boolean, String>> response = newOrExistingTask.createOrUpdate();
             boolean isSuccessfulFromApi = response.getValue().getKey();
             String errorMessageFromApi = response.getValue().getValue();
 
