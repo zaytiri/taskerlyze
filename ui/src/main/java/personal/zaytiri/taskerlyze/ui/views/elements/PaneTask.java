@@ -98,8 +98,8 @@ public class PaneTask extends TitledPane {
         }
     }
 
-    private void addAddSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Add new sub-task", event -> PopupAction.showDialogForAddingSubTask(getTaskId(), ifSuccessful));
+    private void addAddSubtaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Add new sub-task", event -> PopupAction.showDialogForAddingSubTask(getTaskId(), nestedEvent -> setSubTasks()));
     }
 
     private void addAddTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
@@ -132,7 +132,7 @@ public class PaneTask extends TitledPane {
         addAddTaskOptionForContextMenu(ifSuccessful);
         addEditTaskOptionForContextMenu(ifSuccessful);
         addRemoveTaskOptionForContextMenu(ifSuccessful);
-        addAddSubtaskOptionForContextMenu(ifSuccessful);
+        addAddSubtaskOptionForContextMenu();
         addCopyTextOptionForContextMenu();
         addCopyUrlOptionForContextMenu();
 

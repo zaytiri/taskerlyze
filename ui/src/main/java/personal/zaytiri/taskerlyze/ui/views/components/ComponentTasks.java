@@ -84,7 +84,7 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
             comp.setTaskName(t.getName());
             comp.setIsTaskDone(t.isTaskDone());
 
-            comp.setContextMenu(event -> setTasks());
+            comp.setContextMenu(event -> TaskLoader.getTaskLoader().load());
 
             mainTasks.getPanes().add(comp);
         }
