@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
@@ -119,6 +121,9 @@ public class PaneTask extends TitledPane {
         this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingTask(getTaskId(), ifSuccessful));
     }
 
+    private void addMoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingTask(getTaskId(), ifSuccessful));
+    }
     private void addRemoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             TaskEntity task = new TaskEntity(getTaskId());
@@ -133,6 +138,7 @@ public class PaneTask extends TitledPane {
         addEditTaskOptionForContextMenu(ifSuccessful);
         addRemoveTaskOptionForContextMenu(ifSuccessful);
         addAddSubtaskOptionForContextMenu();
+        addMoveTaskOptionForContextMenu(ifSuccessful);
         addCopyTextOptionForContextMenu();
         addCopyUrlOptionForContextMenu();
 
