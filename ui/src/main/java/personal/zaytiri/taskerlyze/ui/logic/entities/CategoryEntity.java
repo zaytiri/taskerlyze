@@ -24,6 +24,7 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
     }
 
     public CategoryEntity() {
+        this(0);
     }
 
     public CategoryEntity(int id) {

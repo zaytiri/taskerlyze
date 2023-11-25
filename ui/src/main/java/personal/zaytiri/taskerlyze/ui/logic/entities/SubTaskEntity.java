@@ -19,6 +19,7 @@ public class SubTaskEntity extends Entity<SubTask, SubTaskEntity, SubTaskControl
     }
 
     public SubTaskEntity() {
+        this(0);
     }
 
     public SubTaskEntity(int id, String name, boolean isTaskDone, int taskId) {

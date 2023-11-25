@@ -28,6 +28,7 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
     }
 
     public TaskEntity() {
+        this(0);
     }
 
     public TaskEntity(Task task) {
