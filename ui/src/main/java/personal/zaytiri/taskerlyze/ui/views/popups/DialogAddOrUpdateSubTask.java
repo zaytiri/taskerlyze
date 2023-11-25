@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Dialog;
+import personal.zaytiri.taskerlyze.ui.views.popups.interfaces.Dialog;
 
 public class DialogAddOrUpdateSubTask extends Dialog<SubTaskEntity> {
     @FXML
@@ -37,6 +37,10 @@ public class DialogAddOrUpdateSubTask extends Dialog<SubTaskEntity> {
         setOnActionCreateButton();
     }
 
+    private boolean isToCreate() {
+        return taskId != 0;
+    }
+
     private void populate() {
         if (this.id == 0) {
             newOrExistingSubTask = new SubTaskEntity();
@@ -49,8 +53,12 @@ public class DialogAddOrUpdateSubTask extends Dialog<SubTaskEntity> {
     private void setOnActionCreateButton() {
         buttonCreate.setOnAction(event -> {
             newOrExistingSubTask
-                    .setName(name.getText())
-                    .setTaskId(taskId);
+                    .setName(name.getText());
+
+            if (isToCreate()) {
+                newOrExistingSubTask
+                        .setTaskId(taskId);
+            }
 
             Pair<SubTaskEntity, Pair<Boolean, String>> response = newOrExistingSubTask.createOrUpdate();
             boolean isSuccessfulFromApi = response.getValue().getKey();
