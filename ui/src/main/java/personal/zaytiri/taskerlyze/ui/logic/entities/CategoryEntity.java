@@ -26,11 +26,11 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
     }
 
     @Override
-    public List<String> findBySubString(String subString) {
+    public List<Pair<Integer, String>> findBySubString(String subString) {
         OperationResult<List<Category>> result = api.findNameBySubString(subString);
-        List<String> categoriesToBeReturned = new ArrayList<>();
+        List<Pair<Integer, String>> categoriesToBeReturned = new ArrayList<>();
         for (Category cat : result.getResult()) {
-            categoriesToBeReturned.add(cat.getName());
+            categoriesToBeReturned.add(new Pair<>(cat.getId(), cat.getName()));
         }
         return categoriesToBeReturned;
     }

@@ -30,7 +30,7 @@ public abstract class Entity<TModel, TEntity, TController extends IController<TM
         }
     }
 
-    public abstract List<String> findBySubString(String subString);
+    public abstract List<Pair<Integer, String>> findBySubString(String subString);
 
     public TEntity get() {
         return get(this.id);

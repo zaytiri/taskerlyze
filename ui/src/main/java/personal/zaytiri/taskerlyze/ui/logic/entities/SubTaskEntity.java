@@ -3,6 +3,7 @@ package personal.zaytiri.taskerlyze.ui.logic.entities;
 import personal.zaytiri.taskerlyze.app.api.controllers.SubTaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,11 @@ public class SubTaskEntity extends Entity<SubTask, SubTaskEntity, SubTaskControl
     }
 
     @Override
-    public List<String> findBySubString(String subString) {
+    public List<Pair<Integer, String>> findBySubString(String subString) {
         OperationResult<List<SubTask>> result = api.findNameBySubString(subString);
-        List<String> subtaskToBeReturned = new ArrayList<>();
+        List<Pair<Integer, String>> subtaskToBeReturned = new ArrayList<>();
         for (SubTask subtask : result.getResult()) {
-            subtaskToBeReturned.add(subtask.getName());
+            subtaskToBeReturned.add(new Pair<>(subtask.getId(), subtask.getName()));
         }
         return subtaskToBeReturned;
     }

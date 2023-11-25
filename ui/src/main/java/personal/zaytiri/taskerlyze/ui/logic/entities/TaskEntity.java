@@ -3,6 +3,7 @@ package personal.zaytiri.taskerlyze.ui.logic.entities;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,11 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
         api = new TaskController();
     }
 
-    public List<String> findBySubString(String subString) {
+    public List<Pair<Integer, String>> findBySubString(String subString) {
         OperationResult<List<Task>> result = api.findNameBySubString(subString);
-        List<String> tasksToBeReturned = new ArrayList<>();
+        List<Pair<Integer, String>> tasksToBeReturned = new ArrayList<>();
         for (Task task : result.getResult()) {
-            tasksToBeReturned.add(task.getName());
+            tasksToBeReturned.add(new Pair<>(task.getId(), task.getName()));
         }
         return tasksToBeReturned;
     }
