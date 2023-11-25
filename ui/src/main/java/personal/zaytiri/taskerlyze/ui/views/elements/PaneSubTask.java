@@ -91,6 +91,10 @@ public class PaneSubTask extends TitledPane {
         this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingSubTask(getSubTaskId(), ifSuccessful));
     }
 
+    private void addMoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingSubTask(getSubTaskId(), ifSuccessful));
+    }
+
     private void addRemoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             SubTaskEntity subtask = new SubTaskEntity().setId(getSubTaskId());
@@ -104,6 +108,7 @@ public class PaneSubTask extends TitledPane {
         addRemoveSubtaskOptionForContextMenu(ifSuccessful);
         addEditSubtaskOptionForContextMenu(ifSuccessful);
         addAddSubtaskOptionForContextMenu(ifSuccessful);
+        addMoveSubtaskOptionForContextMenu(ifSuccessful);
         addCopyTextOptionForContextMenu();
 
         return contextMenu.buildContextMenu();
