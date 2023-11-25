@@ -58,12 +58,4 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
         this.name = name;
         return this;
     }
-
-    public Pair<Integer, String> getPair() {
-        Pair<Integer, String> pair = new Pair<>();
-        pair.setKey(this.id);
-        pair.setValue(this.name);
-        return pair;
-    }
-
 }

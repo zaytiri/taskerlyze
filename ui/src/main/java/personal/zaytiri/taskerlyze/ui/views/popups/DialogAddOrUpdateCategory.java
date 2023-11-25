@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Dialog;
+import personal.zaytiri.taskerlyze.ui.views.popups.interfaces.Dialog;
 
 public class DialogAddOrUpdateCategory extends Dialog<CategoryEntity> {
     @FXML

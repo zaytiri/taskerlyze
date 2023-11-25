@@ -1,24 +1,19 @@
 package personal.zaytiri.taskerlyze.ui.views.popups;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Dialog;
-
-import java.util.ArrayList;
-import java.util.List;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
+import personal.zaytiri.taskerlyze.ui.views.popups.interfaces.Dialog;
 
 public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
     @FXML
     public TextField name;
     @FXML
-    public ComboBox<String> category;
+    public ComboBox<IdentifiableItem<String>> category;
     @FXML
     public TextField description;
     @FXML
@@ -29,7 +24,6 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
     public Button buttonCreate;
     @FXML
     public Label errorMessage;
-    private List<Pair<Integer, String>> categoryPairs;
     private int categoryId;
     private TaskEntity newOrExistingTask;
 
@@ -55,29 +49,25 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
         }
     }
 
-    private int getCategoryId(String byName) {
-        for (Pair<Integer, String> categoryPair : categoryPairs) {
-            if (!categoryPair.getValue().equals(byName)) {
-                continue;
-            }
-            return categoryPair.getKey();
-        }
-        return 0;
-    }
-
-    private String getCategoryName(int id) {
-        for (Pair<Integer, String> categoryPair : categoryPairs) {
-            if (!categoryPair.getKey().equals(id)) {
-                continue;
-            }
-            return categoryPair.getValue();
-        }
-        return "";
-    }
-
     @FXML
     private void initialize() {
+        overrideIdentifiableItemDisplayInListView();
         setOnActionCreateButton();
+    }
+
+    private void overrideIdentifiableItemDisplayInListView() {
+        category.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(IdentifiableItem<String> item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getItemDisplay() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getItemDisplay());
+                }
+            }
+        });
     }
 
     private void populate() {
@@ -98,13 +88,17 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
     private void populateCategories() {
         CategoryLoader loader = new CategoryLoader();
 
-        categoryPairs = new ArrayList<>();
-
         for (CategoryEntity cat : loader.load()) {
-            categoryPairs.add(cat.getPair());
-            category.getItems().add(cat.getName());
+            IdentifiableItem<String> item = new IdentifiableItem<>();
+            item.setItemId(cat.getId());
+            item.setItemDisplay(cat.getName());
+
+            category.getItems().add(item);
+
+            if (item.getItemId() == categoryId) {
+                category.getSelectionModel().select(item);
+            }
         }
-        category.getSelectionModel().select(getCategoryName(categoryId));
     }
 
     private void setOnActionCreateButton() {
@@ -118,7 +112,7 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
             newOrExistingTask
                     .setName(name.getText())
                     .setDescription(description.getText())
-                    .setCategoryId(getCategoryId(category.getSelectionModel().getSelectedItem()))
+                    .setCategoryId(category.getSelectionModel().getSelectedItem().getItemId())
                     .setUrl(url.getText())
                     .setPriority(priorityAsNumber);
 
