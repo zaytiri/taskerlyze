@@ -12,16 +12,22 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
     private String name;
 
     public CategoryEntity(int id, String name) {
-        this();
+        this(id);
         this.id = id;
         this.name = name;
     }
 
     public CategoryEntity(Category category) {
-        this(category.getId(), category.getName());
+        this(
+                category.getId(),
+                category.getName());
     }
 
     public CategoryEntity() {
+    }
+
+    public CategoryEntity(int id) {
+        super(id);
         this.api = new CategoryController();
     }
 

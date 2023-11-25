@@ -17,18 +17,32 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
     private String url;
     private int priority;
 
-    public TaskEntity(Task task) {
-        this(task.getId(), task.getName(), task.isDone(false));
-    }
-
-    public TaskEntity(int id, String name, boolean isTaskDone) {
-        this();
-        this.id = id;
+    public TaskEntity(int id, String name, boolean isTaskDone, String description, int categoryId, String url, int priority) {
+        this(id);
         this.name = name;
         this.isTaskDone = isTaskDone;
+        this.description = description;
+        this.categoryId = categoryId;
+        this.url = url;
+        this.priority = priority;
     }
 
     public TaskEntity() {
+    }
+
+    public TaskEntity(Task task) {
+        this(
+                task.getId(),
+                task.getName(),
+                task.isDone(false),
+                task.getDescription(),
+                task.getCategoryId(),
+                task.getUrl(),
+                task.getPriority());
+    }
+
+    public TaskEntity(int id) {
+        super(id);
         api = new TaskController();
     }
 

@@ -13,12 +13,16 @@ public class SubTaskEntity extends Entity<SubTask, SubTaskEntity, SubTaskControl
     private boolean isTaskDone;
     private int taskId;
 
-    public SubTaskEntity() {
+    public SubTaskEntity(int id) {
+        super(id);
         api = new SubTaskController();
     }
 
+    public SubTaskEntity() {
+    }
+
     public SubTaskEntity(int id, String name, boolean isTaskDone, int taskId) {
-        this();
+        this(id);
         this.id = id;
         this.name = name;
         this.isTaskDone = isTaskDone;
@@ -26,7 +30,11 @@ public class SubTaskEntity extends Entity<SubTask, SubTaskEntity, SubTaskControl
     }
 
     public SubTaskEntity(SubTask subTask) {
-        this(subTask.getId(), subTask.getName(), subTask.isDone(false), subTask.getTaskId());
+        this(
+                subTask.getId(),
+                subTask.getName(),
+                subTask.isDone(false),
+                subTask.getTaskId());
     }
 
     @Override
