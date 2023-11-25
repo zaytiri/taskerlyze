@@ -1,10 +1,11 @@
-package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
+package personal.zaytiri.taskerlyze.ui.views.popups.interfaces;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.ui.logic.Configuration;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Result;
 
 import java.io.IOException;
 
