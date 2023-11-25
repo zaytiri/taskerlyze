@@ -18,7 +18,9 @@ import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Clipboard;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 
 public class PaneTask extends TitledPane {
     private final IntegerProperty taskId = new SimpleIntegerProperty();
@@ -124,6 +126,18 @@ public class PaneTask extends TitledPane {
     private void addMoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingTask(getTaskId(), ifSuccessful));
     }
+
+    private void addOpenURLTaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Open URL in browser", event -> {
+            String taskUrl = new TaskEntity(getTaskId()).get().getUrl();
+            try {
+                Desktop.getDesktop().browse(new URL(taskUrl).toURI());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     private void addRemoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             TaskEntity task = new TaskEntity(getTaskId());
@@ -141,6 +155,7 @@ public class PaneTask extends TitledPane {
         addMoveTaskOptionForContextMenu(ifSuccessful);
         addCopyTextOptionForContextMenu();
         addCopyUrlOptionForContextMenu();
+        addOpenURLTaskOptionForContextMenu();
 
         return contextMenu.buildContextMenu();
     }
