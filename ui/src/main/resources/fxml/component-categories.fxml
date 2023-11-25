@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
 <fx:root xmlns:fx="http://javafx.com/fxml"
          xmlns="http://javafx.com/javafx"
          type="javafx.scene.control.TabPane"
          fx:id="mainTabPane">
     <Tab id="default-tab" fx:id="defaultTab">
-        <graphic>
-            <Label>
-                <graphic>
-                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
-                               preserveRatio="true">
-                        <Image url="@../icons/plus.png"/>
-                    </ImageView>
-                </graphic>
-            </Label>
-        </graphic>
         <BorderPane
                 fx:id="categoriesNotFoundMessage"
                 visible="false">

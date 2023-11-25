@@ -35,21 +35,7 @@
                             </VBox>
                         </bottom>
                         <center>
-                            <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER_LEFT">
-                                <VBox alignment="CENTER_LEFT" fillWidth="false">
-                                    <Button fx:id="newTask"
-                                            contentDisplay="BOTTOM"
-                                            graphicTextGap="0.0"
-                                            mnemonicParsing="false"
-                                            text="New"
-                                            textAlignment="JUSTIFY"
-                                            wrapText="true">
-                                        <graphic>
-                                            <Label contentDisplay="TOP" text="Task"/>
-                                        </graphic>
-                                    </Button>
-                                </VBox>
-                            </HBox>
+                            
                         </center>
                     </BorderPane>
                 </center>

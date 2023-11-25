@@ -8,14 +8,12 @@ import javafx.event.EventDispatchChain;
 import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
 import java.io.IOException;
 
@@ -43,7 +41,6 @@ public class ComponentCategories extends TabPane {
     @FXML
     public void initialize() {
         reverseTabPaneScrollingDirection();
-        setDefaultTabOnAction();
         populateCategoryView();
     }
 
@@ -100,10 +97,5 @@ public class ComponentCategories extends TabPane {
                 return originalDispatcher.dispatchEvent(event, tail);
             }
         });
-    }
-
-    private void setDefaultTabOnAction() {
-        Label image = (Label) defaultTab.getGraphic();
-        image.setOnMouseClicked(event -> PopupAction.showDialogForAddingCategory(ifSuccessful -> populateCategoryView()));
     }
 }
