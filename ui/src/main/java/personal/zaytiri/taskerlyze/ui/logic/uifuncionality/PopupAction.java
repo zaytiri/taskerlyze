@@ -2,10 +2,7 @@ package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateCategory;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateSubTask;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateTask;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveSubTask;
+import personal.zaytiri.taskerlyze.ui.views.popups.*;
 
 public class PopupAction {
     private PopupAction() {
@@ -73,6 +70,16 @@ public class PopupAction {
     public static void showDialogForMovingSubTask(int entityIdToBeMoved, EventHandler<ActionEvent> ifSuccessful) {
         DialogMoveSubTask dialog = new DialogMoveSubTask();
         dialog.setEntityToBeMoved(entityIdToBeMoved);
+        dialog.showDialog();
+
+        if (dialog.getResult().isSuccessful()) {
+            ifSuccessful.handle(new ActionEvent());
+        }
+    }
+
+    public static void showDialogForMovingTask(int taskId, EventHandler<ActionEvent> ifSuccessful) {
+        DialogMoveTask dialog = new DialogMoveTask();
+        dialog.setEntityToBeMoved(taskId);
         dialog.showDialog();
 
         if (dialog.getResult().isSuccessful()) {
