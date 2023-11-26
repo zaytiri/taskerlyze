@@ -13,6 +13,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
@@ -107,9 +108,14 @@ public class ComponentCategories extends TabPane {
         this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(ifSuccessful));
     }
 
+    private void addAddTaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(TaskLoader.getTaskLoader().getActiveCategoryId(), ifSuccessful -> TaskLoader.getTaskLoader().load()));
+    }
+
     private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         addAddCategoryOptionForContextMenu(ifSuccessful);
-
+        addAddTaskOptionForContextMenu();
+        
         return contextMenu.buildContextMenu();
     }
 }
