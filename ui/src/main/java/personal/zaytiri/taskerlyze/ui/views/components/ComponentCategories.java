@@ -3,24 +3,25 @@ package personal.zaytiri.taskerlyze.ui.views.components;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
+import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
 import java.io.IOException;
 
 public class ComponentCategories extends TabPane {
+    private final MenuOptions contextMenu;
     @FXML
     private Tab defaultTab;
-
     @FXML
     private TabPane mainTabPane;
     @FXML
@@ -28,6 +29,8 @@ public class ComponentCategories extends TabPane {
 
     public ComponentCategories() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-categories.fxml"));
+        this.contextMenu = new MenuOptions();
+
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -40,6 +43,7 @@ public class ComponentCategories extends TabPane {
 
     @FXML
     public void initialize() {
+        mainTabPane.setContextMenu(getTabContextMenu(event -> populateCategoryView()));
         reverseTabPaneScrollingDirection();
         populateCategoryView();
     }
@@ -97,5 +101,15 @@ public class ComponentCategories extends TabPane {
                 return originalDispatcher.dispatchEvent(event, tail);
             }
         });
+    }
+
+    private void addAddCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(ifSuccessful));
+    }
+
+    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        addAddCategoryOptionForContextMenu(ifSuccessful);
+
+        return contextMenu.buildContextMenu();
     }
 }
