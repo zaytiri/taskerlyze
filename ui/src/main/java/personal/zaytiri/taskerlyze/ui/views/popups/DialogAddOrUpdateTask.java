@@ -68,6 +68,18 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
                 }
             }
         });
+        category.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(IdentifiableItem<String> item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getItemDisplay() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getItemDisplay());
+                }
+            }
+        });
     }
 
     private void populate() {
