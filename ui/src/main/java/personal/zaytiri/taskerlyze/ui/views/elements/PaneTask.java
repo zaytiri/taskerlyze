@@ -1,16 +1,15 @@
 package personal.zaytiri.taskerlyze.ui.views.elements;
 
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.*;
-import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
+import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
@@ -34,10 +33,7 @@ public class PaneTask extends TitledPane {
     @FXML
     private Button swapButton;
     @FXML
-    private Accordion subTasksAccordion;
-    @FXML
-    private TitledPane notFoundMessage;
-    private SubTaskLoader subTaskLoader;
+    private BorderPane mainBorderPane;
 
     public PaneTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-task.fxml"));
@@ -79,31 +75,9 @@ public class PaneTask extends TitledPane {
         checkBox.setSelected(this.isTaskDone.get());
     }
 
-    public void setSubTasks() {
-        subTasksAccordion.getPanes().remove(0, subTasksAccordion.getPanes().size());
-
-        subTaskLoader.setTaskId(getTaskId());
-        ObservableList<SubTaskEntity> subTasks = FXCollections.observableList(subTaskLoader.load());
-
-        if (subTasks.isEmpty()) {
-            subTasksAccordion.getPanes().add(0, notFoundMessage);
-        }
-
-        for (SubTaskEntity st : subTasks) {
-            PaneSubTask comp = new PaneSubTask();
-            comp.setTaskName(st.getName());
-            comp.setSubTaskId(st.getId());
-            comp.setIsTaskDone(st.isTaskDone());
-            comp.setTaskId(st.getTaskId());
-
-            comp.setContextMenu(event -> setSubTasks());
-
-            subTasksAccordion.getPanes().add(comp);
-        }
-    }
 
     private void addAddSubtaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new sub-task", event -> PopupAction.showDialogForAddingSubTask(getTaskId(), nestedEvent -> setSubTasks()));
+        this.contextMenu.addMenuItem("Add new sub-task", event -> PopupAction.showDialogForAddingSubTask(getTaskId(), nestedEvent -> loadSubTasks()));
     }
 
     private void addAddTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
@@ -167,10 +141,15 @@ public class PaneTask extends TitledPane {
         populateSubTasksWhenTaskExpands();
     }
 
+    private void loadSubTasks() {
+        SubTaskLoader.getSubTaskLoader().setTaskId(getTaskId());
+        SubTaskLoader.getSubTaskLoader().load();
+    }
+
     private void populateSubTasksWhenTaskExpands() {
         this.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
             if (Boolean.TRUE.equals(isNowExpanded)) {
-                setSubTasks();
+                loadSubTasks();
             }
         });
     }
