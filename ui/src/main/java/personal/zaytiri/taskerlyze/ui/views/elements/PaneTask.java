@@ -104,6 +104,16 @@ public class PaneTask extends TitledPane {
         this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingTask(getTaskId(), ifSuccessful));
     }
 
+    private void addMoveToArchiveOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+        this.contextMenu.addMenuItem("Move to Archive", event -> {
+            TaskEntity task = new TaskEntity(getTaskId()).get();
+            task.setCategoryId(0);
+            if (task.update().getValue().getKey()) {
+                ifSuccessful.handle(event);
+            }
+        });
+    }
+
     private void addOpenURLTaskOptionForContextMenu() {
         this.contextMenu.addMenuItem("Open URL in browser", event -> {
             String taskUrl = new TaskEntity(getTaskId()).get().getUrl();
@@ -130,6 +140,7 @@ public class PaneTask extends TitledPane {
         addRemoveTaskOptionForContextMenu(ifSuccessful);
         addAddSubtaskOptionForContextMenu();
         addMoveTaskOptionForContextMenu(ifSuccessful);
+        addMoveToArchiveOptionForContextMenu(ifSuccessful);
         addCopyTextOptionForContextMenu();
         addCopyUrlOptionForContextMenu();
         addOpenURLTaskOptionForContextMenu();
