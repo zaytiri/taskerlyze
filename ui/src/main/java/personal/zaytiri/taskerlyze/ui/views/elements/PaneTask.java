@@ -26,6 +26,8 @@ public class PaneTask extends TitledPane {
     private final StringProperty taskName = new SimpleStringProperty();
     private final BooleanProperty isTaskDone = new SimpleBooleanProperty();
     private final MenuOptions contextMenu;
+    private final PaneTaskSubTasks paneTaskSubTasks = new PaneTaskSubTasks();
+    private final PaneTaskDetails paneTaskDetails = new PaneTaskDetails();
     @FXML
     private CheckBox checkBox;
     @FXML
@@ -55,6 +57,7 @@ public class PaneTask extends TitledPane {
 
     public void setTaskId(int taskId) {
         this.taskId.set(taskId);
+        setSubTasksPane();
     }
 
     public String getTaskName() {
@@ -136,7 +139,7 @@ public class PaneTask extends TitledPane {
 
     @FXML
     private void initialize() {
-        subTaskLoader = new SubTaskLoader();
+        setSwapButtonOnAction();
         setCheckBoxOnAction();
         populateSubTasksWhenTaskExpands();
     }
@@ -159,6 +162,32 @@ public class PaneTask extends TitledPane {
             TaskEntity task = new TaskEntity(getTaskId())
                     .setTaskDone(checkBox.isSelected());
             task.setDone();
+        });
+    }
+
+    @FXML
+    private void setDetailsPane() {
+        paneTaskDetails.setTaskId(getTaskId());
+        paneTaskDetails.load();
+        mainBorderPane.setCenter(paneTaskDetails);
+    }
+
+    @FXML
+    private void setSubTasksPane() {
+        paneTaskSubTasks.setTaskId(getTaskId());
+        mainBorderPane.setCenter(paneTaskSubTasks);
+    }
+
+    private void setSwapButtonOnAction() {
+        swapButton.setOnAction(event -> {
+            Node currentCenterNode = mainBorderPane.getCenter();
+            mainBorderPane.getChildren().remove(currentCenterNode);
+
+            if (currentCenterNode instanceof PaneTaskSubTasks) {
+                setDetailsPane();
+            } else if (currentCenterNode instanceof PaneTaskDetails) {
+                setSubTasksPane();
+            }
         });
     }
 }
