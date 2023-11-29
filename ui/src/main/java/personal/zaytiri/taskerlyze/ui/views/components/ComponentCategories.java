@@ -7,10 +7,8 @@ import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
@@ -22,11 +20,9 @@ import java.io.IOException;
 public class ComponentCategories extends TabPane {
     private final MenuOptions contextMenu;
     @FXML
-    private Tab defaultTab;
+    private TabCategory defaultTab;
     @FXML
     private TabPane mainTabPane;
-    @FXML
-    private BorderPane categoriesNotFoundMessage;
 
     public ComponentCategories() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-categories.fxml"));
@@ -55,10 +51,7 @@ public class ComponentCategories extends TabPane {
 
         mainTabPane.getTabs().clear();
 
-        if (categories.isEmpty()) {
-            categoriesNotFoundMessage.setVisible(true);
-        }
-
+        defaultTab.setCategoryId(0);
         mainTabPane.getTabs().add(defaultTab);
 
         boolean selectFirst = true;
@@ -115,7 +108,7 @@ public class ComponentCategories extends TabPane {
     private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         addAddCategoryOptionForContextMenu(ifSuccessful);
         addAddTaskOptionForContextMenu();
-        
+
         return contextMenu.buildContextMenu();
     }
 }
