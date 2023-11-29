@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class TaskController extends Controller<Task> {
-
-
     /**
      * Gets all tasks associated to a category.
      *
@@ -19,7 +17,7 @@ public class TaskController extends Controller<Task> {
      * @return OperationResult<Task>
      */
     public OperationResult<List<Task>> getTasksByCategoryAndCompletedAtDate(int categoryId, LocalDate date) {
-        Task task = new Task().getInstance();
+        Task task = getEntityInstance();
         task.setCategoryId(categoryId);
         task.setCompletedAt(date);
 
@@ -43,7 +41,7 @@ public class TaskController extends Controller<Task> {
      * @return OperationResult<Task>
      */
     public OperationResult<Task> setDone(int id, boolean isDone) {
-        Task task = new Task().getInstance();
+        Task task = getEntityInstance();
         task.setId(id);
 
         boolean isTaskUpdated = task.setTaskStatus(isDone);
