@@ -192,14 +192,13 @@
 }
 
 /*** Details specific style */
-#details-content {
-    -fx-alignment: center;
+#details-layout {
     -fx-background-color: #73ADB0;
     -fx-background-radius: 7px 7px 7px 7px;
 
-    -fx-padding: 5px 25px 5px 25px;
-    -fx-border-insets: 5px 18px 0 18px;
-    -fx-background-insets: 5px 18px 0 18px;
+    -fx-padding: 20px 25px 20px 25px;
+    -fx-border-insets: 10px 18px 10px 18px;
+    -fx-background-insets: 10px 18px 10px 18px;
 }
 
 #details-title {
@@ -207,25 +206,39 @@
     -fx-font-size: 12px;
     -fx-wrap-text: true;
     -fx-text-fill: #0E6367;
+    -fx-alignment: center;
 }
 
-#description {
+#description-title {
+    -fx-font-family: "Prompt Bold";
+    -fx-font-size: 12px;
     -fx-wrap-text: true;
-    -fx-pref-width: 350px;
+    -fx-text-fill: #0E6367;
+
+    -fx-background-color: #73ADB0;
+    -fx-background-radius: 7px 7px 0 0;
+
+    -fx-padding: 5px 5px 0 5px;
+    -fx-border-insets: 5px 0 -1px 0;
+    -fx-background-insets: 5px 0 -1px 0;
+}
+
+#description-content {
+    -fx-wrap-text: true;
     -fx-text-alignment: justify;
 
-    -fx-alignment: center;
-    -fx-background-color: #8F8F8F;
-    -fx-background-radius: 7px 7px 7px 7px;
+    -fx-pref-width: 350px;
+    -fx-background-color: #73ADB0;
+    -fx-background-radius: 0 7px 7px 7px;
 
-    -fx-padding: 30px 20px 30px 20px;
-    -fx-border-insets: 20px 10px 20px 10px;
-    -fx-background-insets: 20px 10px 20px 10px;
+    -fx-padding: 10px 10px 20px 10px;
+    -fx-border-insets: 0 0 10px 0;
+    -fx-background-insets: 0 0 10px 0;
 }
 
-#edit-task-button {
+/* #edit-task-button {
     -fx-background-color: transparent;
-}
+} */
 
 /*** Task bottom menu */
 #task-bottom-pane {

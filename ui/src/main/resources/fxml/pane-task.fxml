@@ -4,62 +4,37 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<fx:root xmlns:fx="http://javafx.com/fxml"
-         xmlns="http://javafx.com/javafx" type="javafx.scene.control.TitledPane" fx:id="mainTaskTitledPane">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="mainTaskTitledPane" stylesheets="@../css/tasks-tab-view.css"
+         type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/20.0.1">
     <graphic>
         <AnchorPane>
-            <BorderPane
-                    AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="0.0">
+            <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                        AnchorPane.topAnchor="0.0">
                 <left>
-                    <VBox id="task-open-top-style"
-                          BorderPane.alignment="CENTER"/>
+                    <VBox id="task-open-top-style" BorderPane.alignment="CENTER"/>
                 </left>
                 <right>
-                    <CheckBox
-                            fx:id="checkBox"
-                            alignment="CENTER_RIGHT"
-                            mnemonicParsing="false"
-                            nodeOrientation="LEFT_TO_RIGHT"
-                            prefHeight="26.0"
-                            prefWidth="7.0"
-                            BorderPane.alignment="CENTER"/>
+                    <CheckBox fx:id="checkBox" alignment="CENTER_RIGHT" mnemonicParsing="false"
+                              nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0"
+                              BorderPane.alignment="CENTER"/>
                 </right>
                 <center>
-                    <Label id="task-name"
-                           fx:id="task"
-                           BorderPane.alignment="CENTER"/>
+                    <Label id="task-name" fx:id="task" BorderPane.alignment="CENTER"/>
                 </center>
             </BorderPane>
         </AnchorPane>
     </graphic>
     <AnchorPane>
-        <BorderPane
-                fx:id="mainBorderPane"
-                style="-fx-background-color: transparent;"
-                AnchorPane.bottomAnchor="0.0"
-                AnchorPane.leftAnchor="0.0"
-                AnchorPane.rightAnchor="0.0"
-                AnchorPane.topAnchor="0.0">
+        <BorderPane fx:id="mainBorderPane" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <bottom>
-                <BorderPane
-                        BorderPane.alignment="CENTER">
+                <BorderPane BorderPane.alignment="CENTER">
                     <center>
-                        <HBox id="task-bottom-pane"
-                              fillHeight="false"
-                              BorderPane.alignment="CENTER">
-                            <Button id="swap-button"
-                                    fx:id="swapButton"
-                                    alignment="CENTER"
-                                    mnemonicParsing="false">
+                        <HBox id="task-bottom-pane" fillHeight="false" BorderPane.alignment="CENTER">
+                            <Button id="swap-button" fx:id="swapButton" alignment="CENTER" mnemonicParsing="false">
                                 <graphic>
-                                    <ImageView
-                                            fitHeight="22.0"
-                                            fitWidth="22.0"
-                                            pickOnBounds="true"
-                                            preserveRatio="true">
+                                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true"
+                                               preserveRatio="true">
                                         <Image url="@../icons/swap.png"/>
                                     </ImageView>
                                 </graphic>
@@ -67,31 +42,10 @@
                         </HBox>
                     </center>
                     <left>
-                        <VBox id="task-open-bottom-style"
-                              BorderPane.alignment="CENTER"/>
+                        <VBox id="task-open-bottom-style" BorderPane.alignment="CENTER"/>
                     </left>
                 </BorderPane>
             </bottom>
-            <center>
-                <Accordion
-                        fx:id="subTasksAccordion"
-                        id="sub-tasks-accordion">
-                    <panes>
-                        <TitledPane
-                                fx:id="notFoundMessage"
-                                collapsible="false">
-                            <graphic>
-                                <BorderPane>
-                                    <center>
-                                        <Label id="not-found-message" text="No sub tasks found."/>
-                                    </center>
-                                </BorderPane>
-                            </graphic>
-                        </TitledPane>
-                        <!-- populate list of ComponentSubTask-->
-                    </panes>
-                </Accordion>
-            </center>
         </BorderPane>
     </AnchorPane>
 </fx:root>

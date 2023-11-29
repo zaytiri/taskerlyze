@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1"
+         type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/20.0.1" BorderPane.alignment="CENTER">
+    <top>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <VBox id="details-layout" alignment="CENTER">
+                <Label id="details-title" text="Priority"/>
+                <Label fx:id="priorityContent"/>
+            </VBox>
+            <VBox id="details-layout" alignment="CENTER">
+                <Label id="details-title" text="Due Date"/>
+                <Label fx:id="dueDateContent"/>
+            </VBox>
+            <VBox id="details-layout" alignment="CENTER">
+                <Label id="details-title" text="Completed Date"/>
+                <Label fx:id="completedDateContent"/>
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" fillWidth="false" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER_LEFT">
+                <Label id="description-title" text="Description"/>
+                <Label id="description-content" fx:id="descriptionContent"/>
+            </VBox>
+            <VBox alignment="CENTER_LEFT">
+                <Label id="description-title" text="Achieved"/>
+                <Label id="description-content" fx:id="achievedContent"/>
+            </VBox>
+        </VBox>
+    </center>
+</fx:root>
