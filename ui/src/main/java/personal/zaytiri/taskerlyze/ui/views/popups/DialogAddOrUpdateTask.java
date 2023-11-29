@@ -100,6 +100,8 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
     private void populateCategories() {
         CategoryLoader loader = new CategoryLoader();
 
+        setDefaultCategoryAsArchive();
+
         for (CategoryEntity cat : loader.load()) {
             IdentifiableItem<String> item = new IdentifiableItem<>();
             item.setItemId(cat.getId());
@@ -111,6 +113,13 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
                 category.getSelectionModel().select(item);
             }
         }
+    }
+
+    private void setDefaultCategoryAsArchive() {
+        IdentifiableItem<String> defaultItem = new IdentifiableItem<>();
+        defaultItem.setItemId(0);
+        defaultItem.setItemDisplay("Archive");
+        category.getItems().add(defaultItem);
     }
 
     private void setOnActionCreateButton() {
