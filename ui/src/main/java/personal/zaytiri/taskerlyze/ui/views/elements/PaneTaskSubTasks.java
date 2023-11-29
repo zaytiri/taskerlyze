@@ -21,6 +21,7 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
     private TitledPane notFoundMessage;
     @FXML
     private Accordion subTasksAccordion;
+
     public PaneTaskSubTasks() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-task-subtasks.fxml"));
 
@@ -56,7 +57,10 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
             comp.setIsTaskDone(st.isTaskDone());
             comp.setTaskId(st.getTaskId());
 
-            comp.setContextMenu(event -> setSubTasks());
+            comp.setContextMenu(event -> {
+                SubTaskLoader.getSubTaskLoader().setTaskId(st.getTaskId());
+                SubTaskLoader.getSubTaskLoader().load();
+            });
 
             subTasksAccordion.getPanes().add(comp);
         }
