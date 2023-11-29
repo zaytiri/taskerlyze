@@ -46,7 +46,7 @@ public class TaskLoader {
     }
 
     public void load() {
-        if (activeCategoryId == 0 || activeDay == null) {
+        if (activeDay == null) {
             return;
         }
 
