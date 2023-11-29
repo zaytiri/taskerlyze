@@ -100,8 +100,9 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return achieved;
     }
 
-    public void setAchieved(String achieved) {
+    public Task setAchieved(String achieved) {
         this.achieved = achieved;
+        return this;
     }
 
     public int getCategoryId() {
@@ -117,8 +118,9 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return completedAt;
     }
 
-    public void setCompletedAt(LocalDate completedAt) {
+    public Task setCompletedAt(LocalDate completedAt) {
         this.completedAt = completedAt;
+        return this;
     }
 
     public String getDescription() {
