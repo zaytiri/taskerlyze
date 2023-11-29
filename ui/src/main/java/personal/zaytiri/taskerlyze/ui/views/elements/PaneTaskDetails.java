@@ -4,9 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class PaneTaskDetails extends BorderPane {
     private int taskId;
@@ -20,7 +22,6 @@ public class PaneTaskDetails extends BorderPane {
     private Label descriptionContent;
     @FXML
     private Label achievedContent;
-    private boolean isFilled = false;
 
     public PaneTaskDetails() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-task-details.fxml"));
@@ -36,22 +37,27 @@ public class PaneTaskDetails extends BorderPane {
     }
 
     public void load() {
-        if (isFilled) {
-            return;
-        }
-
         TaskEntity task = new TaskEntity(taskId).get();
 
         priorityContent.setText(String.valueOf(task.getPriority()));
 //        dueDateContent.setText(task.getDueDate());
-//        completedDateContent.setText(task.getCompletedAt());
+        completedDateContent.setText(getFormattedCompletedAtDate(task.getCompletedAt()));
         descriptionContent.setText(task.getDescription());
-//        achievedContent.setText(task.getAchieved());
-
-        isFilled = true;
+        achievedContent.setText(task.getAchieved());
     }
 
     public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
+
+    private String getFormattedCompletedAtDate(LocalDate date) {
+        LocalDate completedAt = date;
+        String completedAtFormatted = "-----------";
+        if (!completedAt.isEqual(LocalDate.MIN)) {
+            completedAtFormatted = DateConversion.formatDateWithAbbreviatedMonth(completedAt);
+        }
+        return completedAtFormatted;
+    }
+
+
 }
