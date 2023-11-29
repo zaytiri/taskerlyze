@@ -50,12 +50,10 @@ public class TaskRepository extends Repository<Task, TaskModel, TaskMapper> impl
 
         Table taskTable = model.getTable();
         Table categoryTable = categoryModel.getTable();
-        
+
         query.select()
                 .from(taskTable)
-                .join(categoryTable)
-                .on(taskTable.getColumn("category_id"), categoryTable.getColumn("id"))
-                .where(categoryTable.getColumn("id"), Operators.EQUALS, categoryId);
+                .where(taskTable.getColumn("category_id"), Operators.EQUALS, categoryId);
 
         if (date.isEqual(LocalDate.now())) {
             query.and(2)

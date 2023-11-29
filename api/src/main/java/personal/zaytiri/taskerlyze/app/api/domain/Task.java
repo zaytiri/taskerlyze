@@ -144,7 +144,7 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
     public List<Task> getTasksByCategoryAndCompletedAtDate() {
         Response response = repository.getTasksByCategoryAndCompletedAtDate(this.categoryId, this.completedAt);
 
-        return mapper.toEntity(response.getResult(), true);
+        return mapper.toEntity(response.getResult(), false);
     }
 
     public String getUrl() {
