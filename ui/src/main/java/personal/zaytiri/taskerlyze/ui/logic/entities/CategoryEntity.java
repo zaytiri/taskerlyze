@@ -4,6 +4,7 @@ import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.mappers.CategoryMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +12,9 @@ import java.util.List;
 public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryController> {
     private String name;
 
-    public CategoryEntity(int id, String name) {
-        this(id);
-        this.id = id;
-        this.name = name;
-    }
-
     public CategoryEntity(Category category) {
-        this(
-                category.getId(),
-                category.getName());
+        this();
+        mapper.mapToUiObject(category, this);
     }
 
     public CategoryEntity() {
@@ -30,6 +24,7 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
     public CategoryEntity(int id) {
         super(id);
         this.api = new CategoryController();
+        mapper = new CategoryMapper();
     }
 
     @Override
@@ -42,18 +37,13 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
         return categoriesToBeReturned;
     }
 
-    public Category mapToApiObject() {
-        return new Category().getInstance()
-                .setId(id)
-                .setName(name);
-    }
-
-    public CategoryEntity mapToUiObject(Category entity) {
-        return new CategoryEntity(entity);
-    }
-
     public CategoryEntity setId(int id) {
         this.id = id;
+        return this;
+    }
+
+    @Override
+    protected CategoryEntity getObject() {
         return this;
     }
 

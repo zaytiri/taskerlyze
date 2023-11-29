@@ -3,12 +3,14 @@ package personal.zaytiri.taskerlyze.ui.logic.entities;
 import personal.zaytiri.taskerlyze.app.api.controllers.base.IController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.mappers.IMapper;
 
 import java.util.List;
 
 public abstract class Entity<TModel, TEntity, TController extends IController<TModel>> {
     protected int id;
     protected TController api;
+    protected IMapper<TModel, TEntity> mapper;
 
     protected Entity(int id) {
         this.id = id;
@@ -18,8 +20,8 @@ public abstract class Entity<TModel, TEntity, TController extends IController<TM
     }
 
     public Pair<TEntity, Pair<Boolean, String>> create() {
-        OperationResult<TModel> result = api.create(mapToApiObject());
-        return new Pair<>(mapToUiObject(result.getResult()), new Pair<>(result.getStatus(), result.getMessageResult().getMessage()));
+        OperationResult<TModel> result = api.create(mapper.mapToApiObject(getObject()));
+        return new Pair<>(mapper.mapToUiObject(result.getResult(), getObject()), new Pair<>(result.getStatus(), result.getMessageResult().getMessage()));
     }
 
     public Pair<TEntity, Pair<Boolean, String>> createOrUpdate() {
@@ -38,16 +40,12 @@ public abstract class Entity<TModel, TEntity, TController extends IController<TM
 
     public TEntity get(int id) {
         OperationResult<TModel> taskResult = api.get(id);
-        return mapToUiObject(taskResult.getResult());
+        return mapper.mapToUiObject(taskResult.getResult(), getObject());
     }
 
     public int getId() {
         return id;
     }
-
-    public abstract TModel mapToApiObject();
-
-    public abstract TEntity mapToUiObject(TModel model);
 
     public boolean remove() {
         return api.delete(id).getStatus();
@@ -56,9 +54,11 @@ public abstract class Entity<TModel, TEntity, TController extends IController<TM
     public abstract TEntity setId(int id);
 
     public Pair<TEntity, Pair<Boolean, String>> update() {
-        OperationResult<TModel> result = api.update(mapToApiObject());
+        OperationResult<TModel> result = api.update(mapper.mapToApiObject(getObject()));
 
-        return new Pair<>(mapToUiObject(result.getResult()), new Pair<>(result.getStatus(), result.getMessageResult().getMessage()));
+        return new Pair<>(mapper.mapToUiObject(result.getResult(), getObject()), new Pair<>(result.getStatus(), result.getMessageResult().getMessage()));
 
     }
+
+    protected abstract TEntity getObject();
 }

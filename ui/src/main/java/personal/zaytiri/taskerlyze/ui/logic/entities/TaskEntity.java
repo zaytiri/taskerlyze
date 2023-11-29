@@ -4,7 +4,9 @@ import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.mappers.TaskMapper;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,37 +16,24 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
     private boolean isTaskDone;
     private String description;
     private int categoryId;
+    private LocalDate completedAt;
     private String url;
     private int priority;
-
-    public TaskEntity(int id, String name, boolean isTaskDone, String description, int categoryId, String url, int priority) {
-        this(id);
-        this.name = name;
-        this.isTaskDone = isTaskDone;
-        this.description = description;
-        this.categoryId = categoryId;
-        this.url = url;
-        this.priority = priority;
-    }
+    private String achieved;
 
     public TaskEntity() {
         this(0);
     }
 
     public TaskEntity(Task task) {
-        this(
-                task.getId(),
-                task.getName(),
-                task.isDone(false),
-                task.getDescription(),
-                task.getCategoryId(),
-                task.getUrl(),
-                task.getPriority());
+        this();
+        mapper.mapToUiObject(task, this);
     }
 
     public TaskEntity(int id) {
         super(id);
         api = new TaskController();
+        mapper = new TaskMapper();
     }
 
     public List<Pair<Integer, String>> findBySubString(String subString) {
@@ -56,22 +45,22 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
         return tasksToBeReturned;
     }
 
-    public Task mapToApiObject() {
-        return new Task().getInstance()
-                .setId(id)
-                .setName(name)
-                .setDescription(description)
-                .setCategoryId(categoryId)
-                .setUrl(url)
-                .setPriority(priority);
-    }
-
-    public TaskEntity mapToUiObject(Task entity) {
-        return new TaskEntity(entity);
-    }
-
     public TaskEntity setId(int id) {
         this.id = id;
+        return this;
+    }
+
+    @Override
+    protected TaskEntity getObject() {
+        return this;
+    }
+
+    public String getAchieved() {
+        return achieved;
+    }
+
+    public TaskEntity setAchieved(String achieved) {
+        this.achieved = achieved;
         return this;
     }
 
@@ -81,6 +70,15 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
 
     public TaskEntity setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+        return this;
+    }
+
+    public LocalDate getCompletedAt() {
+        return completedAt;
+    }
+
+    public TaskEntity setCompletedAt(LocalDate completedAt) {
+        this.completedAt = completedAt;
         return this;
     }
 
@@ -132,6 +130,4 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
     public void setDone() {
         api.setDone(id, isTaskDone);
     }
-
-
 }

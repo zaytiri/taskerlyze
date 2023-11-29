@@ -4,6 +4,7 @@ import personal.zaytiri.taskerlyze.app.api.controllers.SubTaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.mappers.SubTaskMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,26 +17,16 @@ public class SubTaskEntity extends Entity<SubTask, SubTaskEntity, SubTaskControl
     public SubTaskEntity(int id) {
         super(id);
         api = new SubTaskController();
+        mapper = new SubTaskMapper();
     }
 
     public SubTaskEntity() {
         this(0);
     }
 
-    public SubTaskEntity(int id, String name, boolean isTaskDone, int taskId) {
-        this(id);
-        this.id = id;
-        this.name = name;
-        this.isTaskDone = isTaskDone;
-        this.taskId = taskId;
-    }
-
     public SubTaskEntity(SubTask subTask) {
-        this(
-                subTask.getId(),
-                subTask.getName(),
-                subTask.isDone(false),
-                subTask.getTaskId());
+        this();
+        mapper.mapToUiObject(subTask, this);
     }
 
     @Override
@@ -48,20 +39,13 @@ public class SubTaskEntity extends Entity<SubTask, SubTaskEntity, SubTaskControl
         return subtaskToBeReturned;
     }
 
-    public SubTask mapToApiObject() {
-        return new SubTask().getInstance()
-                .setId(id)
-                .setName(name)
-                .setDone(isTaskDone)
-                .setTaskId(taskId);
-    }
-
-    public SubTaskEntity mapToUiObject(SubTask entity) {
-        return new SubTaskEntity(entity);
-    }
-
     public SubTaskEntity setId(int id) {
         this.id = id;
+        return this;
+    }
+
+    @Override
+    protected SubTaskEntity getObject() {
         return this;
     }
 
