@@ -10,10 +10,10 @@
                 <Label id="details-title" text="Priority"/>
                 <Label fx:id="priorityContent"/>
             </VBox>
-            <VBox id="details-layout" alignment="CENTER">
-                <Label id="details-title" text="Due Date"/>
-                <Label fx:id="dueDateContent"/>
-            </VBox>
+            <!--            <VBox id="details-layout" alignment="CENTER">-->
+            <!--                <Label id="details-title" text="Due Date"/>-->
+            <!--                <Label fx:id="dueDateContent"/>-->
+            <!--            </VBox>-->
             <VBox id="details-layout" alignment="CENTER">
                 <Label id="details-title" text="Completed Date"/>
                 <Label fx:id="completedDateContent"/>
