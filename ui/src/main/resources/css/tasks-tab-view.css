@@ -23,7 +23,7 @@
     -fx-padding: 0;
 }
 
-#new-task-button {
+/* #new-task-button {
     -fx-font-family: "Prompt";
     -fx-font-size: 12px;
     -fx-effect:  dropshadow(one-pass-box , rgba(184, 184, 184, 0.5), 10, 0.1, -2, 2);
@@ -31,7 +31,7 @@
     -fx-background-color: #B8B8B8;
     -fx-text-fill: #0E131F;
     -fx-alignment: center;
-}
+} */
 
 /* Tab Pane style */
 .tab-header-background {
