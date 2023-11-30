@@ -44,10 +44,12 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
     }
 
     public void setSubTasks() {
-        subTasksAccordion.getPanes().remove(0, subTasksAccordion.getPanes().size());
+        List<TitledPane> panes = subTasksAccordion.getPanes();
+
+        panes.remove(panes);
 
         if (subTasks.isEmpty()) {
-            subTasksAccordion.getPanes().add(0, notFoundMessage);
+            panes.add(0, notFoundMessage);
         }
 
         for (SubTaskEntity st : subTasks) {
@@ -62,7 +64,7 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
                 SubTaskLoader.getSubTaskLoader().load();
             });
 
-            subTasksAccordion.getPanes().add(comp);
+            panes.add(comp);
         }
     }
 

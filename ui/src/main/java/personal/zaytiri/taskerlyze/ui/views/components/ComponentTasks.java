@@ -70,10 +70,12 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
     }
 
     private void setTasks() {
-        mainTasks.getPanes().remove(0, mainTasks.getPanes().size());
+        List<TitledPane> panes = mainTasks.getPanes();
+
+        panes.removeAll(panes);
 
         if (tasks.isEmpty()) {
-            mainTasks.getPanes().add(0, notFoundMessage);
+            panes.add(0, notFoundMessage);
         }
 
         for (TaskEntity t : tasks) {
@@ -86,7 +88,7 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
 
             comp.setContextMenu(event -> TaskLoader.getTaskLoader().load());
 
-            mainTasks.getPanes().add(comp);
+            panes.add(comp);
         }
     }
 }
