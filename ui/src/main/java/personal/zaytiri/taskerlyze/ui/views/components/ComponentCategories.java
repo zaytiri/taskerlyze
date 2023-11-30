@@ -3,22 +3,28 @@ package personal.zaytiri.taskerlyze.ui.views.components;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.*;
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.List;
 
-public class ComponentCategories extends TabPane {
+public class ComponentCategories extends TabPane implements PropertyChangeListener {
     private final MenuOptions contextMenu;
+    private List<CategoryEntity> categories;
     @FXML
     private TabCategory defaultTab;
     @FXML
@@ -40,19 +46,18 @@ public class ComponentCategories extends TabPane {
 
     @FXML
     public void initialize() {
-        mainTabPane.setContextMenu(getTabContextMenu(event -> populateCategoryView()));
+        CategoryLoader.getCategoryLoader().addPropertyChangeListener(this);
+        mainTabPane.setContextMenu(getTabContextMenu());
         reverseTabPaneScrollingDirection();
-        populateCategoryView();
+        CategoryLoader.getCategoryLoader().load();
     }
 
     public void populateCategoryView() {
-        CategoryLoader loader = new CategoryLoader();
-        ObservableList<CategoryEntity> categories = FXCollections.observableList(loader.load());
-
-        mainTabPane.getTabs().clear();
+        ObservableList<Tab> tabs = mainTabPane.getTabs();
+        tabs.clear();
 
         defaultTab.setCategoryId(0);
-        mainTabPane.getTabs().add(defaultTab);
+        tabs.add(defaultTab);
 
         boolean selectFirst = true;
         for (CategoryEntity category : categories) {
@@ -66,8 +71,14 @@ public class ComponentCategories extends TabPane {
                 selectFirst = false;
             }
 
-            mainTabPane.getTabs().add(newTab);
+            tabs.add(newTab);
         }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        this.categories = FXCollections.observableList((List<CategoryEntity>) evt.getNewValue());
+        populateCategoryView();
     }
 
     public void reverseTabPaneScrollingDirection() {
@@ -97,12 +108,12 @@ public class ComponentCategories extends TabPane {
         });
     }
 
-    private void addAddCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(ifSuccessful));
+    private void addAddCategoryOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(mainTabPane));
     }
 
-    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        addAddCategoryOptionForContextMenu(ifSuccessful);
+    private ContextMenu getTabContextMenu() {
+        addAddCategoryOptionForContextMenu();
 
         return contextMenu.buildContextMenu();
     }

@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
@@ -68,8 +69,8 @@ public class TabCategory extends Tab {
         });
     }
 
-    private void addAddCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(ifSuccessful));
+    private void addAddCategoryOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(this.getTabPane()));
     }
 
     private void addEditCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
@@ -86,7 +87,7 @@ public class TabCategory extends Tab {
     }
 
     private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        addAddCategoryOptionForContextMenu(ifSuccessful);
+        addAddCategoryOptionForContextMenu();
         addEditCategoryOptionForContextMenu(ifSuccessful);
         addRemoveCategoryOptionForContextMenu(ifSuccessful);
 

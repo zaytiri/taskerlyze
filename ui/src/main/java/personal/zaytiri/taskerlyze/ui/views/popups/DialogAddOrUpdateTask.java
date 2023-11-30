@@ -3,9 +3,7 @@ package personal.zaytiri.taskerlyze.ui.views.popups;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
 import personal.zaytiri.taskerlyze.ui.views.popups.interfaces.Dialog;
 
@@ -101,21 +99,21 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
     }
 
     private void populateCategories() {
-        CategoryLoader loader = new CategoryLoader();
-
-        setDefaultCategoryAsArchive();
-
-        for (CategoryEntity cat : loader.load()) {
-            IdentifiableItem<String> item = new IdentifiableItem<>();
-            item.setItemId(cat.getId());
-            item.setItemDisplay(cat.getName());
-
-            category.getItems().add(item);
-
-            if (item.getItemId() == categoryId) {
-                category.getSelectionModel().select(item);
-            }
-        }
+//        CategoryLoader loader = new CategoryLoader();
+//
+//        setDefaultCategoryAsArchive();
+//
+//        for (CategoryEntity cat : loader.load()) {
+//            IdentifiableItem<String> item = new IdentifiableItem<>();
+//            item.setItemId(cat.getId());
+//            item.setItemDisplay(cat.getName());
+//
+//            category.getItems().add(item);
+//
+//            if (item.getItemId() == categoryId) {
+//                category.getSelectionModel().select(item);
+//            }
+//        }
     }
 
     private void setDefaultCategoryAsArchive() {
