@@ -46,7 +46,7 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
     public void setSubTasks() {
         List<TitledPane> panes = subTasksAccordion.getPanes();
 
-        panes.remove(panes);
+        panes.clear();
 
         if (subTasks.isEmpty()) {
             panes.add(0, notFoundMessage);

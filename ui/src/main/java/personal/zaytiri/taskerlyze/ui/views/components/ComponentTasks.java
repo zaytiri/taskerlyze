@@ -52,7 +52,7 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
         if (!(evt.getNewValue() instanceof List)) {
             return;
         }
-        
+
         this.tasks = FXCollections.observableList((List<TaskEntity>) evt.getNewValue());
         if (this.tasks.isEmpty() || this.tasks.get(0).getCategoryId() == this.categoryId) {
             setTasks();
@@ -76,7 +76,7 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
     private void setTasks() {
         List<TitledPane> panes = mainTasks.getPanes();
 
-        panes.removeAll(panes);
+        panes.clear();
 
         if (tasks.isEmpty()) {
             panes.add(0, notFoundMessage);
