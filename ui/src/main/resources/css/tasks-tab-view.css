@@ -292,3 +292,8 @@
 .check-box:selected .box {
     -fx-background-color: #094549;
 }
+/****/
+
+.text-field {
+    -fx-background-color: transparent;
+}

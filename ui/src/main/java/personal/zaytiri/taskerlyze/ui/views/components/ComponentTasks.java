@@ -64,7 +64,7 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
     }
 
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(TaskLoader.getTaskLoader().getActiveCategoryId(), ifSuccessful -> TaskLoader.getTaskLoader().load()));
+        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(mainTasks, TaskLoader.getTaskLoader().getActiveCategoryId()));
     }
 
     private ContextMenu getTabContextMenu() {
