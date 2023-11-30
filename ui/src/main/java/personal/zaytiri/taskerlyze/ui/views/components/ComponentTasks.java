@@ -49,6 +49,10 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (!(evt.getNewValue() instanceof List)) {
+            return;
+        }
+        
         this.tasks = FXCollections.observableList((List<TaskEntity>) evt.getNewValue());
         if (this.tasks.isEmpty() || this.tasks.get(0).getCategoryId() == this.categoryId) {
             setTasks();
