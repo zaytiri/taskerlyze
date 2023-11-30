@@ -5,9 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TitledPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class PaneTaskSubTasks extends Accordion implements PropertyChangeListener {
+    private final MenuOptions contextMenu;
     private ObservableList<SubTaskEntity> subTasks;
     private int taskId;
     @FXML
@@ -24,6 +28,7 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
 
     public PaneTaskSubTasks() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-task-subtasks.fxml"));
+        this.contextMenu = new MenuOptions();
 
         loader.setRoot(this);
         loader.setController(this);
@@ -41,6 +46,10 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
         if (this.subTasks.isEmpty() || this.subTasks.get(0).getTaskId() == this.taskId) {
             setSubTasks();
         }
+    }
+
+    public void setMenuOptions() {
+        setContextMenu(getTabContextMenu());
     }
 
     public void setSubTasks() {
@@ -72,8 +81,19 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
         this.taskId = taskId;
     }
 
+    private void addAddSubtaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Add new sub-task", event -> PopupAction.showDialogForAddingSubTask(subTasksAccordion, taskId));
+    }
+
+    private ContextMenu getTabContextMenu() {
+        addAddSubtaskOptionForContextMenu();
+
+        return contextMenu.buildContextMenu();
+    }
+
     @FXML
     private void initialize() {
         SubTaskLoader.getSubTaskLoader().addPropertyChangeListener(this);
+        this.setMenuOptions();
     }
 }
