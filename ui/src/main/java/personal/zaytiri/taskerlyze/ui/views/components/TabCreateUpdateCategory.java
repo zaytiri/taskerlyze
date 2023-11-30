@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.ui.views.components;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
@@ -14,9 +15,10 @@ import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import java.io.IOException;
 
 public class TabCreateUpdateCategory extends Tab {
-    private final CategoryEntity newCategory = new CategoryEntity();
+    private CategoryEntity newCategory = new CategoryEntity();
     @FXML
     private TextField categoryName;
+    private int categoryId;
 
     public TabCreateUpdateCategory() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/tab-create-update-category.fxml"));
@@ -34,13 +36,19 @@ public class TabCreateUpdateCategory extends Tab {
     public void initialize() {
         categoryName.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
-                create();
+                createOrUpdate();
                 ev.consume();
             }
         });
+
+        Platform.runLater(this::populate);
     }
 
-    private void create() {
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    private void createOrUpdate() {
         newCategory
                 .setName(categoryName.getText());
 
@@ -57,6 +65,15 @@ public class TabCreateUpdateCategory extends Tab {
         parent.getTabs().remove(this);
 
         CategoryLoader.getCategoryLoader().load();
+    }
+
+    private void populate() {
+        if (this.categoryId == 0) {
+            return;
+        }
+
+        newCategory = new CategoryEntity(this.categoryId).get();
+        categoryName.setText(newCategory.getName());
     }
 
 }

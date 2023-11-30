@@ -4,9 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TabPane;
+import personal.zaytiri.taskerlyze.ui.views.components.TabCategory;
 import personal.zaytiri.taskerlyze.ui.views.components.TabCreateUpdateCategory;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneCreateUpdateTask;
-import personal.zaytiri.taskerlyze.ui.views.popups.*;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateSubTask;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateTask;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveSubTask;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveTask;
 
 public class PopupAction {
     private PopupAction() {
@@ -33,14 +37,11 @@ public class PopupAction {
         parent.getPanes().add(0, pane);
     }
 
-    public static void showDialogForEditingCategory(int id, EventHandler<ActionEvent> ifSuccessful) {
-        DialogAddOrUpdateCategory dialog = new DialogAddOrUpdateCategory();
-        dialog.setId(id);
-        dialog.showDialog();
-
-        if (dialog.getResult().isSuccessful()) {
-            ifSuccessful.handle(new ActionEvent());
-        }
+    public static void showDialogForEditingCategory(TabPane parent, TabCategory currentTab, int categoryId) {
+        TabCreateUpdateCategory pane = new TabCreateUpdateCategory();
+        pane.setCategoryId(categoryId);
+        parent.getTabs().remove(currentTab);
+        parent.getTabs().add(pane);
     }
 
     public static void showDialogForEditingSubTask(int id, EventHandler<ActionEvent> ifSuccessful) {

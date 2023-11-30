@@ -64,7 +64,7 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
             TabCategory newTab = new TabCategory();
             newTab.setCategoryId(category.getId());
             newTab.setCategoryName(category.getName());
-            newTab.setContextMenu(actionEvent -> populateCategoryView());
+            newTab.setContextMenu();
 
             if (selectFirst) {
                 Platform.runLater(() -> mainTabPane.getSelectionModel().select(newTab));

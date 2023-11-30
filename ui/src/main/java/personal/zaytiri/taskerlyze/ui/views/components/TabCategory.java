@@ -4,14 +4,12 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
@@ -57,8 +55,8 @@ public class TabCategory extends Tab {
         setText(categoryName);
     }
 
-    public void setContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        setContextMenu(getTabContextMenu(ifSuccessful));
+    public void setContextMenu() {
+        setContextMenu(getTabContextMenu());
     }
 
     public void setOnAction() {
@@ -73,23 +71,23 @@ public class TabCategory extends Tab {
         this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(this.getTabPane()));
     }
 
-    private void addEditCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingCategory(getCategoryId(), ifSuccessful));
+    private void addEditCategoryOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingCategory(this.getTabPane(), this, getCategoryId()));
     }
 
-    private void addRemoveCategoryOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+    private void addRemoveCategoryOptionForContextMenu() {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             CategoryEntity category = new CategoryEntity(getCategoryId());
             if (category.remove()) {
-                ifSuccessful.handle(event);
+                CategoryLoader.getCategoryLoader().load();
             }
         });
     }
 
-    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+    private ContextMenu getTabContextMenu() {
         addAddCategoryOptionForContextMenu();
-        addEditCategoryOptionForContextMenu(ifSuccessful);
-        addRemoveCategoryOptionForContextMenu(ifSuccessful);
+        addEditCategoryOptionForContextMenu();
+        addRemoveCategoryOptionForContextMenu();
 
         return contextMenu.buildContextMenu();
     }
