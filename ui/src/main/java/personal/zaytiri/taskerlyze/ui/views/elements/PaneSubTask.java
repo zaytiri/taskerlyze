@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Clipboard;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
@@ -79,8 +76,8 @@ public class PaneSubTask extends TitledPane {
         checkBox.setSelected(this.isTaskDone.get());
     }
 
-    private void addAddSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Add new sub-task", event -> PopupAction.showDialogForAddingSubTask(getTaskId(), ifSuccessful));
+    private void addAddSubtaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Add new sub-task", event -> PopupAction.showDialogForAddingSubTask((Accordion) this.getParent(), getTaskId()));
     }
 
     private void addCopyTextOptionForContextMenu() {
@@ -107,7 +104,7 @@ public class PaneSubTask extends TitledPane {
     private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         addRemoveSubtaskOptionForContextMenu(ifSuccessful);
         addEditSubtaskOptionForContextMenu(ifSuccessful);
-        addAddSubtaskOptionForContextMenu(ifSuccessful);
+        addAddSubtaskOptionForContextMenu();
         addMoveSubtaskOptionForContextMenu(ifSuccessful);
         addCopyTextOptionForContextMenu();
 

@@ -6,6 +6,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.TabPane;
 import personal.zaytiri.taskerlyze.ui.views.components.TabCategory;
 import personal.zaytiri.taskerlyze.ui.views.components.TabCreateUpdateCategory;
+import personal.zaytiri.taskerlyze.ui.views.elements.PaneCreateUpdateSubTask;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneCreateUpdateTask;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateSubTask;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateTask;
@@ -21,14 +22,10 @@ public class PopupAction {
         parent.getTabs().add(pane);
     }
 
-    public static void showDialogForAddingSubTask(int taskId, EventHandler<ActionEvent> ifSuccessful) {
-        DialogAddOrUpdateSubTask dialog = new DialogAddOrUpdateSubTask();
-        dialog.setTaskId(taskId);
-        dialog.showDialog();
-
-        if (dialog.getResult().isSuccessful()) {
-            ifSuccessful.handle(new ActionEvent());
-        }
+    public static void showDialogForAddingSubTask(Accordion parent, int taskId) {
+        PaneCreateUpdateSubTask pane = new PaneCreateUpdateSubTask();
+        pane.setTaskId(taskId);
+        parent.getPanes().add(pane);
     }
 
     public static void showDialogForAddingTask(Accordion parent, int categoryId) {
