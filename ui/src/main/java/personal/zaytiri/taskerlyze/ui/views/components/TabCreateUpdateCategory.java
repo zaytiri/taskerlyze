@@ -42,6 +42,10 @@ public class TabCreateUpdateCategory extends Tab {
         });
 
         Platform.runLater(this::populate);
+        Platform.runLater(() -> {
+            categoryName.requestFocus();
+            categoryName.selectAll();
+        });
     }
 
     public void setCategoryId(int categoryId) {

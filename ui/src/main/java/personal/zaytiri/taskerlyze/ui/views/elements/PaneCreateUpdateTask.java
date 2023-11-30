@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.ui.views.elements;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
@@ -58,12 +59,15 @@ public class PaneCreateUpdateTask extends TitledPane {
 
     @FXML
     private void initialize() {
-
         taskName.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
                 create();
                 ev.consume();
             }
+        });
+        Platform.runLater(() -> {
+            taskName.requestFocus();
+            taskName.selectAll();
         });
     }
 }
