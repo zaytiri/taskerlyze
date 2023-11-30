@@ -21,6 +21,8 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
     @FXML
     public TextField priority;
     @FXML
+    public TextField achieved;
+    @FXML
     public Button buttonCreate;
     @FXML
     public Label errorMessage;
@@ -95,6 +97,7 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
         description.setText(newOrExistingTask.getDescription());
         url.setText(newOrExistingTask.getUrl());
         priority.setText(String.valueOf(newOrExistingTask.getPriority()));
+        achieved.setText(newOrExistingTask.getAchieved());
     }
 
     private void populateCategories() {
@@ -120,6 +123,7 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
         defaultItem.setItemId(0);
         defaultItem.setItemDisplay("Archive");
         category.getItems().add(defaultItem);
+        category.getSelectionModel().select(defaultItem);
     }
 
     private void setOnActionCreateButton() {
@@ -135,7 +139,8 @@ public class DialogAddOrUpdateTask extends Dialog<TaskEntity> {
                     .setDescription(description.getText())
                     .setCategoryId(category.getSelectionModel().getSelectedItem().getItemId())
                     .setUrl(url.getText())
-                    .setPriority(priorityAsNumber);
+                    .setPriority(priorityAsNumber)
+                    .setAchieved(achieved.getText());
 
             Pair<TaskEntity, Pair<Boolean, String>> response = newOrExistingTask.createOrUpdate();
             boolean isSuccessfulFromApi = response.getValue().getKey();
