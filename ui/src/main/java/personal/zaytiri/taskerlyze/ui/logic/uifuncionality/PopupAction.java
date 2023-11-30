@@ -8,7 +8,7 @@ import personal.zaytiri.taskerlyze.ui.views.components.TabCategory;
 import personal.zaytiri.taskerlyze.ui.views.components.TabCreateUpdateCategory;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneCreateUpdateSubTask;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneCreateUpdateTask;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateSubTask;
+import personal.zaytiri.taskerlyze.ui.views.elements.PaneSubTask;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateTask;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveSubTask;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveTask;
@@ -19,13 +19,13 @@ public class PopupAction {
 
     public static void showDialogForAddingCategory(TabPane parent) {
         TabCreateUpdateCategory pane = new TabCreateUpdateCategory();
-        parent.getTabs().add(pane);
+        parent.getTabs().add(0, pane);
     }
 
     public static void showDialogForAddingSubTask(Accordion parent, int taskId) {
         PaneCreateUpdateSubTask pane = new PaneCreateUpdateSubTask();
         pane.setTaskId(taskId);
-        parent.getPanes().add(pane);
+        parent.getPanes().add(0, pane);
     }
 
     public static void showDialogForAddingTask(Accordion parent, int categoryId) {
@@ -37,18 +37,18 @@ public class PopupAction {
     public static void showDialogForEditingCategory(TabPane parent, TabCategory currentTab, int categoryId) {
         TabCreateUpdateCategory pane = new TabCreateUpdateCategory();
         pane.setCategoryId(categoryId);
+        int index = parent.getTabs().indexOf(currentTab);
         parent.getTabs().remove(currentTab);
-        parent.getTabs().add(pane);
+        parent.getTabs().add(index, pane);
     }
 
-    public static void showDialogForEditingSubTask(int id, EventHandler<ActionEvent> ifSuccessful) {
-        DialogAddOrUpdateSubTask dialog = new DialogAddOrUpdateSubTask();
-        dialog.setId(id);
-        dialog.showDialog();
-
-        if (dialog.getResult().isSuccessful()) {
-            ifSuccessful.handle(new ActionEvent());
-        }
+    public static void showDialogForEditingSubTask(int id, PaneSubTask currentSubtask, Accordion parent, int taskId) {
+        PaneCreateUpdateSubTask pane = new PaneCreateUpdateSubTask();
+        pane.setSubtaskId(id);
+        pane.setTaskId(taskId);
+        int index = parent.getPanes().indexOf(currentSubtask);
+        parent.getPanes().remove(currentSubtask);
+        parent.getPanes().add(index, pane);
     }
 
     public static void showDialogForEditingTask(int id, EventHandler<ActionEvent> ifSuccessful) {

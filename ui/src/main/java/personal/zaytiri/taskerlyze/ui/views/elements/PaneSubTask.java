@@ -84,8 +84,8 @@ public class PaneSubTask extends TitledPane {
         this.contextMenu.addMenuItem("Copy text", event -> Clipboard.addTo(getTaskName()));
     }
 
-    private void addEditSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingSubTask(getSubTaskId(), ifSuccessful));
+    private void addEditSubtaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingSubTask(getSubTaskId(), this, (Accordion) this.getParent(), getTaskId()));
     }
 
     private void addMoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
@@ -103,7 +103,7 @@ public class PaneSubTask extends TitledPane {
 
     private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
         addRemoveSubtaskOptionForContextMenu(ifSuccessful);
-        addEditSubtaskOptionForContextMenu(ifSuccessful);
+        addEditSubtaskOptionForContextMenu();
         addAddSubtaskOptionForContextMenu();
         addMoveSubtaskOptionForContextMenu(ifSuccessful);
         addCopyTextOptionForContextMenu();

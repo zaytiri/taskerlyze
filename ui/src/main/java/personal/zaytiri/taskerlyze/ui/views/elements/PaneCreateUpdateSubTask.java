@@ -15,10 +15,11 @@ import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import java.io.IOException;
 
 public class PaneCreateUpdateSubTask extends TitledPane {
-    private final SubTaskEntity newOrExistingSubtask = new SubTaskEntity();
+    private SubTaskEntity newOrExistingSubtask = new SubTaskEntity();
     @FXML
     private TextField subtaskName;
     private int taskId;
+    private int subtaskId;
 
     public PaneCreateUpdateSubTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-sub-task.fxml"));
@@ -40,10 +41,16 @@ public class PaneCreateUpdateSubTask extends TitledPane {
                 ev.consume();
             }
         });
+
+        Platform.runLater(this::populate);
         Platform.runLater(() -> {
             subtaskName.requestFocus();
             subtaskName.selectAll();
         });
+    }
+
+    public void setSubtaskId(int subtaskId) {
+        this.subtaskId = subtaskId;
     }
 
     public void setTaskId(int taskId) {
@@ -67,6 +74,15 @@ public class PaneCreateUpdateSubTask extends TitledPane {
         Accordion parent = (Accordion) this.getParent();
         parent.getPanes().remove(this);
         SubTaskLoader.getSubTaskLoader().load();
+    }
+
+    private void populate() {
+        if (this.subtaskId == 0) {
+            return;
+        }
+
+        newOrExistingSubtask = new SubTaskEntity(this.subtaskId).get();
+        subtaskName.setText(newOrExistingSubtask.getName());
     }
 
 }
