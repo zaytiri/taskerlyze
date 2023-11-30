@@ -1,0 +1,108 @@
+@font-face {
+    font-family: 'Prompt Bold';
+    font-weight: bold;
+    src: url('../fonts/Prompt/Prompt-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Prompt Regular';
+    src: url('../fonts/Prompt/Prompt-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Prompt SemiBold';
+    src: url('../fonts/Prompt/Prompt-SemiBold.ttf');
+}
+
+.titled-pane > .title {
+    -fx-background-color: #0E6367;
+}
+
+.titled-pane {
+    -fx-padding: 10px 10px 0 10px;
+}
+
+#name {
+    -fx-font-family: "Prompt";
+    -fx-font-size: 15px;
+
+    /*this line of code will resize the actual size of the task title resized as well the width of the whole titled pane. */
+    -fx-pref-width: 370px;
+
+    -fx-wrap-text: true;
+    -fx-text-alignment: justify;
+    -fx-text-fill: #F5E3E0;
+
+    /* this line of code will add a small space in the edges of the task title. */
+    -fx-padding: 0 10px 0 0; 
+}
+
+.titled-pane:expanded > .title #name {
+    -fx-font-family: "Prompt Bold";
+}
+
+.titled-pane > *.content {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.titled-pane:collapsed > .title {
+    -fx-background-radius: 7px 7px 7px 7px;
+}
+
+.titled-pane:expanded > .title {
+    -fx-font-family: "Prompt";
+    -fx-background-radius: 7px 7px 0 0;
+}
+
+/*** remove arrow */
+.titled-pane > .title > .arrow-button > .arrow {
+    -fx-background-color: null;
+    -fx-background-insets: null;
+    -fx-effect: null;
+}
+
+.titled-pane > .title > .arrow-button {
+    -fx-background-color: null;
+    -fx-background-insets:null;
+    -fx-background-radius: null;
+    -fx-padding: 0;
+}
+.titled-pane > .title > .arrow-button > .arrow {
+    -fx-background-color: null;
+    -fx-background-insets: null;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+/****/
+
+#achieved-title {
+    -fx-font-family: "Prompt Bold";
+    -fx-font-size: 12px;
+    -fx-wrap-text: true;
+    -fx-text-fill: #0E6367;
+
+    -fx-background-color: #73ADB0;
+    -fx-background-radius: 7px 7px 0 0;
+
+    -fx-padding: 5px 5px 0 5px;
+    -fx-border-insets: 5px 0 -1px 0;
+    -fx-background-insets: 5px 0 -1px 0;
+}
+
+#achieved-content {
+    -fx-wrap-text: true;
+    -fx-text-alignment: justify;
+
+    -fx-pref-width: 420px;
+    -fx-background-color: #73ADB0;
+    -fx-background-radius: 0 7px 7px 7px;
+
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-border-insets: 0 0 0 0;
+    -fx-background-insets: 0 0 0 0;
+}
+
+#achieved-content > .label {
+    
+}

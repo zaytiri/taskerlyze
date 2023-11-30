@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
+<?import personal.zaytiri.taskerlyze.ui.views.components.ComponentAchievements?>
 <?import personal.zaytiri.taskerlyze.ui.views.components.ComponentCalendar?>
 <?import personal.zaytiri.taskerlyze.ui.views.components.ComponentCategories?>
 <?import personal.zaytiri.taskerlyze.ui.views.components.ComponentSideMenu?>
@@ -23,14 +24,18 @@
                 </top>
                 <center>
                     <AnchorPane BorderPane.alignment="CENTER">
-                        <ComponentCategories
-                                stylesheets="@../css/tasks-tab-view.css"
-                                tabClosingPolicy="UNAVAILABLE"
-                                tabDragPolicy="REORDER"
-                                AnchorPane.bottomAnchor="0.0"
-                                AnchorPane.leftAnchor="0.0"
-                                AnchorPane.rightAnchor="0.0"
-                                AnchorPane.topAnchor="0.0"/>
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <ComponentAchievements/>
+                            <ComponentCategories
+                                    stylesheets="@../css/tasks-tab-view.css"
+                                    tabClosingPolicy="UNAVAILABLE"
+                                    tabDragPolicy="REORDER"
+                                    AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0"
+                                    AnchorPane.topAnchor="0.0"/>
+                        </VBox>
                     </AnchorPane>
                 </center>
             </BorderPane>
