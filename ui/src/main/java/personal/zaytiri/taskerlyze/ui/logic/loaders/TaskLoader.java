@@ -17,7 +17,6 @@ public class TaskLoader {
     private static TaskLoader INSTANCE;
     private final PropertyChangeSupport support;
     private final List<TaskEntity> loadedTasks = new ArrayList<>();
-
     private LocalDate activeDay = null;
     private int activeCategoryId = 0;
 
@@ -35,6 +34,16 @@ public class TaskLoader {
 
     public void setActiveCategoryId(int currentActiveCategoryId) {
         activeCategoryId = currentActiveCategoryId;
+        load();
+    }
+
+    public LocalDate getActiveDay() {
+        return activeDay;
+    }
+
+    public void setActiveDay(LocalDate currentActiveDay) {
+        support.firePropertyChange("activeDay", activeDay, currentActiveDay);
+        activeDay = currentActiveDay;
         load();
     }
 
@@ -73,10 +82,5 @@ public class TaskLoader {
 
     public void removePropertyChangeListener(PropertyChangeListener pcl) {
         support.removePropertyChangeListener(pcl);
-    }
-
-    public void setActiveDay(LocalDate currentActiveDay) {
-        activeDay = currentActiveDay;
-        load();
     }
 }
