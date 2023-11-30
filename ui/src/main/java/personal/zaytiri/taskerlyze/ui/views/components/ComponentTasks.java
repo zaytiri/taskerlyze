@@ -74,7 +74,7 @@ public class ComponentTasks extends AnchorPane implements PropertyChangeListener
     }
 
     private void setTasks() {
-        List<TitledPane> panes = mainTasks.getPanes();
+        ObservableList<TitledPane> panes = mainTasks.getPanes();
 
         panes.clear();
 

@@ -44,7 +44,7 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
     }
 
     public void setSubTasks() {
-        List<TitledPane> panes = subTasksAccordion.getPanes();
+        ObservableList<TitledPane> panes = subTasksAccordion.getPanes();
 
         panes.clear();
 
