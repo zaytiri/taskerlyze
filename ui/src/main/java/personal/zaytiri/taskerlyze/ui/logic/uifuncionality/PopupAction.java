@@ -51,14 +51,12 @@ public class PopupAction {
         parent.getPanes().add(index, pane);
     }
 
-    public static void showDialogForEditingTask(int id, EventHandler<ActionEvent> ifSuccessful) {
-        DialogAddOrUpdateTask dialog = new DialogAddOrUpdateTask();
-        dialog.setId(id);
-        dialog.showDialog();
-
-        if (dialog.getResult().isSuccessful()) {
-            ifSuccessful.handle(new ActionEvent());
-        }
+    public static void showDialogForEditingTask(int id, PaneTask currentTask, Accordion parent) {
+        PaneCreateUpdateTask pane = new PaneCreateUpdateTask();
+        pane.setTaskId(id);
+        int index = parent.getPanes().indexOf(currentTask);
+        parent.getPanes().remove(currentTask);
+        parent.getPanes().add(index, pane);
     }
 
     public static void showDialogForMovingSubTask(int entityIdToBeMoved, EventHandler<ActionEvent> ifSuccessful) {

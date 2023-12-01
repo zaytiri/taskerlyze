@@ -16,7 +16,7 @@
                 <right>
                     <CheckBox fx:id="checkBox" alignment="CENTER_RIGHT" mnemonicParsing="false"
                               nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0"
-                              BorderPane.alignment="CENTER"/>
+                              BorderPane.alignment="CENTER" disable="true"/>
                 </right>
                 <center>
                     <TextField id="task-name" fx:id="taskName" BorderPane.alignment="CENTER"/>

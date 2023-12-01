@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/tasks-tab-view.css"
+         type="javafx.scene.layout.BorderPane"
+         BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/20.0.1">
+    <top>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <VBox id="details-layout" alignment="CENTER">
+                <Label id="details-title" text="Priority"/>
+                <TextField fx:id="priorityContent"/>
+            </VBox>
+            <!--            <VBox id="details-layout" alignment="CENTER">-->
+            <!--                <Label id="details-title" text="Due Date"/>-->
+            <!--                <Label fx:id="dueDateContent"/>-->
+            <!--            </VBox>-->
+            <VBox id="details-layout" alignment="CENTER">
+                <Label id="details-title" text="Completed Date"/>
+                <Label fx:id="completedDateContent"/>
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" fillWidth="false" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER_LEFT">
+                <Label id="description-title" text="Description"/>
+                <HBox id="description-content" alignment="CENTER_LEFT">
+                    <TextField fx:id="descriptionContent" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+            <VBox alignment="CENTER_LEFT">
+                <Label id="description-title" text="Achieved"/>
+                <HBox id="description-content" alignment="CENTER_LEFT">
+                    <TextField fx:id="achievedContent" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+            <VBox alignment="CENTER_LEFT">
+                <Label id="description-title" text="URL"/>
+                <HBox id="description-content" alignment="CENTER_LEFT">
+                    <TextField fx:id="urlContent" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</fx:root>

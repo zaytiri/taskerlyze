@@ -93,7 +93,7 @@ public class PaneTask extends TitledPane {
     }
 
     private void addEditTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingTask(getTaskId(), ifSuccessful));
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent()));
     }
 
     private void addMoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {

@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
@@ -15,10 +16,14 @@ import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import java.io.IOException;
 
 public class PaneCreateUpdateTask extends TitledPane {
+    private final PaneCreateUpdateTaskDetails paneTaskDetails = new PaneCreateUpdateTaskDetails();
     private int categoryId;
+    private int taskId;
     @FXML
     private TextField taskName;
-    private TaskEntity newTask;
+    private TaskEntity newOrExistingTask;
+    @FXML
+    private BorderPane mainBorderPane;
 
     public PaneCreateUpdateTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-task.fxml"));
@@ -37,13 +42,25 @@ public class PaneCreateUpdateTask extends TitledPane {
         this.categoryId = categoryId;
     }
 
-    private void create() {
-        newTask = new TaskEntity();
-        newTask
-                .setName(taskName.getText())
-                .setCategoryId(categoryId);
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
 
-        Pair<TaskEntity, Pair<Boolean, String>> response = newTask.createOrUpdate();
+
+    private void create() {
+        newOrExistingTask = paneTaskDetails.getTask();
+        if (newOrExistingTask == null) {
+            return;
+        }
+
+        newOrExistingTask
+                .setName(taskName.getText());
+
+        if (categoryId != 0) {
+            newOrExistingTask.setCategoryId(categoryId);
+        }
+
+        Pair<TaskEntity, Pair<Boolean, String>> response = newOrExistingTask.createOrUpdate();
         boolean isSuccessfulFromApi = response.getValue().getKey();
         String errorMessageFromApi = response.getValue().getValue();
 
@@ -65,9 +82,26 @@ public class PaneCreateUpdateTask extends TitledPane {
                 ev.consume();
             }
         });
+
         Platform.runLater(() -> {
             taskName.requestFocus();
+            populate();
+
             taskName.selectAll();
+            this.setExpanded(true);
         });
+    }
+
+    private void populate() {
+        if (this.taskId == 0) {
+            return;
+        }
+
+        newOrExistingTask = new TaskEntity(this.taskId).get();
+        taskName.setText(newOrExistingTask.getName());
+
+        paneTaskDetails.setTask(newOrExistingTask);
+        paneTaskDetails.load();
+        mainBorderPane.setCenter(paneTaskDetails);
     }
 }

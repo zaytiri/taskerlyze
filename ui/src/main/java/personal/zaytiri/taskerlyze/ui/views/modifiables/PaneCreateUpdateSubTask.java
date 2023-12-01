@@ -43,8 +43,8 @@ public class PaneCreateUpdateSubTask extends TitledPane {
         });
 
         Platform.runLater(() -> {
-            populate();
             subtaskName.requestFocus();
+            populate();
             subtaskName.selectAll();
         });
     }

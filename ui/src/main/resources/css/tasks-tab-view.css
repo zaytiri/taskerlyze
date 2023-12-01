@@ -295,5 +295,9 @@
 /****/
 
 .text-field {
-    -fx-background-color: transparent;
+    -fx-background-color: #b8b8b871;
+    -fx-border-color:  #0E6367;
+    /* -fx-border-radius: 5px; */
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: black;
 }
