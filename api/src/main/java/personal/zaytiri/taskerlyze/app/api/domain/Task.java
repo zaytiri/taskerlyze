@@ -170,8 +170,9 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return Boolean.parseBoolean(response.getResult().get(0).get("is_done"));
     }
 
-    public void setDone(boolean done) {
+    public Task setDone(boolean done) {
         this.done = done;
+        return this;
     }
 
     public Task setId(int id) {

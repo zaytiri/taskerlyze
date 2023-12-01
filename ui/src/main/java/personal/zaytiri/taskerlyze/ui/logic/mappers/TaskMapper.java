@@ -9,6 +9,7 @@ public class TaskMapper implements IMapper<Task, TaskEntity> {
         return new Task().getInstance()
                 .setId(taskEntity.getId())
                 .setName(taskEntity.getName())
+                .setDone(taskEntity.isTaskDone())
                 .setDescription(taskEntity.getDescription())
                 .setCategoryId(taskEntity.getCategoryId())
                 .setUrl(taskEntity.getUrl())
@@ -22,6 +23,7 @@ public class TaskMapper implements IMapper<Task, TaskEntity> {
         return taskEntity
                 .setId(task.getId())
                 .setName(task.getName())
+                .setTaskDone(task.isDone(false))
                 .setDescription(task.getDescription())
                 .setCategoryId(task.getCategoryId())
                 .setUrl(task.getUrl())

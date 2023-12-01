@@ -65,7 +65,7 @@ public class TaskLoader {
 
         List<TaskEntity> tasksToBeReturned = new ArrayList<>();
         for (Task task : taskResult.getResult()) {
-            tasksToBeReturned.add(new TaskEntity(task).setCategoryId(task.getCategoryId()));
+            tasksToBeReturned.add(new TaskEntity(task));
         }
         support.firePropertyChange("loadedTasks", loadedTasks, tasksToBeReturned);
 
