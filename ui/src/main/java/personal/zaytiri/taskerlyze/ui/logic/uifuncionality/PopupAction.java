@@ -5,11 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TabPane;
 import personal.zaytiri.taskerlyze.ui.views.components.TabCategory;
-import personal.zaytiri.taskerlyze.ui.views.components.TabCreateUpdateCategory;
-import personal.zaytiri.taskerlyze.ui.views.elements.PaneCreateUpdateSubTask;
-import personal.zaytiri.taskerlyze.ui.views.elements.PaneCreateUpdateTask;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneSubTask;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddOrUpdateTask;
+import personal.zaytiri.taskerlyze.ui.views.elements.PaneTask;
+import personal.zaytiri.taskerlyze.ui.views.modifiables.PaneCreateUpdateSubTask;
+import personal.zaytiri.taskerlyze.ui.views.modifiables.PaneCreateUpdateTask;
+import personal.zaytiri.taskerlyze.ui.views.modifiables.TabCreateUpdateCategory;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveSubTask;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveTask;
 
