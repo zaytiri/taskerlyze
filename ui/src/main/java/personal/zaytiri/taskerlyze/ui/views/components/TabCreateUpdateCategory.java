@@ -41,8 +41,8 @@ public class TabCreateUpdateCategory extends Tab {
             }
         });
 
-        Platform.runLater(this::populate);
         Platform.runLater(() -> {
+            populate();
             categoryName.requestFocus();
             categoryName.selectAll();
         });
