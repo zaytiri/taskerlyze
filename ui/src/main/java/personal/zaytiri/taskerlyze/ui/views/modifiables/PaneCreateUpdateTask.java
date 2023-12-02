@@ -21,7 +21,7 @@ public class PaneCreateUpdateTask extends TitledPane {
     private int taskId;
     @FXML
     private TextField taskName;
-    private TaskEntity newOrExistingTask;
+    private TaskEntity newOrExistingTask = new TaskEntity();
     @FXML
     private BorderPane mainBorderPane;
 
@@ -93,12 +93,10 @@ public class PaneCreateUpdateTask extends TitledPane {
     }
 
     private void populate() {
-        if (this.taskId == 0) {
-            return;
+        if (this.taskId != 0) {
+            newOrExistingTask = new TaskEntity(this.taskId).get();
+            taskName.setText(newOrExistingTask.getName());
         }
-
-        newOrExistingTask = new TaskEntity(this.taskId).get();
-        taskName.setText(newOrExistingTask.getName());
 
         paneTaskDetails.setTask(newOrExistingTask);
         paneTaskDetails.load();

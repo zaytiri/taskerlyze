@@ -74,10 +74,9 @@ public class PaneCreateUpdateTaskDetails extends BorderPane {
     }
 
     private String getFormattedCompletedAtDate(LocalDate date) {
-        LocalDate completedAt = date;
         String completedAtFormatted = "-----------";
-        if (!completedAt.isEqual(LocalDate.MIN)) {
-            completedAtFormatted = DateConversion.formatDateWithAbbreviatedMonth(completedAt);
+        if (date != null && (!date.isEqual(LocalDate.MIN))) {
+            completedAtFormatted = DateConversion.formatDateWithAbbreviatedMonth(date);
         }
         return completedAtFormatted;
     }
