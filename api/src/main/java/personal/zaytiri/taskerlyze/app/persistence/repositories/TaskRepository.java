@@ -3,7 +3,6 @@ package personal.zaytiri.taskerlyze.app.persistence.repositories;
 import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
-import personal.zaytiri.taskerlyze.app.persistence.models.CategoryModel;
 import personal.zaytiri.taskerlyze.app.persistence.models.TaskModel;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.base.Repository;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITaskRepository;
@@ -44,12 +43,10 @@ public class TaskRepository extends Repository<Task, TaskModel, TaskMapper> impl
     @Override
     public Response getTasksByCategoryAndCompletedAtDate(int categoryId, LocalDate date) {
         model = new TaskModel();
-        CategoryModel categoryModel = new CategoryModel();
 
         SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
 
         Table taskTable = model.getTable();
-        Table categoryTable = categoryModel.getTable();
 
         query.select()
                 .from(taskTable)
