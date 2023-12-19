@@ -13,6 +13,7 @@ import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -310,7 +311,7 @@ class TaskTests {
         TaskController controller = new TaskController();
 
         // act
-        OperationResult<List<Task>> noCategoryTasks = controller.getTasksByCategory(5);
+        OperationResult<List<Task>> noCategoryTasks = controller.getTasksByCategoryAndCompletedAtDate(5, LocalDate.now());
 
         // assert
         Assertions.assertFalse(noCategoryTasks.getStatus());
@@ -371,8 +372,8 @@ class TaskTests {
         TaskController controller = new TaskController();
 
         // act
-        OperationResult<List<Task>> workTasks = controller.getTasksByCategory(1);
-        OperationResult<List<Task>> personalTasks = controller.getTasksByCategory(2);
+        OperationResult<List<Task>> workTasks = controller.getTasksByCategoryAndCompletedAtDate(1, LocalDate.now());
+        OperationResult<List<Task>> personalTasks = controller.getTasksByCategoryAndCompletedAtDate(2, LocalDate.now());
 
         // assert
         Assertions.assertTrue(workTasks.getStatus());
