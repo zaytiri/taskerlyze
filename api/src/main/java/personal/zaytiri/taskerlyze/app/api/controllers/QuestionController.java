@@ -32,6 +32,31 @@ public class QuestionController extends Controller<Question> {
 
         return new OperationResult<>(!tasks.isEmpty(), message, tasks);
     }
+
+    /**
+     * Sets the status of a task to a given boolean with a specific given id.
+     *
+     * @param id     to set the status
+     * @param isDone which is the boolean representing if a task is done or not
+     * @return OperationResult<Task>
+     */
+    public OperationResult<Question> setAnswered(int id, boolean isDone) {
+        Question question = getEntityInstance();
+        question.setId(id);
+
+        boolean isQuestionUpdated = question.setQuestionStatus(isDone);
+        question = question.get();
+
+        MessageResult message = new MessageResult();
+        if (isQuestionUpdated) {
+            message.setCode(CodeResult.SUCCESS);
+        } else {
+            message.setCode(CodeResult.FAIL);
+        }
+
+        return new OperationResult<>(isQuestionUpdated, message, question);
+    }
+
     @Override
     protected Question getEntityInstance(int id) {
         return new Question().getInstance().setId(id);

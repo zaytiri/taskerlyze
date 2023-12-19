@@ -149,4 +149,24 @@ public class Question extends Entity<Question, IQuestionRepository, QuestionMapp
     protected Question getInjectedComponent(AppComponent component) {
         return component.getQuestion();
     }
+
+    public boolean setQuestionStatus(boolean done) {
+        List<Pair<String, Object>> sets = new ArrayList<>();
+
+        LocalDate today = null;
+        sets.add(new Pair<>("is_answered", done));
+
+        if (done) {
+            today = LocalDate.now();
+        }
+        sets.add(new Pair<>("answered_at", today));
+
+        Response response = repository.update(this, sets);
+        if (response.isSuccess()) {
+            this.isAnswered = done;
+            this.answeredAt = today;
+        }
+
+        return response.isSuccess();
+    }
 }
