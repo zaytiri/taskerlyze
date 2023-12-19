@@ -123,4 +123,49 @@
             <default>null</default>
         </column>
     </table>
+    <table> <!-- table questions -->
+        <name>questions</name>
+        <column>
+            <name>id</name>
+            <type>integer</type>
+            <default>1</default>
+            <isprimarykey>true</isprimarykey>
+        </column>
+        <column>
+            <name>question</name>
+            <type>text</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>answer</name>
+            <type>text</type>
+            <default>null</default>
+        </column>
+
+        <column>
+            <name>is_answered</name>
+            <type>boolean</type>
+            <default>false</default>
+        </column>
+        <column>
+            <name>answered_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>category_id</name>
+            <type>integer</type>
+            <default>1</default>
+        </column>
+        <column>
+            <name>updated_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>created_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+    </table>
 </database>
