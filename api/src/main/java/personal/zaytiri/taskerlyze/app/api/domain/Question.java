@@ -119,6 +119,12 @@ public class Question extends Entity<Question, IQuestionRepository, QuestionMapp
         return this;
     }
 
+    public List<Question> getQuestionsByCategoryAndAnsweredAtDate() {
+        Response response = repository.getQuestionsByCategoryAndAnsweredAtDate(this.categoryId, this.answeredAt);
+
+        return mapper.toEntity(response.getResult(), false);
+    }
+
     public boolean isAnswered() {
         return isAnswered;
     }

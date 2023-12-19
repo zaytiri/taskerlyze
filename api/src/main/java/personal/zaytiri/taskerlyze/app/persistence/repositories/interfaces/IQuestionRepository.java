@@ -8,4 +8,5 @@ import java.time.LocalDate;
 public interface IQuestionRepository extends IRepository<Question> {
     Response exists(Question task);
 
+    Response getQuestionsByCategoryAndAnsweredAtDate(int categoryId, LocalDate date);
 }

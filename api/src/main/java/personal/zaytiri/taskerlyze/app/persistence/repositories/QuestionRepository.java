@@ -39,4 +39,29 @@ public class QuestionRepository extends Repository<Question, QuestionModel, Ques
 
         return query.execute();
     }
+
+    @Override
+    public Response getQuestionsByCategoryAndAnsweredAtDate(int categoryId, LocalDate date) {
+        model = new QuestionModel();
+
+        SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
+
+        Table questions = model.getTable();
+
+        query.select()
+                .from(questions)
+                .where(questions.getColumn("category_id"), Operators.EQUALS, categoryId);
+
+        if (date.isEqual(LocalDate.now())) {
+            query.and(2)
+                    .where(questions.getColumn("is_answered"), Operators.EQUALS, false)
+                    .or()
+                    .where(questions.getColumn("answered_at"), Operators.EQUALS, date);
+        } else {
+            query.and()
+                    .where(questions.getColumn("answered_at"), Operators.EQUALS, date);
+        }
+
+        return query.execute();
+    }
 }
