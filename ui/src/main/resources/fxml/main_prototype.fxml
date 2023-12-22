@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="949.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/20.0.1"
-            fx:controller="personal.zaytiri.taskerlyze.ui.controllers.MainController">
-    <BorderPane id="main-border-pane" fx:id="mainBorderPane" stylesheets="@../css/main.css"
-                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                AnchorPane.topAnchor="0.0">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="949.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="personal.zaytiri.taskerlyze.ui.controllers.MainController">
+    <BorderPane id="main-border-pane" fx:id="mainBorderPane" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                 <center>
-                    <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <AnchorPane style="-fx-background-color: ffffff;" BorderPane.alignment="CENTER">
                         <children>
-                            <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <children>
                                     <TitledPane stylesheets="@../css/achieved-view.css">
                                         <content>
                                             <AnchorPane>
                                                 <children>
-                                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                         <children>
-                                                            <Label id="achieved-title" text="30-NOV-2023"/>
+                                                            <Label id="achieved-title" text="30-NOV-2023" />
                                                             <VBox id="achieved-content" alignment="CENTER_LEFT">
                                                                 <children>
-                                                                    <Label text="asadsadsadsad"/>
-                                                                    <Label text="sad"/>
-                                                                    <Label text="hgjhjgjuy"/>
+                                                                    <Label text="asadsadsadsad" />
+                                                                    <Label text="sad" />
+                                                                    <Label text="hgjhjgjuy" />
                                                                 </children>
                                                             </VBox>
                                                         </children>
@@ -40,20 +48,17 @@
                                             </AnchorPane>
                                         </content>
                                         <graphic>
-                                            <Label id="name" text="Achivements"/>
+                                            <Label id="name" text="Achivements" />
                                         </graphic>
                                     </TitledPane>
-                                    <javafx.scene.control.TabPane fx:id="mainTabPane"
-                                                                  stylesheets="@../css/tasks-tab-view.css"
-                                                                  tabClosingPolicy="UNAVAILABLE">
+                                    <javafx.scene.control.TabPane fx:id="mainTabPane" stylesheets="@../css/tasks-tab-view.css" tabClosingPolicy="UNAVAILABLE">
                                         <Tab id="default-tab" fx:id="defaultTab">
                                             <graphic>
                                                 <Label>
                                                     <graphic>
-                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
-                                                                   preserveRatio="true">
+                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../icons/plus.png"/>
+                                                                <Image url="@../icons/plus.png" />
                                                             </image>
                                                         </ImageView>
                                                     </graphic>
@@ -61,91 +66,51 @@
                                             </graphic>
                                             <BorderPane fx:id="categoriesNotFoundMessage" visible="false">
                                                 <center>
-                                                    <Label text="No categories found. Create a new category to get started."/>
+                                                    <Label text="No categories found. Create a new category to get started." />
                                                 </center>
                                             </BorderPane>
                                         </Tab>
                                         <Tab closable="false" text="category name">
                                             <AnchorPane prefWidth="427.0">
-                                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
-                                                            prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER"
-                                                            AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0"
-                                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <AnchorPane>
                                                         <children>
-                                                            <javafx.scene.control.Accordion id="tasks-accordion"
-                                                                                            fx:id="mainTasks"
-                                                                                            AnchorPane.bottomAnchor="0.0"
-                                                                                            AnchorPane.leftAnchor="0.0"
-                                                                                            AnchorPane.rightAnchor="0.0"
-                                                                                            AnchorPane.topAnchor="0.0">
+                                                            <javafx.scene.control.Accordion id="tasks-accordion" fx:id="mainTasks" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                 <panes>
-                                                                    <TitledPane fx:id="notFoundMessage"
-                                                                                collapsible="false">
+                                                                    <TitledPane fx:id="notFoundMessage" collapsible="false">
                                                                         <graphic>
                                                                             <BorderPane>
                                                                                 <center>
-                                                                                    <Label id="not-found-message"
-                                                                                           text="No tasks found. Create a new task to get started."/>
+                                                                                    <Label id="not-found-message" text="No tasks found. Create a new task to get started." />
                                                                                 </center>
                                                                             </BorderPane>
                                                                         </graphic>
                                                                     </TitledPane>
-                                                                    <javafx.scene.control.TitledPane
-                                                                            fx:id="mainTaskTitledPane">
+                                                                    <javafx.scene.control.TitledPane fx:id="mainTaskTitledPane">
                                                                         <graphic>
                                                                             <AnchorPane>
-                                                                                <BorderPane
-                                                                                        AnchorPane.bottomAnchor="0.0"
-                                                                                        AnchorPane.leftAnchor="0.0"
-                                                                                        AnchorPane.rightAnchor="0.0"
-                                                                                        AnchorPane.topAnchor="0.0">
+                                                                                <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                     <left>
-                                                                                        <VBox id="task-open-top-style"
-                                                                                              BorderPane.alignment="CENTER"/>
+                                                                                        <VBox id="task-open-top-style" BorderPane.alignment="CENTER" />
                                                                                     </left>
                                                                                     <right>
-                                                                                        <CheckBox fx:id="checkBox"
-                                                                                                  alignment="CENTER_RIGHT"
-                                                                                                  mnemonicParsing="false"
-                                                                                                  nodeOrientation="LEFT_TO_RIGHT"
-                                                                                                  prefHeight="26.0"
-                                                                                                  prefWidth="7.0"
-                                                                                                  BorderPane.alignment="CENTER"/>
+                                                                                        <CheckBox fx:id="checkBox" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />
                                                                                     </right>
                                                                                     <center>
-                                                                                        <Label id="task-name"
-                                                                                               fx:id="task"
-                                                                                               text="a new task for something with a long text, much longer than this s already a new task for something with a long text, much longer than this s already"
-                                                                                               BorderPane.alignment="CENTER"/>
+                                                                                        <Label id="task-name" fx:id="task" text="a new task for something with a long text, much longer than this s already a new task for something with a long text, much longer than this s already" BorderPane.alignment="CENTER" />
                                                                                     </center>
                                                                                 </BorderPane>
                                                                             </AnchorPane>
                                                                         </graphic>
                                                                         <AnchorPane>
-                                                                            <BorderPane fx:id="mainBorderPane1"
-                                                                                        style="-fx-background-color: transparent;"
-                                                                                        AnchorPane.bottomAnchor="0.0"
-                                                                                        AnchorPane.leftAnchor="0.0"
-                                                                                        AnchorPane.rightAnchor="0.0"
-                                                                                        AnchorPane.topAnchor="0.0">
+                                                                            <BorderPane fx:id="mainBorderPane1" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                 <bottom>
-                                                                                    <BorderPane
-                                                                                            BorderPane.alignment="CENTER">
+                                                                                    <BorderPane BorderPane.alignment="CENTER">
                                                                                         <center>
-                                                                                            <HBox id="task-bottom-pane"
-                                                                                                  fillHeight="false"
-                                                                                                  BorderPane.alignment="CENTER">
-                                                                                                <Button id="swap-button"
-                                                                                                        fx:id="swapButton"
-                                                                                                        alignment="CENTER"
-                                                                                                        mnemonicParsing="false">
+                                                                                            <HBox id="task-bottom-pane" fillHeight="false" BorderPane.alignment="CENTER">
+                                                                                                <Button id="swap-button" fx:id="swapButton" alignment="CENTER" mnemonicParsing="false">
                                                                                                     <graphic>
-                                                                                                        <ImageView
-                                                                                                                fitHeight="22.0"
-                                                                                                                fitWidth="22.0"
-                                                                                                                pickOnBounds="true"
-                                                                                                                preserveRatio="true">
+                                                                                                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                                                                                             <!--                                        <Image url="@../icons/swap.png"/>-->
                                                                                                         </ImageView>
                                                                                                     </graphic>
@@ -153,22 +118,18 @@
                                                                                             </HBox>
                                                                                         </center>
                                                                                         <left>
-                                                                                            <VBox id="task-open-bottom-style"
-                                                                                                  BorderPane.alignment="CENTER"/>
+                                                                                            <VBox id="task-open-bottom-style" BorderPane.alignment="CENTER" />
                                                                                         </left>
                                                                                     </BorderPane>
                                                                                 </bottom>
                                                                                 <center>
-                                                                                    <Accordion id="sub-tasks-accordion"
-                                                                                               fx:id="subTasksAccordion">
+                                                                                    <Accordion id="sub-tasks-accordion" fx:id="subTasksAccordion">
                                                                                         <panes>
-                                                                                            <TitledPane
-                                                                                                    fx:id="notFoundMessage1"
-                                                                                                    collapsible="false">
+                                                                                            <TitledPane fx:id="notFoundMessage1" collapsible="false">
                                                                                                 <graphic>
                                                                                                     <BorderPane>
                                                                                                         <center>
-                                                                                                            <Label text="No sub tasks found."/>
+                                                                                                            <Label text="No sub tasks found." />
                                                                                                         </center>
                                                                                                     </BorderPane>
                                                                                                 </graphic>
@@ -189,84 +150,45 @@
                                         </Tab>
                                         <Tab text="another category">
                                             <AnchorPane prefWidth="427.0">
-                                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
-                                                            prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER"
-                                                            AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0"
-                                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <AnchorPane>
                                                         <children>
-                                                            <javafx.scene.control.Accordion id="tasks-accordion"
-                                                                                            fx:id="mainTasks1"
-                                                                                            AnchorPane.bottomAnchor="0.0"
-                                                                                            AnchorPane.leftAnchor="0.0"
-                                                                                            AnchorPane.rightAnchor="0.0"
-                                                                                            AnchorPane.topAnchor="0.0">
+                                                            <javafx.scene.control.Accordion id="tasks-accordion" fx:id="mainTasks1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                 <panes>
-                                                                    <TitledPane fx:id="notFoundMessage2"
-                                                                                collapsible="false">
+                                                                    <TitledPane fx:id="notFoundMessage2" collapsible="false">
                                                                         <graphic>
                                                                             <BorderPane>
                                                                                 <center>
-                                                                                    <Label id="not-found-message"
-                                                                                           text="No tasks found. Create a new task to get started."/>
+                                                                                    <Label id="not-found-message" text="No tasks found. Create a new task to get started." />
                                                                                 </center>
                                                                             </BorderPane>
                                                                         </graphic>
                                                                     </TitledPane>
-                                                                    <javafx.scene.control.TitledPane
-                                                                            fx:id="mainTaskTitledPane1">
+                                                                    <javafx.scene.control.TitledPane fx:id="mainTaskTitledPane1">
                                                                         <graphic>
                                                                             <AnchorPane>
-                                                                                <BorderPane
-                                                                                        AnchorPane.bottomAnchor="0.0"
-                                                                                        AnchorPane.leftAnchor="0.0"
-                                                                                        AnchorPane.rightAnchor="0.0"
-                                                                                        AnchorPane.topAnchor="0.0">
+                                                                                <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                     <left>
-                                                                                        <VBox id="task-open-top-style"
-                                                                                              BorderPane.alignment="CENTER"/>
+                                                                                        <VBox id="task-open-top-style" BorderPane.alignment="CENTER" />
                                                                                     </left>
                                                                                     <right>
-                                                                                        <CheckBox fx:id="checkBox1"
-                                                                                                  alignment="CENTER_RIGHT"
-                                                                                                  mnemonicParsing="false"
-                                                                                                  nodeOrientation="LEFT_TO_RIGHT"
-                                                                                                  prefHeight="26.0"
-                                                                                                  prefWidth="7.0"
-                                                                                                  BorderPane.alignment="CENTER"/>
+                                                                                        <CheckBox fx:id="checkBox1" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />
                                                                                     </right>
                                                                                     <center>
-                                                                                        <Label id="task-name"
-                                                                                               fx:id="task1"
-                                                                                               BorderPane.alignment="CENTER"/>
+                                                                                        <Label id="task-name" fx:id="task1" BorderPane.alignment="CENTER" />
                                                                                     </center>
                                                                                 </BorderPane>
                                                                             </AnchorPane>
                                                                         </graphic>
                                                                         <AnchorPane>
-                                                                            <BorderPane fx:id="mainBorderPane2"
-                                                                                        style="-fx-background-color: transparent;"
-                                                                                        AnchorPane.bottomAnchor="0.0"
-                                                                                        AnchorPane.leftAnchor="0.0"
-                                                                                        AnchorPane.rightAnchor="0.0"
-                                                                                        AnchorPane.topAnchor="0.0">
+                                                                            <BorderPane fx:id="mainBorderPane2" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                 <bottom>
-                                                                                    <BorderPane
-                                                                                            BorderPane.alignment="CENTER">
+                                                                                    <BorderPane BorderPane.alignment="CENTER">
                                                                                         <center>
-                                                                                            <HBox id="task-bottom-pane"
-                                                                                                  fillHeight="false"
-                                                                                                  BorderPane.alignment="CENTER">
-                                                                                                <Button id="swap-button"
-                                                                                                        fx:id="swapButton1"
-                                                                                                        alignment="CENTER"
-                                                                                                        mnemonicParsing="false">
+                                                                                            <HBox id="task-bottom-pane" fillHeight="false" BorderPane.alignment="CENTER">
+                                                                                                <Button id="swap-button" fx:id="swapButton1" alignment="CENTER" mnemonicParsing="false">
                                                                                                     <graphic>
-                                                                                                        <ImageView
-                                                                                                                fitHeight="22.0"
-                                                                                                                fitWidth="22.0"
-                                                                                                                pickOnBounds="true"
-                                                                                                                preserveRatio="true">
+                                                                                                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                                                                                                             <!--                                        <Image url="@../icons/swap.png"/>-->
                                                                                                         </ImageView>
                                                                                                     </graphic>
@@ -274,56 +196,31 @@
                                                                                             </HBox>
                                                                                         </center>
                                                                                         <left>
-                                                                                            <VBox id="task-open-bottom-style"
-                                                                                                  BorderPane.alignment="CENTER"/>
+                                                                                            <VBox id="task-open-bottom-style" BorderPane.alignment="CENTER" />
                                                                                         </left>
                                                                                     </BorderPane>
                                                                                 </bottom>
                                                                                 <center>
-                                                                                    <Accordion id="sub-tasks-accordion"
-                                                                                               fx:id="subTasksAccordion1">
+                                                                                    <Accordion id="sub-tasks-accordion" fx:id="subTasksAccordion1">
                                                                                         <panes>
-                                                                                            <TitledPane
-                                                                                                    fx:id="notFoundMessage3"
-                                                                                                    collapsible="false"
-                                                                                                    expanded="false">
+                                                                                            <TitledPane fx:id="notFoundMessage3" collapsible="false" expanded="false">
                                                                                                 <graphic>
                                                                                                     <BorderPane>
                                                                                                         <center>
-                                                                                                            <Label id="not-found-message"
-                                                                                                                   text="No sub tasks found."/>
+                                                                                                            <Label id="not-found-message" text="No sub tasks found." />
                                                                                                         </center>
                                                                                                     </BorderPane>
                                                                                                 </graphic>
                                                                                             </TitledPane>
-                                                                                            <javafx.scene.control.TitledPane
-                                                                                                    collapsible="false"
-                                                                                                    expanded="false">
+                                                                                            <javafx.scene.control.TitledPane collapsible="false" expanded="false">
                                                                                                 <graphic>
                                                                                                     <AnchorPane>
-                                                                                                        <BorderPane
-                                                                                                                id="sub-tasks-border-pane"
-                                                                                                                AnchorPane.bottomAnchor="0.0"
-                                                                                                                AnchorPane.leftAnchor="0.0"
-                                                                                                                AnchorPane.rightAnchor="0.0"
-                                                                                                                AnchorPane.topAnchor="0.0">
+                                                                                                        <BorderPane id="sub-tasks-border-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                                                             <right>
-                                                                                                                <CheckBox
-                                                                                                                        fx:id="checkBox2"
-                                                                                                                        alignment="CENTER_RIGHT"
-                                                                                                                        mnemonicParsing="false"
-                                                                                                                        nodeOrientation="LEFT_TO_RIGHT"
-                                                                                                                        prefHeight="26.0"
-                                                                                                                        prefWidth="7.0"
-                                                                                                                        BorderPane.alignment="CENTER"/>
+                                                                                                                <CheckBox fx:id="checkBox2" alignment="CENTER_RIGHT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="7.0" BorderPane.alignment="CENTER" />
                                                                                                             </right>
                                                                                                             <left>
-                                                                                                                <Label id="sub-tasks-name"
-                                                                                                                       fx:id="subTask"
-                                                                                                                       text="a sub task very long to see if he pref width works as intended and it will wrap this long text."
-                                                                                                                       textAlignment="JUSTIFY"
-                                                                                                                       wrapText="true"
-                                                                                                                       BorderPane.alignment="CENTER"/>
+                                                                                                                <Label id="sub-tasks-name" fx:id="subTask" text="a sub task very long to see if he pref width works as intended and it will wrap this long text." textAlignment="JUSTIFY" wrapText="true" BorderPane.alignment="CENTER" />
                                                                                                             </left>
                                                                                                         </BorderPane>
                                                                                                     </AnchorPane>
@@ -345,27 +242,16 @@
                                         </Tab>
                                         <javafx.scene.control.Tab text="yet another category">
                                             <AnchorPane prefWidth="427.0">
-                                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
-                                                            prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER"
-                                                            AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0"
-                                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="-20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <AnchorPane>
                                                         <children>
-                                                            <javafx.scene.control.Accordion id="tasks-accordion"
-                                                                                            fx:id="mainTasks2"
-                                                                                            AnchorPane.bottomAnchor="0.0"
-                                                                                            AnchorPane.leftAnchor="0.0"
-                                                                                            AnchorPane.rightAnchor="0.0"
-                                                                                            AnchorPane.topAnchor="0.0">
+                                                            <javafx.scene.control.Accordion id="tasks-accordion" fx:id="mainTasks2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                 <panes>
-                                                                    <TitledPane fx:id="notFoundMessage4"
-                                                                                collapsible="false" expanded="false"
-                                                                                maxWidth="1.7976931348623157E308">
+                                                                    <TitledPane fx:id="notFoundMessage4" collapsible="false" expanded="false" maxWidth="1.7976931348623157E308">
                                                                         <graphic>
                                                                             <BorderPane>
                                                                                 <center>
-                                                                                    <Label id="not-found-message"
-                                                                                           text="No tasks found. Create a new task to get started."/>
+                                                                                    <Label id="not-found-message" text="No tasks found. Create a new task to get started." />
                                                                                 </center>
                                                                             </BorderPane>
                                                                         </graphic>
@@ -385,14 +271,11 @@
                     </AnchorPane>
                 </center>
                 <top>
-                    <javafx.scene.layout.BorderPane id="cal-background" prefHeight="172.0" prefWidth="446.0"
-                                                    stylesheets="@../css/calendar-top-view.css"
-                                                    BorderPane.alignment="CENTER">
+                    <javafx.scene.layout.BorderPane id="cal-background" prefHeight="172.0" prefWidth="446.0" stylesheets="@../css/calendar-top-view.css" BorderPane.alignment="CENTER">
                         <top>
-                            <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" prefHeight="55.0"
-                                   prefWidth="241.0" text="August," textFill="#434040">
+                            <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" prefHeight="55.0" prefWidth="241.0" text="August," textFill="#434040">
                                 <font>
-                                    <Font name="Calibri Bold" size="1.0"/>
+                                    <Font name="Calibri Bold" size="1.0" />
                                 </font>
                             </Label>
                         </top>
@@ -400,109 +283,93 @@
                             <HBox fx:id="hboxDaysOfTheWeek" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
                                 <Button id="prev-next-btn" fx:id="previousWeekButton" mnemonicParsing="false">
                                     <graphic>
-                                        <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
-                                                   preserveRatio="true">
+                                        <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../icons/left-arrow.png"/>
+                                                <Image url="@../icons/left-arrow.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
-                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false"
-                                              prefHeight="73.0" prefWidth="40.0" text="MON" textAlignment="CENTER"
-                                              textFill="#434040" wrapText="true">
+                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="MON" textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <Label/>
+                                        <Label />
                                     </graphic>
                                     <font>
-                                        <Font name="Calibri Bold" size="10.0"/>
+                                        <Font name="Calibri Bold" size="10.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0" />
                                     </HBox.margin>
                                 </ToggleButton>
-                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false"
-                                              prefHeight="73.0" prefWidth="40.0" text="TUE" textAlignment="CENTER"
-                                              textFill="#434040" wrapText="true">
+                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="TUE" textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <Label/>
+                                        <Label />
                                     </graphic>
                                     <font>
-                                        <Font name="Calibri Bold" size="10.0"/>
+                                        <Font name="Calibri Bold" size="10.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0" />
                                     </HBox.margin>
                                 </ToggleButton>
-                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false"
-                                              prefHeight="73.0" prefWidth="40.0" text="WED" textAlignment="CENTER"
-                                              textFill="#434040" wrapText="true">
+                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="WED" textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <Label/>
+                                        <Label />
                                     </graphic>
                                     <font>
-                                        <Font name="Calibri Bold" size="10.0"/>
+                                        <Font name="Calibri Bold" size="10.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0" />
                                     </HBox.margin>
                                 </ToggleButton>
-                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false"
-                                              prefHeight="73.0" prefWidth="40.0" text="THU" textAlignment="CENTER"
-                                              textFill="#434040" wrapText="true">
+                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="THU" textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <Label/>
+                                        <Label />
                                     </graphic>
                                     <font>
-                                        <Font name="Calibri Bold" size="10.0"/>
+                                        <Font name="Calibri Bold" size="10.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0" />
                                     </HBox.margin>
                                 </ToggleButton>
-                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false"
-                                              prefHeight="73.0" prefWidth="40.0" text="FRI" textAlignment="CENTER"
-                                              textFill="#434040" wrapText="true">
+                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="FRI" textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <Label/>
+                                        <Label />
                                     </graphic>
                                     <font>
-                                        <Font name="Calibri Bold" size="10.0"/>
+                                        <Font name="Calibri Bold" size="10.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0" />
                                     </HBox.margin>
                                 </ToggleButton>
-                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false"
-                                              prefHeight="73.0" prefWidth="40.0" text="SAT" textAlignment="CENTER"
-                                              textFill="#434040" wrapText="true">
+                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SAT" textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <Label/>
+                                        <Label />
                                     </graphic>
                                     <font>
-                                        <Font name="Calibri Bold" size="10.0"/>
+                                        <Font name="Calibri Bold" size="10.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0" />
                                     </HBox.margin>
                                 </ToggleButton>
-                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false"
-                                              prefHeight="73.0" prefWidth="40.0" text="SUN" textAlignment="CENTER"
-                                              textFill="#434040" wrapText="true">
+                                <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SUN" textAlignment="CENTER" textFill="#434040" wrapText="true">
                                     <graphic>
-                                        <Label/>
+                                        <Label />
                                     </graphic>
                                     <font>
-                                        <Font name="Calibri Bold" size="10.0"/>
+                                        <Font name="Calibri Bold" size="10.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
+                                        <Insets bottom="30.0" left="5.0" right="5.0" top="25.0" />
                                     </HBox.margin>
                                 </ToggleButton>
                                 <Button id="prev-next-btn" fx:id="nextWeekButton" mnemonicParsing="false">
                                     <graphic>
-                                        <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
-                                                   preserveRatio="true">
+                                        <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <!--                            <Image url="@../icons/right-arrow.png"/>-->
                                             </image>
@@ -512,82 +379,77 @@
                             </HBox>
                         </center>
                         <left>
-                            <VBox fx:id="vboxYear" alignment="CENTER_RIGHT" fillWidth="false"
-                                  nodeOrientation="LEFT_TO_RIGHT" prefHeight="126.0" prefWidth="66.0"
-                                  BorderPane.alignment="CENTER_RIGHT">
-                                <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2"
-                                       textAlignment="RIGHT" textFill="#434040">
+                            <VBox fx:id="vboxYear" alignment="CENTER_RIGHT" fillWidth="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="126.0" prefWidth="66.0" BorderPane.alignment="CENTER_RIGHT">
+                                <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2" textAlignment="RIGHT" textFill="#434040">
                                     <font>
-                                        <Font name="Calibri Bold" size="1.0"/>
+                                        <Font name="Calibri Bold" size="1.0" />
                                     </font>
                                     <padding>
-                                        <Insets right="10.0" top="5.0"/>
+                                        <Insets right="10.0" top="5.0" />
                                     </padding>
                                     <VBox.margin>
-                                        <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                                        <Insets bottom="-5.0" right="5.0" top="-5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="0"
-                                       textAlignment="RIGHT" textFill="#434040">
+                                <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="0" textAlignment="RIGHT" textFill="#434040">
                                     <font>
-                                        <Font name="Calibri Bold" size="1.0"/>
+                                        <Font name="Calibri Bold" size="1.0" />
                                     </font>
                                     <padding>
-                                        <Insets right="10.0"/>
+                                        <Insets right="10.0" />
                                     </padding>
                                     <VBox.margin>
-                                        <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                                        <Insets bottom="-5.0" right="5.0" top="-5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2"
-                                       textAlignment="RIGHT" textFill="#434040">
+                                <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2" textAlignment="RIGHT" textFill="#434040">
                                     <font>
-                                        <Font name="Calibri Bold" size="1.0"/>
+                                        <Font name="Calibri Bold" size="1.0" />
                                     </font>
                                     <padding>
-                                        <Insets right="10.0"/>
+                                        <Insets right="10.0" />
                                     </padding>
                                     <VBox.margin>
-                                        <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                                        <Insets bottom="-5.0" right="5.0" top="-5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="3"
-                                       textAlignment="RIGHT" textFill="#434040">
+                                <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="3" textAlignment="RIGHT" textFill="#434040">
                                     <font>
-                                        <Font name="Calibri Bold" size="1.0"/>
+                                        <Font name="Calibri Bold" size="1.0" />
                                     </font>
                                     <padding>
-                                        <Insets right="10.0"/>
+                                        <Insets right="10.0" />
                                     </padding>
                                     <VBox.margin>
-                                        <Insets bottom="-5.0" right="5.0" top="-5.0"/>
+                                        <Insets bottom="-5.0" right="5.0" top="-5.0" />
                                     </VBox.margin>
                                 </Label>
                             </VBox>
                         </left>
                     </javafx.scene.layout.BorderPane>
                 </top>
+            <bottom>
+               <FlowPane alignment="CENTER_RIGHT" columnHalignment="RIGHT" rowValignment="TOP" BorderPane.alignment="CENTER">
+                  <children>
+                     <Button mnemonicParsing="false" text="Button" />
+                  </children>
+               </FlowPane>
+            </bottom>
             </BorderPane>
         </center>
         <right>
-            <javafx.scene.layout.AnchorPane prefHeight="284.0" prefWidth="66.0"
-                                            stylesheets="@../css/vertical-tab-menu.css" BorderPane.alignment="CENTER">
-                <ScrollPane fitToHeight="true" hbarPolicy="NEVER" layoutX="-8.0" prefWidth="66.0" vbarPolicy="NEVER"
-                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                            AnchorPane.topAnchor="0.0">
+            <javafx.scene.layout.AnchorPane prefHeight="284.0" prefWidth="66.0" stylesheets="@../css/vertical-tab-menu.css" BorderPane.alignment="CENTER">
+                <ScrollPane fitToHeight="true" hbarPolicy="NEVER" layoutX="-8.0" prefWidth="66.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <AnchorPane>
-                        <BorderPane fx:id="menuBorderPane" layoutY="55.0" prefHeight="485.0" prefWidth="105.0"
-                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane fx:id="menuBorderPane" layoutY="55.0" prefHeight="485.0" prefWidth="105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <center>
                                 <BorderPane BorderPane.alignment="CENTER">
                                     <bottom>
                                         <VBox BorderPane.alignment="CENTER">
-                                            <Button fx:id="settings" mnemonicParsing="false" text="Settings"
-                                                    VBox.vgrow="ALWAYS"/>
+                                            <Button fx:id="settings" mnemonicParsing="false" text="Settings" VBox.vgrow="ALWAYS" />
                                             <Button fx:id="switchProfile" mnemonicParsing="false" text="Switch">
                                                 <graphic>
-                                                    <Label contentDisplay="TOP" text="Profile"/>
+                                                    <Label contentDisplay="TOP" text="Profile" />
                                                 </graphic>
                                             </Button>
                                         </VBox>
@@ -595,11 +457,9 @@
                                     <center>
                                         <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER_LEFT">
                                             <VBox alignment="CENTER_LEFT" fillWidth="false">
-                                                <Button fx:id="newTask" contentDisplay="BOTTOM" graphicTextGap="0.0"
-                                                        mnemonicParsing="false" text="New" textAlignment="JUSTIFY"
-                                                        wrapText="true">
+                                                <Button fx:id="newTask" contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false" text="New" textAlignment="JUSTIFY" wrapText="true">
                                                     <graphic>
-                                                        <Label contentDisplay="TOP" text="Task"/>
+                                                        <Label contentDisplay="TOP" text="Task" />
                                                     </graphic>
                                                 </Button>
                                             </VBox>
@@ -610,10 +470,8 @@
                             <top>
                                 <HBox id="exit" BorderPane.alignment="CENTER">
                                     <VBox alignment="CENTER_LEFT" fillWidth="false">
-                                        <Button fx:id="exit" mnemonicParsing="false" text="Exit"/>
-                                        <Button fx:id="today" contentDisplay="BOTTOM" graphicTextGap="0.0"
-                                                mnemonicParsing="false" text="Today" textAlignment="JUSTIFY"
-                                                wrapText="true"/>
+                                        <Button fx:id="exit" mnemonicParsing="false" text="Exit" />
+                                        <Button fx:id="today" contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false" text="Today" textAlignment="JUSTIFY" wrapText="true" />
                                     </VBox>
                                 </HBox>
                             </top>

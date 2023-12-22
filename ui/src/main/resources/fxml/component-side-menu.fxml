@@ -35,7 +35,18 @@
                             </VBox>
                         </bottom>
                         <center>
-                            
+                            <HBox id="exit" BorderPane.alignment="CENTER">
+                                <VBox alignment="CENTER_LEFT" fillWidth="false">
+                                    <Button fx:id="viewTasks"
+                                            contentDisplay="CENTER" graphicTextGap="0.0"
+                                            mnemonicParsing="false" text="Tasks"
+                                            textAlignment="JUSTIFY" wrapText="true"/>
+                                    <Button fx:id="viewQuestions"
+                                            contentDisplay="CENTER" graphicTextGap="0.0"
+                                            mnemonicParsing="false" text="Questions"
+                                            textAlignment="JUSTIFY" wrapText="true"/>
+                                </VBox>
+                            </HBox>
                         </center>
                     </BorderPane>
                 </center>

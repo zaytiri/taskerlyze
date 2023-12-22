@@ -32,7 +32,7 @@
 .button:focused {
     -fx-background-color: #73ADB0;
     -fx-text-fill: #F5E3E0;
-    -fx-padding: 10px 50px 10px 10px;
-    -fx-border-insets: 5px 0 5px 5px;
-    -fx-background-insets: 5px 0 5px 5px;
+    -fx-padding: 10px 50px 10px 1px;
+    -fx-border-insets: 5px 0 5px 0;
+    -fx-background-insets: 5px 0 5px 0;
 }
