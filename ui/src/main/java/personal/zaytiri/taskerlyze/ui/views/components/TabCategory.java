@@ -10,7 +10,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Tab;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
@@ -20,6 +20,7 @@ public class TabCategory extends Tab {
     private final StringProperty categoryName = new SimpleStringProperty();
     private final IntegerProperty categoryId = new SimpleIntegerProperty();
     private final MenuOptions contextMenu;
+    private Categorable currentView;
     @FXML
     private ComponentTasks componentTasks;
 
@@ -42,7 +43,7 @@ public class TabCategory extends Tab {
 
     public void setCategoryId(int categoryId) {
         this.categoryId.set(categoryId);
-        this.componentTasks.setCategoryId(categoryId);
+        this.currentView.setCategoryId(categoryId);
     }
 
     @FXML
@@ -62,7 +63,7 @@ public class TabCategory extends Tab {
     public void setOnAction() {
         selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (Boolean.TRUE.equals(newValue)) {
-                TaskLoader.getTaskLoader().setActiveCategoryId(getCategoryId());
+                this.currentView.loadView();
             }
         });
     }
@@ -93,4 +94,7 @@ public class TabCategory extends Tab {
     }
 
 
+    public void setView(Categorable currentView) {
+        this.currentView = currentView;
+    }
 }

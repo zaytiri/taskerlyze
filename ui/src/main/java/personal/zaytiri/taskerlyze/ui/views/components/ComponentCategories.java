@@ -14,6 +14,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.input.ScrollEvent;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.ICategorable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
@@ -29,6 +30,7 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
     private TabCategory defaultTab;
     @FXML
     private TabPane mainTabPane;
+    private ICategorable currentView;
 
     public ComponentCategories() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-categories.fxml"));
@@ -52,6 +54,10 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
         CategoryLoader.getCategoryLoader().load();
     }
 
+    public void setView(ICategorable currentView) {
+        this.currentView = currentView;
+    }
+
     public void populateCategoryView() {
         ObservableList<Tab> tabs = mainTabPane.getTabs();
         tabs.clear();
@@ -64,6 +70,7 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
             TabCategory newTab = new TabCategory();
             newTab.setCategoryId(category.getId());
             newTab.setCategoryName(category.getName());
+            newTab.setView(this.currentView);
             newTab.setContextMenu();
 
             if (selectFirst) {

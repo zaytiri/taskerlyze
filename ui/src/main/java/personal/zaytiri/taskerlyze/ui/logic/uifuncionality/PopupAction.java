@@ -78,4 +78,9 @@ public class PopupAction {
             ifSuccessful.handle(new ActionEvent());
         }
     }
+
+    public static void showDialogForAddingQuestion(Accordion mainQuestions, int activeCategoryId) {
+        System.out.println("display to add a question not done yet.");
+    }
 }
+

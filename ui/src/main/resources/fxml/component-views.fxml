@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml"
+         xmlns="http://javafx.com/javafx"
+         type="javafx.scene.layout.AnchorPane"
+         fx:id="tabViews">
+    <Accordion fx:id="mainQuestions"
+               id="tasks-accordion"
+               AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0">
+        <panes>
+            <TitledPane
+                    fx:id="notFoundMessage"
+                    collapsible="false">
+                <graphic>
+                    <BorderPane>
+                        <center>
+                            <Label id="not-found-message"
+                                   text="No questions found. Create a new question to get started."/>
+                        </center>
+                    </BorderPane>
+                </graphic>
+            </TitledPane>
+        </panes>
+    </Accordion>
+</fx:root>
