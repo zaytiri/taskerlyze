@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml"
+         xmlns="http://javafx.com/javafx"
+         type="javafx.scene.control.TabPane"
+         fx:id="mainViewTabPane"
+         tabDragPolicy="FIXED"
+         tabClosingPolicy="UNAVAILABLE"
+         side="LEFT"
+         stylesheets="@../css/tab-view.css">
+    <Tab fx:id="tabTasks">
+        <graphic>
+            <ImageView fitWidth="25" fitHeight="25">
+                <Image url="@../icons/tasks.png"/>
+            </ImageView>
+        </graphic>
+    </Tab>
+    <Tab fx:id="tabQuestions">
+        <graphic>
+            <ImageView fitWidth="25" fitHeight="25">
+                <Image url="@../icons/questions.png"/>
+            </ImageView>
+        </graphic>
+    </Tab>
+    <Tab fx:id="tabSettings">
+        <graphic>
+            <ImageView fitWidth="25" fitHeight="25">
+                <Image url="@../icons/settings.png"/>
+            </ImageView>
+        </graphic>
+    </Tab>
+    <Tab fx:id="tabStatistics">
+        <graphic>
+            <ImageView fitWidth="23" fitHeight="25">
+                <Image url="@../icons/statistics.png"/>
+            </ImageView>
+        </graphic>
+    </Tab>
+</fx:root>
