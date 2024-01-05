@@ -3,15 +3,14 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.*?>
-<?import personal.zaytiri.taskerlyze.ui.views.components.ComponentTasks?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.Tab">
     <AnchorPane prefWidth="427.0">
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"
                     prefHeight="744.0" prefWidth="427.0" vbarPolicy="NEVER"
                     AnchorPane.bottomAnchor="-20.0"
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="0.0">
-            <ComponentTasks fx:id="componentTasks"/>
+                    AnchorPane.topAnchor="0.0"
+                    fx:id="mainScrollPane">
         </ScrollPane>
     </AnchorPane>
 </fx:root>
