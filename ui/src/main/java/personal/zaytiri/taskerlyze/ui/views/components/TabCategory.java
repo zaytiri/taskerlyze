@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
@@ -20,13 +21,15 @@ public class TabCategory extends Tab {
     private final StringProperty categoryName = new SimpleStringProperty();
     private final IntegerProperty categoryId = new SimpleIntegerProperty();
     private final MenuOptions contextMenu;
-    private Categorable currentView;
+    private final Categorable currentView;
     @FXML
-    private ComponentTasks componentTasks;
+    private ScrollPane mainScrollPane;
 
-    public TabCategory() {
+    public TabCategory(Categorable currentView) {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/tab-category.fxml"));
+
         this.contextMenu = new MenuOptions();
+        this.currentView = currentView;
 
         loader.setRoot(this);
         loader.setController(this);
@@ -49,6 +52,8 @@ public class TabCategory extends Tab {
     @FXML
     public void initialize() {
         setOnAction();
+        this.mainScrollPane.setContent(this.currentView);
+
     }
 
     public void setCategoryName(String categoryName) {
@@ -91,10 +96,5 @@ public class TabCategory extends Tab {
         addRemoveCategoryOptionForContextMenu();
 
         return contextMenu.buildContextMenu();
-    }
-
-
-    public void setView(Categorable currentView) {
-        this.currentView = currentView;
     }
 }
