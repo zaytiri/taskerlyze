@@ -5,8 +5,6 @@ import javafx.scene.layout.AnchorPane;
 public abstract class Categorable extends AnchorPane {
     private int categoryId;
 
-    public abstract void loadView();
-
     public int getCategoryId() {
         return this.categoryId;
     }
@@ -14,4 +12,8 @@ public abstract class Categorable extends AnchorPane {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+
+    public abstract Categorable getNewInstance();
+
+    public abstract void loadView();
 }

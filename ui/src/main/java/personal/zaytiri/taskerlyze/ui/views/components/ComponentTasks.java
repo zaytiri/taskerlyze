@@ -40,6 +40,11 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
         }
     }
 
+    @Override
+    public Categorable getNewInstance() {
+        return new ComponentTasks();
+    }
+
     public void loadView() {
         TaskLoader.getTaskLoader().setActiveCategoryId(getCategoryId());
     }
