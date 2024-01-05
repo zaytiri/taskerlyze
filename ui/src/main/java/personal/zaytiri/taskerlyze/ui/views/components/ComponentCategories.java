@@ -11,10 +11,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.ICategorable;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
@@ -27,10 +29,8 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
     private final MenuOptions contextMenu;
     private List<CategoryEntity> categories;
     @FXML
-    private TabCategory defaultTab;
-    @FXML
     private TabPane mainTabPane;
-    private ICategorable currentView;
+    private Categorable currentView;
 
     public ComponentCategories() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-categories.fxml"));
@@ -43,7 +43,6 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
         } catch (IOException ex) {
             throw new IllegalStateException("Could not load fxml file", ex);
         }
-
     }
 
     @FXML
@@ -51,26 +50,19 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
         CategoryLoader.getCategoryLoader().addPropertyChangeListener(this);
         mainTabPane.setContextMenu(getTabContextMenu());
         reverseTabPaneScrollingDirection();
-        CategoryLoader.getCategoryLoader().load();
-    }
-
-    public void setView(ICategorable currentView) {
-        this.currentView = currentView;
     }
 
     public void populateCategoryView() {
         ObservableList<Tab> tabs = mainTabPane.getTabs();
         tabs.clear();
 
-        defaultTab.setCategoryId(0);
-        tabs.add(defaultTab);
+        tabs.add(getDefaultTab());
 
         boolean selectFirst = true;
         for (CategoryEntity category : categories) {
-            TabCategory newTab = new TabCategory();
+            TabCategory newTab = new TabCategory(this.currentView.getNewInstance());
             newTab.setCategoryId(category.getId());
             newTab.setCategoryName(category.getName());
-            newTab.setView(this.currentView);
             newTab.setContextMenu();
 
             if (selectFirst) {
@@ -115,8 +107,24 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
         });
     }
 
+    public void setView(Categorable currentView) {
+        this.currentView = currentView;
+        CategoryLoader.getCategoryLoader().load();
+    }
+
     private void addAddCategoryOptionForContextMenu() {
         this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(mainTabPane));
+    }
+
+    private TabCategory getDefaultTab() {
+        ImageView defaultTabIcon = new ImageView(new Image("/icons/archive.png"));
+        defaultTabIcon.setFitWidth(20);
+        defaultTabIcon.setFitHeight(20);
+        TabCategory defaultTab = new TabCategory(this.currentView.getNewInstance());
+        defaultTab.setGraphic(defaultTabIcon);
+        defaultTab.setId("default-tab");
+        defaultTab.setCategoryId(0);
+        return defaultTab;
     }
 
     private ContextMenu getTabContextMenu() {
