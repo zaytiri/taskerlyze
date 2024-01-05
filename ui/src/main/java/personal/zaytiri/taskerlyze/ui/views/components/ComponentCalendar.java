@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.views.elements.LabelDay;
 
@@ -115,12 +116,14 @@ public class ComponentCalendar extends BorderPane implements PropertyChangeListe
                 populateYear(date);
 
                 TaskLoader.getTaskLoader().setActiveDay(date);
+                QuestionLoader.getQuestionLoader().setActiveDay(date);
             });
 
             if (day.getDayOfMonth() == currentDate.getDayOfMonth()) {
                 Platform.runLater(() -> {
                     tbtn.setSelected(true);
                     TaskLoader.getTaskLoader().setActiveDay(day);
+                    QuestionLoader.getQuestionLoader().setActiveDay(day);
                 });
             }
         }
