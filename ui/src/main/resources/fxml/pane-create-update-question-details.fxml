@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/tasks-tab-view.css"
+         type="javafx.scene.layout.BorderPane"
+         BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/20.0.1">
+    <top>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <VBox id="details-layout" alignment="CENTER">
+                <Label id="details-title" text="Answered Date"/>
+                <Label fx:id="answeredAt"/>
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" fillWidth="false" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER_LEFT">
+                <Label id="description-title" text="Answer"/>
+                <HBox id="description-content" alignment="CENTER_LEFT">
+                    <TextField fx:id="answer" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</fx:root>
