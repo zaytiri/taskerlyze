@@ -96,4 +96,7 @@ public class QuestionEntity extends Entity<Question, QuestionEntity, QuestionCon
         return this;
     }
 
+    public void setQuestionAsAnswered() {
+        api.setAnswered(this.id, isAnswered);
+    }
 }
