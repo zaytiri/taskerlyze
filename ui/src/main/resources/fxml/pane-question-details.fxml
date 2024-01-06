@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1"
+         type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/20.0.1" BorderPane.alignment="CENTER">
+    <top>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <VBox id="details-layout" alignment="CENTER">
+                <Label id="details-title" text="Answered Date"/>
+                <Label fx:id="answeredAt"/>
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" fillWidth="false" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER_LEFT">
+                <Label id="description-title" text="Answer"/>
+                <Label id="description-content" fx:id="answer"/>
+            </VBox>
+        </VBox>
+    </center>
+</fx:root>
