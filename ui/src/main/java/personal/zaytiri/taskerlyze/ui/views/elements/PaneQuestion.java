@@ -2,18 +2,21 @@ package personal.zaytiri.taskerlyze.ui.views.elements;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
 import java.io.IOException;
 
 public class PaneQuestion extends TitledPane {
     private final MenuOptions contextMenu;
+    private final PaneQuestionDetails paneQuestionDetails = new PaneQuestionDetails();
     private int questionId;
     private String questionName;
+    private boolean isAnswered;
     @FXML
     private CheckBox checkBox;
     @FXML
@@ -97,18 +100,28 @@ public class PaneQuestion extends TitledPane {
 //
 //        return contextMenu.buildContextMenu();
 //    }
+    public void setDetailsPane() {
+        paneQuestionDetails.setQuestionId(getQuestionId());
+        paneQuestionDetails.load();
+        mainBorderPane.setCenter(paneQuestionDetails);
+    }
+
+    public void setIsQuestionAnswered(boolean isAnswered) {
+        this.isAnswered = isAnswered;
+        checkBox.setSelected(this.isAnswered);
+    }
 
     @FXML
     private void initialize() {
-//        setCheckBoxOnAction();
+        setCheckBoxOnAction();
     }
 
-//    private void setCheckBoxOnAction() {
-//        checkBox.setOnAction(event -> {
-//            TaskEntity task = new TaskEntity(getTaskId())
-//                    .setTaskDone(checkBox.isSelected());
-//            task.setDone();
-//        });
-//    }
+    private void setCheckBoxOnAction() {
+        checkBox.setOnAction(event -> {
+            QuestionEntity question = new QuestionEntity(getQuestionId())
+                    .setAnswered(checkBox.isSelected());
+            question.setQuestionAsAnswered();
+        });
+    }
 
 }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="mainTaskTitledPane" stylesheets="@../css/tasks-tab-view.css"
          type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/20.0.1">
@@ -19,7 +17,7 @@
                               BorderPane.alignment="CENTER"/>
                 </right>
                 <center>
-                    <Label id="task-name" fx:id="task" BorderPane.alignment="CENTER"/>
+                    <Label id="task-name" fx:id="question" BorderPane.alignment="CENTER"/>
                 </center>
             </BorderPane>
         </AnchorPane>
@@ -31,14 +29,8 @@
                 <BorderPane BorderPane.alignment="CENTER">
                     <center>
                         <HBox id="task-bottom-pane" fillHeight="false" BorderPane.alignment="CENTER">
-                            <Button id="swap-button" fx:id="swapButton" alignment="CENTER" mnemonicParsing="false">
-                                <graphic>
-                                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true"
-                                               preserveRatio="true">
-                                        <Image url="@../icons/swap.png"/>
-                                    </ImageView>
-                                </graphic>
-                            </Button>
+                            <Label id="swap-button" alignment="CENTER" mnemonicParsing="false">
+                            </Label>
                         </HBox>
                     </center>
                     <left>

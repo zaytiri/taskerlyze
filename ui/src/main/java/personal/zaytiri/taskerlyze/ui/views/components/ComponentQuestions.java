@@ -82,8 +82,10 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
             comp.setId(String.valueOf(q.getId()));
             comp.setQuestionId(q.getId());
             comp.setQuestionName(q.getQuestion());
+            comp.setIsQuestionAnswered(q.isAnswered());
 
-//            comp.setContextMenu(event -> QuestionLoader.getQuestionLoader().load());
+            comp.setDetailsPane();
+            comp.setContextMenu();
 
             panes.add(comp);
         }
