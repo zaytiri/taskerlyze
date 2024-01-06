@@ -5,11 +5,14 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TabPane;
 import personal.zaytiri.taskerlyze.ui.views.components.TabCategory;
+import personal.zaytiri.taskerlyze.ui.views.elements.PaneQuestion;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneSubTask;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneTask;
+import personal.zaytiri.taskerlyze.ui.views.modifiables.PaneCreateUpdateQuestion;
 import personal.zaytiri.taskerlyze.ui.views.modifiables.PaneCreateUpdateSubTask;
 import personal.zaytiri.taskerlyze.ui.views.modifiables.PaneCreateUpdateTask;
 import personal.zaytiri.taskerlyze.ui.views.modifiables.TabCreateUpdateCategory;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveQuestion;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveSubTask;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveTask;
 
@@ -20,6 +23,12 @@ public class PopupAction {
     public static void showDialogForAddingCategory(TabPane parent) {
         TabCreateUpdateCategory pane = new TabCreateUpdateCategory();
         parent.getTabs().add(0, pane);
+    }
+
+    public static void showDialogForAddingQuestion(Accordion parent, int categoryId) {
+        PaneCreateUpdateQuestion pane = new PaneCreateUpdateQuestion();
+        pane.setCategoryId(categoryId);
+        parent.getPanes().add(0, pane);
     }
 
     public static void showDialogForAddingSubTask(Accordion parent, int taskId) {
@@ -42,6 +51,14 @@ public class PopupAction {
         parent.getTabs().add(index, pane);
     }
 
+    public static void showDialogForEditingQuestion(int questionId, PaneQuestion currentQuestion, Accordion parent) {
+        PaneCreateUpdateQuestion pane = new PaneCreateUpdateQuestion();
+        pane.setQuestionId(questionId);
+        int index = parent.getPanes().indexOf(currentQuestion);
+        parent.getPanes().remove(currentQuestion);
+        parent.getPanes().add(index, pane);
+    }
+
     public static void showDialogForEditingSubTask(int id, PaneSubTask currentSubtask, Accordion parent, int taskId) {
         PaneCreateUpdateSubTask pane = new PaneCreateUpdateSubTask();
         pane.setSubtaskId(id);
@@ -57,6 +74,16 @@ public class PopupAction {
         int index = parent.getPanes().indexOf(currentTask);
         parent.getPanes().remove(currentTask);
         parent.getPanes().add(index, pane);
+    }
+
+    public static void showDialogForMovingQuestion(int questionId, EventHandler<ActionEvent> ifSuccessful) {
+        DialogMoveQuestion dialog = new DialogMoveQuestion();
+        dialog.setEntityToBeMoved(questionId);
+        dialog.showDialog();
+
+        if (dialog.getResult().isSuccessful()) {
+            ifSuccessful.handle(new ActionEvent());
+        }
     }
 
     public static void showDialogForMovingSubTask(int entityIdToBeMoved, EventHandler<ActionEvent> ifSuccessful) {
@@ -77,10 +104,6 @@ public class PopupAction {
         if (dialog.getResult().isSuccessful()) {
             ifSuccessful.handle(new ActionEvent());
         }
-    }
-
-    public static void showDialogForAddingQuestion(Accordion mainQuestions, int activeCategoryId) {
-        System.out.println("display to add a question not done yet.");
     }
 }
 

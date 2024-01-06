@@ -54,52 +54,11 @@ public class PaneQuestion extends TitledPane {
         this.questionName = questionName;
         question.setText(this.questionName);
     }
-//
-//    public void setContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-//        setContextMenu(getTabContextMenu(ifSuccessful));
-//    }
-//
-//    private void addAddTaskOptionForContextMenu() {
-//        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask((Accordion) this.getParent(), TaskLoader.getTaskLoader().getActiveCategoryId()));
-//    }
-//
-//    private void addEditTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-//        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent()));
-//    }
-//
-//    private void addMoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-//        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingTask(getTaskId(), ifSuccessful));
-//    }
-//
-//    private void addMoveToArchiveOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-//        this.contextMenu.addMenuItem("Move to Archive", event -> {
-//            TaskEntity task = new TaskEntity(getTaskId()).get();
-//            task.setCategoryId(0);
-//            if (task.update().getValue().getKey()) {
-//                ifSuccessful.handle(event);
-//            }
-//        });
-//    }
-//
-//
-//    private void addRemoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-//        this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-//            TaskEntity task = new TaskEntity(getTaskId());
-//            if (task.remove()) {
-//                ifSuccessful.handle(event);
-//            }
-//        });
-//    }
-//
-//    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-//        addAddTaskOptionForContextMenu();
-//        addEditTaskOptionForContextMenu(ifSuccessful);
-//        addRemoveTaskOptionForContextMenu(ifSuccessful);
-//        addMoveTaskOptionForContextMenu(ifSuccessful);
-//        addMoveToArchiveOptionForContextMenu(ifSuccessful);
-//
-//        return contextMenu.buildContextMenu();
-//    }
+
+    public void setContextMenu() {
+        setContextMenu(getTabContextMenu());
+    }
+
     public void setDetailsPane() {
         paneQuestionDetails.setQuestionId(getQuestionId());
         paneQuestionDetails.load();
@@ -111,9 +70,55 @@ public class PaneQuestion extends TitledPane {
         checkBox.setSelected(this.isAnswered);
     }
 
+    private void addAddQuestionOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Add new question", event -> PopupAction.showDialogForAddingQuestion((Accordion) this.getParent(), QuestionLoader.getQuestionLoader().getActiveCategoryId()));
+    }
+
+    private void addEditQuestionOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingQuestion(getQuestionId(), this, (Accordion) this.getParent()));
+    }
+
+    private void addMoveQuestionOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingQuestion(getQuestionId(), innerEvent -> loadQuestionsFromApi()));
+    }
+
+    //
+    private void addMoveToArchiveOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Move to Archive", event -> {
+            QuestionEntity question = new QuestionEntity(getQuestionId()).get();
+            question.setCategoryId(0);
+            if (question.update().getValue().getKey()) {
+                loadQuestionsFromApi();
+            }
+        });
+    }
+
+    private void addRemoveQuestionOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
+            QuestionEntity question = new QuestionEntity(getQuestionId());
+            if (question.remove()) {
+                loadQuestionsFromApi();
+            }
+        });
+    }
+
+    private ContextMenu getTabContextMenu() {
+        addRemoveQuestionOptionForContextMenu();
+        addMoveToArchiveOptionForContextMenu();
+        addMoveQuestionOptionForContextMenu();
+        addEditQuestionOptionForContextMenu();
+        addAddQuestionOptionForContextMenu();
+
+        return contextMenu.buildContextMenu();
+    }
+
     @FXML
     private void initialize() {
         setCheckBoxOnAction();
+    }
+
+    private void loadQuestionsFromApi() {
+        QuestionLoader.getQuestionLoader().load();
     }
 
     private void setCheckBoxOnAction() {
