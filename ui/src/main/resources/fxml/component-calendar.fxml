@@ -11,12 +11,28 @@
          xmlns="http://javafx.com/javafx" type="javafx.scene.layout.BorderPane"
 >
     <top>
-        <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" prefHeight="55.0"
-               prefWidth="241.0" text="August," textFill="#434040">
-            <font>
-                <Font name="Calibri Bold" size="1.0"/>
-            </font>
-        </Label>
+        <BorderPane>
+            <left>
+                <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" prefHeight="55.0"
+                       prefWidth="241.0" text="August," textFill="#434040">
+                    <font>
+                        <Font name="Calibri Bold" size="1.0"/>
+                    </font>
+                </Label>
+            </left>
+            <right>
+                <HBox id="exit" BorderPane.alignment="CENTER_LEFT">
+                    <VBox alignment="CENTER_LEFT" fillWidth="false">
+                        <Button fx:id="exit"
+                                mnemonicParsing="false" text="Exit"/>
+                        <Button fx:id="today"
+                                contentDisplay="BOTTOM" graphicTextGap="0.0"
+                                mnemonicParsing="false" text="Today"
+                                textAlignment="JUSTIFY" wrapText="true"/>
+                    </VBox>
+                </HBox>
+            </right>
+        </BorderPane>
     </top>
     <center>
         <HBox fx:id="hboxDaysOfTheWeek" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
@@ -123,9 +139,7 @@
                 <graphic>
                     <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
                                preserveRatio="true">
-                        <image>
-                            <Image url="@../icons/right-arrow.png"/>
-                        </image>
+                        <Image url="@../icons/right-arrow.png"/>
                     </ImageView>
                 </graphic>
             </Button>

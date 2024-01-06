@@ -12,19 +12,19 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import personal.zaytiri.taskerlyze.ui.logic.Configuration;
 import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.views.elements.LabelDay;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class ComponentCalendar extends BorderPane implements PropertyChangeListener {
+public class ComponentCalendar extends BorderPane {
     private final ToggleGroup daysToggleGroup = new ToggleGroup();
     @FXML
     private VBox vboxYear;
@@ -36,6 +36,10 @@ public class ComponentCalendar extends BorderPane implements PropertyChangeListe
     private Button previousWeekButton;
     @FXML
     private Button nextWeekButton;
+    @FXML
+    private Button exit;
+    @FXML
+    private Button today;
 
     public ComponentCalendar() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-calendar.fxml"));
@@ -58,6 +62,7 @@ public class ComponentCalendar extends BorderPane implements PropertyChangeListe
         setOnlyOneDayToggleAlwaysSelected();
         setPreviousNextWeekButtons();
         populateCalendar(LocalDate.now());
+        setButtonsSetOnAction();
     }
 
     public void populateCalendar(LocalDate currentDate) {
@@ -78,9 +83,10 @@ public class ComponentCalendar extends BorderPane implements PropertyChangeListe
         }
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        populateCalendar((LocalDate) evt.getNewValue());
+
+    public void setButtonsSetOnAction() {
+        setExitButtonOnAction(exit);
+        setTodayButtonOnAction(today);
     }
 
     private LocalDate getConvertedDate(LabelDay labelDay) {
@@ -129,6 +135,12 @@ public class ComponentCalendar extends BorderPane implements PropertyChangeListe
         }
     }
 
+    private void setExitButtonOnAction(Button exit) {
+        Stage primaryStage = Configuration.getInstance().getPrimaryStage();
+        exit.setOnAction(event -> primaryStage.close());
+        primaryStage.setOnCloseRequest(event -> primaryStage.close());
+    }
+
     private void setOnlyOneDayToggleAlwaysSelected() {
         daysToggleGroup.selectedToggleProperty().addListener(
                 (observable, oldValue, newValue) -> {
@@ -150,5 +162,9 @@ public class ComponentCalendar extends BorderPane implements PropertyChangeListe
             date = date.plusDays(7);
             populateCalendar(date);
         });
+    }
+
+    private void setTodayButtonOnAction(Button today) {
+        today.setOnAction(event -> populateCalendar(LocalDate.now()));
     }
 }
