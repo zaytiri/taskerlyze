@@ -16,9 +16,16 @@ public class DateConversion {
                 date.getYear();
     }
 
+    public static String getFormattedDateForUi(LocalDate date) {
+        String completedAtFormatted = "-----------";
+        if (date != null && (!date.isEqual(LocalDate.MIN))) {
+            completedAtFormatted = DateConversion.formatDateWithAbbreviatedMonth(date);
+        }
+        return completedAtFormatted;
+    }
+
     public static String getNameOfMonthCapitalized(LocalDate date) {
         String monthName = date.getMonth().name().toLowerCase();
         return monthName.substring(0, 1).toUpperCase() + monthName.substring(1);
     }
-
 }

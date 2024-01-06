@@ -9,7 +9,6 @@ import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class PaneCreateUpdateTaskDetails extends BorderPane {
     @FXML
@@ -59,7 +58,7 @@ public class PaneCreateUpdateTaskDetails extends BorderPane {
     public void load() {
         priorityContent.setText(String.valueOf(task.getPriority()));
 //        dueDateContent.setText(task.getDueDate());
-        completedDateContent.setText(getFormattedCompletedAtDate(task.getCompletedAt()));
+        completedDateContent.setText(DateConversion.getFormattedDateForUi(task.getCompletedAt()));
         descriptionContent.setText(task.getDescription());
         achievedContent.setText(task.getAchieved());
         urlContent.setText(task.getUrl());
@@ -73,11 +72,4 @@ public class PaneCreateUpdateTaskDetails extends BorderPane {
         }
     }
 
-    private String getFormattedCompletedAtDate(LocalDate date) {
-        String completedAtFormatted = "-----------";
-        if (date != null && (!date.isEqual(LocalDate.MIN))) {
-            completedAtFormatted = DateConversion.formatDateWithAbbreviatedMonth(date);
-        }
-        return completedAtFormatted;
-    }
 }

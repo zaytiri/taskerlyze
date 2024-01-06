@@ -171,14 +171,12 @@ public class PaneTask extends TitledPane {
         });
     }
 
-    @FXML
     private void setDetailsPane() {
         paneTaskDetails.setTaskId(getTaskId());
         paneTaskDetails.load();
         mainBorderPane.setCenter(paneTaskDetails);
     }
 
-    @FXML
     private void setSubTasksPane() {
         paneTaskSubTasks.setTaskId(getTaskId());
         mainBorderPane.setCenter(paneTaskSubTasks);
