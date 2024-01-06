@@ -64,12 +64,12 @@ public class ComponentAchievements extends TitledPane implements PropertyChangeL
 
     }
 
-    private boolean isToday() {
-        return this.activeDay.isEqual(LocalDate.now());
+    private boolean isNotPast() {
+        return this.activeDay.isEqual(LocalDate.now()) || this.activeDay.isAfter(LocalDate.now());
     }
 
     private void showAchievements() {
-        if (isToday()) {
+        if (isNotPast()) {
             showAchievementsDisplay(false);
             return;
         }
