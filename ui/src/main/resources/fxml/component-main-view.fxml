@@ -12,28 +12,28 @@
          stylesheets="@../css/tab-view.css">
     <Tab id="sideTab" fx:id="tabTasks">
         <graphic>
-            <ImageView fitWidth="25" fitHeight="25">
+            <ImageView fitWidth="30" fitHeight="30">
                 <Image url="@../icons/tasks.png"/>
             </ImageView>
         </graphic>
     </Tab>
     <Tab id="sideTab" fx:id="tabQuestions">
         <graphic>
-            <ImageView fitWidth="25" fitHeight="25">
+            <ImageView fitWidth="30" fitHeight="30">
                 <Image url="@../icons/questions.png"/>
             </ImageView>
         </graphic>
     </Tab>
     <Tab id="sideTab" fx:id="tabSettings">
         <graphic>
-            <ImageView fitWidth="25" fitHeight="25">
+            <ImageView fitWidth="30" fitHeight="30">
                 <Image url="@../icons/settings.png"/>
             </ImageView>
         </graphic>
     </Tab>
     <Tab id="sideTab" fx:id="tabStatistics">
         <graphic>
-            <ImageView fitWidth="23" fitHeight="25">
+            <ImageView fitWidth="30" fitHeight="30">
                 <Image url="@../icons/statistics.png"/>
             </ImageView>
         </graphic>
