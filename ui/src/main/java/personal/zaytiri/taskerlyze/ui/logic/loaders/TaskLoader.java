@@ -19,7 +19,7 @@ public class TaskLoader {
     private static TaskLoader INSTANCE;
     private final PropertyChangeSupport support;
     private final List<TaskEntity> loadedTasks = new ArrayList<>();
-    
+
     private final Cache cache = new Cache();
     private LocalDate activeDay = null;
     private int activeCategoryId = 0;
@@ -62,17 +62,17 @@ public class TaskLoader {
         if (activeDay == null) {
             return;
         }
-        Stopwatch loadSW = Stopwatch.createStarted();
-
+        
         List<TaskEntity> tasksToBeReturned = loadFromApiOrCache();
 
+        Stopwatch loadTasksFromUiSw = Stopwatch.createStarted();
         support.firePropertyChange("loadedTasks", loadedTasks, tasksToBeReturned);
 
         loadedTasks.clear();
         loadedTasks.addAll(tasksToBeReturned);
 
-        loadSW.stop();
-        System.out.println("load took " + loadSW.elapsed(TimeUnit.MILLISECONDS) + " ms");
+        loadTasksFromUiSw.stop();
+        System.out.println("loadTasksFromUiSw took " + loadTasksFromUiSw.elapsed(TimeUnit.MILLISECONDS) + " ms");
     }
 
     public void refresh() {
@@ -90,6 +90,9 @@ public class TaskLoader {
     }
 
     private List<TaskEntity> loadFromApiOrCache() {
+        Stopwatch loadTasksFromApiSw = Stopwatch.createStarted();
+        Stopwatch loadTasksFromCacheSw = Stopwatch.createStarted();
+
         List<TaskEntity> tasksToBeReturned = new ArrayList<>();
         var cacheKey = new Pair<>(activeCategoryId, activeDay);
         var currentCache = cache.findByKey(cacheKey);
@@ -100,6 +103,8 @@ public class TaskLoader {
                 tasksToBeReturned.addAll(currentCache.getValue().getValue());
 
                 cache.replace(cacheKey, new Pair<>(false, tasksToBeReturned));
+                loadTasksFromCacheSw.stop();
+                System.out.println("loadTasksFromCacheSw took " + loadTasksFromCacheSw.elapsed(TimeUnit.MILLISECONDS) + " ms");
                 return tasksToBeReturned;
             }
         }
@@ -114,7 +119,8 @@ public class TaskLoader {
         } else {
             cache.put(cacheKey, new Pair<>(false, tasksToBeReturned));
         }
-
+        loadTasksFromApiSw.stop();
+        System.out.println("loadTasksFromApiSw took " + loadTasksFromApiSw.elapsed(TimeUnit.MILLISECONDS) + " ms");
         return tasksToBeReturned;
     }
 }
