@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.ui.views.components;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -86,17 +87,19 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
             panes.add(0, notFoundMessage);
         }
 
-        for (TaskEntity t : tasks) {
-            PaneTask comp = new PaneTask();
+        Platform.runLater(() -> {
+            for (TaskEntity t : tasks) {
+                PaneTask comp = new PaneTask();
 
-            comp.setId(String.valueOf(t.getId()));
-            comp.setTaskId(t.getId());
-            comp.setTaskName(t.getName());
-            comp.setIsTaskDone(t.isTaskDone());
+                comp.setId(String.valueOf(t.getId()));
+                comp.setTaskId(t.getId());
+                comp.setTaskName(t.getName());
+                comp.setIsTaskDone(t.isTaskDone());
 
-            comp.setContextMenu();
+                comp.setContextMenu();
 
-            panes.add(comp);
-        }
+                panes.add(comp);
+            }
+        });
     }
 }
