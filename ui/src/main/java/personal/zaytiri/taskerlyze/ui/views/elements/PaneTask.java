@@ -1,8 +1,6 @@
 package personal.zaytiri.taskerlyze.ui.views.elements;
 
 import javafx.beans.property.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -69,8 +67,8 @@ public class PaneTask extends TitledPane {
         task.setText(this.taskName.get());
     }
 
-    public void setContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        setContextMenu(getTabContextMenu(ifSuccessful));
+    public void setContextMenu() {
+        setContextMenu(getTabContextMenu());
     }
 
     public void setIsTaskDone(boolean isTaskDone) {
@@ -80,7 +78,11 @@ public class PaneTask extends TitledPane {
 
 
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask((Accordion) this.getParent(), TaskLoader.getTaskLoader().getActiveCategoryId()));
+        this.contextMenu.addMenuItem("Add new task", event -> {
+            if (PopupAction.showDialogForAddingTask((Accordion) this.getParent(), TaskLoader.getTaskLoader().getActiveCategoryId())) {
+                TaskLoader.getTaskLoader().refresh();
+            }
+        });
     }
 
     private void addCopyTextOptionForContextMenu() {
@@ -92,20 +94,28 @@ public class PaneTask extends TitledPane {
         this.contextMenu.addMenuItem("Copy URL", event -> Clipboard.addTo(taskUrl));
     }
 
-    private void addEditTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent()));
+    private void addEditTaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Edit", event -> {
+            if (PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent())) {
+                TaskLoader.getTaskLoader().refresh();
+            }
+        });
     }
 
-    private void addMoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingTask(getTaskId(), ifSuccessful));
+    private void addMoveTaskOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Move", event -> {
+            if (PopupAction.showDialogForMovingTask(getTaskId())) {
+                TaskLoader.getTaskLoader().refresh();
+            }
+        });
     }
 
-    private void addMoveToArchiveOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+    private void addMoveToArchiveOptionForContextMenu() {
         this.contextMenu.addMenuItem("Move to Archive", event -> {
             TaskEntity task = new TaskEntity(getTaskId()).get();
             task.setCategoryId(0);
             if (task.update().getValue().getKey()) {
-                ifSuccessful.handle(event);
+                TaskLoader.getTaskLoader().refresh();
             }
         });
     }
@@ -121,21 +131,21 @@ public class PaneTask extends TitledPane {
         });
     }
 
-    private void addRemoveTaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+    private void addRemoveTaskOptionForContextMenu() {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             TaskEntity task = new TaskEntity(getTaskId());
             if (task.remove()) {
-                ifSuccessful.handle(event);
+                TaskLoader.getTaskLoader().refresh();
             }
         });
     }
 
-    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+    private ContextMenu getTabContextMenu() {
         addAddTaskOptionForContextMenu();
-        addEditTaskOptionForContextMenu(ifSuccessful);
-        addRemoveTaskOptionForContextMenu(ifSuccessful);
-        addMoveTaskOptionForContextMenu(ifSuccessful);
-        addMoveToArchiveOptionForContextMenu(ifSuccessful);
+        addEditTaskOptionForContextMenu();
+        addRemoveTaskOptionForContextMenu();
+        addMoveTaskOptionForContextMenu();
+        addMoveToArchiveOptionForContextMenu();
         addCopyTextOptionForContextMenu();
         addCopyUrlOptionForContextMenu();
         addOpenURLTaskOptionForContextMenu();

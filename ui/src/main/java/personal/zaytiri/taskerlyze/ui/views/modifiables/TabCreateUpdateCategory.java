@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 
 import java.io.IOException;
 
@@ -19,6 +18,7 @@ public class TabCreateUpdateCategory extends Tab {
     @FXML
     private TextField categoryName;
     private int categoryId;
+    private boolean isSuccessful;
 
     public TabCreateUpdateCategory() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/tab-create-update-category.fxml"));
@@ -48,6 +48,10 @@ public class TabCreateUpdateCategory extends Tab {
         });
     }
 
+    public boolean isSuccessful() {
+        return isSuccessful;
+    }
+
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
@@ -62,13 +66,14 @@ public class TabCreateUpdateCategory extends Tab {
 
         if (!isSuccessfulFromApi) {
             System.out.println(errorMessageFromApi);
+            isSuccessful = false;
             return;
         }
 
         TabPane parent = this.getTabPane();
         parent.getTabs().remove(this);
 
-        CategoryLoader.getCategoryLoader().load();
+        isSuccessful = true;
     }
 
     private void populate() {

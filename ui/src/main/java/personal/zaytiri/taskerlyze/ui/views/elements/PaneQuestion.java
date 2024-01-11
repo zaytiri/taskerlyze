@@ -79,7 +79,7 @@ public class PaneQuestion extends TitledPane {
     }
 
     private void addMoveQuestionOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingQuestion(getQuestionId(), innerEvent -> loadQuestionsFromApi()));
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingQuestion(getQuestionId()));
     }
 
     //

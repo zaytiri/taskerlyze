@@ -68,7 +68,11 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
     }
 
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(mainTasks, TaskLoader.getTaskLoader().getActiveCategoryId()));
+        this.contextMenu.addMenuItem("Add new task", event -> {
+            if (PopupAction.showDialogForAddingTask(mainTasks, TaskLoader.getTaskLoader().getActiveCategoryId())) {
+                TaskLoader.getTaskLoader().refresh();
+            }
+        });
     }
 
     private ContextMenu getTabContextMenu() {
@@ -94,7 +98,7 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
             comp.setTaskName(t.getName());
             comp.setIsTaskDone(t.isTaskDone());
 
-            comp.setContextMenu(event -> TaskLoader.getTaskLoader().load());
+            comp.setContextMenu();
 
             panes.add(comp);
         }

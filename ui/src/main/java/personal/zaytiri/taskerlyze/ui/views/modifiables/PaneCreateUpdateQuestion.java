@@ -11,7 +11,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
 
 import java.io.IOException;
 
@@ -24,6 +23,7 @@ public class PaneCreateUpdateQuestion extends TitledPane {
     private TextField questionName;
     @FXML
     private BorderPane mainBorderPane;
+    private boolean isSuccessful;
 
     public PaneCreateUpdateQuestion() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-question.fxml"));
@@ -36,6 +36,10 @@ public class PaneCreateUpdateQuestion extends TitledPane {
         } catch (IOException ex) {
             throw new IllegalStateException("Could not load fxml file", ex);
         }
+    }
+
+    public boolean isSuccessful() {
+        return isSuccessful;
     }
 
     public void setCategoryId(int categoryId) {
@@ -66,12 +70,14 @@ public class PaneCreateUpdateQuestion extends TitledPane {
 
         if (!isSuccessfulFromApi) {
             System.out.println(errorMessageFromApi);
+            isSuccessful = false;
             return;
         }
 
         Accordion parent = (Accordion) this.getParent();
         parent.getPanes().remove(this);
-        QuestionLoader.getQuestionLoader().load();
+
+        isSuccessful = true;
     }
 
     @FXML

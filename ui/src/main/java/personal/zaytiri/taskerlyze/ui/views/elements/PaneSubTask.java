@@ -89,7 +89,7 @@ public class PaneSubTask extends TitledPane {
     }
 
     private void addMoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingSubTask(getSubTaskId(), ifSuccessful));
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingSubTask(getSubTaskId()));
     }
 
     private void addRemoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
