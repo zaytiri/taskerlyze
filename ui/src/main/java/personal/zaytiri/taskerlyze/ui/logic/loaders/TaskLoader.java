@@ -4,7 +4,9 @@ import com.google.common.base.Stopwatch;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Cache;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -17,6 +19,8 @@ public class TaskLoader {
     private static TaskLoader INSTANCE;
     private final PropertyChangeSupport support;
     private final List<TaskEntity> loadedTasks = new ArrayList<>();
+    
+    private final Cache cache = new Cache();
     private LocalDate activeDay = null;
     private int activeCategoryId = 0;
 
@@ -58,15 +62,10 @@ public class TaskLoader {
         if (activeDay == null) {
             return;
         }
-
         Stopwatch loadSW = Stopwatch.createStarted();
 
-        OperationResult<List<Task>> taskResult = new TaskController().getTasksByCategoryAndCompletedAtDate(activeCategoryId, activeDay);
+        List<TaskEntity> tasksToBeReturned = loadFromApiOrCache();
 
-        List<TaskEntity> tasksToBeReturned = new ArrayList<>();
-        for (Task task : taskResult.getResult()) {
-            tasksToBeReturned.add(new TaskEntity(task));
-        }
         support.firePropertyChange("loadedTasks", loadedTasks, tasksToBeReturned);
 
         loadedTasks.clear();
@@ -77,10 +76,45 @@ public class TaskLoader {
     }
 
     public void refresh() {
+        setCacheReloadFor(activeCategoryId, activeDay, true);
         load();
     }
 
     public void removePropertyChangeListener(PropertyChangeListener pcl) {
         support.removePropertyChangeListener(pcl);
+    }
+
+    public void setCacheReloadFor(int categoryId, LocalDate date, boolean toBeReloaded) {
+        var currentCache = cache.findByKey(new Pair<>(categoryId, date));
+        cache.replace(currentCache.getKey(), new Pair<>(toBeReloaded, currentCache.getValue().getValue()));
+    }
+
+    private List<TaskEntity> loadFromApiOrCache() {
+        List<TaskEntity> tasksToBeReturned = new ArrayList<>();
+        var cacheKey = new Pair<>(activeCategoryId, activeDay);
+        var currentCache = cache.findByKey(cacheKey);
+
+        if (currentCache != null) {
+
+            if (Boolean.FALSE.equals(currentCache.getValue().getKey())) {
+                tasksToBeReturned.addAll(currentCache.getValue().getValue());
+
+                cache.replace(cacheKey, new Pair<>(false, tasksToBeReturned));
+                return tasksToBeReturned;
+            }
+        }
+
+        OperationResult<List<Task>> taskResult = new TaskController().getTasksByCategoryAndCompletedAtDate(activeCategoryId, activeDay);
+        for (Task task : taskResult.getResult()) {
+            tasksToBeReturned.add(new TaskEntity(task));
+        }
+
+        if (currentCache != null) {
+            cache.replace(cacheKey, new Pair<>(false, tasksToBeReturned));
+        } else {
+            cache.put(cacheKey, new Pair<>(false, tasksToBeReturned));
+        }
+
+        return tasksToBeReturned;
     }
 }
