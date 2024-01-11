@@ -68,11 +68,7 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
     }
 
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new task", event -> {
-            if (PopupAction.showDialogForAddingTask(mainTasks, TaskLoader.getTaskLoader().getActiveCategoryId())) {
-                TaskLoader.getTaskLoader().refresh();
-            }
-        });
+        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(mainTasks, TaskLoader.getTaskLoader().getActiveCategoryId()));
     }
 
     private ContextMenu getTabContextMenu() {

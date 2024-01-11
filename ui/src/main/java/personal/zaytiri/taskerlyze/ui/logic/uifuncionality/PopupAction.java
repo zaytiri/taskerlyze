@@ -18,76 +18,60 @@ public class PopupAction {
     private PopupAction() {
     }
 
-    public static boolean showDialogForAddingCategory(TabPane parent) {
+    public static void showDialogForAddingCategory(TabPane parent) {
         TabCreateUpdateCategory pane = new TabCreateUpdateCategory();
         parent.getTabs().add(0, pane);
-
-        return pane.isSuccessful();
     }
 
-    public static boolean showDialogForAddingQuestion(Accordion parent, int categoryId) {
+    public static void showDialogForAddingQuestion(Accordion parent, int categoryId) {
         PaneCreateUpdateQuestion pane = new PaneCreateUpdateQuestion();
         pane.setCategoryId(categoryId);
         parent.getPanes().add(0, pane);
-
-        return pane.isSuccessful();
     }
 
-    public static boolean showDialogForAddingSubTask(Accordion parent, int taskId) {
+    public static void showDialogForAddingSubTask(Accordion parent, int taskId) {
         PaneCreateUpdateSubTask pane = new PaneCreateUpdateSubTask();
         pane.setTaskId(taskId);
         parent.getPanes().add(0, pane);
-
-        return pane.isSuccessful();
     }
 
-    public static boolean showDialogForAddingTask(Accordion parent, int categoryId) {
+    public static void showDialogForAddingTask(Accordion parent, int categoryId) {
         PaneCreateUpdateTask pane = new PaneCreateUpdateTask();
         pane.setCategoryId(categoryId);
         parent.getPanes().add(0, pane);
-
-        return pane.isSuccessful();
     }
 
-    public static boolean showDialogForEditingCategory(TabPane parent, TabCategory currentTab, int categoryId) {
+    public static void showDialogForEditingCategory(TabPane parent, TabCategory currentTab, int categoryId) {
         TabCreateUpdateCategory pane = new TabCreateUpdateCategory();
         pane.setCategoryId(categoryId);
         int index = parent.getTabs().indexOf(currentTab);
         parent.getTabs().remove(currentTab);
         parent.getTabs().add(index, pane);
-
-        return pane.isSuccessful();
     }
 
-    public static boolean showDialogForEditingQuestion(int questionId, PaneQuestion currentQuestion, Accordion parent) {
+    public static void showDialogForEditingQuestion(int questionId, PaneQuestion currentQuestion, Accordion parent) {
         PaneCreateUpdateQuestion pane = new PaneCreateUpdateQuestion();
         pane.setQuestionId(questionId);
         int index = parent.getPanes().indexOf(currentQuestion);
         parent.getPanes().remove(currentQuestion);
         parent.getPanes().add(index, pane);
-
-        return pane.isSuccessful();
     }
 
-    public static boolean showDialogForEditingSubTask(int id, PaneSubTask currentSubtask, Accordion parent, int taskId) {
+    public static void showDialogForEditingSubTask(int id, PaneSubTask currentSubtask, Accordion parent, int taskId) {
         PaneCreateUpdateSubTask pane = new PaneCreateUpdateSubTask();
         pane.setSubtaskId(id);
         pane.setTaskId(taskId);
         int index = parent.getPanes().indexOf(currentSubtask);
         parent.getPanes().remove(currentSubtask);
         parent.getPanes().add(index, pane);
-
-        return pane.isSuccessful();
     }
 
-    public static boolean showDialogForEditingTask(int id, PaneTask currentTask, Accordion parent) {
+    public static void showDialogForEditingTask(int id, PaneTask currentTask, Accordion parent) {
         PaneCreateUpdateTask pane = new PaneCreateUpdateTask();
         pane.setTaskId(id);
         int index = parent.getPanes().indexOf(currentTask);
         parent.getPanes().remove(currentTask);
         parent.getPanes().add(index, pane);
-
-        return pane.isSuccessful();
     }
 
     public static boolean showDialogForMovingQuestion(int questionId) {

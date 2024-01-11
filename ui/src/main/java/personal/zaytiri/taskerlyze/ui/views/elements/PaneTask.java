@@ -78,11 +78,7 @@ public class PaneTask extends TitledPane {
 
 
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new task", event -> {
-            if (PopupAction.showDialogForAddingTask((Accordion) this.getParent(), TaskLoader.getTaskLoader().getActiveCategoryId())) {
-                TaskLoader.getTaskLoader().refresh();
-            }
-        });
+        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask((Accordion) this.getParent(), TaskLoader.getTaskLoader().getActiveCategoryId()));
     }
 
     private void addCopyTextOptionForContextMenu() {
@@ -95,19 +91,11 @@ public class PaneTask extends TitledPane {
     }
 
     private void addEditTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Edit", event -> {
-            if (PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent())) {
-                TaskLoader.getTaskLoader().refresh();
-            }
-        });
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent()));
     }
 
     private void addMoveTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Move", event -> {
-            if (PopupAction.showDialogForMovingTask(getTaskId())) {
-                TaskLoader.getTaskLoader().refresh();
-            }
-        });
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingTask(getTaskId()));
     }
 
     private void addMoveToArchiveOptionForContextMenu() {
