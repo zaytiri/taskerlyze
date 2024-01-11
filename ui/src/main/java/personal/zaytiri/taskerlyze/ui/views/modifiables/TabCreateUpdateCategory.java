@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 
 import java.io.IOException;
 
@@ -66,14 +67,13 @@ public class TabCreateUpdateCategory extends Tab {
 
         if (!isSuccessfulFromApi) {
             System.out.println(errorMessageFromApi);
-            isSuccessful = false;
             return;
         }
 
         TabPane parent = this.getTabPane();
         parent.getTabs().remove(this);
 
-        isSuccessful = true;
+        CategoryLoader.getCategoryLoader().load();
     }
 
     private void populate() {

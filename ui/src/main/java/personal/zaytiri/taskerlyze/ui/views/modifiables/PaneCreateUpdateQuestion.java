@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
 
 import java.io.IOException;
 
@@ -70,14 +71,13 @@ public class PaneCreateUpdateQuestion extends TitledPane {
 
         if (!isSuccessfulFromApi) {
             System.out.println(errorMessageFromApi);
-            isSuccessful = false;
             return;
         }
 
         Accordion parent = (Accordion) this.getParent();
         parent.getPanes().remove(this);
 
-        isSuccessful = true;
+        QuestionLoader.getQuestionLoader().refresh();
     }
 
     @FXML
