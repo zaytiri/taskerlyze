@@ -20,7 +20,7 @@ import java.util.Objects;
 public class ComponentTasks extends Categorable implements PropertyChangeListener {
     private final MenuOptions contextMenu;
     private List<PaneTask> paneTasks;
-    private Cache cache;
+    private Cache<PaneTask> cache;
     private boolean reloadUiElements = true;
     private List<TaskEntity> tasks;
     @FXML
@@ -79,7 +79,7 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
 
     @FXML
     public void initialize() {
-        cache = new Cache();
+        cache = new Cache<PaneTask>();
         UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
         this.notFoundMessage.setContextMenu(getTabContextMenu());
     }
