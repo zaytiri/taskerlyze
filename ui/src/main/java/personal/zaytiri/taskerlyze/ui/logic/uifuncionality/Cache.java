@@ -1,7 +1,7 @@
 package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
 
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.views.elements.PaneTask;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -11,10 +11,10 @@ import java.util.Objects;
 
 public class Cache {
     // current category id, current date, if lst is to be reloaded from api, the list of elements to show.
-    private final Map<Pair<Integer, LocalDate>, Pair<Boolean, List<TaskEntity>>> cache = new HashMap();
+    private final Map<Pair<Integer, LocalDate>, List<PaneTask>> cache = new HashMap<>();
 
-    public Map.Entry<Pair<Integer, LocalDate>, Pair<Boolean, List<TaskEntity>>> findByKey(Pair<Integer, LocalDate> keyToBeFound) {
-        for (Map.Entry<Pair<Integer, LocalDate>, Pair<Boolean, List<TaskEntity>>> cacheEntry : cache.entrySet()) {
+    public Map.Entry<Pair<Integer, LocalDate>, List<PaneTask>> findByKey(Pair<Integer, LocalDate> keyToBeFound) {
+        for (Map.Entry<Pair<Integer, LocalDate>, List<PaneTask>> cacheEntry : cache.entrySet()) {
             if (Objects.equals(cacheEntry.getKey().getKey(), keyToBeFound.getKey())
                     && Objects.equals(cacheEntry.getKey().getValue(), keyToBeFound.getValue())) {
                 return cacheEntry;
@@ -23,17 +23,15 @@ public class Cache {
         return null;
     }
 
-    public Map<Pair<Integer, LocalDate>, Pair<Boolean, List<TaskEntity>>> get() {
+    public Map<Pair<Integer, LocalDate>, List<PaneTask>> get() {
         return cache;
     }
 
-    public void put(Pair<Integer, LocalDate> keyToReplace, Pair<Boolean, List<TaskEntity>> toBeReplaced) {
+    public void put(Pair<Integer, LocalDate> keyToReplace, List<PaneTask> toBeReplaced) {
         cache.put(
                 keyToReplace,
-                new Pair<>(
-                        toBeReplaced.getKey(),
-                        toBeReplaced.getValue()
-                ));
+                toBeReplaced
+        );
     }
 
     public boolean remove(Pair<Integer, LocalDate> keyToRemove) {
@@ -42,7 +40,7 @@ public class Cache {
                         && Objects.equals(key.getValue(), keyToRemove.getValue()));
     }
 
-    public void replace(Pair<Integer, LocalDate> keyToReplace, Pair<Boolean, List<TaskEntity>> toBeReplaced) {
+    public void replace(Pair<Integer, LocalDate> keyToReplace, List<PaneTask> toBeReplaced) {
         remove(keyToReplace);
         put(keyToReplace, toBeReplaced);
     }
