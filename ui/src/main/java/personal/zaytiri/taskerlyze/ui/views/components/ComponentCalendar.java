@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.ui.logic.Configuration;
 import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.views.elements.LabelDay;
 
@@ -123,7 +122,6 @@ public class ComponentCalendar extends BorderPane {
                     populateYear(date);
 
                     UiGlobalFilter.getUiGlobalFilter().setActiveDay(date);
-                    QuestionLoader.getQuestionLoader().setActiveDay(date);
                 }
             });
 

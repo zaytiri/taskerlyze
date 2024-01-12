@@ -5,15 +5,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
 public class PaneQuestion extends TitledPane {
     private final MenuOptions contextMenu;
     private final PaneQuestionDetails paneQuestionDetails = new PaneQuestionDetails();
+    private final PropertyChangeSupport support;
     private int questionId;
     private String questionName;
     private boolean isAnswered;
@@ -27,7 +30,7 @@ public class PaneQuestion extends TitledPane {
     public PaneQuestion() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-question.fxml"));
         this.contextMenu = new MenuOptions();
-
+        support = new PropertyChangeSupport(this);
         loader.setRoot(this);
         loader.setController(this);
 
@@ -36,6 +39,10 @@ public class PaneQuestion extends TitledPane {
         } catch (IOException ex) {
             throw new IllegalStateException("Could not load fxml file", ex);
         }
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
     }
 
     public int getQuestionId() {
@@ -71,15 +78,19 @@ public class PaneQuestion extends TitledPane {
     }
 
     private void addAddQuestionOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new question", event -> PopupAction.showDialogForAddingQuestion((Accordion) this.getParent(), QuestionLoader.getQuestionLoader().getActiveCategoryId()));
+        this.contextMenu.addMenuItem("Add new question", event -> PopupAction.showDialogForAddingQuestion((Accordion) this.getParent(), UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId(), evt -> reloadQuestions()));
     }
 
     private void addEditQuestionOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingQuestion(getQuestionId(), this, (Accordion) this.getParent()));
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingQuestion(getQuestionId(), this, (Accordion) this.getParent(), evt -> reloadQuestions()));
     }
 
     private void addMoveQuestionOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingQuestion(getQuestionId()));
+        this.contextMenu.addMenuItem("Move", event -> {
+            if (PopupAction.showDialogForMovingQuestion(getQuestionId())) {
+                reloadQuestions();
+            }
+        });
     }
 
     //
@@ -87,8 +98,8 @@ public class PaneQuestion extends TitledPane {
         this.contextMenu.addMenuItem("Move to Archive", event -> {
             QuestionEntity question = new QuestionEntity(getQuestionId()).get();
             question.setCategoryId(0);
-            if (question.update().getValue().getKey()) {
-                loadQuestionsFromApi();
+            if (Boolean.TRUE.equals(question.update().getValue().getKey())) {
+                reloadQuestions();
             }
         });
     }
@@ -97,7 +108,7 @@ public class PaneQuestion extends TitledPane {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             QuestionEntity question = new QuestionEntity(getQuestionId());
             if (question.remove()) {
-                loadQuestionsFromApi();
+                reloadQuestions();
             }
         });
     }
@@ -117,8 +128,8 @@ public class PaneQuestion extends TitledPane {
         setCheckBoxOnAction();
     }
 
-    private void loadQuestionsFromApi() {
-        QuestionLoader.getQuestionLoader().load();
+    private void reloadQuestions() {
+        support.firePropertyChange("toReload", false, true);
     }
 
     private void setCheckBoxOnAction() {

@@ -1,32 +1,32 @@
 package personal.zaytiri.taskerlyze.ui.views.components;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.TitledPane;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneQuestion;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ComponentQuestions extends Categorable implements PropertyChangeListener {
     private final MenuOptions contextMenu;
-    private ObservableList<QuestionEntity> questions;
+    private boolean reloadUiElements = true;
+    private List<PaneQuestion> paneQuestions;
+    private Cache<PaneQuestion> cache;
+    private List<QuestionEntity> questions;
     @FXML
     private Accordion mainQuestions;
     @FXML
-    private TitledPane notFoundMessage;
+    private PaneQuestion notFoundMessage;
 
     public ComponentQuestions() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-questions.fxml"));
@@ -47,39 +47,70 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
     }
 
     public void loadView() {
-        QuestionLoader.getQuestionLoader().setActiveCategoryId(getCategoryId());
+        var activeCategoryId = UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId();
+        var activeDay = UiGlobalFilter.getUiGlobalFilter().getActiveDay();
+
+        if (activeDay == null) {
+            return;
+        }
+
+        var cacheKey = new Pair<>(getCategoryId(), activeDay);
+        var cacheTasks = cache.findByKey(cacheKey);
+        if (!reloadUiElements && cacheTasks != null) {
+            mainQuestions.getPanes().clear();
+            mainQuestions.getPanes().addAll(cacheTasks.getValue());
+            return;
+        }
+
+        var loader = new QuestionLoader();
+        var questions = loader.load(activeCategoryId, activeDay);
+
+        if (questions == null) {
+            return;
+        }
+
+        this.questions = questions;
+        setQuestions();
+        mainQuestions.getPanes().clear();
+        mainQuestions.getPanes().addAll(paneQuestions);
+        cache.replace(new Pair<>(getCategoryId(), activeDay), paneQuestions);
+        setReload(false);
     }
 
     @FXML
     public void initialize() {
-        QuestionLoader.getQuestionLoader().addPropertyChangeListener(this);
+        cache = new Cache<PaneQuestion>();
+        UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
         this.notFoundMessage.setContextMenu(getTabContextMenu());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (!Objects.equals(evt.getPropertyName(), "loadedQuestions")) {
+        if (!Objects.equals(evt.getPropertyName(), "toReload")) {
             return;
         }
 
-        this.questions = FXCollections.observableList((List<QuestionEntity>) evt.getNewValue());
-        if (this.questions.isEmpty() || this.questions.get(0).getCategoryId() == this.getCategoryId()) {
-            setQuestions();
+        var activeCategoryId = UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId();
+        if (getCategoryId() != activeCategoryId) {
+            return;
         }
+
+        setReload((boolean) evt.getNewValue());
+        loadView();
     }
 
     public void setQuestions() {
-        ObservableList<TitledPane> panes = mainQuestions.getPanes();
+        paneQuestions = new ArrayList<>();
 
-        panes.clear();
 
         if (questions.isEmpty()) {
-            panes.add(0, notFoundMessage);
+            paneQuestions.add(0, notFoundMessage);
         }
 
         for (QuestionEntity q : questions) {
             PaneQuestion comp = new PaneQuestion();
 
+            comp.addPropertyChangeListener(this);
             comp.setId(String.valueOf(q.getId()));
             comp.setQuestionId(q.getId());
             comp.setQuestionName(q.getQuestion());
@@ -88,12 +119,19 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
             comp.setDetailsPane();
             comp.setContextMenu();
 
-            panes.add(comp);
+            paneQuestions.add(comp);
         }
     }
 
+    public void setReload(boolean toReload) {
+        reloadUiElements = toReload;
+    }
+
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new question", event -> PopupAction.showDialogForAddingQuestion(mainQuestions, QuestionLoader.getQuestionLoader().getActiveCategoryId()));
+        this.contextMenu.addMenuItem("Add new question", event -> PopupAction.showDialogForAddingQuestion(mainQuestions, UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId(), evt -> {
+            setReload(true);
+            this.loadView();
+        }));
     }
 
     private ContextMenu getTabContextMenu() {
