@@ -1,6 +1,5 @@
 package personal.zaytiri.taskerlyze.ui.views.components;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -24,6 +23,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class ComponentCategories extends TabPane implements PropertyChangeListener {
     private final MenuOptions contextMenu;
@@ -70,6 +70,9 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (!Objects.equals(evt.getPropertyName(), "loadedCategories")) {
+            return;
+        }
         this.categories = FXCollections.observableList((List<CategoryEntity>) evt.getNewValue());
         populateCategoryView();
     }

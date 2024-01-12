@@ -18,6 +18,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class ComponentQuestions extends Categorable implements PropertyChangeListener {
     private final MenuOptions contextMenu;
@@ -57,7 +58,7 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (!(evt.getNewValue() instanceof List)) {
+        if (!Objects.equals(evt.getPropertyName(), "loadedQuestions")) {
             return;
         }
 
