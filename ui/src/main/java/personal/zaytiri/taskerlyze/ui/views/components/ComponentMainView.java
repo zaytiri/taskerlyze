@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 
 import java.io.IOException;
 
@@ -37,7 +35,6 @@ public class ComponentMainView extends TabPane {
     @FXML
     public void initialize() {
         setDefaultViews();
-        setListenersForTabs();
         Platform.runLater(() -> mainViewTabPane.getSelectionModel().select(tabTasks));
     }
 
@@ -49,19 +46,5 @@ public class ComponentMainView extends TabPane {
         ComponentCategories categoriesForQuestions = new ComponentCategories();
         categoriesForQuestions.setView(new ComponentQuestions());
         tabQuestions.setContent(categoriesForQuestions);
-    }
-
-    private void setListenersForTabs() {
-        tabTasks.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (Boolean.TRUE.equals(newValue)) {
-                TaskLoader.getTaskLoader().load();
-            }
-        });
-
-        tabQuestions.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (Boolean.TRUE.equals(newValue)) {
-                QuestionLoader.getQuestionLoader().load();
-            }
-        });
     }
 }
