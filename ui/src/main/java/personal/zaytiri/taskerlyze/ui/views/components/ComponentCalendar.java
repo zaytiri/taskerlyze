@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.ui.logic.Configuration;
 import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.views.elements.LabelDay;
 
 import java.io.IOException;
@@ -116,21 +116,20 @@ public class ComponentCalendar extends BorderPane {
             labelDay.setDay(day.getDayOfMonth());
             labelDay.setYear(day.getYear());
 
-            tbtn.setOnMouseClicked(event -> {
-                LocalDate date = getConvertedDate(labelDay);
-                populateMonth(date);
-                populateYear(date);
+            tbtn.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if (Boolean.TRUE.equals(newValue)) {
+                    LocalDate date = getConvertedDate(labelDay);
+                    populateMonth(date);
+                    populateYear(date);
 
-                TaskLoader.getTaskLoader().setActiveDay(date);
-                QuestionLoader.getQuestionLoader().setActiveDay(date);
+                    UiGlobalFilter.getUiGlobalFilter().setActiveDay(date);
+                    QuestionLoader.getQuestionLoader().setActiveDay(date);
+                }
             });
 
+
             if (day.getDayOfMonth() == currentDate.getDayOfMonth()) {
-                Platform.runLater(() -> {
-                    tbtn.setSelected(true);
-                    TaskLoader.getTaskLoader().setActiveDay(day);
-                    QuestionLoader.getQuestionLoader().setActiveDay(day);
-                });
+                Platform.runLater(() -> tbtn.setSelected(true));
             }
         }
     }
