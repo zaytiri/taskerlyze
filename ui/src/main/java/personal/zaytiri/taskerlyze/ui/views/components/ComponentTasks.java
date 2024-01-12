@@ -1,32 +1,32 @@
 package personal.zaytiri.taskerlyze.ui.views.components;
 
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.TitledPane;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneTask;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ComponentTasks extends Categorable implements PropertyChangeListener {
     private final MenuOptions contextMenu;
-    private ObservableList<TaskEntity> tasks;
+    private List<PaneTask> paneTasks;
+    private Cache cache;
+    private boolean reloadUiElements = true;
+    private List<TaskEntity> tasks;
     @FXML
     private Accordion mainTasks;
     @FXML
-    private TitledPane notFoundMessage;
+    private PaneTask notFoundMessage;
 
     public ComponentTasks() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-tasks.fxml"));
@@ -47,29 +47,67 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
     }
 
     public void loadView() {
-        TaskLoader.getTaskLoader().setActiveCategoryId(getCategoryId());
+        var activeCategoryId = UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId();
+        var activeDay = UiGlobalFilter.getUiGlobalFilter().getActiveDay();
+
+        if (activeDay == null) {
+            return;
+        }
+
+        var cacheKey = new Pair<>(getCategoryId(), activeDay);
+        var cacheTasks = cache.findByKey(cacheKey);
+        if (!reloadUiElements && cacheTasks != null) {
+            mainTasks.getPanes().clear();
+            mainTasks.getPanes().addAll(cacheTasks.getValue());
+            return;
+        }
+
+        var loader = new TaskLoader();
+        var tasks = loader.load(activeCategoryId, activeDay);
+
+        if (tasks == null) {
+            return;
+        }
+
+        this.tasks = tasks;
+        setTasks();
+        mainTasks.getPanes().clear();
+        mainTasks.getPanes().addAll(paneTasks);
+        cache.replace(new Pair<>(getCategoryId(), activeDay), paneTasks);
+        setReload(false);
     }
 
     @FXML
     public void initialize() {
-        TaskLoader.getTaskLoader().addPropertyChangeListener(this);
+        cache = new Cache();
+        UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
         this.notFoundMessage.setContextMenu(getTabContextMenu());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (!(evt.getNewValue() instanceof List)) {
+        if (!Objects.equals(evt.getPropertyName(), "toReload")) {
             return;
         }
 
-        this.tasks = FXCollections.observableList((List<TaskEntity>) evt.getNewValue());
-        if (this.tasks.isEmpty() || this.tasks.get(0).getCategoryId() == this.getCategoryId()) {
-            setTasks();
+        var activeCategoryId = UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId();
+        if (getCategoryId() != activeCategoryId) {
+            return;
         }
+
+        setReload((boolean) evt.getNewValue());
+        loadView();
+    }
+
+    public void setReload(boolean toReload) {
+        reloadUiElements = toReload;
     }
 
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(mainTasks, TaskLoader.getTaskLoader().getActiveCategoryId()));
+        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask(mainTasks, UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId(), evt -> {
+            setReload(true);
+            this.loadView();
+        }));
     }
 
     private ContextMenu getTabContextMenu() {
@@ -79,27 +117,26 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
     }
 
     private void setTasks() {
-        ObservableList<TitledPane> panes = mainTasks.getPanes();
+        paneTasks = new ArrayList<>();
 
-        panes.clear();
 
         if (tasks.isEmpty()) {
-            panes.add(0, notFoundMessage);
+            paneTasks.add(0, notFoundMessage);
         }
 
-        Platform.runLater(() -> {
-            for (TaskEntity t : tasks) {
-                PaneTask comp = new PaneTask();
+        for (TaskEntity t : tasks) {
+            PaneTask comp = new PaneTask();
 
-                comp.setId(String.valueOf(t.getId()));
-                comp.setTaskId(t.getId());
-                comp.setTaskName(t.getName());
-                comp.setIsTaskDone(t.isTaskDone());
+            comp.addPropertyChangeListener(this);
 
-                comp.setContextMenu();
+            comp.setId(String.valueOf(t.getId()));
+            comp.setTaskId(t.getId());
+            comp.setTaskName(t.getName());
+            comp.setIsTaskDone(t.isTaskDone());
 
-                panes.add(comp);
-            }
-        });
+            comp.setContextMenu();
+
+            paneTasks.add(comp);
+        }
     }
 }
