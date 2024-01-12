@@ -27,13 +27,17 @@ public class SubTaskRepository extends Repository<SubTask, SubTaskModel, SubTask
 
         SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
 
+        Column taskId = model.getTable().getColumn("task_id");
+
         Column name = model.getTable().getColumn("name");
         List<Column> columns = new ArrayList<>();
         columns.add(name);
 
         query.select(columns)
                 .from(model.getTable())
-                .where(name, Operators.EQUALS, model.getName());
+                .where(name, Operators.EQUALS, model.getName())
+                .and()
+                .where(taskId, Operators.EQUALS, model.getTaskId());
 
         return query.execute();
     }

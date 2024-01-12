@@ -29,13 +29,17 @@ public class QuestionRepository extends Repository<Question, QuestionModel, Ques
 
         SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
 
-        Column name = model.getTable().getColumn("question");
-        List<Column> columns = new ArrayList<>();
-        columns.add(name);
+        Column categoryId = model.getTable().getColumn("category_id");
 
-        query.select(columns)
+        Column name = model.getTable().getColumn("question");
+        List<Column> columnsToSelect = new ArrayList<>();
+        columnsToSelect.add(name);
+
+        query.select(columnsToSelect)
                 .from(model.getTable())
-                .where(name, Operators.EQUALS, model.getName());
+                .where(name, Operators.EQUALS, model.getName())
+                .and()
+                .where(categoryId, Operators.EQUALS, model.getCategoryId());
 
         return query.execute();
     }
