@@ -58,17 +58,11 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
 
         tabs.add(getDefaultTab());
 
-        boolean selectFirst = true;
         for (CategoryEntity category : categories) {
             TabCategory newTab = new TabCategory(this.currentView.getNewInstance());
             newTab.setCategoryId(category.getId());
             newTab.setCategoryName(category.getName());
             newTab.setContextMenu();
-
-            if (selectFirst) {
-                Platform.runLater(() -> mainTabPane.getSelectionModel().select(newTab));
-                selectFirst = false;
-            }
 
             tabs.add(newTab);
         }
