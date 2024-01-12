@@ -1,7 +1,5 @@
 package personal.zaytiri.taskerlyze.ui.views.components;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -19,9 +17,9 @@ import java.io.IOException;
 
 public class TabCategory extends Tab {
     private final StringProperty categoryName = new SimpleStringProperty();
-    private final IntegerProperty categoryId = new SimpleIntegerProperty();
     private final MenuOptions contextMenu;
     private final Categorable currentView;
+    private int categoryId;
     @FXML
     private ScrollPane mainScrollPane;
 
@@ -41,11 +39,11 @@ public class TabCategory extends Tab {
     }
 
     public int getCategoryId() {
-        return categoryId.get();
+        return categoryId;
     }
 
     public void setCategoryId(int categoryId) {
-        this.categoryId.set(categoryId);
+        this.categoryId = categoryId;
         this.currentView.setCategoryId(categoryId);
     }
 
