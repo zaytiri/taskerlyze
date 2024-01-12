@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionLoader implements Loadable<QuestionEntity> {
-    @Override
+public class QuestionLoader {
     public List<QuestionEntity> load(int categoryId, LocalDate date) {
         OperationResult<List<Question>> questionResult = new QuestionController().getQuestionsByCategoryAndAnsweredAtDate(categoryId, date);
 
