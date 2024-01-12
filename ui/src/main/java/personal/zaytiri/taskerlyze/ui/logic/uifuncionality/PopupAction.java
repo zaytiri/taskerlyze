@@ -25,8 +25,9 @@ public class PopupAction {
         parent.getTabs().add(0, pane);
     }
 
-    public static void showDialogForAddingQuestion(Accordion parent, int categoryId) {
+    public static void showDialogForAddingQuestion(Accordion parent, int categoryId, EventHandler<ActionEvent> ifSuccessful) {
         PaneCreateUpdateQuestion pane = new PaneCreateUpdateQuestion();
+        pane.setIfSuccessful(ifSuccessful);
         pane.setCategoryId(categoryId);
         parent.getPanes().add(0, pane);
     }
@@ -52,9 +53,10 @@ public class PopupAction {
         parent.getTabs().add(index, pane);
     }
 
-    public static void showDialogForEditingQuestion(int questionId, PaneQuestion currentQuestion, Accordion parent) {
+    public static void showDialogForEditingQuestion(int questionId, PaneQuestion currentQuestion, Accordion parent, EventHandler<ActionEvent> ifSuccessful) {
         PaneCreateUpdateQuestion pane = new PaneCreateUpdateQuestion();
         pane.setQuestionId(questionId);
+        pane.setIfSuccessful(ifSuccessful);
         int index = parent.getPanes().indexOf(currentQuestion);
         parent.getPanes().remove(currentQuestion);
         parent.getPanes().add(index, pane);

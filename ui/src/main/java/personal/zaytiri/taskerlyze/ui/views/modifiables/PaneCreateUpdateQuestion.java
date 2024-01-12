@@ -1,6 +1,8 @@
 package personal.zaytiri.taskerlyze.ui.views.modifiables;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
@@ -11,7 +13,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class PaneCreateUpdateQuestion extends TitledPane {
     private TextField questionName;
     @FXML
     private BorderPane mainBorderPane;
-    private boolean isSuccessful;
+    private EventHandler<ActionEvent> ifSuccessful;
 
     public PaneCreateUpdateQuestion() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-question.fxml"));
@@ -39,12 +40,12 @@ public class PaneCreateUpdateQuestion extends TitledPane {
         }
     }
 
-    public boolean isSuccessful() {
-        return isSuccessful;
-    }
-
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public void setIfSuccessful(EventHandler<ActionEvent> ifSuccessful) {
+        this.ifSuccessful = ifSuccessful;
     }
 
     public void setQuestionId(int taskId) {
@@ -77,7 +78,7 @@ public class PaneCreateUpdateQuestion extends TitledPane {
         Accordion parent = (Accordion) this.getParent();
         parent.getPanes().remove(this);
 
-        QuestionLoader.getQuestionLoader().refresh();
+        this.ifSuccessful.handle(new ActionEvent());
     }
 
     @FXML
