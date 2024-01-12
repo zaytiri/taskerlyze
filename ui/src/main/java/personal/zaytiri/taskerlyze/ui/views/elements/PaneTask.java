@@ -10,12 +10,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Clipboard;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 
 import java.awt.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.net.URL;
 
@@ -26,6 +28,7 @@ public class PaneTask extends TitledPane {
     private final MenuOptions contextMenu;
     private final PaneTaskSubTasks paneTaskSubTasks = new PaneTaskSubTasks();
     private final PaneTaskDetails paneTaskDetails = new PaneTaskDetails();
+    private final PropertyChangeSupport support;
     @FXML
     private CheckBox checkBox;
     @FXML
@@ -39,6 +42,8 @@ public class PaneTask extends TitledPane {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-task.fxml"));
         this.contextMenu = new MenuOptions();
 
+        support = new PropertyChangeSupport(this);
+
         loader.setRoot(this);
         loader.setController(this);
 
@@ -47,6 +52,10 @@ public class PaneTask extends TitledPane {
         } catch (IOException ex) {
             throw new IllegalStateException("Could not load fxml file", ex);
         }
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
     }
 
     public int getTaskId() {
@@ -78,7 +87,9 @@ public class PaneTask extends TitledPane {
 
 
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask((Accordion) this.getParent(), TaskLoader.getTaskLoader().getActiveCategoryId()));
+        this.contextMenu.addMenuItem("Add new task", event -> {
+            PopupAction.showDialogForAddingTask((Accordion) this.getParent(), UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId(), evt -> reloadTasks());
+        });
     }
 
     private void addCopyTextOptionForContextMenu() {
@@ -91,19 +102,25 @@ public class PaneTask extends TitledPane {
     }
 
     private void addEditTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent()));
+        this.contextMenu.addMenuItem("Edit", event -> {
+            PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent(), evt -> reloadTasks());
+        });
     }
 
     private void addMoveTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingTask(getTaskId()));
+        this.contextMenu.addMenuItem("Move", event -> {
+            if (PopupAction.showDialogForMovingTask(getTaskId())) {
+                reloadTasks();
+            }
+        });
     }
 
     private void addMoveToArchiveOptionForContextMenu() {
         this.contextMenu.addMenuItem("Move to Archive", event -> {
             TaskEntity task = new TaskEntity(getTaskId()).get();
             task.setCategoryId(0);
-            if (task.update().getValue().getKey()) {
-                TaskLoader.getTaskLoader().refresh();
+            if (Boolean.TRUE.equals(task.update().getValue().getKey())) {
+                reloadTasks();
             }
         });
     }
@@ -123,7 +140,7 @@ public class PaneTask extends TitledPane {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             TaskEntity task = new TaskEntity(getTaskId());
             if (task.remove()) {
-                TaskLoader.getTaskLoader().refresh();
+                reloadTasks();
             }
         });
     }
@@ -159,6 +176,10 @@ public class PaneTask extends TitledPane {
                 loadSubTasks();
             }
         });
+    }
+
+    private void reloadTasks() {
+        support.firePropertyChange("toReload", false, true);
     }
 
     private void setCheckBoxOnAction() {
