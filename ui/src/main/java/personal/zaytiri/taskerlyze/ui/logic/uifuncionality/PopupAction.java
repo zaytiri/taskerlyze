@@ -1,5 +1,7 @@
 package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TabPane;
 import personal.zaytiri.taskerlyze.ui.views.components.TabCategory;
@@ -35,9 +37,10 @@ public class PopupAction {
         parent.getPanes().add(0, pane);
     }
 
-    public static void showDialogForAddingTask(Accordion parent, int categoryId) {
+    public static void showDialogForAddingTask(Accordion parent, int categoryId, EventHandler<ActionEvent> ifSuccessful) {
         PaneCreateUpdateTask pane = new PaneCreateUpdateTask();
         pane.setCategoryId(categoryId);
+        pane.setIfSuccessful(ifSuccessful);
         parent.getPanes().add(0, pane);
     }
 
@@ -66,9 +69,10 @@ public class PopupAction {
         parent.getPanes().add(index, pane);
     }
 
-    public static void showDialogForEditingTask(int id, PaneTask currentTask, Accordion parent) {
+    public static void showDialogForEditingTask(int id, PaneTask currentTask, Accordion parent, EventHandler<ActionEvent> ifSuccessful) {
         PaneCreateUpdateTask pane = new PaneCreateUpdateTask();
         pane.setTaskId(id);
+        pane.setIfSuccessful(ifSuccessful);
         int index = parent.getPanes().indexOf(currentTask);
         parent.getPanes().remove(currentTask);
         parent.getPanes().add(index, pane);

@@ -1,6 +1,8 @@
 package personal.zaytiri.taskerlyze.ui.views.modifiables;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
@@ -11,7 +13,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class PaneCreateUpdateTask extends TitledPane {
     private TaskEntity newOrExistingTask = new TaskEntity();
     @FXML
     private BorderPane mainBorderPane;
-    private boolean isSuccessful;
+    private EventHandler<ActionEvent> ifSuccessful;
 
     public PaneCreateUpdateTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-task.fxml"));
@@ -39,18 +40,17 @@ public class PaneCreateUpdateTask extends TitledPane {
         }
     }
 
-    public boolean isSuccessful() {
-        return isSuccessful;
-    }
-
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public void setIfSuccessful(EventHandler<ActionEvent> event) {
+        this.ifSuccessful = event;
     }
 
     public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
-
 
     private void create() {
         newOrExistingTask = paneTaskDetails.getTask();
@@ -77,7 +77,7 @@ public class PaneCreateUpdateTask extends TitledPane {
         Accordion parent = (Accordion) this.getParent();
         parent.getPanes().remove(this);
 
-        TaskLoader.getTaskLoader().refresh();
+        this.ifSuccessful.handle(new ActionEvent());
     }
 
     @FXML
