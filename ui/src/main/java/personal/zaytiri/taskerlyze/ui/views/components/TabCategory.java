@@ -12,6 +12,7 @@ import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 
 import java.io.IOException;
 
@@ -66,6 +67,7 @@ public class TabCategory extends Tab {
     public void setOnAction() {
         selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (Boolean.TRUE.equals(newValue)) {
+                UiGlobalFilter.getUiGlobalFilter().setActiveCategoryId(categoryId);
                 this.currentView.loadView();
             }
         });
