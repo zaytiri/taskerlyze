@@ -8,7 +8,6 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -60,7 +59,6 @@ public class ComponentAchievements extends TitledPane implements PropertyChangeL
 
     @FXML
     private void initialize() {
-        TaskLoader.getTaskLoader().addPropertyChangeListener(this);
 
     }
 
