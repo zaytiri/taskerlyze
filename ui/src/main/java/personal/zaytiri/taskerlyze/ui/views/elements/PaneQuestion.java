@@ -114,11 +114,11 @@ public class PaneQuestion extends TitledPane {
     }
 
     private ContextMenu getTabContextMenu() {
-        addRemoveQuestionOptionForContextMenu();
-        addMoveToArchiveOptionForContextMenu();
-        addMoveQuestionOptionForContextMenu();
-        addEditQuestionOptionForContextMenu();
         addAddQuestionOptionForContextMenu();
+        addEditQuestionOptionForContextMenu();
+        addMoveQuestionOptionForContextMenu();
+        addMoveToArchiveOptionForContextMenu();
+        addRemoveQuestionOptionForContextMenu();
 
         return contextMenu.buildContextMenu();
     }

@@ -147,12 +147,12 @@ public class PaneTask extends TitledPane {
     private ContextMenu getTabContextMenu() {
         addAddTaskOptionForContextMenu();
         addEditTaskOptionForContextMenu();
-        addRemoveTaskOptionForContextMenu();
         addMoveTaskOptionForContextMenu();
         addMoveToArchiveOptionForContextMenu();
         addCopyTextOptionForContextMenu();
         addCopyUrlOptionForContextMenu();
         addOpenURLTaskOptionForContextMenu();
+        addRemoveTaskOptionForContextMenu();
 
         return contextMenu.buildContextMenu();
     }

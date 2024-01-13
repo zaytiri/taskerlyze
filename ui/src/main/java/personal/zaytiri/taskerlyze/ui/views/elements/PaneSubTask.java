@@ -105,12 +105,12 @@ public class PaneSubTask extends TitledPane {
     }
 
     private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        addRemoveSubtaskOptionForContextMenu(ifSuccessful);
-        addEditSubtaskOptionForContextMenu();
         addAddSubtaskOptionForContextMenu();
+        addEditSubtaskOptionForContextMenu();
         addMoveSubtaskOptionForContextMenu(ifSuccessful);
         addCopyTextOptionForContextMenu();
-
+        addRemoveSubtaskOptionForContextMenu(ifSuccessful);
+        
         return contextMenu.buildContextMenu();
     }
 
