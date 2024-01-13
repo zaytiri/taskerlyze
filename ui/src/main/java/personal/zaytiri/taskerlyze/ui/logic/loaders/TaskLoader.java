@@ -22,4 +22,14 @@ public class TaskLoader {
         return tasksToBeReturned;
     }
 
+    public List<String> loadAchievements(LocalDate date) {
+        List<String> achievementsToBeReturned = new ArrayList<>();
+
+        OperationResult<List<String>> taskResult = new TaskController().getTaskAchievementsFromDay(date);
+        for (String achievement : taskResult.getResult()) {
+            achievementsToBeReturned.add("--> " + achievement);
+        }
+
+        return achievementsToBeReturned;
+    }
 }
