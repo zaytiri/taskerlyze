@@ -4,6 +4,7 @@
 <?import personal.zaytiri.taskerlyze.ui.views.components.ComponentAchievements?>
 <?import personal.zaytiri.taskerlyze.ui.views.components.ComponentCalendar?>
 <?import personal.zaytiri.taskerlyze.ui.views.components.ComponentMainView?>
+<?import personal.zaytiri.taskerlyze.ui.views.components.ComponentMessage?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
             prefHeight="668.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/20.0.1"
@@ -25,6 +26,7 @@
                     <AnchorPane BorderPane.alignment="CENTER">
                         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <ComponentMessage/>
                             <ComponentAchievements/>
                             <ComponentMainView/>
                         </VBox>

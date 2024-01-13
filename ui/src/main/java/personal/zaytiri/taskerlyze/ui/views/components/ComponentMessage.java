@@ -1,29 +1,28 @@
 package personal.zaytiri.taskerlyze.ui.views.components;
 
-import javafx.animation.FadeTransition;
+import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.FadeAnimation;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Objects;
 
 public class ComponentMessage extends TitledPane implements PropertyChangeListener {
+    private final FadeAnimation fadeAnimation = new FadeAnimation();
     @FXML
     private TitledPane messageTitledPane;
     @FXML
     private Label messageType;
     @FXML
-    private VBox messageContent;
+    private Label messageContent;
 
     public ComponentMessage() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-message.fxml"));
@@ -38,33 +37,28 @@ public class ComponentMessage extends TitledPane implements PropertyChangeListen
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName() != "message") {
+        if (!Objects.equals(evt.getPropertyName(), "message")) {
             return;
         }
 
         Pair<MessageType, String> message = (Pair<MessageType, String>) evt.getNewValue();
 
         this.messageType.setText(String.valueOf(message.getKey()));
-        this.messageContent.getChildren().add(new Label(message.getValue()));
+        this.messageContent.setText(message.getValue());
 
         showMessageDisplay(true);
+        messageTitledPane.setExpanded(true);
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                FadeTransition ft = new FadeTransition(Duration.millis(3000), messageTitledPane);
-                ft.setFromValue(1.0);
-                ft.setToValue(0);
-                ft.setAutoReverse(true);
-                ft.play();
-                ft.setOnFinished(event -> showMessageDisplay(true));
-            }
-        }, 10 * (long) 1000); // 10 seconds
+        fadeAnimation.fadeOut(1000, 5 * (long) 1000, this.messageTitledPane, whenFadeFinished -> {
+            showMessageDisplay(false);
+            DoubleProperty opacity = this.messageTitledPane.opacityProperty();
+            opacity.set(1);
+        });
     }
 
     @FXML
     private void initialize() {
+        showMessageDisplay(false);
         UiGlobalMessage.getUiGlobalMessage().addPropertyChangeListener(this);
     }
 
