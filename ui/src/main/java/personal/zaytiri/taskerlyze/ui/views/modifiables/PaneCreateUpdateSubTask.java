@@ -6,15 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
 
 import java.io.IOException;
 
 public class PaneCreateUpdateSubTask extends TitledPane {
+    private final KeyBindable keyBinding;
     private SubTaskEntity newOrExistingSubtask = new SubTaskEntity();
     @FXML
     private TextField subtaskName;
@@ -24,7 +24,7 @@ public class PaneCreateUpdateSubTask extends TitledPane {
 
     public PaneCreateUpdateSubTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-sub-task.fxml"));
-
+        keyBinding = new KeyBindable();
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -36,17 +36,14 @@ public class PaneCreateUpdateSubTask extends TitledPane {
 
     @FXML
     public void initialize() {
-        subtaskName.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-            if (ev.getCode() == KeyCode.ENTER) {
-                create();
-                ev.consume();
-            }
-        });
+        keyBinding.addEnterKeyBinding(subtaskName, evt -> create());
+        keyBinding.addEscapeKeyBinding(subtaskName, evt -> removePaneFromParent());
 
         Platform.runLater(() -> {
-            subtaskName.requestFocus();
             populate();
+
             subtaskName.selectAll();
+            subtaskName.requestFocus();
         });
     }
 
@@ -76,8 +73,7 @@ public class PaneCreateUpdateSubTask extends TitledPane {
             return;
         }
 
-        Accordion parent = (Accordion) this.getParent();
-        parent.getPanes().remove(this);
+        removePaneFromParent();
 
         SubTaskLoader.getSubTaskLoader().load();
     }
@@ -89,6 +85,11 @@ public class PaneCreateUpdateSubTask extends TitledPane {
 
         newOrExistingSubtask = new SubTaskEntity(this.subtaskId).get();
         subtaskName.setText(newOrExistingSubtask.getName());
+    }
+
+    private void removePaneFromParent() {
+        Accordion parent = (Accordion) this.getParent();
+        parent.getPanes().remove(this);
     }
 
 }

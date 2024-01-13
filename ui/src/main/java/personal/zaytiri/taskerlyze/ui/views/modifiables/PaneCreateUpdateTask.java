@@ -8,16 +8,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
 
 import java.io.IOException;
 
 public class PaneCreateUpdateTask extends TitledPane {
     private final PaneCreateUpdateTaskDetails paneTaskDetails = new PaneCreateUpdateTaskDetails();
+    private final KeyBindable keyBinding;
     private int categoryId;
     private int taskId;
     @FXML
@@ -29,6 +29,8 @@ public class PaneCreateUpdateTask extends TitledPane {
 
     public PaneCreateUpdateTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-task.fxml"));
+
+        keyBinding = new KeyBindable();
 
         loader.setRoot(this);
         loader.setController(this);
@@ -74,27 +76,22 @@ public class PaneCreateUpdateTask extends TitledPane {
             return;
         }
 
-        Accordion parent = (Accordion) this.getParent();
-        parent.getPanes().remove(this);
+        removePaneFromParent();
 
         this.ifSuccessful.handle(new ActionEvent());
     }
 
     @FXML
     private void initialize() {
-        taskName.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-            if (ev.getCode() == KeyCode.ENTER) {
-                create();
-                ev.consume();
-            }
-        });
+        keyBinding.addEnterKeyBinding(taskName, evt -> create());
+        keyBinding.addEscapeKeyBinding(taskName, evt -> removePaneFromParent());
 
         Platform.runLater(() -> {
-            taskName.requestFocus();
             populate();
 
-            taskName.selectAll();
             this.setExpanded(true);
+            taskName.selectAll();
+            taskName.requestFocus();
         });
     }
 
@@ -108,4 +105,11 @@ public class PaneCreateUpdateTask extends TitledPane {
         paneTaskDetails.load();
         mainBorderPane.setCenter(paneTaskDetails);
     }
+
+    private void removePaneFromParent() {
+        Accordion parent = (Accordion) this.getParent();
+        parent.getPanes().remove(this);
+    }
+
+
 }

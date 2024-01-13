@@ -8,16 +8,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
 
 import java.io.IOException;
 
 public class PaneCreateUpdateQuestion extends TitledPane {
     private final PaneCreateUpdateQuestionDetails paneQuestionDetails = new PaneCreateUpdateQuestionDetails();
+    private final KeyBindable keyBinding;
     private QuestionEntity newOrExistingQuestion = new QuestionEntity();
     private int categoryId;
     private int questionId;
@@ -29,7 +29,7 @@ public class PaneCreateUpdateQuestion extends TitledPane {
 
     public PaneCreateUpdateQuestion() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-question.fxml"));
-
+        keyBinding = new KeyBindable();
         loader.setRoot(this);
         loader.setController(this);
 
@@ -51,7 +51,6 @@ public class PaneCreateUpdateQuestion extends TitledPane {
     public void setQuestionId(int taskId) {
         this.questionId = taskId;
     }
-
 
     private void create() {
         newOrExistingQuestion = paneQuestionDetails.getQuestion();
@@ -75,27 +74,22 @@ public class PaneCreateUpdateQuestion extends TitledPane {
             return;
         }
 
-        Accordion parent = (Accordion) this.getParent();
-        parent.getPanes().remove(this);
+        removePaneFromParent();
 
         this.ifSuccessful.handle(new ActionEvent());
     }
 
     @FXML
     private void initialize() {
-        questionName.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-            if (ev.getCode() == KeyCode.ENTER) {
-                create();
-                ev.consume();
-            }
-        });
+        keyBinding.addEnterKeyBinding(questionName, evt -> create());
+        keyBinding.addEscapeKeyBinding(questionName, evt -> removePaneFromParent());
 
         Platform.runLater(() -> {
-            questionName.requestFocus();
             populate();
 
-            questionName.selectAll();
             this.setExpanded(true);
+            questionName.selectAll();
+            questionName.requestFocus();
         });
     }
 
@@ -108,5 +102,10 @@ public class PaneCreateUpdateQuestion extends TitledPane {
         paneQuestionDetails.setQuestion(newOrExistingQuestion);
         paneQuestionDetails.load();
         mainBorderPane.setCenter(paneQuestionDetails);
+    }
+
+    private void removePaneFromParent() {
+        Accordion parent = (Accordion) this.getParent();
+        parent.getPanes().remove(this);
     }
 }

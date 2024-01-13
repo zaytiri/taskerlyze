@@ -6,15 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
 
 import java.io.IOException;
 
 public class TabCreateUpdateCategory extends Tab {
+    private final KeyBindable keyBinding;
     private CategoryEntity newCategory = new CategoryEntity();
     @FXML
     private TextField categoryName;
@@ -23,7 +23,7 @@ public class TabCreateUpdateCategory extends Tab {
 
     public TabCreateUpdateCategory() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/tab-create-update-category.fxml"));
-
+        keyBinding = new KeyBindable();
         loader.setRoot(this);
         loader.setController(this);
         try {
@@ -35,17 +35,13 @@ public class TabCreateUpdateCategory extends Tab {
 
     @FXML
     public void initialize() {
-        categoryName.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-            if (ev.getCode() == KeyCode.ENTER) {
-                createOrUpdate();
-                ev.consume();
-            }
-        });
+        keyBinding.addEnterKeyBinding(categoryName, evt -> create());
+        keyBinding.addEscapeKeyBinding(categoryName, evt -> removePaneFromParent());
 
         Platform.runLater(() -> {
             populate();
-            categoryName.requestFocus();
             categoryName.selectAll();
+            categoryName.requestFocus();
         });
     }
 
@@ -57,7 +53,7 @@ public class TabCreateUpdateCategory extends Tab {
         this.categoryId = categoryId;
     }
 
-    private void createOrUpdate() {
+    private void create() {
         newCategory
                 .setName(categoryName.getText());
 
@@ -70,8 +66,7 @@ public class TabCreateUpdateCategory extends Tab {
             return;
         }
 
-        TabPane parent = this.getTabPane();
-        parent.getTabs().remove(this);
+        removePaneFromParent();
 
         CategoryLoader.getCategoryLoader().load();
     }
@@ -83,6 +78,11 @@ public class TabCreateUpdateCategory extends Tab {
 
         newCategory = new CategoryEntity(this.categoryId).get();
         categoryName.setText(newCategory.getName());
+    }
+
+    private void removePaneFromParent() {
+        TabPane parent = this.getTabPane();
+        parent.getTabs().remove(this);
     }
 
 }
