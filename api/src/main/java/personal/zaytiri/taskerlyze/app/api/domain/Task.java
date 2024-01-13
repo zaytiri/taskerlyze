@@ -141,6 +141,26 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return this;
     }
 
+    public List<String> getTaskAchievementsFromDay() {
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("completed_at", new Pair<>("=", this.completedAt));
+
+        List<Task> results = get(filters, null);
+
+        if (results.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<String> achievements = new ArrayList<>();
+        for (Task t : results) {
+            if (t.getAchieved().isEmpty()) {
+                continue;
+            }
+            achievements.add(t.getAchieved());
+        }
+        return achievements;
+    }
+
     public List<Task> getTasksByCategoryAndCompletedAtDate() {
         Response response = repository.getTasksByCategoryAndCompletedAtDate(this.categoryId, this.completedAt);
 
@@ -185,6 +205,11 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return this;
     }
 
+    @Override
+    protected Task getInjectedComponent(AppComponent component) {
+        return component.getTask();
+    }
+
     public boolean setTaskStatus(boolean done) {
         List<Pair<String, Object>> sets = new ArrayList<>();
 
@@ -203,10 +228,5 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         }
 
         return response.isSuccess();
-    }
-
-    @Override
-    protected Task getInjectedComponent(AppComponent component) {
-        return component.getTask();
     }
 }

@@ -11,6 +11,28 @@ import java.util.List;
 
 public class TaskController extends Controller<Task> {
     /**
+     * Gets all achievements from all tasks in a specific day.
+     *
+     * @param date which is the date to get all the achievements from.
+     * @return OperationResult<String>
+     */
+    public OperationResult<List<String>> getTaskAchievementsFromDay(LocalDate date) {
+        Task task = getEntityInstance();
+        task.setCompletedAt(date);
+
+        List<String> achievements = task.getTaskAchievementsFromDay();
+
+        MessageResult message = new MessageResult();
+        if (achievements.isEmpty()) {
+            message.setCode(CodeResult.NOT_FOUND);
+        } else {
+            message.setCode(CodeResult.FOUND);
+        }
+
+        return new OperationResult<>(!achievements.isEmpty(), message, achievements);
+    }
+
+    /**
      * Gets all tasks associated to a category.
      *
      * @param categoryId which is the identifier for a specific category.
