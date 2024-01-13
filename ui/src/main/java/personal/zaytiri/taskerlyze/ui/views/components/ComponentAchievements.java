@@ -7,7 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
-import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ComponentAchievements extends TitledPane implements PropertyChangeListener {
     private final List<String> achievements = new ArrayList<>();
@@ -39,27 +41,21 @@ public class ComponentAchievements extends TitledPane implements PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if ((evt.getNewValue() instanceof LocalDate)) {
-            this.activeDay = (LocalDate) evt.getNewValue();
+        if (!Objects.equals(evt.getPropertyName(), "toReload")) {
+            return;
         }
 
-        if ((evt.getNewValue() instanceof List)) {
-            List<TaskEntity> tasks = (List<TaskEntity>) evt.getNewValue();
-            achievements.clear();
-            for (TaskEntity t : tasks) {
-                if (t.getAchieved().isEmpty()) {
-                    continue;
-                }
-                achievements.add(t.getAchieved());
-            }
-
-        }
+        this.activeDay = UiGlobalFilter.getUiGlobalFilter().getActiveDay();
+        achievements.clear();
+        achievements.addAll(new TaskLoader().loadAchievements(
+                this.activeDay
+        ));
         showAchievements();
     }
 
     @FXML
     private void initialize() {
-
+        UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
     }
 
     private boolean isNotPast() {
