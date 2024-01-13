@@ -12,6 +12,8 @@ import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 
 import java.io.IOException;
 
@@ -69,13 +71,14 @@ public class PaneCreateUpdateTask extends TitledPane {
 
         Pair<TaskEntity, Pair<Boolean, String>> response = newOrExistingTask.createOrUpdate();
         boolean isSuccessfulFromApi = response.getValue().getKey();
-        String errorMessageFromApi = response.getValue().getValue();
+        String messageFromApi = response.getValue().getValue();
 
         if (!isSuccessfulFromApi) {
-            System.out.println(errorMessageFromApi);
+            UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.ERROR, messageFromApi);
             return;
         }
 
+        UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.NEUTRAL, messageFromApi);
         removePaneFromParent();
 
         this.ifSuccessful.handle(new ActionEvent());

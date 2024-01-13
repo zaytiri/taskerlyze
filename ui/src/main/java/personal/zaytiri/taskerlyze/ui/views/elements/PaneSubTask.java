@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Clipboard;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
 
 import java.io.IOException;
 
@@ -89,7 +87,12 @@ public class PaneSubTask extends TitledPane {
     }
 
     private void addMoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingSubTask(getSubTaskId()));
+        this.contextMenu.addMenuItem("Move", event -> {
+            if (PopupAction.showDialogForMovingSubTask(getSubTaskId())) {
+                ifSuccessful.handle(event);
+                UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another task.");
+            }
+        });
     }
 
     private void addRemoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {

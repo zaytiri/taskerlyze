@@ -10,6 +10,8 @@ import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 
 import java.io.IOException;
 
@@ -66,13 +68,14 @@ public class PaneCreateUpdateSubTask extends TitledPane {
 
         Pair<SubTaskEntity, Pair<Boolean, String>> response = newOrExistingSubtask.createOrUpdate();
         boolean isSuccessfulFromApi = response.getValue().getKey();
-        String errorMessageFromApi = response.getValue().getValue();
+        String messageFromApi = response.getValue().getValue();
 
         if (!isSuccessfulFromApi) {
-            System.out.println(errorMessageFromApi);
+            UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.ERROR, messageFromApi);
             return;
         }
 
+        UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.NEUTRAL, messageFromApi);
         removePaneFromParent();
 
         SubTaskLoader.getSubTaskLoader().load();

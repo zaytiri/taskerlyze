@@ -5,9 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -89,6 +87,7 @@ public class PaneQuestion extends TitledPane {
         this.contextMenu.addMenuItem("Move", event -> {
             if (PopupAction.showDialogForMovingQuestion(getQuestionId())) {
                 reloadQuestions();
+                UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another category. Please manual refresh new category.");
             }
         });
     }
@@ -100,6 +99,7 @@ public class PaneQuestion extends TitledPane {
             question.setCategoryId(0);
             if (Boolean.TRUE.equals(question.update().getValue().getKey())) {
                 reloadQuestions();
+                UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to Archive. Please manual refresh Archive.");
             }
         });
     }
