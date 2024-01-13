@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml"
+         xmlns="http://javafx.com/javafx" type="javafx.scene.control.TitledPane" fx:id="messageTitledPane"
+         stylesheets="@../css/achieved-view.css"
+         expanded="false">
+    <graphic>
+        <Label id="name" text="Message"/>
+    </graphic>
+    <AnchorPane>
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label id="achieved-title" fx:id="messageType"/>
+            <VBox id="achieved-content" alignment="CENTER_LEFT" fx:id="messageContent">
+                <!-- list of labels goes here -->
+            </VBox>
+        </VBox>
+    </AnchorPane>
+</fx:root>
