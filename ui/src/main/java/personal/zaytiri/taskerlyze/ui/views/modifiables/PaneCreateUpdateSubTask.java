@@ -23,6 +23,8 @@ public class PaneCreateUpdateSubTask extends TitledPane {
     private int taskId;
     private int subtaskId;
     private boolean isSuccessful;
+    @FXML
+    private TitledPane mainSubTaskTitledPane;
 
     public PaneCreateUpdateSubTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-sub-task.fxml"));
@@ -38,8 +40,8 @@ public class PaneCreateUpdateSubTask extends TitledPane {
 
     @FXML
     public void initialize() {
-        keyBinding.addEnterKeyBinding(subtaskName, evt -> create());
-        keyBinding.addEscapeKeyBinding(subtaskName, evt -> removePaneFromParent());
+        keyBinding.addEnterKeyBinding(mainSubTaskTitledPane, evt -> create());
+        keyBinding.addEscapeKeyBinding(mainSubTaskTitledPane, evt -> removePaneFromParent());
 
         Platform.runLater(() -> {
             populate();

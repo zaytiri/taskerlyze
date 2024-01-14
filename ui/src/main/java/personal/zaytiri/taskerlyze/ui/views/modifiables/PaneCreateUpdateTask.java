@@ -28,6 +28,8 @@ public class PaneCreateUpdateTask extends TitledPane {
     @FXML
     private BorderPane mainBorderPane;
     private EventHandler<ActionEvent> ifSuccessful;
+    @FXML
+    private TitledPane mainTaskTitledPane;
 
     public PaneCreateUpdateTask() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/pane-create-update-task.fxml"));
@@ -86,8 +88,8 @@ public class PaneCreateUpdateTask extends TitledPane {
 
     @FXML
     private void initialize() {
-        keyBinding.addEnterKeyBinding(taskName, evt -> create());
-        keyBinding.addEscapeKeyBinding(taskName, evt -> removePaneFromParent());
+        keyBinding.addEnterKeyBinding(mainTaskTitledPane, evt -> create());
+        keyBinding.addEscapeKeyBinding(mainTaskTitledPane, evt -> removePaneFromParent());
 
         Platform.runLater(() -> {
             populate();

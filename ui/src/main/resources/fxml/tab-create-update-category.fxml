@@ -7,7 +7,7 @@
 <?import personal.zaytiri.taskerlyze.ui.views.components.ComponentTasks?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.control.Tab">
     <graphic>
-        <TextField fx:id="categoryName"></TextField>
+        <TextField fx:id="categoryName"/>
     </graphic>
     <AnchorPane prefWidth="427.0">
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true"

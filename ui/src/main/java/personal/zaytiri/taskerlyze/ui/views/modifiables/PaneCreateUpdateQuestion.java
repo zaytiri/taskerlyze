@@ -20,6 +20,8 @@ import java.io.IOException;
 public class PaneCreateUpdateQuestion extends TitledPane {
     private final PaneCreateUpdateQuestionDetails paneQuestionDetails = new PaneCreateUpdateQuestionDetails();
     private final KeyBindable keyBinding;
+    @FXML
+    private TitledPane mainQuestionTitledPane;
     private QuestionEntity newOrExistingQuestion = new QuestionEntity();
     private int categoryId;
     private int questionId;
@@ -83,8 +85,8 @@ public class PaneCreateUpdateQuestion extends TitledPane {
 
     @FXML
     private void initialize() {
-        keyBinding.addEnterKeyBinding(questionName, evt -> create());
-        keyBinding.addEscapeKeyBinding(questionName, evt -> removePaneFromParent());
+        keyBinding.addEnterKeyBinding(mainQuestionTitledPane, evt -> create());
+        keyBinding.addEscapeKeyBinding(mainQuestionTitledPane, evt -> removePaneFromParent());
 
         Platform.runLater(() -> {
             populate();

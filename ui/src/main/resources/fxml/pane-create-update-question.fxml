@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.*?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="mainTaskTitledPane" stylesheets="@../css/tasks-tab-view.css"
+<fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="mainQuestionTitledPane" stylesheets="@../css/tasks-tab-view.css"
          type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/20.0.1">
     <graphic>
         <AnchorPane>
