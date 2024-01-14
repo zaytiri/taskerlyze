@@ -78,7 +78,7 @@ public class PaneCreateUpdateSubTask extends TitledPane {
         UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.NEUTRAL, messageFromApi);
         removePaneFromParent();
 
-        SubTaskLoader.getSubTaskLoader().load();
+
     }
 
     private void populate() {
@@ -93,6 +93,7 @@ public class PaneCreateUpdateSubTask extends TitledPane {
     private void removePaneFromParent() {
         Accordion parent = (Accordion) this.getParent();
         parent.getPanes().remove(this);
+        SubTaskLoader.getSubTaskLoader().load();
     }
 
 }

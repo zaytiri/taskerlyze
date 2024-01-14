@@ -71,7 +71,7 @@ public class TabCreateUpdateCategory extends Tab {
         UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.NEUTRAL, messageFromApi);
         removePaneFromParent();
 
-        CategoryLoader.getCategoryLoader().load();
+
     }
 
     private void populate() {
@@ -86,6 +86,7 @@ public class TabCreateUpdateCategory extends Tab {
     private void removePaneFromParent() {
         TabPane parent = this.getTabPane();
         parent.getTabs().remove(this);
+        CategoryLoader.getCategoryLoader().load();
     }
 
 }

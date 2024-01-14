@@ -81,7 +81,7 @@ public class PaneCreateUpdateTask extends TitledPane {
         UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.NEUTRAL, messageFromApi);
         removePaneFromParent();
 
-        this.ifSuccessful.handle(new ActionEvent());
+
     }
 
     @FXML
@@ -112,6 +112,7 @@ public class PaneCreateUpdateTask extends TitledPane {
     private void removePaneFromParent() {
         Accordion parent = (Accordion) this.getParent();
         parent.getPanes().remove(this);
+        this.ifSuccessful.handle(new ActionEvent());
     }
 
 
