@@ -7,6 +7,7 @@ import personal.zaytiri.taskerlyze.ui.logic.entities.Entity;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public abstract class DialogMoveEntity<ESearch extends Entity, T> extends Dialog<T> {
@@ -32,8 +33,14 @@ public abstract class DialogMoveEntity<ESearch extends Entity, T> extends Dialog
     @FXML
     public void initialize() {
         overrideIdentifiableItemDisplayInListView();
-        setActionOnSearchButton();
         setActionOnMoveButton();
+
+        // search while the user is typing to show a realtime list
+        searchText.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!Objects.equals(oldValue, newValue) || newValue.isEmpty()) {
+                search();
+            }
+        });
     }
 
     public void setEntityToBeMoved(int entityIdToBeMoved) {
@@ -63,24 +70,21 @@ public abstract class DialogMoveEntity<ESearch extends Entity, T> extends Dialog
         });
     }
 
-    private void setActionOnSearchButton() {
-        searchButton.setOnAction(event -> {
-            String textToSearch = searchText.getText();
-            if (textToSearch.isEmpty()) {
-                return;
-            }
+    private void search() {
+        String textToSearch = searchText.getText();
+        if (textToSearch.isEmpty()) {
+            return;
+        }
 
-            List<Pair<Integer, String>> foundResults = entityToBeFound.findBySubString(textToSearch);
-            itemsList.getItems().clear();
+        List<Pair<Integer, String>> foundResults = entityToBeFound.findBySubString(textToSearch);
+        itemsList.getItems().clear();
 
-            for (Pair<Integer, String> result : foundResults) {
-                IdentifiableItem<String> item = new IdentifiableItem<>();
-                item.setItemId(result.getKey());
-                item.setItemDisplay(result.getValue());
+        for (Pair<Integer, String> result : foundResults) {
+            IdentifiableItem<String> item = new IdentifiableItem<>();
+            item.setItemId(result.getKey());
+            item.setItemDisplay(result.getValue());
 
-                itemsList.getItems().add(item);
-            }
-
-        });
+            itemsList.getItems().add(item);
+        }
     }
 }
