@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -106,10 +107,15 @@ public class PaneQuestion extends TitledPane {
 
     private void addRemoveQuestionOptionForContextMenu() {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            QuestionEntity question = new QuestionEntity(getQuestionId());
-            if (question.remove()) {
-                reloadQuestions();
-            }
+            DialogConfirmation dialog = new DialogConfirmation();
+            dialog.setMessage("You are about to remove the following question: '" + getQuestionName() + "'.");
+            dialog.setAfterSuccessful(evt -> {
+                QuestionEntity question = new QuestionEntity(getQuestionId());
+                if (question.remove()) {
+                    reloadQuestions();
+                }
+            });
+            dialog.showDialog();
         });
     }
 

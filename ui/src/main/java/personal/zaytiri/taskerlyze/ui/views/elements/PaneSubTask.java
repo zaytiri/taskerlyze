@@ -97,10 +97,15 @@ public class PaneSubTask extends TitledPane {
 
     private void addRemoveSubtaskOptionForContextMenu() {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            SubTaskEntity subtask = new SubTaskEntity(getSubTaskId());
-            if (subtask.remove()) {
-                ifSuccessful.handle(event);
-            }
+            DialogConfirmation dialog = new DialogConfirmation();
+            dialog.setMessage("You are about to remove the following sub-task: '" + getSubTaskName() + "'.");
+            dialog.setAfterSuccessful(evt -> {
+                SubTaskEntity subtask = new SubTaskEntity(getSubTaskId());
+                if (subtask.remove()) {
+                    reloadSubTasks();
+                }
+            });
+            dialog.showDialog();
         });
     }
 

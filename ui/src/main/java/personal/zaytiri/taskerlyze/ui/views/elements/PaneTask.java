@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;
@@ -84,9 +85,7 @@ public class PaneTask extends TitledPane {
 
 
     private void addAddTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Add new task", event -> {
-            PopupAction.showDialogForAddingTask((Accordion) this.getParent(), UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId(), evt -> reloadTasks());
-        });
+        this.contextMenu.addMenuItem("Add new task", event -> PopupAction.showDialogForAddingTask((Accordion) this.getParent(), UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId(), evt -> reloadTasks()));
     }
 
     private void addCopyTextOptionForContextMenu() {
@@ -99,9 +98,7 @@ public class PaneTask extends TitledPane {
     }
 
     private void addEditTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Edit", event -> {
-            PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent(), evt -> reloadTasks());
-        });
+        this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingTask(getTaskId(), this, (Accordion) this.getParent(), evt -> reloadTasks()));
     }
 
     private void addMoveTaskOptionForContextMenu() {
@@ -137,10 +134,15 @@ public class PaneTask extends TitledPane {
 
     private void addRemoveTaskOptionForContextMenu() {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            TaskEntity task = new TaskEntity(getTaskId());
-            if (task.remove()) {
-                reloadTasks();
-            }
+            DialogConfirmation dialog = new DialogConfirmation();
+            dialog.setMessage("You are about to remove the following task: '" + getTaskName() + "'.");
+            dialog.setAfterSuccessful(evt -> {
+                TaskEntity task = new TaskEntity(getTaskId());
+                if (task.remove()) {
+                    reloadTasks();
+                }
+            });
+            dialog.showDialog();
         });
     }
 
