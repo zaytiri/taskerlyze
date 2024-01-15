@@ -1,19 +1,19 @@
 package personal.zaytiri.taskerlyze.ui.views.elements;
 
 import javafx.beans.property.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.io.IOException;
 
 public class PaneSubTask extends TitledPane {
     private final IntegerProperty taskId = new SimpleIntegerProperty();
-    private final StringProperty taskName = new SimpleStringProperty();
+    private final StringProperty subTaskName = new SimpleStringProperty();
     private final BooleanProperty isTaskDone = new SimpleBooleanProperty();
     private final IntegerProperty subTaskId = new SimpleIntegerProperty();
     private final MenuOptions contextMenu;
@@ -43,6 +43,15 @@ public class PaneSubTask extends TitledPane {
         this.subTaskId.set(subTaskId);
     }
 
+    public String getSubTaskName() {
+        return subTaskName.get();
+    }
+
+    public void setSubTaskName(String subTaskName) {
+        this.subTaskName.set(subTaskName);
+        subTask.setText(this.subTaskName.get());
+    }
+
     public int getTaskId() {
         return taskId.get();
     }
@@ -51,22 +60,13 @@ public class PaneSubTask extends TitledPane {
         this.taskId.set(taskId);
     }
 
-    public String getTaskName() {
-        return taskName.get();
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName.set(taskName);
-        subTask.setText(this.taskName.get());
-    }
-
     @FXML
     public void initialize() {
         setCheckBoxOnAction();
     }
 
-    public void setContextMenu(EventHandler<ActionEvent> ifSuccessful) {
-        setContextMenu(getTabContextMenu(ifSuccessful));
+    public void setContextMenu() {
+        setContextMenu(getTabContextMenu());
     }
 
     public void setIsTaskDone(boolean isTaskDone) {
@@ -79,23 +79,23 @@ public class PaneSubTask extends TitledPane {
     }
 
     private void addCopyTextOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Copy text", event -> Clipboard.addTo(getTaskName()));
+        this.contextMenu.addMenuItem("Copy text", event -> Clipboard.addTo(getSubTaskName()));
     }
 
     private void addEditSubtaskOptionForContextMenu() {
         this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingSubTask(getSubTaskId(), this, (Accordion) this.getParent(), getTaskId()));
     }
 
-    private void addMoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+    private void addMoveSubtaskOptionForContextMenu() {
         this.contextMenu.addMenuItem("Move", event -> {
             if (PopupAction.showDialogForMovingSubTask(getSubTaskId())) {
-                ifSuccessful.handle(event);
+                reloadSubTasks();
                 UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another task.");
             }
         });
     }
 
-    private void addRemoveSubtaskOptionForContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+    private void addRemoveSubtaskOptionForContextMenu() {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             SubTaskEntity subtask = new SubTaskEntity(getSubTaskId());
             if (subtask.remove()) {
@@ -104,14 +104,19 @@ public class PaneSubTask extends TitledPane {
         });
     }
 
-    private ContextMenu getTabContextMenu(EventHandler<ActionEvent> ifSuccessful) {
+    private ContextMenu getTabContextMenu() {
         addAddSubtaskOptionForContextMenu();
         addEditSubtaskOptionForContextMenu();
-        addMoveSubtaskOptionForContextMenu(ifSuccessful);
+        addMoveSubtaskOptionForContextMenu();
         addCopyTextOptionForContextMenu();
-        addRemoveSubtaskOptionForContextMenu(ifSuccessful);
-        
+        addRemoveSubtaskOptionForContextMenu();
+
         return contextMenu.buildContextMenu();
+    }
+
+    private void reloadSubTasks() {
+        SubTaskLoader.getSubTaskLoader().setTaskId(getTaskId());
+        SubTaskLoader.getSubTaskLoader().load();
     }
 
     private void setCheckBoxOnAction() {

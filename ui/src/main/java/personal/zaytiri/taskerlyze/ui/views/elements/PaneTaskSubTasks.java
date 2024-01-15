@@ -63,15 +63,12 @@ public class PaneTaskSubTasks extends Accordion implements PropertyChangeListene
 
         for (SubTaskEntity st : subTasks) {
             PaneSubTask comp = new PaneSubTask();
-            comp.setTaskName(st.getName());
+            comp.setSubTaskName(st.getName());
             comp.setSubTaskId(st.getId());
             comp.setIsTaskDone(st.isTaskDone());
             comp.setTaskId(st.getTaskId());
 
-            comp.setContextMenu(event -> {
-                SubTaskLoader.getSubTaskLoader().setTaskId(st.getTaskId());
-                SubTaskLoader.getSubTaskLoader().load();
-            });
+            comp.setContextMenu();
 
             panes.add(comp);
         }
