@@ -29,16 +29,16 @@ public class MessageResult {
     private void getMessageResult() {
 
         switch (this.code) {
-            case FOUND -> this.message = "record found with success.";
-            case CREATED -> this.message = "record created with success.";
-            case UPDATED -> this.message = "record updated with success.";
-            case DELETED -> this.message = "record deleted with success. can be recovered in the trash section.";
-            case NOT_FOUND -> this.message = "record not found.";
-            case NOT_CREATED -> this.message = "record not created.";
-            case NOT_UPDATED -> this.message = "record not updated.";
-            case NOT_DELETED -> this.message = "record not deleted.";
-            case SUCCESS -> this.message = "the operation was successful.";
-            case FAIL -> this.message = "the operation failed.";
+            case FOUND -> this.message = "Entity found with success.";
+            case CREATED -> this.message = "New entity created with success.";
+            case UPDATED -> this.message = "Entity updated with success.";
+            case DELETED -> this.message = "Entity deleted with success. Can be recovered in the trash section.";
+            case NOT_FOUND -> this.message = "Entity not found.";
+            case NOT_CREATED -> this.message = "Entity not created.";
+            case NOT_UPDATED -> this.message = "Entity not updated.";
+            case NOT_DELETED -> this.message = "Entity not deleted.";
+            case SUCCESS -> this.message = "The operation was successful.";
+            case FAIL -> this.message = "The operation failed.";
         }
     }
 }
