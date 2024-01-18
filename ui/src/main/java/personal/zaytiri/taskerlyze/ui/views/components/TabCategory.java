@@ -86,6 +86,13 @@ public class TabCategory extends Tab {
         this.contextMenu.addMenuItem("Edit", event -> PopupAction.showDialogForEditingCategory(this.getTabPane(), this, getCategoryId()));
     }
 
+    private void addRefreshCategoryOptionForContextMenu() {
+        this.contextMenu.addMenuItem("Refresh tasks", event -> {
+            this.currentView.setReload(true);
+            this.currentView.loadView();
+        });
+    }
+
     private void addRemoveCategoryOptionForContextMenu() {
         this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
             DialogConfirmation dialog = new DialogConfirmation();
@@ -103,6 +110,7 @@ public class TabCategory extends Tab {
     private ContextMenu getTabContextMenu() {
         addAddCategoryOptionForContextMenu();
         addEditCategoryOptionForContextMenu();
+        addRefreshCategoryOptionForContextMenu();
         addRemoveCategoryOptionForContextMenu();
 
         return contextMenu.buildContextMenu();
