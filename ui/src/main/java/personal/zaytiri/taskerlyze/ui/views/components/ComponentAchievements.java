@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
-import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.AchievementsLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 
 import java.beans.PropertyChangeEvent;
@@ -47,9 +47,7 @@ public class ComponentAchievements extends TitledPane implements PropertyChangeL
 
         this.activeDay = UiGlobalFilter.getUiGlobalFilter().getActiveDay();
         achievements.clear();
-        achievements.addAll(new TaskLoader().loadAchievements(
-                this.activeDay
-        ));
+        achievements.addAll(new AchievementsLoader(this.activeDay).load());
         showAchievements();
     }
 
