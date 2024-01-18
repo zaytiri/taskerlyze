@@ -5,7 +5,10 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Schema;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -83,7 +86,17 @@ public class DbConnection {
     }
 
     private String getDbConnectionPath() {
-        String currentDirectory = Path.of("").toAbsolutePath().toString();
-        return currentDirectory + "\\src\\main\\resources\\";
+        String homeDir = System.getProperty("user.home");
+
+        System.out.println("User Home Directory is: " + homeDir);
+
+        Path path = Paths.get(homeDir + "/taskerlyze/data");
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(path.toAbsolutePath());
+        return path.toAbsolutePath() + "\\";
     }
 }
