@@ -16,4 +16,6 @@ public abstract class Categorable extends AnchorPane {
     public abstract Categorable getNewInstance();
 
     public abstract void loadView();
+
+    public abstract void setReload(boolean toReload);
 }

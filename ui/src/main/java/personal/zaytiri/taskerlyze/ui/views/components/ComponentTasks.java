@@ -77,9 +77,13 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
         setReload(false);
     }
 
+    public void setReload(boolean toReload) {
+        reloadUiElements = toReload;
+    }
+
     @FXML
     public void initialize() {
-        cache = new Cache<PaneTask>();
+        cache = new Cache<>();
         UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
         this.notFoundMessage.setContextMenu(getTabContextMenu());
     }
@@ -97,10 +101,6 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
 
         setReload((boolean) evt.getNewValue());
         loadView();
-    }
-
-    public void setReload(boolean toReload) {
-        reloadUiElements = toReload;
     }
 
     private void addAddTaskOptionForContextMenu() {

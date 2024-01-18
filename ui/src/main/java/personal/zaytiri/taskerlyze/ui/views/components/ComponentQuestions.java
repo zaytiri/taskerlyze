@@ -77,9 +77,13 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
         setReload(false);
     }
 
+    public void setReload(boolean toReload) {
+        reloadUiElements = toReload;
+    }
+
     @FXML
     public void initialize() {
-        cache = new Cache<PaneQuestion>();
+        cache = new Cache<>();
         UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
         this.notFoundMessage.setContextMenu(getTabContextMenu());
     }
@@ -121,10 +125,6 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
 
             paneQuestions.add(comp);
         }
-    }
-
-    public void setReload(boolean toReload) {
-        reloadUiElements = toReload;
     }
 
     private void addAddTaskOptionForContextMenu() {
