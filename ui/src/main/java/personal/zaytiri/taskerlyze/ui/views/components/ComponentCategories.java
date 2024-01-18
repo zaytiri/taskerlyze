@@ -8,6 +8,7 @@ import javafx.event.EventDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -128,14 +129,19 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
         defaultTab.setGraphic(defaultTabIcon);
         defaultTab.setId("default-tab");
         defaultTab.setCategoryId(0);
-        defaultTab.setContextMenu(getDefaultTabContextMenu(categorableForDefaultTab));
+
+        var refreshTasks = new MenuItem();
+        refreshTasks.setText("Refresh Archive tasks");
+        refreshTasks.setOnAction(event -> {
+            categorableForDefaultTab.setReload(true);
+            categorableForDefaultTab.loadView();
+        });
+
+        var contextMenuForDefaultTab = new ContextMenu();
+        contextMenuForDefaultTab.getItems().add(refreshTasks);
+
+        defaultTab.setContextMenu(contextMenuForDefaultTab);
         return defaultTab;
-    }
-
-    private ContextMenu getDefaultTabContextMenu(Categorable categorableForDefaultTab) {
-        addRefreshCategoryOptionForContextMenu(categorableForDefaultTab);
-
-        return contextMenu.buildContextMenu();
     }
 
     private ContextMenu getTabContextMenu() {
