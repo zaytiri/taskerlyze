@@ -54,9 +54,7 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
 
     public void populateCategoryView() {
         ObservableList<Tab> tabs = mainTabPane.getTabs();
-        tabs.clear();
-
-        tabs.add(getDefaultTab());
+        tabs.removeIf(tab -> !Objects.equals(tab.getId(), "default-tab"));
 
         for (CategoryEntity category : categories) {
             TabCategory newTab = new TabCategory(this.currentView.getNewInstance());
@@ -106,6 +104,7 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
 
     public void setView(Categorable currentView) {
         this.currentView = currentView;
+        mainTabPane.getTabs().add(getDefaultTab());
         CategoryLoader.getCategoryLoader().load();
     }
 
@@ -113,15 +112,30 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
         this.contextMenu.addMenuItem("Add new category", event -> PopupAction.showDialogForAddingCategory(mainTabPane));
     }
 
+    private void addRefreshCategoryOptionForContextMenu(Categorable categorable) {
+        this.contextMenu.addMenuItem("Refresh Archive tasks", event -> {
+            categorable.setReload(true);
+            categorable.loadView();
+        });
+    }
+
     private TabCategory getDefaultTab() {
         ImageView defaultTabIcon = new ImageView(new Image("/icons/archive.png"));
         defaultTabIcon.setFitWidth(20);
         defaultTabIcon.setFitHeight(20);
-        TabCategory defaultTab = new TabCategory(this.currentView.getNewInstance());
+        var categorableForDefaultTab = this.currentView.getNewInstance();
+        TabCategory defaultTab = new TabCategory(categorableForDefaultTab);
         defaultTab.setGraphic(defaultTabIcon);
         defaultTab.setId("default-tab");
         defaultTab.setCategoryId(0);
+        defaultTab.setContextMenu(getDefaultTabContextMenu(categorableForDefaultTab));
         return defaultTab;
+    }
+
+    private ContextMenu getDefaultTabContextMenu(Categorable categorableForDefaultTab) {
+        addRefreshCategoryOptionForContextMenu(categorableForDefaultTab);
+
+        return contextMenu.buildContextMenu();
     }
 
     private ContextMenu getTabContextMenu() {
