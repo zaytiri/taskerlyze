@@ -19,10 +19,10 @@ dependencies {
     annotationProcessor('io.github.jbock-java:dapper-compiler:2.41.2')
 
     // sqlite jdbc database
-    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.41.2.1'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.41.2.2'
 
     // convert xml to json and vice versa
-    implementation 'org.json:json:20230227'
+    implementation 'org.json:json:20231013'
     implementation 'com.github.javadev:underscore17:1.46'
 }
 
