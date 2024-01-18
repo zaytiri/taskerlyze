@@ -62,8 +62,8 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
             return;
         }
 
-        var loader = new QuestionLoader();
-        var questions = loader.load(activeCategoryId, activeDay);
+        var loader = new QuestionLoader(activeCategoryId, activeDay);
+        var questions = loader.load();
 
         if (questions == null) {
             return;

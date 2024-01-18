@@ -9,9 +9,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskLoader {
+public class TaskLoader implements Loader<TaskEntity> {
 
-    public List<TaskEntity> load(int categoryId, LocalDate date) {
+    private final int categoryId;
+    private final LocalDate date;
+
+    public TaskLoader(int categoryId, LocalDate date) {
+        this.categoryId = categoryId;
+        this.date = date;
+    }
+
+    @Override
+    public List<TaskEntity> load() {
         List<TaskEntity> tasksToBeReturned = new ArrayList<>();
 
         OperationResult<List<Task>> taskResult = new TaskController().getTasksByCategoryAndCompletedAtDate(categoryId, date);

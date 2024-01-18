@@ -62,8 +62,8 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
             return;
         }
 
-        var loader = new TaskLoader();
-        var tasks = loader.load(activeCategoryId, activeDay);
+        var loader = new TaskLoader(activeCategoryId, activeDay);
+        var tasks = loader.load();
 
         if (tasks == null) {
             return;

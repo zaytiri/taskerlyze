@@ -9,8 +9,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionLoader {
-    public List<QuestionEntity> load(int categoryId, LocalDate date) {
+public class QuestionLoader implements Loader<QuestionEntity> {
+    private final int categoryId;
+    private final LocalDate date;
+
+    public QuestionLoader(int categoryId, LocalDate date) {
+        this.categoryId = categoryId;
+        this.date = date;
+    }
+
+    @Override
+    public List<QuestionEntity> load() {
         OperationResult<List<Question>> questionResult = new QuestionController().getQuestionsByCategoryAndAnsweredAtDate(categoryId, date);
 
         List<QuestionEntity> questionToBeReturned = new ArrayList<>();
