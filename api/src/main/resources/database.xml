@@ -168,8 +168,8 @@
             <default>null</default>
         </column>
     </table>
-    <table> <!-- table configurations -->
-        <name>configurations</name>
+    <table> <!-- table settings -->
+        <name>settings</name>
         <column>
             <name>id</name>
             <type>integer</type>
