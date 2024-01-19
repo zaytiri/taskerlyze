@@ -3,21 +3,18 @@ package personal.zaytiri.taskerlyze.ui.logic.loaders;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskLoader implements Loader<TaskEntity> {
 public class TaskLoader implements Loader<TaskEntity>, Findable<Pair<Integer, String>> {
 
-    private final int categoryId;
-    private final LocalDate date;
+    private int categoryId;
+    private LocalDate date;
 
-    public TaskLoader(int categoryId, LocalDate date) {
-        this.categoryId = categoryId;
-        this.date = date;
     @Override
     public List<Pair<Integer, String>> find(String subString) {
         OperationResult<List<Task>> result = new TaskController().findNameBySubString(subString);
@@ -38,5 +35,13 @@ public class TaskLoader implements Loader<TaskEntity>, Findable<Pair<Integer, St
         }
 
         return tasksToBeReturned;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

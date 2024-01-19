@@ -10,13 +10,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-    private final int categoryId;
-    private final LocalDate date;
 public class QuestionLoader implements Loader<QuestionEntity>, Findable<Pair<Integer, String>> {
+    private int categoryId;
+    private LocalDate date;
 
-    public QuestionLoader(int categoryId, LocalDate date) {
-        this.categoryId = categoryId;
-        this.date = date;
     @Override
     public List<Pair<Integer, String>> find(String subString) {
         OperationResult<List<Question>> result = new QuestionController().findNameBySubString(subString);
@@ -36,5 +33,13 @@ public class QuestionLoader implements Loader<QuestionEntity>, Findable<Pair<Int
             questionToBeReturned.add(new QuestionEntity(question));
         }
         return questionToBeReturned;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
