@@ -35,12 +35,10 @@ public class DialogConfirmation extends Dialog<Boolean> {
     }
 
     @Override
-    public void showDialog() {
+    protected void setOptionsBeforeShow() {
         buttonYes.setOnAction(e -> {
             this.afterSuccessful.handle(new ActionEvent());
             closeDialog();
         });
-
-        show();
     }
 }

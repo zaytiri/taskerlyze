@@ -47,13 +47,11 @@ public abstract class DialogMoveEntity<T> extends Dialog<T> {
         this.entityIdToBeMoved = entityIdToBeMoved;
     }
 
-    @Override
-    public void showDialog() {
-
-        show();
-    }
-
     protected abstract void setActionOnMoveButton();
+
+    @Override
+    protected void setOptionsBeforeShow() {
+    }
 
     private void overrideIdentifiableItemDisplayInListView() {
         itemsList.setCellFactory(param -> new ListCell<>() {

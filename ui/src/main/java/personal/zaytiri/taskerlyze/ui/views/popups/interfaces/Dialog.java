@@ -40,11 +40,16 @@ public abstract class Dialog<T> extends AnchorPane {
         this.id = id;
     }
 
-    public abstract void showDialog();
+    public void showDialog() {
+        setOptionsBeforeShow();
+        show();
+    }
 
     protected void closeDialog() {
         stage.close();
     }
+
+    protected abstract void setOptionsBeforeShow();
 
     protected void show() {
         setStageSize();
