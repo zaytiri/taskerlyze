@@ -1,4 +1,4 @@
-# Taskerlyze - Task Management
+# Taskerlyze - Task Management [WIP]
 
 ## Table of Contents
 
