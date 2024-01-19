@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddAchieved;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.awt.*;
@@ -188,6 +189,14 @@ public class PaneTask extends TitledPane {
             TaskEntity task = new TaskEntity(getTaskId())
                     .setTaskDone(checkBox.isSelected());
             task.setDone();
+
+            if (!task.isTaskDone()) {
+                return;
+            }
+
+            DialogAddAchieved addAchievedPopUp = new DialogAddAchieved();
+            addAchievedPopUp.setTaskId(getTaskId());
+            addAchievedPopUp.showDialog();
         });
     }
 
