@@ -168,4 +168,63 @@
             <default>null</default>
         </column>
     </table>
+    <table> <!-- table configurations -->
+        <name>configurations</name>
+        <column>
+            <name>id</name>
+            <type>integer</type>
+            <default>1</default>
+            <isprimarykey>true</isprimarykey>
+        </column>
+        <column>
+            <name>dark_mode</name>
+            <type>boolean</type>
+            <default>true</default>
+        </column>
+        <column>
+            <name>show_achieved_popup</name>
+            <type>boolean</type>
+            <default>true</default>
+        </column>
+        <column>
+            <name>always_on_top</name>
+            <type>boolean</type>
+            <default>false</default>
+        </column>
+        <column>
+            <name>automatic_tasks</name>
+            <type>boolean</type>
+            <default>false</default>
+        </column>
+        <column>
+            <name>automatic_reminders</name>
+            <type>boolean</type>
+            <default>false</default>
+        </column>
+        <column>
+            <name>remind_tasks_in_days</name>
+            <type>numeric</type>
+            <default>0</default>
+        </column>
+        <column>
+            <name>remind_questions_in_days</name>
+            <type>numeric</type>
+            <default>0</default>
+        </column>
+        <column>
+            <name>default_profile</name>
+            <type>numeric</type>
+            <default>1</default>
+        </column>
+        <column>
+            <name>updated_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>created_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+    </table>
 </database>
