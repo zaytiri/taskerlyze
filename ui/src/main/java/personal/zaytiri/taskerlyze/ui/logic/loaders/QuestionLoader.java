@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionLoader implements Loader<QuestionEntity>, Findable<Pair<Integer, String>> {
+public class QuestionLoader implements Loadable<QuestionEntity>, Findable<Pair<Integer, String>> {
     private int categoryId;
     private LocalDate date;
 

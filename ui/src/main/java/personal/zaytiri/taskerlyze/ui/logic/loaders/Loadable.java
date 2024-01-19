@@ -2,6 +2,6 @@ package personal.zaytiri.taskerlyze.ui.logic.loaders;
 
 import java.util.List;
 
-public interface Loader<T> {
+public interface Loadable<T> {
     List<T> load();
 }

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskLoader implements Loader<TaskEntity>, Findable<Pair<Integer, String>> {
+public class TaskLoader implements Loadable<TaskEntity>, Findable<Pair<Integer, String>> {
 
     private int categoryId;
     private LocalDate date;

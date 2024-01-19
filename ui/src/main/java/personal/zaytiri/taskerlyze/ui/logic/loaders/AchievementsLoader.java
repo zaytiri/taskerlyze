@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AchievementsLoader implements Loader<String> {
+public class AchievementsLoader implements Loadable<String> {
     private final LocalDate date;
 
     public AchievementsLoader(LocalDate date) {
