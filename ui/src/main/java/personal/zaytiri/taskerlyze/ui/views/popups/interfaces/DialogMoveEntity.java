@@ -3,16 +3,16 @@ package personal.zaytiri.taskerlyze.ui.views.popups.interfaces;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.ui.logic.entities.Entity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.Findable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
 
 import java.util.List;
 import java.util.Objects;
 
 
-public abstract class DialogMoveEntity<ESearch extends Entity, T> extends Dialog<T> {
+public abstract class DialogMoveEntity<T> extends Dialog<T> {
 
-    private final ESearch entityToBeFound;
+    private final Findable<Pair<Integer, String>> findableEntity;
     protected int entityIdToBeMoved;
     @FXML
     protected Button moveButton;
@@ -25,9 +25,9 @@ public abstract class DialogMoveEntity<ESearch extends Entity, T> extends Dialog
     @FXML
     private Label errorMessage;
 
-    public DialogMoveEntity(ESearch entityToBeFound) {
+    public DialogMoveEntity(Findable<Pair<Integer, String>> findableEntity) {
         super("dialog-move", "Search:");
-        this.entityToBeFound = entityToBeFound;
+        this.findableEntity = findableEntity;
     }
 
     @FXML
@@ -76,7 +76,7 @@ public abstract class DialogMoveEntity<ESearch extends Entity, T> extends Dialog
             return;
         }
 
-        List<Pair<Integer, String>> foundResults = entityToBeFound.findBySubString(textToSearch);
+        List<Pair<Integer, String>> foundResults = findableEntity.find(textToSearch);
         itemsList.getItems().clear();
 
         for (Pair<Integer, String> result : foundResults) {

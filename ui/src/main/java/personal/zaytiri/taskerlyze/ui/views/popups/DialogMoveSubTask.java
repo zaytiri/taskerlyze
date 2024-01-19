@@ -2,14 +2,14 @@ package personal.zaytiri.taskerlyze.ui.views.popups;
 
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
-import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.TaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
 import personal.zaytiri.taskerlyze.ui.views.popups.interfaces.DialogMoveEntity;
 
 
-public class DialogMoveSubTask extends DialogMoveEntity<TaskEntity, Integer> {
+public class DialogMoveSubTask extends DialogMoveEntity<Integer> {
     public DialogMoveSubTask() {
-        super(new TaskEntity());
+        super(new TaskLoader());
     }
 
     @Override

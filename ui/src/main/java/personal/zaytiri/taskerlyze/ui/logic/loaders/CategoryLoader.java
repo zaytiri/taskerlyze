@@ -1,7 +1,9 @@
 package personal.zaytiri.taskerlyze.ui.logic.loaders;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
+import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
+import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 
 import java.beans.PropertyChangeListener;
@@ -9,7 +11,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryLoader {
+public class CategoryLoader implements Findable<Pair<Integer, String>> {
     private static CategoryLoader INSTANCE;
     private final PropertyChangeSupport support;
     private final List<CategoryEntity> loadedCategories = new ArrayList<>();
@@ -20,6 +22,16 @@ public class CategoryLoader {
 
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
+    }
+
+    @Override
+    public List<Pair<Integer, String>> find(String subString) {
+        OperationResult<List<Category>> result = new CategoryController().findNameBySubString(subString);
+        List<Pair<Integer, String>> categoriesToBeReturned = new ArrayList<>();
+        for (Category cat : result.getResult()) {
+            categoriesToBeReturned.add(new Pair<>(cat.getId(), cat.getName()));
+        }
+        return categoriesToBeReturned;
     }
 
     public static CategoryLoader getCategoryLoader() {

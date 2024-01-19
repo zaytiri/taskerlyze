@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskLoader implements Loader<TaskEntity> {
+public class TaskLoader implements Loader<TaskEntity>, Findable<Pair<Integer, String>> {
 
     private final int categoryId;
     private final LocalDate date;
@@ -17,6 +18,14 @@ public class TaskLoader implements Loader<TaskEntity> {
     public TaskLoader(int categoryId, LocalDate date) {
         this.categoryId = categoryId;
         this.date = date;
+    @Override
+    public List<Pair<Integer, String>> find(String subString) {
+        OperationResult<List<Task>> result = new TaskController().findNameBySubString(subString);
+        List<Pair<Integer, String>> tasksToBeReturned = new ArrayList<>();
+        for (Task task : result.getResult()) {
+            tasksToBeReturned.add(new Pair<>(task.getId(), task.getName()));
+        }
+        return tasksToBeReturned;
     }
 
     @Override
