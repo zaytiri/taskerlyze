@@ -18,13 +18,13 @@ A simple and easy accessible task management that will help you track tasks and 
 
 ### GUI
 
-Some images for current interface:
+Some images for current interface:<br>
 ![1](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/1.png)
-![2](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/2.png)
+![2](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/2.png)<br>
 ![3](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/3.png)
-![4](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/4.png)
+![4](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/4.png)<br>
 ![5](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/5.png)
-![6](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/6.png)
+![6](https://github.com/zaytiri/taskerlyze/blob/main/readme-images/6.png)<br>
 
 <a name="features"></a>
 ## Features
