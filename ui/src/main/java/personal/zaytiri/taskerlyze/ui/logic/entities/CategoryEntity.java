@@ -1,13 +1,8 @@
 package personal.zaytiri.taskerlyze.ui.logic.entities;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.CategoryController;
-import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.mappers.CategoryMapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryController> {
     private String name;
@@ -27,14 +22,13 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
         mapper = new CategoryMapper();
     }
 
-    @Override
-    public List<Pair<Integer, String>> findBySubString(String subString) {
-        OperationResult<List<Category>> result = api.findNameBySubString(subString);
-        List<Pair<Integer, String>> categoriesToBeReturned = new ArrayList<>();
-        for (Category cat : result.getResult()) {
-            categoriesToBeReturned.add(new Pair<>(cat.getId(), cat.getName()));
-        }
-        return categoriesToBeReturned;
+    public String getName() {
+        return name;
+    }
+
+    public CategoryEntity setName(String name) {
+        this.name = name;
+        return this;
     }
 
     public CategoryEntity setId(int id) {
@@ -44,15 +38,6 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
 
     @Override
     protected CategoryEntity getObject() {
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public CategoryEntity setName(String name) {
-        this.name = name;
         return this;
     }
 }

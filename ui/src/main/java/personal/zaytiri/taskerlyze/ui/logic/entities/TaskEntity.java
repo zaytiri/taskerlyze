@@ -1,14 +1,10 @@
 package personal.zaytiri.taskerlyze.ui.logic.entities;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
-import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.mappers.TaskMapper;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
 
@@ -34,25 +30,6 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
         super(id);
         api = new TaskController();
         mapper = new TaskMapper();
-    }
-
-    public List<Pair<Integer, String>> findBySubString(String subString) {
-        OperationResult<List<Task>> result = api.findNameBySubString(subString);
-        List<Pair<Integer, String>> tasksToBeReturned = new ArrayList<>();
-        for (Task task : result.getResult()) {
-            tasksToBeReturned.add(new Pair<>(task.getId(), task.getName()));
-        }
-        return tasksToBeReturned;
-    }
-
-    public TaskEntity setId(int id) {
-        this.id = id;
-        return this;
-    }
-
-    @Override
-    protected TaskEntity getObject() {
-        return this;
     }
 
     public String getAchieved() {
@@ -129,5 +106,15 @@ public class TaskEntity extends Entity<Task, TaskEntity, TaskController> {
 
     public void setDone() {
         api.setDone(id, isTaskDone);
+    }
+
+    public TaskEntity setId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    @Override
+    protected TaskEntity getObject() {
+        return this;
     }
 }

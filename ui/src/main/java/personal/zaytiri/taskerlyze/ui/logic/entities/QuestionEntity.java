@@ -1,14 +1,10 @@
 package personal.zaytiri.taskerlyze.ui.logic.entities;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.QuestionController;
-import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Question;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.mappers.QuestionMapper;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class QuestionEntity extends Entity<Question, QuestionEntity, QuestionController> {
     private String question;
@@ -30,25 +26,6 @@ public class QuestionEntity extends Entity<Question, QuestionEntity, QuestionCon
         super(id);
         api = new QuestionController();
         mapper = new QuestionMapper();
-    }
-
-    public List<Pair<Integer, String>> findBySubString(String subString) {
-        OperationResult<List<Question>> result = api.findNameBySubString(subString);
-        List<Pair<Integer, String>> questionsToBeReturned = new ArrayList<>();
-        for (Question question : result.getResult()) {
-            questionsToBeReturned.add(new Pair<>(question.getId(), question.getName()));
-        }
-        return questionsToBeReturned;
-    }
-
-    public QuestionEntity setId(int id) {
-        this.id = id;
-        return this;
-    }
-
-    @Override
-    protected QuestionEntity getObject() {
-        return this;
     }
 
     public String getAnswer() {
@@ -93,6 +70,16 @@ public class QuestionEntity extends Entity<Question, QuestionEntity, QuestionCon
 
     public QuestionEntity setAnswered(boolean answered) {
         isAnswered = answered;
+        return this;
+    }
+
+    public QuestionEntity setId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    @Override
+    protected QuestionEntity getObject() {
         return this;
     }
 
