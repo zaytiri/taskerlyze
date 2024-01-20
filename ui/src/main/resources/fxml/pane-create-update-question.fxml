@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.*?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" fx:id="mainQuestionTitledPane" stylesheets="@../css/tasks-tab-view.css"
-         type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/20.0.1">
+         type="javafx.scene.control.TitledPane" xmlns="http://javafx.com/javafx/">
     <graphic>
         <AnchorPane>
             <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
