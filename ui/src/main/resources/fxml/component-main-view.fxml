@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
+<?import personal.zaytiri.taskerlyze.ui.views.components.ComponentSettings?>
 <fx:root xmlns:fx="http://javafx.com/fxml"
          xmlns="http://javafx.com/javafx"
          type="javafx.scene.control.TabPane"
@@ -30,6 +31,7 @@
                 <Image url="@../icons/settings.png"/>
             </ImageView>
         </graphic>
+        <ComponentSettings/>
     </Tab>
     <Tab id="sideTab" fx:id="tabStatistics">
         <graphic>

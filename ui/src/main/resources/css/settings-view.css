@@ -1,0 +1,61 @@
+@font-face {
+    font-family: 'Prompt';
+    src: url('../fonts/Prompt/Prompt-Regular.ttf');
+}
+
+.label {
+    -fx-text-fill: #F5E3E0;
+
+    -fx-font-family: "Prompt";
+    -fx-font-size: 12px;
+}
+
+.margins {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+.inner-margins {
+    -fx-padding: 0 10px 0 15px;
+    -fx-spacing: 10px;
+}
+
+.separator {
+    -fx-background-color: #0E6367;
+    -fx-border-color: #0E6367;
+}
+
+/*** MFX Toogle Button*/
+#customToggleButton .line{
+    -mfx-main: #0E6367;
+}
+
+#customToggleButton .circle {
+    -mfx-main: #0E6367;
+}
+
+#customToggleButton .mfx-ripple-generator {
+    -mfx-main: #0E6367;
+}
+
+/*MFX Text Field*/
+.mfx-text-field {
+    -fx-text-fill: #73ADB0;
+    -fx-border-color: #0E6367;
+}
+
+.mfx-text-field .floating-text {
+    -fx-text-fill:  #0E6367;
+}
+
+/*MFX Buttom*/
+.mfx-button {
+    -fx-wrap-text: true;
+    -fx-background-color: #0E6367;
+    -fx-text-fill: #F5E3E0;
+}
+
+.mfx-button:pressed {
+    -fx-background-color: #73ADB0;
+    -fx-text-fill: #0E6367;
+}
