@@ -187,6 +187,11 @@
             <default>true</default>
         </column>
         <column>
+            <name>show_confirmation_popup</name>
+            <type>boolean</type>
+            <default>true</default>
+        </column>
+        <column>
             <name>always_on_top</name>
             <type>boolean</type>
             <default>false</default>

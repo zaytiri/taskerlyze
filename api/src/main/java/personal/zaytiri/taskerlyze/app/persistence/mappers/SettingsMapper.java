@@ -23,6 +23,7 @@ public class SettingsMapper extends Mapper<Settings, SettingsModel> {
             task.setId(getRowIntValue(row, mixedResult, "id"));
             task.setDarkMode(getRowBooleanValue(row, mixedResult, "dark_mode"));
             task.setShowAchievedPopup(getRowBooleanValue(row, mixedResult, "show_achieved_popup"));
+            task.setShowConfirmationPopup(getRowBooleanValue(row, mixedResult, "show_confirmation_popup"));
             task.setAlwaysOnTop(getRowBooleanValue(row, mixedResult, "always_on_top"));
             task.setAutomaticTasks(getRowBooleanValue(row, mixedResult, "automatic_tasks"));
             task.setAutomaticReminders(getRowBooleanValue(row, mixedResult, "automatic_reminders"));
@@ -44,6 +45,7 @@ public class SettingsMapper extends Mapper<Settings, SettingsModel> {
         entity.setId(model.getId());
         entity.setDarkMode(model.isDarkMode());
         entity.setShowAchievedPopup(model.isShowAchievedPopup());
+        entity.setShowConfirmationPopup(model.isShowConfirmationPopup());
         entity.setAlwaysOnTop(model.isAlwaysOnTop());
         entity.setAutomaticTasks(model.isAutomaticTasks());
         entity.setAutomaticReminders(model.isAutomaticReminders());
@@ -63,6 +65,7 @@ public class SettingsMapper extends Mapper<Settings, SettingsModel> {
         model.setId(entity.getId());
         model.setDarkMode(entity.isDarkMode());
         model.setShowAchievedPopup(entity.isShowAchievedPopup());
+        model.setShowConfirmationPopup(entity.isShowConfirmationPopup());
         model.setAlwaysOnTop(entity.isAlwaysOnTop());
         model.setAutomaticTasks(entity.isAutomaticTasks());
         model.setAutomaticReminders(entity.isAutomaticReminders());

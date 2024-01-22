@@ -17,6 +17,7 @@ public class Settings extends Entity<Settings, ISettingsRepository, SettingsMapp
 
     private boolean darkMode;
     private boolean showAchievedPopup;
+    private boolean showConfirmationPopup;
     private boolean alwaysOnTop;
     private boolean automaticTasks;
     private boolean automaticReminders;
@@ -57,7 +58,9 @@ public class Settings extends Entity<Settings, ISettingsRepository, SettingsMapp
 
     @Override
     public List<Settings> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
-        return null;
+        Response response = repository.read(filters, orderByColumn);
+
+        return mapper.toEntity(response.getResult(), false);
     }
 
     public Settings get() {
@@ -146,6 +149,15 @@ public class Settings extends Entity<Settings, ISettingsRepository, SettingsMapp
 
     public Settings setShowAchievedPopup(boolean showAchievedPopup) {
         this.showAchievedPopup = showAchievedPopup;
+        return this;
+    }
+
+    public boolean isShowConfirmationPopup() {
+        return showConfirmationPopup;
+    }
+
+    public Settings setShowConfirmationPopup(boolean showConfirmationPopup) {
+        this.showConfirmationPopup = showConfirmationPopup;
         return this;
     }
 

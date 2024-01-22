@@ -11,6 +11,7 @@ public class SettingsModel extends Model {
 
     private boolean darkMode;
     private boolean showAchievedPopup;
+    private boolean showConfirmationPopup;
     private boolean alwaysOnTop;
     private boolean automaticTasks;
     private boolean automaticReminders;
@@ -19,7 +20,6 @@ public class SettingsModel extends Model {
     private int defaultProfile;
     private LocalDate updatedAt;
     private LocalDate createdAt;
-
     public SettingsModel() {
         super("settings");
     }
@@ -51,6 +51,7 @@ public class SettingsModel extends Model {
 //        values.put("id", id); // its commented out because it does not need to be inserted, it will auto increment
         values.add(new Pair<>("dark_mode", darkMode));
         values.add(new Pair<>("show_achieved_popup", showAchievedPopup));
+        values.add(new Pair<>("show_confirmation_popup", showConfirmationPopup));
         values.add(new Pair<>("always_on_top", alwaysOnTop));
         values.add(new Pair<>("automatic_tasks", automaticTasks));
         values.add(new Pair<>("automatic_reminders", automaticReminders));
@@ -125,5 +126,13 @@ public class SettingsModel extends Model {
 
     public void setShowAchievedPopup(boolean showAchievedPopup) {
         this.showAchievedPopup = showAchievedPopup;
+    }
+
+    public boolean isShowConfirmationPopup() {
+        return showConfirmationPopup;
+    }
+
+    public void setShowConfirmationPopup(boolean showConfirmationPopup) {
+        this.showConfirmationPopup = showConfirmationPopup;
     }
 }
