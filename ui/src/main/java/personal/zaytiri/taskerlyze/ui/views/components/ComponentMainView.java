@@ -9,6 +9,7 @@ import javafx.scene.control.TabPane;
 import java.io.IOException;
 
 public class ComponentMainView extends TabPane {
+    private final ComponentSettings componentSettings = new ComponentSettings();
     @FXML
     private TabPane mainViewTabPane;
     @FXML
@@ -35,6 +36,13 @@ public class ComponentMainView extends TabPane {
     @FXML
     public void initialize() {
         setDefaultViews();
+
+        componentSettings.setComponentMainView(this);
+        tabSettings.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (Boolean.TRUE.equals(newValue)) {
+                componentSettings.load();
+            }
+        });
         Platform.runLater(() -> mainViewTabPane.getSelectionModel().select(tabTasks));
     }
 
@@ -46,5 +54,7 @@ public class ComponentMainView extends TabPane {
         ComponentCategories categoriesForQuestions = new ComponentCategories();
         categoriesForQuestions.setView(new ComponentQuestions());
         tabQuestions.setContent(categoriesForQuestions);
+
+        tabSettings.setContent(componentSettings);
     }
 }
