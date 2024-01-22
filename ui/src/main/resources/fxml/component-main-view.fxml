@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import personal.zaytiri.taskerlyze.ui.views.components.ComponentSettings?>
+<?import personal.zaytiri.taskerlyze.ui.views.elements.CustomTooltip?>
 <fx:root xmlns:fx="http://javafx.com/fxml"
          xmlns="http://javafx.com/javafx"
          type="javafx.scene.control.TabPane"
@@ -17,6 +18,9 @@
                 <Image url="@../icons/tasks.png"/>
             </ImageView>
         </graphic>
+        <tooltip>
+            <CustomTooltip text="Tasks"/>
+        </tooltip>
     </Tab>
     <Tab id="sideTab" fx:id="tabQuestions">
         <graphic>
@@ -24,6 +28,9 @@
                 <Image url="@../icons/questions.png"/>
             </ImageView>
         </graphic>
+        <tooltip>
+            <CustomTooltip text="Questions"/>
+        </tooltip>
     </Tab>
     <Tab id="sideTab" fx:id="tabSettings">
         <graphic>
@@ -31,6 +38,9 @@
                 <Image url="@../icons/settings.png"/>
             </ImageView>
         </graphic>
+        <tooltip>
+            <CustomTooltip text="Settings"/>
+        </tooltip>
         <ComponentSettings/>
     </Tab>
     <Tab id="sideTab" fx:id="tabStatistics">
@@ -39,5 +49,8 @@
                 <Image url="@../icons/statistics.png"/>
             </ImageView>
         </graphic>
+        <tooltip>
+            <CustomTooltip text="Statistics"/>
+        </tooltip>
     </Tab>
 </fx:root>
