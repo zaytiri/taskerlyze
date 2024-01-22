@@ -30,6 +30,10 @@ public class SettingsEntity extends Entity<Settings, SettingsEntity, SettingsCon
         mapper = new SettingsMapper();
     }
 
+    public boolean deleteData() {
+        return api.resetDatabase().getStatus();
+    }
+
     public int getDefaultProfile() {
         return defaultProfile;
     }
