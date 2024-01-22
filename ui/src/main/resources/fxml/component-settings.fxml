@@ -4,47 +4,38 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1"
-         type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/"
-         stylesheets="@../css/settings-view.css">
-    <ScrollPane
-            fitToWidth="true"
-            hbarPolicy="NEVER"
-            pannable="true"
-            vbarPolicy="NEVER"
-            AnchorPane.bottomAnchor="0.0"
-            AnchorPane.leftAnchor="0.0"
-            AnchorPane.rightAnchor="0.0"
-            AnchorPane.topAnchor="0.0">
+<?import personal.zaytiri.taskerlyze.ui.views.elements.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="849.0" prefWidth="427.0"
+         stylesheets="@../css/settings-view.css" type="javafx.scene.layout.AnchorPane"
+         xmlns="http://javafx.com/javafx/20.0.1">
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <VBox styleClass="margins" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
-            <Label alignment="CENTER"
-                   text="You can configure multiple settings here. You can view more information by hovering each option. These options are not profile specific, they will be considered by all profiles."
-                   textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS"/>
-            <VBox.margin>
-                <Insets/>
-            </VBox.margin>
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" spacing="15.0">
+                <VBox>
+                    <Label alignment="CENTER"
+                           text="You can configure multiple settings here. You can view more information by hovering each option. These options are not profile specific, they will be considered by all profiles."
+                           textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS"/>
+                </VBox>
+                <MFXButton fx:id="saveButton" buttonType="RAISED" minWidth="50.0" text="Save"/>
+            </HBox>
             <Separator>
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
             </Separator>
             <VBox alignment="CENTER_LEFT" styleClass="inner-margins" VBox.vgrow="ALWAYS">
-                <Label text="General Settings">
-                    <font>
-                        <Font name="System Bold" size="16.0"/>
-                    </font>
+                <Label id="title" text="General Settings">
                 </Label>
                 <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
-                    <MFXToggleButton id="customToggleButton"/>
+                    <MFXToggleButton id="customToggleButton" fx:id="enableDarkMode"/>
                     <Label text="Enable dark mode">
                         <tooltip>
-                            <Tooltip text="This will disable/enable dark mode."/>
+                            <CustomTooltip text="This will disable/enable dark mode."/>
                         </tooltip>
                     </Label>
                 </HBox>
@@ -52,10 +43,10 @@
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
-                    <MFXToggleButton id="customToggleButton"/>
+                    <MFXToggleButton id="customToggleButton" fx:id="enableAlwaysOnTop"/>
                     <Label text="Enable window always on top">
                         <tooltip>
-                            <Tooltip
+                            <CustomTooltip
                                     text="Always on top means that the window will take precedence over any open window."/>
                         </tooltip>
                     </Label>
@@ -64,10 +55,10 @@
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
-                    <MFXToggleButton id="customToggleButton"/>
+                    <MFXToggleButton id="customToggleButton" fx:id="enablePopUpAchieved"/>
                     <Label text="Show popup to add achieved field in each task">
                         <tooltip>
-                            <Tooltip
+                            <CustomTooltip
                                     text="Each time a task is completed, a popup will be displayed. The goal is to add what was achieved by completing the task to take full advantage of the Achievements feature. If disabled, the achievement could be added by editing a task."/>
                         </tooltip>
                     </Label>
@@ -76,10 +67,10 @@
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
-                    <MFXToggleButton id="customToggleButton"/>
+                    <MFXToggleButton id="customToggleButton" fx:id="enableConfirmationPopup"/>
                     <Label text="Show confirmation popup when removing data">
                         <tooltip>
-                            <Tooltip text="Disable/enable popup to confirm deletion of data."/>
+                            <CustomTooltip text="Disable/enable popup to confirm deletion of data."/>
                         </tooltip>
                     </Label>
                 </HBox>
@@ -87,10 +78,10 @@
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
-                    <MFXToggleButton id="customToggleButton"/>
+                    <MFXToggleButton id="customToggleButton" fx:id="enableAutomaticTasks"/>
                     <Label text="Enable automatic tasks">
                         <tooltip>
-                            <Tooltip
+                            <CustomTooltip
                                     text="Enable the existence of automatic tasks. These type of tasks are created automatically each day and represent custom tasks needed everyday, e.g. checking e-mail, etc."/>
                         </tooltip>
                     </Label>
@@ -99,17 +90,17 @@
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
-                    <MFXToggleButton id="customToggleButton"/>
+                    <MFXToggleButton id="customToggleButton" fx:id="enableAutomaticReminders"/>
                     <Label text="Enable automatic reminders">
                         <tooltip>
-                            <Tooltip
+                            <CustomTooltip
                                     text="Disable/enable reminders for tasks and questions. If disabled, no reminders will be shown if a task or question is not completed in some period of time."/>
                         </tooltip>
                     </Label>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
                     <Label text="Remind me in"/>
-                    <MFXTextField floatMode="BORDER" floatingText="##"/>
+                    <MFXTextField fx:id="remindTasksInDays" floatMode="BORDER" floatingText="##"/>
                     <Label text="days, if task is not completed."/>
                     <VBox.margin>
                         <Insets/>
@@ -117,7 +108,7 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
                     <Label text="Remind me in"/>
-                    <MFXTextField floatMode="BORDER" floatingText="##"/>
+                    <MFXTextField fx:id="remindQuestionsInDays" floatMode="BORDER" floatingText="##"/>
                     <Label text="days, if question is not answered."/>
                     <VBox.margin>
                         <Insets/>
@@ -126,11 +117,11 @@
                 <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
                     <Label text="Choose the default profile:">
                         <tooltip>
-                            <Tooltip
+                            <CustomTooltip
                                     text="The default profile that will be displayed when first launching the program."/>
                         </tooltip>
                     </Label>
-                    <MFXComboBox fx:id="defaultProfile" floatingText="Default Profile" id="nCombo"/>
+                    <MFXComboBox id="nCombo" fx:id="defaultProfile" floatingText="Default Profile"/>
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>
@@ -142,17 +133,14 @@
                 </VBox.margin>
             </Separator>
             <VBox alignment="CENTER_LEFT" styleClass="inner-margins" VBox.vgrow="ALWAYS">
-                <Label text="Automatic Scheduling">
-                    <font>
-                        <Font name="System Bold" size="16.0"/>
-                    </font>
+                <Label id="title" text="Automatic Scheduling">
                 </Label>
                 <HBox alignment="CENTER_LEFT" fillHeight="false" styleClass="inner-margins" VBox.vgrow="ALWAYS">
                     <VBox HBox.hgrow="ALWAYS">
-                        <MFXButton buttonType="RAISED" minWidth="100" text="Go to Github - Program Scheduler"
-                                   textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                        <MFXButton fx:id="openProgramSchedulerUrl" buttonType="RAISED" minWidth="100"
+                                   text="Go to Github - Program Scheduler" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                             <tooltip>
-                                <Tooltip text="https://github.com/zaytiri/program-scheduler"/>
+                                <CustomTooltip text="https://github.com/zaytiri/program-scheduler"/>
                             </tooltip>
                         </MFXButton>
                     </VBox>
@@ -172,20 +160,20 @@
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
-                <Label text="Data management">
-                    <font>
-                        <Font name="System Bold" size="16.0"/>
-                    </font>
+                <Label id="title" text="Data management">
                 </Label>
                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                     <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </padding>
-                    <MFXButton buttonType="RAISED" text="Delete"/>
-                    <MFXButton buttonType="RAISED" text="Import"/>
-                    <MFXButton buttonType="RAISED" text="Export"/>
+                    <MFXButton fx:id="deleteButton" buttonType="RAISED" text="Delete"/>
+                    <MFXButton fx:id="importButton" buttonType="RAISED" text="Import"/>
+                    <MFXButton fx:id="exportButton" buttonType="RAISED" text="Export"/>
                 </HBox>
             </VBox>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
         </VBox>
     </ScrollPane>
 
