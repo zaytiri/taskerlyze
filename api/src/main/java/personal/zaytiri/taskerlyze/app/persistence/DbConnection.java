@@ -5,6 +5,7 @@ import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Schema;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,6 +43,29 @@ public class DbConnection {
         }
     }
 
+    public void createDatabase() {
+        CreateTableQueryBuilder query = new CreateTableQueryBuilder(open());
+        query.setCloseConnection(false);
+
+        for (Table tb : schema.getTables()) {
+            query.create(tb);
+            query.execute();
+        }
+
+        close();
+    }
+
+    public boolean deleteData() {
+        File file = Path.of(path).toFile();
+        boolean result = false;
+        try {
+            result = Files.deleteIfExists(file.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
     public Connection getConnection() {
         return connection;
     }
@@ -71,18 +95,6 @@ public class DbConnection {
 
     public void resetInstance() {
         INSTANCE = null;
-    }
-
-    private void createDatabase() {
-        CreateTableQueryBuilder query = new CreateTableQueryBuilder(open());
-        query.setCloseConnection(false);
-
-        for (Table tb : schema.getTables()) {
-            query.create(tb);
-            query.execute();
-        }
-
-        close();
     }
 
     private String getDbConnectionPath() {
