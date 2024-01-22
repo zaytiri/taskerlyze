@@ -121,7 +121,7 @@
                                     text="The default profile that will be displayed when first launching the program."/>
                         </tooltip>
                     </Label>
-                    <MFXComboBox id="nCombo" fx:id="defaultProfile" floatingText="Default Profile"/>
+                    <MFXComboBox id="customFilter" fx:id="defaultProfile" floatingText="Default Profile"/>
                     <VBox.margin>
                         <Insets/>
                     </VBox.margin>

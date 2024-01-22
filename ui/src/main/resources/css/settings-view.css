@@ -59,3 +59,28 @@
     -fx-background-color: #73ADB0;
     -fx-text-fill: #0E6367;
 }
+
+/*MFX Combo Box*/
+.mfx-combo-box .combo-popup .virtual-flow .data-label {
+    /* -fx-background-color: #73ADB0; */
+    /* -fx-text-fill: #0E6367;
+    -mfx-main: #0E6367; */
+    -fx-text-fill: #73ADB0;
+}
+
+#customFilter .caret .mfx-font-icon {
+    -mfx-color: #0E6367;
+}
+
+#customFilter .caret .mfx-ripple-generator {
+	-mfx-ripple-color: #0E6367;
+}
+
+/* change color of cell when mouse hover and selected */
+#customFilter .virtual-flow .mfx-combo-box-cell:hover {
+	-fx-background-color: #14878d;
+}
+
+#customFilter .virtual-flow .mfx-combo-box-cell:selected {
+	-fx-background-color: #0E6367;
+}
