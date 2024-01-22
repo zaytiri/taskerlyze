@@ -1,17 +1,17 @@
 package personal.zaytiri.taskerlyze.app.api.controllers;
 
 import personal.zaytiri.taskerlyze.app.api.controllers.base.Controller;
-import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
+import personal.zaytiri.taskerlyze.app.api.domain.Settings;
 
-public class SettingsController extends Controller<SubTask> {
+public class SettingsController extends Controller<Settings> {
 
     @Override
-    protected SubTask getEntityInstance(int id) {
-        return new SubTask().getInstance().setId(id);
+    protected Settings getEntityInstance(int id) {
+        return new Settings().getInstance().setId(id);
     }
 
     @Override
-    protected SubTask getEntityInstance() {
-        return new SubTask().getInstance();
+    protected Settings getEntityInstance() {
+        return new Settings().getInstance();
     }
 }
