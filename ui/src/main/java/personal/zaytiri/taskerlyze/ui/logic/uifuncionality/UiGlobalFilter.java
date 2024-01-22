@@ -24,7 +24,6 @@ public class UiGlobalFilter {
 
     public void setActiveCategoryId(int currentActiveCategoryId) {
         activeCategoryId = currentActiveCategoryId;
-//        support.firePropertyChange("toReload", true, false);
     }
 
     public LocalDate getActiveDay() {
