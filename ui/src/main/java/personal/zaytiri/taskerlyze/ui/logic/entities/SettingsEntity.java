@@ -7,24 +7,24 @@ import personal.zaytiri.taskerlyze.ui.logic.mappers.SettingsMapper;
 public class SettingsEntity extends Entity<Settings, SettingsEntity, SettingsController> {
     private boolean darkMode;
     private boolean showAchievedPopup;
+    private boolean showConfirmationPopup;
     private boolean alwaysOnTop;
     private boolean automaticTasks;
     private boolean automaticReminders;
     private int remindTaskInDays;
     private int remindQuestionsInDays;
     private int defaultProfile;
-    private SettingsEntity INSTANCE;
 
-    private SettingsEntity() {
+    public SettingsEntity() {
         this(0);
     }
 
-    private SettingsEntity(Settings settings) {
+    public SettingsEntity(Settings settings) {
         this();
         mapper.mapToUiObject(settings, this);
     }
 
-    private SettingsEntity(int id) {
+    public SettingsEntity(int id) {
         super(id);
         api = new SettingsController();
         mapper = new SettingsMapper();
@@ -55,13 +55,6 @@ public class SettingsEntity extends Entity<Settings, SettingsEntity, SettingsCon
     public SettingsEntity setRemindTaskInDays(int remindTaskInDays) {
         this.remindTaskInDays = remindTaskInDays;
         return this;
-    }
-
-    public SettingsEntity getSettingsInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new SettingsEntity();
-        }
-        return INSTANCE;
     }
 
     public boolean isAlwaysOnTop() {
@@ -106,6 +99,15 @@ public class SettingsEntity extends Entity<Settings, SettingsEntity, SettingsCon
 
     public SettingsEntity setShowAchievedPopup(boolean showAchievedPopup) {
         this.showAchievedPopup = showAchievedPopup;
+        return this;
+    }
+
+    public boolean isShowConfirmationPopup() {
+        return showConfirmationPopup;
+    }
+
+    public SettingsEntity setShowConfirmationPopup(boolean showConfirmationPopup) {
+        this.showConfirmationPopup = showConfirmationPopup;
         return this;
     }
 
