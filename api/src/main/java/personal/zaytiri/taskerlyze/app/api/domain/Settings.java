@@ -81,64 +81,72 @@ public class Settings extends Entity<Settings, ISettingsRepository, SettingsMapp
         return defaultProfile;
     }
 
-    public void setDefaultProfile(int defaultProfile) {
+    public Settings setDefaultProfile(int defaultProfile) {
         this.defaultProfile = defaultProfile;
+        return this;
     }
 
     public int getRemindQuestionsInDays() {
         return remindQuestionsInDays;
     }
 
-    public void setRemindQuestionsInDays(int remindQuestionsInDays) {
+    public Settings setRemindQuestionsInDays(int remindQuestionsInDays) {
         this.remindQuestionsInDays = remindQuestionsInDays;
+        return this;
     }
 
     public int getRemindTaskInDays() {
         return remindTaskInDays;
     }
 
-    public void setRemindTaskInDays(int remindTaskInDays) {
+    public Settings setRemindTaskInDays(int remindTaskInDays) {
         this.remindTaskInDays = remindTaskInDays;
+        return this;
     }
 
     public boolean isAlwaysOnTop() {
         return alwaysOnTop;
     }
 
-    public void setAlwaysOnTop(boolean alwaysOnTop) {
+    public Settings setAlwaysOnTop(boolean alwaysOnTop) {
         this.alwaysOnTop = alwaysOnTop;
+        return this;
     }
 
     public boolean isAutomaticReminders() {
         return automaticReminders;
     }
 
-    public void setAutomaticReminders(boolean automaticReminders) {
+    public Settings setAutomaticReminders(boolean automaticReminders) {
         this.automaticReminders = automaticReminders;
+        return this;
     }
 
     public boolean isAutomaticTasks() {
         return automaticTasks;
     }
 
-    public void setAutomaticTasks(boolean automaticTasks) {
+    public Settings setAutomaticTasks(boolean automaticTasks) {
         this.automaticTasks = automaticTasks;
+        return this;
     }
 
     public boolean isDarkMode() {
         return darkMode;
     }
 
-    public void setDarkMode(boolean darkMode) {
+    public Settings setDarkMode(boolean darkMode) {
         this.darkMode = darkMode;
+        return this;
     }
 
     public boolean isShowAchievedPopup() {
         return showAchievedPopup;
     }
 
-    public void setShowAchievedPopup(boolean showAchievedPopup) {
+    public Settings setShowAchievedPopup(boolean showAchievedPopup) {
         this.showAchievedPopup = showAchievedPopup;
+        return this;
     }
 
     public Settings setId(int id) {
