@@ -1,6 +1,6 @@
 package personal.zaytiri.taskerlyze.app.api.controllers;
 
-import personal.zaytiri.taskerlyze.app.api.controllers.base.Controller;
+import personal.zaytiri.taskerlyze.app.api.controllers.base.ControllerFindable;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.CodeResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.MessageResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CategoryController extends Controller<Category> {
+public class CategoryController extends ControllerFindable<Category> {
 
     @Override
     public OperationResult<Category> delete(int id) {

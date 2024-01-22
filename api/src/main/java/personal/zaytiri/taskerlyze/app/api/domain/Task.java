@@ -2,6 +2,7 @@ package personal.zaytiri.taskerlyze.app.api.domain;
 
 import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
+import personal.zaytiri.taskerlyze.app.api.domain.base.IFindable;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements IStorageOperations<Task> {
+public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements IStorageOperations<Task>, IFindable<Task> {
     private String description;
     private boolean done;
     private int categoryId;
@@ -61,18 +62,6 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return !response.getResult().isEmpty();
     }
 
-    public List<Task> findNameBySubString(String subString) {
-        Map<String, Pair<String, Object>> filters = new HashMap<>();
-        filters.put("name", new Pair<>("LIKE", subString));
-
-        List<Task> results = get(filters, null);
-        if (results.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return results;
-    }
-
     public List<Task> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
         Response response = repository.read(filters, orderByColumn);
 
@@ -94,6 +83,18 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
     public boolean update() {
         //todo: test what happens if i try to update but theres no entry to update because its not created yet.
         return repository.update(this).isSuccess();
+    }
+
+    public List<Task> findNameBySubString(String subString) {
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("name", new Pair<>("LIKE", subString));
+
+        List<Task> results = get(filters, null);
+        if (results.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return results;
     }
 
     public String getAchieved() {

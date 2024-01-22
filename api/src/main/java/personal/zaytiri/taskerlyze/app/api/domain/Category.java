@@ -2,6 +2,7 @@ package personal.zaytiri.taskerlyze.app.api.domain;
 
 import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
+import personal.zaytiri.taskerlyze.app.api.domain.base.IFindable;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.CategoryMapper;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Category extends Entity<Category, ICategoryRepository, CategoryMapper> implements IStorageOperations<Category> {
+public class Category extends Entity<Category, ICategoryRepository, CategoryMapper> implements IStorageOperations<Category>, IFindable<Category> {
 
     @Inject
     public Category(ICategoryRepository repository) {
@@ -53,18 +54,6 @@ public class Category extends Entity<Category, ICategoryRepository, CategoryMapp
         return !response.getResult().isEmpty();
     }
 
-    public List<Category> findNameBySubString(String subString) {
-        Map<String, Pair<String, Object>> filters = new HashMap<>();
-        filters.put("name", new Pair<>("LIKE", subString));
-
-        List<Category> results = get(filters, null);
-        if (results.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return results;
-    }
-
     @Override
     public List<Category> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
         Response response = repository.read(filters, orderByColumn);
@@ -89,6 +78,18 @@ public class Category extends Entity<Category, ICategoryRepository, CategoryMapp
         //todo: test what happens if i try to update but theres no entry to update because its not created yet.
         Response response = repository.update(this);
         return response.isSuccess();
+    }
+
+    public List<Category> findNameBySubString(String subString) {
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("name", new Pair<>("LIKE", subString));
+
+        List<Category> results = get(filters, null);
+        if (results.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return results;
     }
 
     public Category setId(int id) {

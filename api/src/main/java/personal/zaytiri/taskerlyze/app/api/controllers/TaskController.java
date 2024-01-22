@@ -1,6 +1,6 @@
 package personal.zaytiri.taskerlyze.app.api.controllers;
 
-import personal.zaytiri.taskerlyze.app.api.controllers.base.Controller;
+import personal.zaytiri.taskerlyze.app.api.controllers.base.ControllerFindable;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.CodeResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.MessageResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
@@ -9,7 +9,7 @@ import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import java.time.LocalDate;
 import java.util.List;
 
-public class TaskController extends Controller<Task> {
+public class TaskController extends ControllerFindable<Task> {
     /**
      * Gets all achievements from all tasks in a specific day.
      *

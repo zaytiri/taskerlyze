@@ -12,9 +12,7 @@ public interface IStorageOperations<T> {
     boolean delete();
 
     boolean exists();
-
-    List<T> findNameBySubString(String subString);
-
+    
     List<T> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn);
 
     T get();

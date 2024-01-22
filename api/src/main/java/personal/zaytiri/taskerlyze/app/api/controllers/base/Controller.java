@@ -40,20 +40,6 @@ public abstract class Controller<T extends IStorageOperations<T>> implements ICo
         return new OperationResult<>(isDeleted, message, null);
     }
 
-    public OperationResult<List<T>> findNameBySubString(String subString) {
-        T entity = getEntityInstance();
-
-        List<T> tasksBySubString = entity.findNameBySubString(subString);
-
-        MessageResult message = new MessageResult();
-        if (tasksBySubString.isEmpty()) {
-            message.setCode(CodeResult.NOT_FOUND);
-        } else {
-            message.setCode(CodeResult.FOUND);
-        }
-
-        return new OperationResult<>(!tasksBySubString.isEmpty(), message, tasksBySubString);
-    }
 
     @Override
     public OperationResult<List<T>> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {

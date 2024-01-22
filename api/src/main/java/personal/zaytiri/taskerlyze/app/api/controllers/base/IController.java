@@ -26,15 +26,6 @@ public interface IController<T> {
     OperationResult<T> delete(int id);
 
     /**
-     * Finds entities which the name contains a given substring.
-     * If nothing is found, it returns an empty list.
-     *
-     * @param subString to search for.
-     * @return OperationResult<List < T>>
-     */
-    OperationResult<List<T>> findNameBySubString(String subString);
-
-    /**
      * Returns a list of objects of type T considering a set of filters.
      * A filter should consist of the name of the column, an operator and the value.
      * The order by consists of a Pair containing the order (Pair's key) and the column's name (Pair's value).
