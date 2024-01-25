@@ -13,14 +13,12 @@ import personal.zaytiri.taskerlyze.ui.views.elements.PaneTask;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ComponentTasks extends Categorable implements PropertyChangeListener {
     private final MenuOptions contextMenu;
+    private final Map<Integer, Cache<PaneTask>> cache = new HashMap<>();
     private List<PaneTask> paneTasks;
-    private Cache<PaneTask> cache;
     private boolean reloadUiElements = true;
     private List<TaskEntity> tasks;
     @FXML
@@ -49,13 +47,21 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
     public void loadView() {
         var activeCategoryId = UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId();
         var activeDay = UiGlobalFilter.getUiGlobalFilter().getActiveDay();
+        var activeProfileId = UiGlobalFilter.getUiGlobalFilter().getActiveProfileId();
+
+        var currentCache = cache.get(activeProfileId);
+
+        if (currentCache == null) {
+            cache.put(UiGlobalFilter.getUiGlobalFilter().getActiveProfileId(), new Cache<>());
+            currentCache = cache.get(activeProfileId);
+        }
 
         if (activeDay == null) {
             return;
         }
 
         var cacheKey = new Pair<>(getCategoryId(), activeDay);
-        var cacheTasks = cache.findByKey(cacheKey);
+        var cacheTasks = currentCache.findByKey(cacheKey);
         if (!reloadUiElements && cacheTasks != null) {
             mainTasks.getPanes().clear();
             mainTasks.getPanes().addAll(cacheTasks.getValue());
@@ -75,7 +81,7 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
         setTasks();
         mainTasks.getPanes().clear();
         mainTasks.getPanes().addAll(paneTasks);
-        cache.replace(new Pair<>(getCategoryId(), activeDay), paneTasks);
+        currentCache.replace(new Pair<>(getCategoryId(), activeDay), paneTasks);
         setReload(false);
     }
 
@@ -85,7 +91,6 @@ public class ComponentTasks extends Categorable implements PropertyChangeListene
 
     @FXML
     public void initialize() {
-        cache = new Cache<>();
         UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
         this.notFoundMessage.setContextMenu(getTabContextMenu());
     }
