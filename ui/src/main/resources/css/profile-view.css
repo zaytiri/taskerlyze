@@ -26,12 +26,12 @@
 }
 
 #customFilter .virtual-flow {
-	-fx-background-color: #f5e3e060;
+	-fx-background-color: #f5e3e0c7;
     -fx-border-color: transparent;
 }
 
 .mfx-combo-box-cell .data-label {
-    -fx-text-fill: #F5E3E0;
+    -fx-text-fill: #093f42;
 }
 
 #customFilter .virtual-flow .mfx-combo-box-cell {
