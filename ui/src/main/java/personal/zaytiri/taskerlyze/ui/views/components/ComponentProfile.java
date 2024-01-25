@@ -10,14 +10,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import personal.zaytiri.taskerlyze.ui.logic.entities.ProfileEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.ProfileLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.GlobalProfiles;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalSettings;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
-public class ComponentProfile extends AnchorPane {
-    private final ObservableList<IdentifiableItem<String>> profiles = FXCollections.observableArrayList();
+public class ComponentProfile extends AnchorPane implements PropertyChangeListener {
+    private ObservableList<IdentifiableItem<String>> profiles = FXCollections.observableArrayList();
     @FXML
     private MFXComboBox<IdentifiableItem<String>> switchProfileOptions;
 
@@ -30,6 +33,16 @@ public class ComponentProfile extends AnchorPane {
         } catch (IOException ex) {
             throw new IllegalStateException("Could not load fxml file", ex);
         }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (!evt.getPropertyName().equals("profiles")) {
+            return;
+        }
+        profiles = (ObservableList<IdentifiableItem<String>>) evt.getNewValue();
+        fillProfileOptions();
+        displayDefaultProfile();
     }
 
 
@@ -49,21 +62,13 @@ public class ComponentProfile extends AnchorPane {
         this.switchProfileOptions.selectItem(selectedItem);
     }
 
-    @FXML
-    private void initialize() {
-        populateProfiles();
-        displayDefaultProfile();
-
-        switchProfileOptions.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (switchProfileOptions.getSelectedItem() == null) {
-                return;
-            }
-
-            UiGlobalFilter.getUiGlobalFilter().setActiveProfileId(switchProfileOptions.getSelectedItem().getItemId());
-        });
+    private void fillProfileOptions() {
+        StringConverter<IdentifiableItem<String>> converter = FunctionalStringConverter.to(profile -> (profile == null) ? "" : profile.getItemDisplay());
+        switchProfileOptions.setItems(profiles);
+        switchProfileOptions.setConverter(converter);
     }
 
-    private void populateProfiles() {
+    private void initialProfileLoad() {
         ProfileLoader loader = new ProfileLoader();
 
         profiles.clear();
@@ -74,9 +79,22 @@ public class ComponentProfile extends AnchorPane {
             identifier.setItemDisplay(prof.getName());
             profiles.add(identifier);
         }
+    }
 
-        StringConverter<IdentifiableItem<String>> converter = FunctionalStringConverter.to(profile -> (profile == null) ? "" : profile.getItemDisplay());
-        switchProfileOptions.setItems(profiles);
-        switchProfileOptions.setConverter(converter);
+    @FXML
+    private void initialize() {
+        GlobalProfiles.getGlobalProfiles().addPropertyChangeListener(this);
+
+        initialProfileLoad();
+        fillProfileOptions();
+        displayDefaultProfile();
+
+        switchProfileOptions.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (switchProfileOptions.getSelectedItem() == null) {
+                return;
+            }
+
+            UiGlobalFilter.getUiGlobalFilter().setActiveProfileId(switchProfileOptions.getSelectedItem().getItemId());
+        });
     }
 }

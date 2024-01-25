@@ -211,6 +211,8 @@ public class ComponentSettings extends AnchorPane {
             profiles.add(identifier);
         }
 
+        GlobalProfiles.getGlobalProfiles().setProfiles(profiles);
+
         StringConverter<IdentifiableItem<String>> converter = FunctionalStringConverter.to(profile -> (profile == null) ? "" : profile.getItemDisplay());
         defaultProfile.setItems(profiles);
         defaultProfile.setConverter(converter);
