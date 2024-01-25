@@ -13,15 +13,13 @@ import personal.zaytiri.taskerlyze.ui.views.elements.PaneQuestion;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ComponentQuestions extends Categorable implements PropertyChangeListener {
     private final MenuOptions contextMenu;
+    private final Map<Integer, Cache<PaneQuestion>> cache = new HashMap<>();
     private boolean reloadUiElements = true;
     private List<PaneQuestion> paneQuestions;
-    private Cache<PaneQuestion> cache;
     private List<QuestionEntity> questions;
     @FXML
     private Accordion mainQuestions;
@@ -49,13 +47,21 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
     public void loadView() {
         var activeCategoryId = UiGlobalFilter.getUiGlobalFilter().getActiveCategoryId();
         var activeDay = UiGlobalFilter.getUiGlobalFilter().getActiveDay();
+        var activeProfileId = UiGlobalFilter.getUiGlobalFilter().getActiveProfileId();
+
+        var currentCache = cache.get(activeProfileId);
+
+        if (currentCache == null) {
+            cache.put(UiGlobalFilter.getUiGlobalFilter().getActiveProfileId(), new Cache<>());
+            currentCache = cache.get(activeProfileId);
+        }
 
         if (activeDay == null) {
             return;
         }
 
         var cacheKey = new Pair<>(getCategoryId(), activeDay);
-        var cacheTasks = cache.findByKey(cacheKey);
+        var cacheTasks = currentCache.findByKey(cacheKey);
         if (!reloadUiElements && cacheTasks != null) {
             mainQuestions.getPanes().clear();
             mainQuestions.getPanes().addAll(cacheTasks.getValue());
@@ -75,7 +81,7 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
         setQuestions();
         mainQuestions.getPanes().clear();
         mainQuestions.getPanes().addAll(paneQuestions);
-        cache.replace(new Pair<>(getCategoryId(), activeDay), paneQuestions);
+        currentCache.replace(new Pair<>(getCategoryId(), activeDay), paneQuestions);
         setReload(false);
     }
 
@@ -85,7 +91,6 @@ public class ComponentQuestions extends Categorable implements PropertyChangeLis
 
     @FXML
     public void initialize() {
-        cache = new Cache<>();
         UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
         this.notFoundMessage.setContextMenu(getTabContextMenu());
     }
