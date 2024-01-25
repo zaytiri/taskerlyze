@@ -59,7 +59,12 @@ public class ComponentProfile extends AnchorPane implements PropertyChangeListen
                 selectedItem = iden;
             }
         }
-        this.switchProfileOptions.selectItem(selectedItem);
+        try {
+            this.switchProfileOptions.selectItem(selectedItem);
+        } catch (IllegalArgumentException ex) {
+            this.switchProfileOptions.selectItem(profiles.get(0));
+        }
+
     }
 
     private void fillProfileOptions() {
