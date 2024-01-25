@@ -1,8 +1,12 @@
 package personal.zaytiri.taskerlyze.ui.controllers;
 
+import personal.zaytiri.taskerlyze.ui.logic.entities.ProfileEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SettingsEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.ProfileLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SettingsLoader;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalSettings;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddProfile;
 
 import java.util.List;
 
@@ -10,6 +14,23 @@ public class MainController {
 
     public void setAppPreConfigurations() {
         loadSettings();
+        checkProfile();
+    }
+
+    private void checkProfile() {
+        var loader = new ProfileLoader();
+        List<ProfileEntity> profilesFromApi = loader.load();
+
+        if (profilesFromApi.isEmpty()) {
+            DialogAddProfile addProfile = new DialogAddProfile();
+            addProfile.setAfterSuccessful(event -> {
+                UiGlobalFilter.getUiGlobalFilter().setActiveProfileId(1);
+            });
+            addProfile.showDialog();
+            return;
+        }
+
+        UiGlobalFilter.getUiGlobalFilter().setActiveProfileId(UiGlobalSettings.getUiGlobalMessage().getDefaultProfile());
     }
 
     private void loadSettings() {
@@ -36,7 +57,7 @@ public class MainController {
         } else {
             settings = settingsFromApi.get(0);
         }
-        
+
         UiGlobalSettings.getUiGlobalMessage().setSettings(settings);
     }
 }
