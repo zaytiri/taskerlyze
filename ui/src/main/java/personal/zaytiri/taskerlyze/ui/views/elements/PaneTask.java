@@ -194,9 +194,11 @@ public class PaneTask extends TitledPane {
                 return;
             }
 
-            DialogAddAchieved addAchievedPopUp = new DialogAddAchieved();
-            addAchievedPopUp.setTaskId(getTaskId());
-            addAchievedPopUp.showDialog();
+            if (UiGlobalSettings.getUiGlobalMessage().isShowAchievedPopup()) {
+                DialogAddAchieved addAchievedPopUp = new DialogAddAchieved();
+                addAchievedPopUp.setTaskId(getTaskId());
+                addAchievedPopUp.showDialog();
+            }
         });
     }
 
