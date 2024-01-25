@@ -19,6 +19,7 @@ import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -49,6 +50,7 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
     @FXML
     public void initialize() {
         CategoryLoader.getCategoryLoader().addPropertyChangeListener(this);
+        UiGlobalFilter.getUiGlobalFilter().addPropertyChangeListener(this);
         mainTabPane.setContextMenu(getTabContextMenu());
         reverseTabPaneScrollingDirection();
     }
@@ -69,6 +71,11 @@ public class ComponentCategories extends TabPane implements PropertyChangeListen
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        if (Objects.equals(evt.getPropertyName(), "toReset")) {
+            CategoryLoader.getCategoryLoader().load();
+            return;
+        }
+
         if (!Objects.equals(evt.getPropertyName(), "loadedCategories")) {
             return;
         }
