@@ -22,11 +22,11 @@ A simple and easy accessible task management that will help you track tasks and 
 
 Some images for current interface:<br>
 <img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/1.png" width="200" height="400" />
-<img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/2.png" width="200" height="400" /><br>
-<img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/3.png" width="200" height="400" />
-<img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/4.png" width="200" height="400" /><br>
+<img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/2.png" width="200" height="400" />
+<img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/3.png" width="200" height="400" /><br>
+<img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/4.png" width="200" height="400" />
 <img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/5.png" width="200" height="400" />
-<img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/6.png" width="200" height="400" /><br>
+<img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/6.png" width="200" height="400" />
 
 <a name="features"></a>
 ## Features
