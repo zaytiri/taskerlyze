@@ -1,0 +1,49 @@
+#profile-name {
+    
+}
+
+.mfx-text-field {
+    -fx-background-color: transparent;
+    
+    -fx-text-fill: #F5E3E0;
+    -fx-font-size: 17px;
+    -fx-wrap-text: true;
+    -fx-alignment: center-right;
+
+    -fx-border-color:transparent;
+    /* -fx-background-color: red; */
+
+    -fx-padding: 0;
+}
+
+/*MFX Combo Box*/
+#customFilter .caret .mfx-font-icon {
+    -mfx-color: #F5E3E0;
+}
+
+#customFilter .caret .mfx-ripple-generator {
+	-mfx-ripple-color: #000000;
+}
+
+#customFilter .virtual-flow {
+	-fx-background-color: #f5e3e060;
+    -fx-border-color: transparent;
+}
+
+.mfx-combo-box-cell .data-label {
+    -fx-text-fill: #F5E3E0;
+}
+
+#customFilter .virtual-flow .mfx-combo-box-cell {
+	-fx-alignment: center-right;
+    -fx-padding: 0 5px 0 0;
+}
+
+/* change color of cell when mouse hover and selected */
+#customFilter .virtual-flow .mfx-combo-box-cell:hover {
+	-fx-background-color: #14878d;
+}
+
+#customFilter .virtual-flow .mfx-combo-box-cell:selected {
+	-fx-background-color: #0E6367;
+}
