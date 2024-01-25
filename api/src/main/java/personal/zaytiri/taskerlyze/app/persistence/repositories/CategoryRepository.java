@@ -26,13 +26,17 @@ public class CategoryRepository extends Repository<Category, CategoryModel, Cate
 
         SelectQueryBuilder query = new SelectQueryBuilder(connection.open());
 
+        Column profileId = model.getTable().getColumn("profile_id");
+
         Column name = model.getTable().getColumn("name");
         List<Column> columns = new ArrayList<>();
         columns.add(name);
 
         query.select(columns)
                 .from(model.getTable())
-                .where(name, Operators.EQUALS, model.getName());
+                .where(name, Operators.EQUALS, model.getName())
+                .and()
+                .where(profileId, Operators.EQUALS, model.getProfileId());
 
         return query.execute();
     }

@@ -22,6 +22,7 @@ public class CategoryMapper extends Mapper<Category, CategoryModel> {
 
             category.setId(getRowIntValue(row, mixedResult, "id"));
             category.setName(getRowStringValue(row, mixedResult, "name"));
+            category.setProfileId(getRowIntValue(row, mixedResult, "profile_id"));
 
             categories.add(category);
         }
@@ -36,6 +37,7 @@ public class CategoryMapper extends Mapper<Category, CategoryModel> {
 
         entity.setId(model.getId());
         entity.setName(model.getName());
+        entity.setProfileId(model.getProfileId());
 
         return entity;
     }
@@ -48,6 +50,7 @@ public class CategoryMapper extends Mapper<Category, CategoryModel> {
 
         model.setId(entity.getId());
         model.setName(entity.getName());
+        model.setProfileId(entity.getProfileId());
 
         return model;
     }

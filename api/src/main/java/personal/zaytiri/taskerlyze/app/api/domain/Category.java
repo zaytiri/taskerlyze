@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Category extends Entity<Category, ICategoryRepository, CategoryMapper> implements IStorageOperations<Category>, IFindable<Category> {
+    private int profileId;
 
     @Inject
     public Category(ICategoryRepository repository) {
@@ -90,6 +91,15 @@ public class Category extends Entity<Category, ICategoryRepository, CategoryMapp
         }
 
         return results;
+    }
+
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public Category setProfileId(int profileId) {
+        this.profileId = profileId;
+        return this;
     }
 
     public Category setId(int id) {

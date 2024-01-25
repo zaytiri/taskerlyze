@@ -74,6 +74,11 @@
             <default>null</default>
         </column>
         <column>
+            <name>profile_id</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+        <column>
             <name>updated_at</name>
             <type>numeric</type>
             <default>null</default>
@@ -219,7 +224,7 @@
         <column>
             <name>default_profile</name>
             <type>numeric</type>
-            <default>1</default>
+            <default>0</default>
         </column>
         <column>
             <name>updated_at</name>
