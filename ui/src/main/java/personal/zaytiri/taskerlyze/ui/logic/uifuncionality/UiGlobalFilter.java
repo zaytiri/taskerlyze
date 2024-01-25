@@ -9,6 +9,7 @@ public class UiGlobalFilter {
     private final PropertyChangeSupport support;
     private LocalDate activeDay = null;
     private int activeCategoryId = 0;
+    private int activeProfileId;
 
     private UiGlobalFilter() {
         support = new PropertyChangeSupport(this);
@@ -33,6 +34,15 @@ public class UiGlobalFilter {
     public void setActiveDay(LocalDate currentActiveDay) {
         activeDay = currentActiveDay;
         support.firePropertyChange("toReload", true, false);
+    }
+
+    public int getActiveProfileId() {
+        return activeProfileId;
+    }
+
+    public void setActiveProfileId(int activeProfileId) {
+        this.activeProfileId = activeProfileId;
+        support.firePropertyChange("toReset", false, true);
     }
 
     public static UiGlobalFilter getUiGlobalFilter() {
