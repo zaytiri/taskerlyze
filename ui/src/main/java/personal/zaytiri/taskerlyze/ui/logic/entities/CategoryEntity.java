@@ -6,6 +6,7 @@ import personal.zaytiri.taskerlyze.ui.logic.mappers.CategoryMapper;
 
 public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryController> {
     private String name;
+    private int profileId;
 
     public CategoryEntity(Category category) {
         this();
@@ -28,6 +29,15 @@ public class CategoryEntity extends Entity<Category, CategoryEntity, CategoryCon
 
     public CategoryEntity setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public int getProfileId() {
+        return profileId;
+    }
+
+    public CategoryEntity setProfileId(int profileId) {
+        this.profileId = profileId;
         return this;
     }
 

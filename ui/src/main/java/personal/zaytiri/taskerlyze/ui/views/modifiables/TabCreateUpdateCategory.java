@@ -11,6 +11,7 @@ import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 
 import java.io.IOException;
@@ -57,7 +58,8 @@ public class TabCreateUpdateCategory extends Tab {
 
     private void create() {
         newCategory
-                .setName(categoryName.getText());
+                .setName(categoryName.getText())
+                .setProfileId(UiGlobalFilter.getUiGlobalFilter().getActiveProfileId());
 
         Pair<CategoryEntity, Pair<Boolean, String>> response = newCategory.createOrUpdate();
         boolean isSuccessfulFromApi = response.getValue().getKey();

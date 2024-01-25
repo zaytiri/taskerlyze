@@ -5,6 +5,7 @@ import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -44,7 +45,7 @@ public class CategoryLoader implements Findable<Pair<Integer, String>> {
     public List<CategoryEntity> load() {
         List<CategoryEntity> categoriesToBeReturned = new ArrayList<>();
 
-        List<Category> categories = new CategoryController().get(null, null).getResult();
+        List<Category> categories = new CategoryController().getCategoriesByProfile(UiGlobalFilter.getUiGlobalFilter().getActiveProfileId()).getResult();
 
         for (Category cat : categories) {
             categoriesToBeReturned.add(new CategoryEntity(cat));

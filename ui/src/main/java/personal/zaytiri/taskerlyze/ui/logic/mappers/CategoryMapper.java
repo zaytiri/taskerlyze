@@ -8,13 +8,15 @@ public class CategoryMapper implements IMapper<Category, CategoryEntity> {
     public Category mapToApiObject(CategoryEntity categoryEntity) {
         return new Category().getInstance()
                 .setId(categoryEntity.getId())
-                .setName(categoryEntity.getName());
+                .setName(categoryEntity.getName())
+                .setProfileId(categoryEntity.getProfileId());
     }
 
     @Override
     public CategoryEntity mapToUiObject(Category category, CategoryEntity categoryEntity) {
         return categoryEntity
                 .setId(category.getId())
-                .setName(category.getName());
+                .setName(category.getName())
+                .setProfileId(category.getProfileId());
     }
 }
