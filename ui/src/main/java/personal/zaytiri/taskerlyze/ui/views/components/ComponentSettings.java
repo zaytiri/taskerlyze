@@ -124,7 +124,7 @@ public class ComponentSettings extends AnchorPane {
             PopupAction.showConfirmationDialog(
                     "You are about to delete the following profile: " + deleteProfileOptions.getSelectedItem().getItemDisplay() + ". This action is IRREVERSIBLE.",
                     evt -> {
-                        ProfileEntity toDelete = new ProfileEntity();
+                        ProfileEntity toDelete = new ProfileEntity(deleteProfileOptions.getSelectedItem().getItemId());
                         if (toDelete.remove()) {
                             populateProfiles();
                         }
