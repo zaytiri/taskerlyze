@@ -12,6 +12,8 @@ public interface AppComponent {
 
     Category getCategory();
 
+    Profile getProfile();
+
     Question getQuestion();
 
     Settings getSettings();

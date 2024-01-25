@@ -232,4 +232,28 @@
             <default>null</default>
         </column>
     </table>
+    <table> <!-- table profiles -->
+        <name>profiles</name>
+        <column>
+            <name>id</name>
+            <type>integer</type>
+            <default>1</default>
+            <isprimarykey>true</isprimarykey>
+        </column>
+        <column>
+            <name>name</name>
+            <type>text</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>updated_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+        <column>
+            <name>created_at</name>
+            <type>numeric</type>
+            <default>null</default>
+        </column>
+    </table>
 </database>

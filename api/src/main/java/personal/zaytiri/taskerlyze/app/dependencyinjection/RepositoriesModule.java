@@ -11,6 +11,9 @@ public abstract class RepositoriesModule {
     abstract ICategoryRepository bindCategory(CategoryRepository impl);
 
     @Binds
+    abstract IProfileRepository bindProfile(ProfileRepository impl);
+
+    @Binds
     abstract IQuestionRepository bindQuestion(QuestionRepository impl);
 
     @Binds
