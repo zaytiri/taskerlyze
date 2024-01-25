@@ -12,12 +12,25 @@ import personal.zaytiri.taskerlyze.ui.views.modifiables.PaneCreateUpdateQuestion
 import personal.zaytiri.taskerlyze.ui.views.modifiables.PaneCreateUpdateSubTask;
 import personal.zaytiri.taskerlyze.ui.views.modifiables.PaneCreateUpdateTask;
 import personal.zaytiri.taskerlyze.ui.views.modifiables.TabCreateUpdateCategory;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveQuestion;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveSubTask;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogMoveTask;
 
 public class PopupAction {
     private PopupAction() {
+    }
+
+    public static void showConfirmationDialog(String message, EventHandler<ActionEvent> ifSuccessful, boolean considerSettings) {
+        if (considerSettings && !UiGlobalSettings.getUiGlobalMessage().isShowAchievedPopup()) {
+            ifSuccessful.handle(new ActionEvent());
+            return;
+        }
+
+        DialogConfirmation dialog = new DialogConfirmation();
+        dialog.setMessage(message);
+        dialog.setAfterSuccessful(ifSuccessful);
+        dialog.showDialog();
     }
 
     public static void showDialogForAddingCategory(TabPane parent) {

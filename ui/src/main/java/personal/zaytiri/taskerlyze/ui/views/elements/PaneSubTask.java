@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.io.IOException;
 
@@ -96,16 +95,17 @@ public class PaneSubTask extends TitledPane {
     }
 
     private void addRemoveSubtaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            DialogConfirmation dialog = new DialogConfirmation();
-            dialog.setMessage("You are about to remove the following sub-task: '" + getSubTaskName() + "'.");
-            dialog.setAfterSuccessful(evt -> {
-                SubTaskEntity subtask = new SubTaskEntity(getSubTaskId());
-                if (subtask.remove()) {
-                    reloadSubTasks();
-                }
-            });
-            dialog.showDialog();
+        this.contextMenu.addMenuItem("Remove", event -> {
+            PopupAction.showConfirmationDialog(
+                    "You are about to remove the following sub-task: '" + getSubTaskName() + "'.",
+                    evt -> {
+                        SubTaskEntity subtask = new SubTaskEntity(getSubTaskId());
+                        if (subtask.remove()) {
+                            reloadSubTasks();
+                        }
+                    },
+                    true
+            );
         });
     }
 

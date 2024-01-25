@@ -12,7 +12,6 @@ import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddAchieved;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;
@@ -134,16 +133,17 @@ public class PaneTask extends TitledPane {
     }
 
     private void addRemoveTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            DialogConfirmation dialog = new DialogConfirmation();
-            dialog.setMessage("You are about to remove the following task: '" + getTaskName() + "'.");
-            dialog.setAfterSuccessful(evt -> {
-                TaskEntity task = new TaskEntity(getTaskId());
-                if (task.remove()) {
-                    reloadTasks();
-                }
-            });
-            dialog.showDialog();
+        this.contextMenu.addMenuItem("Remove", event -> {
+            PopupAction.showConfirmationDialog(
+                    "You are about to remove the following task: '" + getTaskName() + "'.",
+                    evt -> {
+                        TaskEntity task = new TaskEntity(getTaskId());
+                        if (task.remove()) {
+                            reloadTasks();
+                        }
+                    },
+                    true
+            );
         });
     }
 

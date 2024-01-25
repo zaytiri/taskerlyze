@@ -12,9 +12,9 @@ import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SettingsEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SettingsLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalSettings;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,13 +86,14 @@ public class ComponentSettings extends AnchorPane {
 
         saveButton.setOnAction(event -> saveSettings());
         deleteButton.setOnAction(event -> {
-            DialogConfirmation dialogConfirmation = new DialogConfirmation();
-            dialogConfirmation.setMessage("You are about to delete ALL DATA.");
-            dialogConfirmation.setAfterSuccessful(evt -> {
-                this.settings.deleteData();
-                mainView.initialize();
-            });
-            dialogConfirmation.showDialog();
+            PopupAction.showConfirmationDialog(
+                    "You are about to delete ALL DATA. This action is IRREVERSIBLE.",
+                    evt -> {
+                        this.settings.deleteData();
+                        mainView.initialize();
+                    },
+                    false
+            );
         });
 
     }

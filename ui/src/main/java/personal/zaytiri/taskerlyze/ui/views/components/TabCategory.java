@@ -13,7 +13,6 @@ import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
-import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.io.IOException;
 
@@ -94,16 +93,17 @@ public class TabCategory extends Tab {
     }
 
     private void addRemoveCategoryOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Remove (no confirmation)", event -> {
-            DialogConfirmation dialog = new DialogConfirmation();
-            dialog.setMessage("You are about to remove the following category: '" + getCategoryName() + "'.\nIf removed, all associated tasks, done or not, will be passed over to Archive default category.");
-            dialog.setAfterSuccessful(evt -> {
-                CategoryEntity category = new CategoryEntity(getCategoryId());
-                if (category.remove()) {
-                    CategoryLoader.getCategoryLoader().load();
-                }
-            });
-            dialog.showDialog();
+        this.contextMenu.addMenuItem("Remove", event -> {
+            PopupAction.showConfirmationDialog(
+                    "You are about to remove the following category: '" + getCategoryName() + "'.\nIf removed, all associated tasks, done or not, will be passed over to Archive default category.",
+                    evt -> {
+                        CategoryEntity category = new CategoryEntity(getCategoryId());
+                        if (category.remove()) {
+                            CategoryLoader.getCategoryLoader().load();
+                        }
+                    },
+                    true
+            );
         });
     }
 
