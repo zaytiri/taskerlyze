@@ -12,14 +12,11 @@
                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <VBox styleClass="margins" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <HBox alignment="CENTER" spacing="15.0">
-                <VBox>
-                    <Label alignment="CENTER"
-                           text="You can configure multiple settings here. You can view more information by hovering each option. These options are not profile specific, they will be considered by all profiles. For the current settings to be saved, the next button 'Save' needs to be clicked."
-                           textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS"/>
-                </VBox>
-                <MFXButton fx:id="saveButton" buttonType="RAISED" minWidth="50.0" text="Save"/>
-            </HBox>
+            <VBox>
+                <Label alignment="CENTER"
+                       text="You can configure multiple settings here. You can view more information by hovering each option. These options are not profile specific, they will be considered by all profiles."
+                       textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS"/>
+            </VBox>
             <Separator>
                 <VBox.margin>
                     <Insets/>
@@ -28,6 +25,12 @@
             <VBox alignment="CENTER_LEFT" styleClass="inner-margins" VBox.vgrow="ALWAYS">
                 <Label id="title" text="General Settings">
                 </Label>
+                <VBox>
+                    <Label alignment="CENTER"
+                           text="For the general settings to be saved, the next button 'Save' needs to be clicked."
+                           textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS"/>
+                </VBox>
+                <MFXButton fx:id="saveButton" buttonType="RAISED" minWidth="50.0" text="Save"/>
                 <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
                     <VBox.margin>
                         <Insets/>
@@ -126,6 +129,38 @@
                         <Insets/>
                     </VBox.margin>
                 </HBox>
+                <Separator>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </Separator>
+                <Label id="title" text="Profile Management">
+                </Label>
+                <VBox>
+                    <Label alignment="CENTER"
+                           text="The following settings are saved automatically when action is performed."
+                           textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS"/>
+                </VBox>
+                <HBox spacing="15.0" alignment="CENTER_LEFT">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                    <MFXButton fx:id="newProfileButton" buttonType="RAISED" text="New Profile"/>
+                </HBox>
+                <HBox spacing="15.0" alignment="CENTER_LEFT">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                    <MFXComboBox id="customFilter" fx:id="editProfileOptions" floatingText="Profile to update"/>
+                    <MFXButton fx:id="editProfileButton" buttonType="RAISED" text="Edit Profile"/>
+                </HBox>
+                <HBox spacing="15.0" alignment="CENTER_LEFT">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                    <MFXComboBox id="customFilter" fx:id="deleteProfileOptions" floatingText="Profile to delete"/>
+                    <MFXButton fx:id="deleteProfileButton" buttonType="RAISED" text="Delete"/>
+                </HBox>
             </VBox>
             <Separator>
                 <VBox.margin>
@@ -162,7 +197,7 @@
                 </VBox.margin>
                 <Label id="title" text="Data management">
                 </Label>
-                <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                <HBox spacing="15.0">
                     <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </padding>

@@ -4,26 +4,42 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
+import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.entities.ProfileEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SettingsEntity;
+import personal.zaytiri.taskerlyze.ui.logic.loaders.ProfileLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SettingsLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalSettings;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddProfile;
 
+import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.net.URL;
 import java.util.List;
-import java.util.Map;
 
 public class ComponentSettings extends AnchorPane {
-    private final Map<Integer, String> profiles = new HashMap<>();
+    private final ObservableList<IdentifiableItem<String>> profiles = FXCollections.observableArrayList();
+    @FXML
+    private MFXButton editProfileButton;
+    @FXML
+    private MFXComboBox<IdentifiableItem<String>> defaultProfile;
+    @FXML
+    private MFXComboBox<IdentifiableItem<String>> editProfileOptions;
+    @FXML
+    private MFXComboBox<IdentifiableItem<String>> deleteProfileOptions;
+    @FXML
+    private MFXButton newProfileButton;
+    @FXML
+    private MFXButton deleteProfileButton;
+    @FXML
+    private MFXButton openProgramSchedulerUrl;
     @FXML
     private MFXToggleButton enableDarkMode;
     private SettingsEntity settings = new SettingsEntity();
@@ -41,10 +57,6 @@ public class ComponentSettings extends AnchorPane {
     private MFXTextField remindTasksInDays;
     @FXML
     private MFXTextField remindQuestionsInDays;
-    @FXML
-    private MFXComboBox<String> defaultProfile;
-    @FXML
-    private MFXButton openProgramSchedulerUrl;
     @FXML
     private MFXButton deleteButton;
     @FXML
@@ -67,16 +79,6 @@ public class ComponentSettings extends AnchorPane {
         }
     }
 
-    public int findProfileIdByName(String value) {
-
-        for (Map.Entry<Integer, String> profile : profiles.entrySet()) {
-            if (profile.getValue().equals(value)) {
-                return profile.getKey();
-            }
-        }
-        return 0;
-    }
-
     @FXML
     public void initialize() {
         enableAutomaticReminders.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -85,31 +87,66 @@ public class ComponentSettings extends AnchorPane {
         });
 
         saveButton.setOnAction(event -> saveSettings());
-        deleteButton.setOnAction(event -> {
+        deleteButton.setOnAction(event -> PopupAction.showConfirmationDialog(
+                "You are about to delete ALL DATA. This action is IRREVERSIBLE.",
+                evt -> {
+                    this.settings.deleteData();
+                    mainView.initialize();
+                },
+                false
+        ));
+        newProfileButton.setOnAction(event -> {
+            DialogAddProfile addProfile = new DialogAddProfile();
+            addProfile.setAfterSuccessful(evt -> populateProfiles());
+            addProfile.showDialog();
+        });
+        editProfileButton.setOnAction(event -> {
+            if (editProfileOptions.getSelectedItem() == null) {
+                return;
+            }
+
+            DialogAddProfile addProfile = new DialogAddProfile();
+            addProfile.setProfileId(editProfileOptions.getSelectedItem().getItemId());
+            addProfile.setAfterSuccessful(evt -> populateProfiles());
+            addProfile.showDialog();
+        });
+        deleteProfileButton.setOnAction(event -> {
+            if (deleteProfileOptions.getSelectedItem() == null) {
+                return;
+            }
+
+            if (profiles.size() == 1) {
+                UiGlobalMessage.getUiGlobalMessage().setMessage(
+                        MessageType.ERROR,
+                        "There must be at least one profile created. Cannot delete last profile.");
+                return;
+            }
             PopupAction.showConfirmationDialog(
-                    "You are about to delete ALL DATA. This action is IRREVERSIBLE.",
+                    "You are about to delete the following profile: " + deleteProfileOptions.getSelectedItem().getItemDisplay() + ". This action is IRREVERSIBLE.",
                     evt -> {
-                        this.settings.deleteData();
-                        mainView.initialize();
+                        ProfileEntity toDelete = new ProfileEntity();
+                        if (toDelete.remove()) {
+                            populateProfiles();
+                        }
                     },
                     false
             );
         });
-
+        openProgramSchedulerUrl.setOnAction(event -> {
+            String taskUrl = "https://github.com/zaytiri/program-scheduler";
+            try {
+                Desktop.getDesktop().browse(new URL(taskUrl).toURI());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        populateProfiles();
     }
 
     public void load() {
         var loader = new SettingsLoader();
         loader.setSettingsId(1);
         List<SettingsEntity> settings = loader.load();
-
-        populateProfiles();
-        var observableProfiles = FXCollections.observableList(new ArrayList<String>());
-        for (Map.Entry<Integer, String> profile : profiles.entrySet()) {
-            observableProfiles.add(profile.getValue());
-        }
-        defaultProfile.setItems(observableProfiles);
-        defaultProfile.selectItem(profiles.get(2));
 
         if (settings.isEmpty()) {
             return;
@@ -128,8 +165,9 @@ public class ComponentSettings extends AnchorPane {
 
         remindTasksInDays.setText(String.valueOf(this.settings.getRemindTaskInDays()));
         remindQuestionsInDays.setText(String.valueOf(this.settings.getRemindQuestionsInDays()));
-    }
 
+        selectCurrentDefaultProfile();
+    }
 
     public void setComponentMainView(ComponentMainView mainView) {
         this.mainView = mainView;
@@ -153,7 +191,7 @@ public class ComponentSettings extends AnchorPane {
                 .setAutomaticReminders(enableAutomaticReminders.isSelected())
                 .setRemindTaskInDays(Integer.parseInt(remindTasksInDays.getText()))
                 .setRemindQuestionsInDays(Integer.parseInt(remindQuestionsInDays.getText()))
-                .setDefaultProfile(findProfileIdByName(defaultProfile.getSelectedItem()));
+                .setDefaultProfile(defaultProfile.getSelectedItem().getItemId());
     }
 
     private boolean isTextFieldNumbersOnly(MFXTextField textField) {
@@ -162,24 +200,26 @@ public class ComponentSettings extends AnchorPane {
     }
 
     private void populateProfiles() {
-//        CategoryLoader loader = new CategoryLoader();
-//
-//        setDefaultCategoryAsArchive();
-//
-//        for (CategoryEntity cat : loader.load()) {
-//            IdentifiableItem<String> item = new IdentifiableItem<>();
-//            item.setItemId(cat.getId());
-//            item.setItemDisplay(cat.getName());
-//
-//            category.getItems().add(item);
-//
-//            if (item.getItemId() == categoryId) {
-//                category.getSelectionModel().select(item);
-//            }
-//        }
-        profiles.put(1, "profile 1");
-        profiles.put(2, "profile 2");
-        profiles.put(3, "profile 3");
+        ProfileLoader loader = new ProfileLoader();
+
+        profiles.clear();
+
+        for (ProfileEntity prof : loader.load()) {
+            var identifier = new IdentifiableItem<String>();
+            identifier.setItemId(prof.getId());
+            identifier.setItemDisplay(prof.getName());
+            profiles.add(identifier);
+        }
+
+        StringConverter<IdentifiableItem<String>> converter = FunctionalStringConverter.to(profile -> (profile == null) ? "" : profile.getItemDisplay());
+        defaultProfile.setItems(profiles);
+        defaultProfile.setConverter(converter);
+
+        editProfileOptions.setItems(profiles);
+        editProfileOptions.setConverter(converter);
+
+        deleteProfileOptions.setItems(profiles);
+        deleteProfileOptions.setConverter(converter);
     }
 
     private void saveSettings() {
@@ -198,5 +238,20 @@ public class ComponentSettings extends AnchorPane {
 
         UiGlobalSettings.getUiGlobalMessage().setSettings(settings);
         UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.NEUTRAL, result.getValue().getValue());
+    }
+
+    private void selectCurrentDefaultProfile() {
+
+        if (this.settings.getDefaultProfile() == 0) {
+            return;
+        }
+
+        IdentifiableItem<String> selectedItem = null;
+        for (IdentifiableItem<String> iden : profiles) {
+            if (iden.getItemId() == this.settings.getDefaultProfile()) {
+                selectedItem = iden;
+            }
+        }
+        defaultProfile.selectItem(selectedItem);
     }
 }
