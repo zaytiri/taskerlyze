@@ -40,7 +40,6 @@ public abstract class Controller<T extends IStorageOperations<T>> implements ICo
         return new OperationResult<>(isDeleted, message, null);
     }
 
-
     @Override
     public OperationResult<List<T>> get(Map<String, Pair<String, Object>> filters, Pair<String, String> orderByColumn) {
         T entity = getEntityInstance();

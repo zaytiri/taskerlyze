@@ -43,6 +43,14 @@ public class Profile extends Entity<Profile, IProfileRepository, ProfileMapper> 
             return false;
         }
 
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("profile_id", new Pair<>("=", id));
+
+        List<Category> results = new Category().getInstance().get(filters, null);
+        for (Category category : results) {
+            category.delete();
+        }
+
         return response.isSuccess();
     }
 

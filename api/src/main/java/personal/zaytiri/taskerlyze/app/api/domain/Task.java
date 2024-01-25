@@ -53,6 +53,14 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
             return false;
         }
 
+        Map<String, Pair<String, Object>> filters = new HashMap<>();
+        filters.put("task_id", new Pair<>("=", id));
+
+        List<SubTask> results = new SubTask().getInstance().get(filters, null);
+        for (SubTask subTask : results) {
+            subTask.delete();
+        }
+
         return response.isSuccess();
     }
 

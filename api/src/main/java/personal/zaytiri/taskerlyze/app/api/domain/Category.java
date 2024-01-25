@@ -45,6 +45,27 @@ public class Category extends Entity<Category, ICategoryRepository, CategoryMapp
             return false;
         }
 
+        Map<String, Pair<String, Object>> filtersTasks = new HashMap<>();
+        filtersTasks.put("category_id", new Pair<>("=", id));
+
+        List<Task> results = new Task().getInstance().get(filtersTasks, null);
+        for (Task task : results) {
+//            task.setCategoryId(0); // while i dont have a solution for having different default archives for different
+            // profiles, if a category is removed, all tasks will be removed as well. It should be that if a category
+            // is removed, then all tasks should go to the default archive of that specific profile.
+            // the same should happen to questions as well.
+//            task.update();
+            task.delete();
+        }
+
+        Map<String, Pair<String, Object>> filtersQuestions = new HashMap<>();
+        filtersQuestions.put("category_id", new Pair<>("=", id));
+
+        List<Question> resultsQuestions = new Question().getInstance().get(filtersQuestions, null);
+        for (Question question : resultsQuestions) {
+            question.delete();
+        }
+
         return response.isSuccess();
     }
 
