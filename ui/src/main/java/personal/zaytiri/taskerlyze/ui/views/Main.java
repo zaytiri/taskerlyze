@@ -4,7 +4,6 @@ import io.github.palexdev.materialfx.theming.JavaFXThemes;
 import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
 import io.github.palexdev.materialfx.theming.UserAgentBuilder;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,11 +23,10 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         Configuration.getInstance().setPrimaryStage(stage);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
-        Parent root = loader.load();
-
-        MainController main = loader.getController();
+        MainController main = new MainController();
         main.setAppPreConfigurations();
+
+        Parent root = main.getLoadedComponent();
 
         Scene scene = configureMainScene(root, stage);
 
