@@ -15,7 +15,7 @@
             <HBox alignment="CENTER" spacing="15.0">
                 <VBox>
                     <Label alignment="CENTER"
-                           text="You can configure multiple settings here. You can view more information by hovering each option. These options are not profile specific, they will be considered by all profiles."
+                           text="You can configure multiple settings here. You can view more information by hovering each option. These options are not profile specific, they will be considered by all profiles. For the current settings to be saved, the next button 'Save' needs to be clicked."
                            textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS"/>
                 </VBox>
                 <MFXButton fx:id="saveButton" buttonType="RAISED" minWidth="50.0" text="Save"/>
