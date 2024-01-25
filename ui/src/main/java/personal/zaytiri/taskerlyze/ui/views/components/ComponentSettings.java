@@ -13,6 +13,7 @@ import personal.zaytiri.taskerlyze.ui.logic.entities.SettingsEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SettingsLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalSettings;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogConfirmation;
 
 import java.io.IOException;
@@ -194,6 +195,7 @@ public class ComponentSettings extends AnchorPane {
             UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.ERROR, result.getValue().getValue());
         }
 
+        UiGlobalSettings.getUiGlobalMessage().setSettings(settings);
         UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.NEUTRAL, result.getValue().getValue());
     }
 }
