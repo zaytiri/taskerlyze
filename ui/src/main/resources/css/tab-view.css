@@ -24,7 +24,7 @@
 
 .tab-pane {
     -fx-effect:  dropshadow(one-pass-box , rgba(9, 55, 58, 0.5), 10, 0.1, -2, 2);
-    -fx-padding: 15px 0 0 0;
+    -fx-padding: 0 0 0 0;
 }
 
 .tab-label {
