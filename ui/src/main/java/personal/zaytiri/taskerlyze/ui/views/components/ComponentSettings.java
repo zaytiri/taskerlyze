@@ -92,13 +92,13 @@ public class ComponentSettings extends AnchorPane {
                 evt -> {
                     this.settings.deleteData();
                     mainView.initialize();
+                    populateProfiles();
+                    addNewProfile();
                 },
                 false
         ));
         newProfileButton.setOnAction(event -> {
-            DialogAddProfile addProfile = new DialogAddProfile();
-            addProfile.setAfterSuccessful(evt -> populateProfiles());
-            addProfile.showDialog();
+            addNewProfile();
         });
         editProfileButton.setOnAction(event -> {
             if (editProfileOptions.getSelectedItem() == null) {
@@ -179,6 +179,12 @@ public class ComponentSettings extends AnchorPane {
         } catch (NumberFormatException e) {
             return defaultVal;
         }
+    }
+
+    private void addNewProfile() {
+        DialogAddProfile addProfile = new DialogAddProfile();
+        addProfile.setAfterSuccessful(evt -> populateProfiles());
+        addProfile.showDialog();
     }
 
     private void getSettingsToSave() {
