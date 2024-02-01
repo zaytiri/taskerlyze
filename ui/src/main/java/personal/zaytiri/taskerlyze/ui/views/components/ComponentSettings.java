@@ -28,6 +28,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class ComponentSettings extends AnchorPane {
     private final ObservableList<IdentifiableItem<String>> profiles = FXCollections.observableArrayList();
@@ -128,12 +129,12 @@ public class ComponentSettings extends AnchorPane {
             }
             PopupAction.showConfirmationDialog(
                     "You are about to delete the following profile: " + deleteProfileOptions.getSelectedItem().getItemDisplay() + ". This action is IRREVERSIBLE.",
-                    evt -> {
+                    evt -> Executors.newSingleThreadExecutor().submit(() -> {
                         ProfileEntity toDelete = new ProfileEntity(deleteProfileOptions.getSelectedItem().getItemId());
                         if (toDelete.remove()) {
                             populateProfiles();
                         }
-                    },
+                    }),
                     false
             );
         });
