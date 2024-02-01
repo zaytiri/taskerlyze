@@ -99,16 +99,12 @@ public class DbConnection {
 
     private String getDbConnectionPath() {
         String homeDir = System.getProperty("user.home");
-
-        System.out.println("User Home Directory is: " + homeDir);
-
         Path path = Paths.get(homeDir + "/taskerlyze/data");
         try {
             Files.createDirectories(path);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(path.toAbsolutePath());
         return path.toAbsolutePath() + "\\";
     }
 }
