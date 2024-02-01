@@ -4,7 +4,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import personal.zaytiri.taskerlyze.ui.views.elements.*?>
+<?import personal.zaytiri.taskerlyze.ui.views.elements.CustomTooltip?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="849.0" prefWidth="427.0"
          stylesheets="@../css/settings-view.css" type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx/20.0.1">
@@ -31,29 +31,29 @@
                            textAlignment="JUSTIFY" wrapText="true" VBox.vgrow="ALWAYS"/>
                 </VBox>
                 <MFXButton fx:id="saveButton" buttonType="RAISED" minWidth="50.0" text="Save"/>
-                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
-                    <VBox.margin>
-                        <Insets/>
-                    </VBox.margin>
-                    <MFXToggleButton id="customToggleButton" fx:id="enableDarkMode"/>
-                    <Label text="Enable dark mode">
-                        <tooltip>
-                            <CustomTooltip text="This will disable/enable dark mode."/>
-                        </tooltip>
-                    </Label>
-                </HBox>
-                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
-                    <VBox.margin>
-                        <Insets/>
-                    </VBox.margin>
-                    <MFXToggleButton id="customToggleButton" fx:id="enableAlwaysOnTop"/>
-                    <Label text="Enable window always on top">
-                        <tooltip>
-                            <CustomTooltip
-                                    text="Always on top means that the window will take precedence over any open window."/>
-                        </tooltip>
-                    </Label>
-                </HBox>
+                <!--                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">-->
+                <!--                    <VBox.margin>-->
+                <!--                        <Insets/>-->
+                <!--                    </VBox.margin>-->
+                <!--                    <MFXToggleButton id="customToggleButton" fx:id="enableDarkMode"/>-->
+                <!--                    <Label text="Enable dark mode">-->
+                <!--                        <tooltip>-->
+                <!--                            <CustomTooltip text="This will disable/enable dark mode."/>-->
+                <!--                        </tooltip>-->
+                <!--                    </Label>-->
+                <!--                </HBox>-->
+                <!--                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">-->
+                <!--                    <VBox.margin>-->
+                <!--                        <Insets/>-->
+                <!--                    </VBox.margin>-->
+                <!--                    <MFXToggleButton id="customToggleButton" fx:id="enableAlwaysOnTop"/>-->
+                <!--                    <Label text="Enable window always on top">-->
+                <!--                        <tooltip>-->
+                <!--                            <CustomTooltip-->
+                <!--                                    text="Always on top means that the window will take precedence over any open window."/>-->
+                <!--                        </tooltip>-->
+                <!--                    </Label>-->
+                <!--                </HBox>-->
                 <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
                     <VBox.margin>
                         <Insets/>
@@ -77,46 +77,46 @@
                         </tooltip>
                     </Label>
                 </HBox>
-                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
-                    <VBox.margin>
-                        <Insets/>
-                    </VBox.margin>
-                    <MFXToggleButton id="customToggleButton" fx:id="enableAutomaticTasks"/>
-                    <Label text="Enable automatic tasks">
-                        <tooltip>
-                            <CustomTooltip
-                                    text="Enable the existence of automatic tasks. These type of tasks are created automatically each day and represent custom tasks needed everyday, e.g. checking e-mail, etc."/>
-                        </tooltip>
-                    </Label>
-                </HBox>
-                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
-                    <VBox.margin>
-                        <Insets/>
-                    </VBox.margin>
-                    <MFXToggleButton id="customToggleButton" fx:id="enableAutomaticReminders"/>
-                    <Label text="Enable automatic reminders">
-                        <tooltip>
-                            <CustomTooltip
-                                    text="Disable/enable reminders for tasks and questions. If disabled, no reminders will be shown if a task or question is not completed in some period of time."/>
-                        </tooltip>
-                    </Label>
-                </HBox>
-                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
-                    <Label text="Remind me in"/>
-                    <MFXTextField fx:id="remindTasksInDays" floatMode="BORDER" floatingText="##"/>
-                    <Label text="days, if task is not completed."/>
-                    <VBox.margin>
-                        <Insets/>
-                    </VBox.margin>
-                </HBox>
-                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
-                    <Label text="Remind me in"/>
-                    <MFXTextField fx:id="remindQuestionsInDays" floatMode="BORDER" floatingText="##"/>
-                    <Label text="days, if question is not answered."/>
-                    <VBox.margin>
-                        <Insets/>
-                    </VBox.margin>
-                </HBox>
+                <!--                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">-->
+                <!--                    <VBox.margin>-->
+                <!--                        <Insets/>-->
+                <!--                    </VBox.margin>-->
+                <!--                    <MFXToggleButton id="customToggleButton" fx:id="enableAutomaticTasks"/>-->
+                <!--                    <Label text="Enable automatic tasks">-->
+                <!--                        <tooltip>-->
+                <!--                            <CustomTooltip-->
+                <!--                                    text="Enable the existence of automatic tasks. These type of tasks are created automatically each day and represent custom tasks needed everyday, e.g. checking e-mail, etc."/>-->
+                <!--                        </tooltip>-->
+                <!--                    </Label>-->
+                <!--                </HBox>-->
+                <!--                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">-->
+                <!--                    <VBox.margin>-->
+                <!--                        <Insets/>-->
+                <!--                    </VBox.margin>-->
+                <!--                    <MFXToggleButton id="customToggleButton" fx:id="enableAutomaticReminders"/>-->
+                <!--                    <Label text="Enable automatic reminders">-->
+                <!--                        <tooltip>-->
+                <!--                            <CustomTooltip-->
+                <!--                                    text="Disable/enable reminders for tasks and questions. If disabled, no reminders will be shown if a task or question is not completed in some period of time."/>-->
+                <!--                        </tooltip>-->
+                <!--                    </Label>-->
+                <!--                </HBox>-->
+                <!--                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">-->
+                <!--                    <Label text="Remind me in"/>-->
+                <!--                    <MFXTextField fx:id="remindTasksInDays" floatMode="BORDER" floatingText="##"/>-->
+                <!--                    <Label text="days, if task is not completed."/>-->
+                <!--                    <VBox.margin>-->
+                <!--                        <Insets/>-->
+                <!--                    </VBox.margin>-->
+                <!--                </HBox>-->
+                <!--                <HBox alignment="CENTER_LEFT" styleClass="inner-margins">-->
+                <!--                    <Label text="Remind me in"/>-->
+                <!--                    <MFXTextField fx:id="remindQuestionsInDays" floatMode="BORDER" floatingText="##"/>-->
+                <!--                    <Label text="days, if question is not answered."/>-->
+                <!--                    <VBox.margin>-->
+                <!--                        <Insets/>-->
+                <!--                    </VBox.margin>-->
+                <!--                </HBox>-->
                 <HBox alignment="CENTER_LEFT" styleClass="inner-margins">
                     <Label text="Choose the default profile:">
                         <tooltip>
@@ -202,8 +202,8 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </padding>
                     <MFXButton fx:id="deleteButton" buttonType="RAISED" text="Delete"/>
-                    <MFXButton fx:id="importButton" buttonType="RAISED" text="Import"/>
-                    <MFXButton fx:id="exportButton" buttonType="RAISED" text="Export"/>
+                    <!--                    <MFXButton fx:id="importButton" buttonType="RAISED" text="Import"/>-->
+                    <!--                    <MFXButton fx:id="exportButton" buttonType="RAISED" text="Export"/>-->
                 </HBox>
             </VBox>
             <VBox.margin>

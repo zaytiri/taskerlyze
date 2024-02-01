@@ -81,10 +81,10 @@ public class ComponentSettings extends AnchorPane {
 
     @FXML
     public void initialize() {
-        enableAutomaticReminders.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            remindTasksInDays.setDisable(!newValue);
-            remindQuestionsInDays.setDisable(!newValue);
-        });
+//        enableAutomaticReminders.selectedProperty().addListener((observable, oldValue, newValue) -> {
+//            remindTasksInDays.setDisable(!newValue);
+//            remindQuestionsInDays.setDisable(!newValue);
+//        });
 
         saveButton.setOnAction(event -> saveSettings());
         deleteButton.setOnAction(event -> PopupAction.showConfirmationDialog(
@@ -153,18 +153,18 @@ public class ComponentSettings extends AnchorPane {
         }
         this.settings = settings.get(0);
 
-        enableDarkMode.setSelected(this.settings.isDarkMode());
-        enableAlwaysOnTop.setSelected(this.settings.isAlwaysOnTop());
+//        enableDarkMode.setSelected(this.settings.isDarkMode());
+//        enableAlwaysOnTop.setSelected(this.settings.isAlwaysOnTop());
         enablePopUpAchieved.setSelected(this.settings.isShowAchievedPopup());
         enableConfirmationPopup.setSelected(this.settings.isShowConfirmationPopup());
-        enableAutomaticTasks.setSelected(this.settings.isAutomaticTasks());
-        enableAutomaticReminders.setSelected(this.settings.isAutomaticReminders());
+//        enableAutomaticTasks.setSelected(this.settings.isAutomaticTasks());
+//        enableAutomaticReminders.setSelected(this.settings.isAutomaticReminders());
 
-        remindTasksInDays.setDisable(!enableAutomaticReminders.isSelected());
-        remindQuestionsInDays.setDisable(!enableAutomaticReminders.isSelected());
-
-        remindTasksInDays.setText(String.valueOf(this.settings.getRemindTaskInDays()));
-        remindQuestionsInDays.setText(String.valueOf(this.settings.getRemindQuestionsInDays()));
+//        remindTasksInDays.setDisable(!enableAutomaticReminders.isSelected());
+//        remindQuestionsInDays.setDisable(!enableAutomaticReminders.isSelected());
+//
+//        remindTasksInDays.setText(String.valueOf(this.settings.getRemindTaskInDays()));
+//        remindQuestionsInDays.setText(String.valueOf(this.settings.getRemindQuestionsInDays()));
 
         selectCurrentDefaultProfile();
     }
@@ -183,14 +183,14 @@ public class ComponentSettings extends AnchorPane {
 
     private void getSettingsToSave() {
         this.settings
-                .setDarkMode(enableDarkMode.isSelected())
-                .setAlwaysOnTop(enableAlwaysOnTop.isSelected())
+//                .setDarkMode(enableDarkMode.isSelected())
+//                .setAlwaysOnTop(enableAlwaysOnTop.isSelected())
                 .setShowAchievedPopup(enablePopUpAchieved.isSelected())
                 .setShowConfirmationPopup(enableConfirmationPopup.isSelected())
-                .setAutomaticTasks(enableAutomaticTasks.isSelected())
-                .setAutomaticReminders(enableAutomaticReminders.isSelected())
-                .setRemindTaskInDays(Integer.parseInt(remindTasksInDays.getText()))
-                .setRemindQuestionsInDays(Integer.parseInt(remindQuestionsInDays.getText()))
+//                .setAutomaticTasks(enableAutomaticTasks.isSelected())
+//                .setAutomaticReminders(enableAutomaticReminders.isSelected())
+//                .setRemindTaskInDays(Integer.parseInt(remindTasksInDays.getText()))
+//                .setRemindQuestionsInDays(Integer.parseInt(remindQuestionsInDays.getText()))
                 .setDefaultProfile(defaultProfile.getSelectedItem().getItemId());
     }
 
@@ -225,10 +225,10 @@ public class ComponentSettings extends AnchorPane {
     }
 
     private void saveSettings() {
-        if (enableAutomaticReminders.isSelected() && !(isTextFieldNumbersOnly(remindTasksInDays) || isTextFieldNumbersOnly(remindQuestionsInDays))) {
-            UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.ERROR, "Input can only have numbers.");
-            return;
-        }
+//        if (enableAutomaticReminders.isSelected() && !(isTextFieldNumbersOnly(remindTasksInDays) || isTextFieldNumbersOnly(remindQuestionsInDays))) {
+//            UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.ERROR, "Input can only have numbers.");
+//            return;
+//        }
 
         getSettingsToSave();
 
