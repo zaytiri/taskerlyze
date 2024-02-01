@@ -7,9 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import personal.zaytiri.taskerlyze.ui.views.elements.*?>
-<fx:root xmlns:fx="http://javafx.com/fxml"
-         xmlns="http://javafx.com/javafx" type="javafx.scene.layout.BorderPane"
->
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.layout.BorderPane"
+         xmlns="http://javafx.com/javafx/20.0.1">
     <top>
         <BorderPane>
             <left>
@@ -23,12 +22,9 @@
             <right>
                 <HBox id="exit" BorderPane.alignment="CENTER_LEFT">
                     <VBox alignment="CENTER_LEFT" fillWidth="false">
-                        <Button fx:id="exit"
-                                mnemonicParsing="false" text="Exit"/>
-                        <Button fx:id="today"
-                                contentDisplay="BOTTOM" graphicTextGap="0.0"
-                                mnemonicParsing="false" text="Today"
-                                textAlignment="JUSTIFY" wrapText="true"/>
+                        <Button fx:id="exit" mnemonicParsing="false" text="Exit"/>
+                        <Button fx:id="today" contentDisplay="BOTTOM" graphicTextGap="0.0" mnemonicParsing="false"
+                                text="Today" textAlignment="JUSTIFY" wrapText="true"/>
                     </VBox>
                 </HBox>
             </right>
@@ -38,15 +34,13 @@
         <HBox fx:id="hboxDaysOfTheWeek" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
             <Button id="prev-next-btn" fx:id="previousWeekButton" mnemonicParsing="false">
                 <graphic>
-                    <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
-                               preserveRatio="true">
+                    <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../icons/left-arrow.png"/>
                     </ImageView>
                 </graphic>
             </Button>
-            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
-                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="MON"
-                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0"
+                          prefWidth="40.0" text="MON" textAlignment="CENTER" textFill="#434040" wrapText="true">
                 <graphic>
                     <LabelDay id="cal-day" month="1"/>
                 </graphic>
@@ -57,9 +51,8 @@
                     <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                 </HBox.margin>
             </ToggleButton>
-            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
-                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="TUE"
-                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0"
+                          prefWidth="40.0" text="TUE" textAlignment="CENTER" textFill="#434040" wrapText="true">
                 <graphic>
                     <LabelDay id="cal-day" month="1"/>
                 </graphic>
@@ -70,9 +63,8 @@
                     <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                 </HBox.margin>
             </ToggleButton>
-            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
-                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="WED"
-                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0"
+                          prefWidth="40.0" text="WED" textAlignment="CENTER" textFill="#434040" wrapText="true">
                 <graphic>
                     <LabelDay id="cal-day" month="1"/>
                 </graphic>
@@ -83,9 +75,8 @@
                     <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                 </HBox.margin>
             </ToggleButton>
-            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
-                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="THU"
-                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0"
+                          prefWidth="40.0" text="THU" textAlignment="CENTER" textFill="#434040" wrapText="true">
                 <graphic>
                     <LabelDay id="cal-day" month="1"/>
                 </graphic>
@@ -96,9 +87,8 @@
                     <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                 </HBox.margin>
             </ToggleButton>
-            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
-                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="FRI"
-                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0"
+                          prefWidth="40.0" text="FRI" textAlignment="CENTER" textFill="#434040" wrapText="true">
                 <graphic>
                     <LabelDay id="cal-day" month="1"/>
                 </graphic>
@@ -109,9 +99,8 @@
                     <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                 </HBox.margin>
             </ToggleButton>
-            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
-                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SAT"
-                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0"
+                          prefWidth="40.0" text="SAT" textAlignment="CENTER" textFill="#434040" wrapText="true">
                 <graphic>
                     <LabelDay id="cal-day" month="1"/>
                 </graphic>
@@ -122,9 +111,8 @@
                     <Insets bottom="30.0" left="5.0" right="5.0" top="25.0"/>
                 </HBox.margin>
             </ToggleButton>
-            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM"
-                          mnemonicParsing="false" prefHeight="73.0" prefWidth="40.0" text="SUN"
-                          textAlignment="CENTER" textFill="#434040" wrapText="true">
+            <ToggleButton id="cal-week-day" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="73.0"
+                          prefWidth="40.0" text="SUN" textAlignment="CENTER" textFill="#434040" wrapText="true">
                 <graphic>
                     <LabelDay id="cal-day" month="1"/>
                 </graphic>
@@ -137,8 +125,7 @@
             </ToggleButton>
             <Button id="prev-next-btn" fx:id="nextWeekButton" mnemonicParsing="false">
                 <graphic>
-                    <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true"
-                               preserveRatio="true">
+                    <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                         <Image url="@../icons/right-arrow.png"/>
                     </ImageView>
                 </graphic>
@@ -146,11 +133,10 @@
         </HBox>
     </center>
     <left>
-        <VBox fx:id="vboxYear" alignment="CENTER_RIGHT" fillWidth="false"
-              nodeOrientation="LEFT_TO_RIGHT" prefHeight="126.0" prefWidth="66.0"
-              BorderPane.alignment="CENTER_RIGHT">
-            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2"
-                   textAlignment="RIGHT" textFill="#434040">
+        <VBox fx:id="vboxYear" alignment="CENTER_RIGHT" fillWidth="false" nodeOrientation="LEFT_TO_RIGHT"
+              prefHeight="126.0" prefWidth="66.0" BorderPane.alignment="CENTER_RIGHT">
+            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2" textAlignment="RIGHT"
+                   textFill="#434040">
                 <font>
                     <Font name="Calibri Bold" size="1.0"/>
                 </font>
@@ -161,8 +147,8 @@
                     <Insets bottom="-5.0" right="5.0" top="-5.0"/>
                 </VBox.margin>
             </Label>
-            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="0"
-                   textAlignment="RIGHT" textFill="#434040">
+            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="0" textAlignment="RIGHT"
+                   textFill="#434040">
                 <font>
                     <Font name="Calibri Bold" size="1.0"/>
                 </font>
@@ -173,8 +159,8 @@
                     <Insets bottom="-5.0" right="5.0" top="-5.0"/>
                 </VBox.margin>
             </Label>
-            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2"
-                   textAlignment="RIGHT" textFill="#434040">
+            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="2" textAlignment="RIGHT"
+                   textFill="#434040">
                 <font>
                     <Font name="Calibri Bold" size="1.0"/>
                 </font>
@@ -185,8 +171,8 @@
                     <Insets bottom="-5.0" right="5.0" top="-5.0"/>
                 </VBox.margin>
             </Label>
-            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="3"
-                   textAlignment="RIGHT" textFill="#434040">
+            <Label id="year" alignment="CENTER_RIGHT" graphicTextGap="0.0" text="3" textAlignment="RIGHT"
+                   textFill="#434040">
                 <font>
                     <Font name="Calibri Bold" size="1.0"/>
                 </font>
