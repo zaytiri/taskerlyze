@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1"
+         type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/"
+         alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+         AnchorPane.topAnchor="0.0" prefWidth="280.0"
+         spacing="15">
+    <VBox prefWidth="250.0" alignment="CENTER">
+        <Label VBox.vgrow="ALWAYS"
+               wrapText="true"
+               textAlignment="JUSTIFY"
+               fx:id="label">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </Label>
+        <MFXTextField fx:id="textField" floatMode="BORDER" floatingText="Input"
+                      VBox.vgrow="ALWAYS" prefWidth="250"/>
+    </VBox>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+</fx:root>
