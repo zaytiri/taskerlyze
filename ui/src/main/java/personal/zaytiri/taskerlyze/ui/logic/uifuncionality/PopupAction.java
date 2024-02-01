@@ -28,8 +28,8 @@ public class PopupAction {
         }
 
         DialogConfirmation dialog = new DialogConfirmation();
-        dialog.setMessage(message);
         dialog.setAfterSuccessful(ifSuccessful);
+        dialog.setDialogContentText(message);
         dialog.showDialog();
     }
 
