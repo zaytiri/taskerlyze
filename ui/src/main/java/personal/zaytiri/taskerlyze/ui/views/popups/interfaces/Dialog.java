@@ -1,39 +1,46 @@
 package personal.zaytiri.taskerlyze.ui.views.popups.interfaces;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
+import io.github.palexdev.materialfx.dialogs.MFXGenericDialogBuilder;
+import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
+import io.github.palexdev.materialfx.enums.ScrimPriority;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import personal.zaytiri.taskerlyze.ui.logic.Configuration;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Result;
 
-import java.io.IOException;
+import java.util.Map;
 
 public abstract class Dialog<T> extends AnchorPane {
+    protected final MFXGenericDialog dialogContent;
     private final Stage primaryStage;
-    private final Stage stage;
     protected Result<T> result = new Result<>();
     protected int id;
+    private MFXStageDialog dialog;
 
-    protected Dialog(String fileName, String dialogTitle) {
+    protected Dialog(String dialogTitle) {
         this.primaryStage = Configuration.getInstance().getPrimaryStage();
-        stage = new Stage();
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/" + fileName + ".fxml"));
-            loader.setRoot(this);
-            loader.setController(this);
+        this.dialogContent = MFXGenericDialogBuilder.build()
+                .makeScrollable(true)
+                .get();
 
-            stage.setScene(new Scene(loader.load()));
-            stage.setTitle(dialogTitle);
+        dialogContent.getStylesheets().add("/css/dialogs.css");
+        dialogContent.setHeaderText(dialogTitle);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dialogContent.setMaxWidth(250);
     }
 
     public Result<T> getResult() {
         return this.result;
+    }
+
+    public void setDialogContentText(String text) {
+        dialogContent.setContentText(text);
     }
 
     public void setId(int id) {
@@ -45,31 +52,38 @@ public abstract class Dialog<T> extends AnchorPane {
         show();
     }
 
+    protected void addDialogAction(Node node, EventHandler<MouseEvent> event) {
+        dialogContent.addActions(
+                Map.entry(node, event));
+    }
+
+    protected void addDialogContentStyle(String styleClass) {
+        dialogContent.getStyleClass().add(styleClass);
+    }
+
     protected void closeDialog() {
-        stage.close();
+        dialog.close();
+    }
+
+    protected void setDialogContentNode(Node node) {
+        dialogContent.setContent(node);
     }
 
     protected abstract void setOptionsBeforeShow();
 
     protected void show() {
-        setStageSize();
-        stage.showAndWait();
-    }
+        this.dialog = MFXGenericDialogBuilder.build(dialogContent)
+                .toStageDialogBuilder()
+                .initOwner(this.primaryStage)
+                .initModality(Modality.APPLICATION_MODAL)
+                .setDraggable(true)
+                .setTitle("title")
+                .setOwnerNode(Configuration.getInstance().getMainPane())
+                .setScrimPriority(ScrimPriority.WINDOW)
+                .setScrimOwner(true)
+                .get();
 
-    private void setStageSize() {
-        double centerXPosition = primaryStage.getX() + primaryStage.getWidth() / 2d;
-        double centerYPosition = primaryStage.getY() + primaryStage.getHeight() / 2d;
-
-        // Hide the pop-up stage before it is shown and becomes relocated
-        stage.setOnShowing(ev -> stage.hide());
-
-        // Relocate the pop-up Stage
-        stage.setOnShown(ev -> {
-            stage.setX(centerXPosition - stage.getWidth() / 2d - 35);
-            stage.setY(centerYPosition - stage.getHeight() / 2d - 50);
-            stage.show();
-        });
-
-        stage.initOwner(primaryStage);
+        dialog.setCenterInOwnerNode(true);
+        dialog.showDialog();
     }
 }

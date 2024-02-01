@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'Prompt Bold';
+    font-weight: bold;
+    src: url('../fonts/Prompt/Prompt-Bold.ttf');
+}
+
+.mfx-dialog .header-label {
+    -fx-text-fill:#0E6367;
+    -fx-font-family: "Prompt Bold";
+    -fx-font-size: 15px;
+  }
+  
+  .mfx-dialog {
+    -fx-text-fill: #73ADB0;
+  }
+
+  .mfx-dialog .content {
+    -fx-text-fill:#0E6367;
+  }
+
+  /*MFX Text Field*/
+.mfx-text-field {
+    -fx-text-fill: #73ADB0;
+    -fx-border-color: #0E6367;
+
+}
+
+.mfx-text-field .floating-text {
+    -fx-text-fill:  #0E6367;
+}
+
+.mfx-list-view .virtual-flow {
+    -fx-background-radius: 15px;
+}
