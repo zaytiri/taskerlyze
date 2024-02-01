@@ -95,7 +95,7 @@ public class PopupAction {
 
     public static boolean showDialogForMovingQuestion(int questionId) {
         DialogMoveQuestion dialog = new DialogMoveQuestion();
-        dialog.setEntityToBeMoved(questionId);
+        dialog.setQuestionId(questionId);
         dialog.showDialog();
 
         return dialog.getResult().isSuccessful();
