@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.ui.controllers;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
@@ -16,6 +17,8 @@ import java.util.List;
 
 public class MainController extends AnchorPane {
     private final Parent loadedComponent;
+    @FXML
+    private AnchorPane mainPane;
 
     public MainController() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/main.fxml"));
@@ -32,6 +35,10 @@ public class MainController extends AnchorPane {
 
     public Parent getLoadedComponent() {
         return loadedComponent;
+    }
+
+    public AnchorPane getMainPane() {
+        return mainPane;
     }
 
     public void setAppPreConfigurations() {

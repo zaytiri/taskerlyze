@@ -2,6 +2,7 @@ package personal.zaytiri.taskerlyze.ui.logic;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -12,6 +13,7 @@ import java.awt.*;
 public class Configuration {
     private static Configuration INSTANCE;
     private Stage primaryStage;
+    private AnchorPane mainPane;
 
     private Configuration() {
     }
@@ -31,6 +33,14 @@ public class Configuration {
             INSTANCE = new Configuration();
         }
         return INSTANCE;
+    }
+
+    public AnchorPane getMainPane() {
+        return mainPane;
+    }
+
+    public void setMainPane(AnchorPane mainPane) {
+        this.mainPane = mainPane;
     }
 
     public Stage getPrimaryStage() {

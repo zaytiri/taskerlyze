@@ -26,6 +26,8 @@ public class Main extends Application {
         MainController main = new MainController();
         main.setAppPreConfigurations();
 
+        Configuration.getInstance().setMainPane(main.getMainPane());
+
         Parent root = main.getLoadedComponent();
 
         Scene scene = configureMainScene(root, stage);
