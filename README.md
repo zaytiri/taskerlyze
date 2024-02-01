@@ -100,21 +100,20 @@ The JRE is necessary to run .jar executable files. You can download the latest v
 <a name="installation"></a>
 ## Installation
 
-After having downloaded the .zip file, available on Releases page, you will have 2 files:
-- _taskerlyze.bat_ (only for Windows users, double-clicking launches program)
-- _taskerlyze.jar_ (the program to be launched)
+After having downloaded the .zip file, available on Releases page, you will have 1 file:
+- _taskerlyze-vx.x.x.jar_ -> the program to be launched. (vx.x.x being the version number)
 
-The _taskerlyze.bat_ file contains the following command: ``java -jar taskerlyze.jar``.
+After double-clicking the _.jar_ file, the program should be launched as expected. It could take a few seconds to be displayed.
 
-This command is responsible for launching the program. 
-This is necessary due to the .jar file not being able to be double-clicked or else it will throw an error.
-
-After double-clicking the _taskerlyze.bat_ file, the program should be launched as expected.
-
-If you prefer you can also use the Command Prompt by inputting the same command ``java -jar taskerlyze.jar``.
+If double-clicking the _.jar_ file does not work, you can try the following workaround:
+- Make sure you have JRE installed ([Prerequisites](#prerequisites) section) and followed the necessary steps;
+- Use the _**Command Prompt**_,
+  - Go to the .jar file folder location using ``cd <path>``;
+  - Input the following command ``java -jar taskerlyze-vx.x.x.jar``.
 
 <a name="usage"></a>
 ## Usage
+If the program is launched for the first time, a new window will be displayed for a new profile to be added.
 
 After launching the program, all interactions are done by right-clicking the element you want to make changes to.
 
@@ -122,6 +121,7 @@ When you first start, you will have no tasks or questions, so the first thing yo
 If you also right-click in the '...tasks not found...' message, you can also select **Add new task**.
 
 There's a **Settings** page where you can configure certain aspects of the program.
+
 <a name="support"></a>
 ## Support
 
