@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
@@ -12,12 +13,18 @@
     <top>
         <BorderPane>
             <left>
-                <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" prefHeight="55.0"
-                       prefWidth="241.0" text="August," textFill="#434040">
-                    <font>
-                        <Font name="Calibri Bold" size="1.0"/>
-                    </font>
-                </Label>
+                <HBox alignment="CENTER">
+                    <Label id="month" fx:id="labelMonth" alignment="BOTTOM_CENTER" text="August," textFill="#434040">
+                        <font>
+                            <Font name="Calibri Bold" size="1.0"/>
+                        </font>
+                    </Label>
+                    <MFXDatePicker id="custDatePicker" fx:id="datePicker" closePopupOnChange="true"
+                                   floatMode="DISABLED"/>
+                    <BorderPane.margin>
+                        <Insets left="70.0"/>
+                    </BorderPane.margin>
+                </HBox>
             </left>
             <right>
                 <HBox id="exit" BorderPane.alignment="CENTER_LEFT">

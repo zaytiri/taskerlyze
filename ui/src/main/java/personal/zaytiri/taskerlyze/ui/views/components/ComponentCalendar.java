@@ -1,5 +1,6 @@
 package personal.zaytiri.taskerlyze.ui.views.components;
 
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.YearMonth;
 
 public class ComponentCalendar extends BorderPane {
     private final ToggleGroup daysToggleGroup = new ToggleGroup();
@@ -39,6 +41,8 @@ public class ComponentCalendar extends BorderPane {
     private Button exit;
     @FXML
     private Button today;
+    @FXML
+    private MFXDatePicker datePicker;
 
     public ComponentCalendar() {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/component-calendar.fxml"));
@@ -62,6 +66,9 @@ public class ComponentCalendar extends BorderPane {
         setPreviousNextWeekButtons();
         populateCalendar(LocalDate.now());
         setButtonsSetOnAction();
+
+        datePicker.setStartingYearMonth(YearMonth.now());
+        datePicker.valueProperty().addListener((observableValue, localDate, newLocalDate) -> populateCalendar(newLocalDate));
     }
 
     public void populateCalendar(LocalDate currentDate) {
@@ -122,10 +129,11 @@ public class ComponentCalendar extends BorderPane {
                     populateYear(date);
 
                     UiGlobalFilter.getUiGlobalFilter().setActiveDay(date);
+                    datePicker.setValue(date);
+                    datePicker.updateCurrentDate();
                 }
             });
-
-
+            
             if (day.getDayOfMonth() == currentDate.getDayOfMonth()) {
                 Platform.runLater(() -> tbtn.setSelected(true));
             }
