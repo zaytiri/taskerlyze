@@ -111,7 +111,7 @@ public class PopupAction {
 
     public static boolean showDialogForMovingTask(int taskId) {
         DialogMoveTask dialog = new DialogMoveTask();
-        dialog.setEntityToBeMoved(taskId);
+        dialog.setTaskId(taskId);
         dialog.showDialog();
 
         return dialog.getResult().isSuccessful();
