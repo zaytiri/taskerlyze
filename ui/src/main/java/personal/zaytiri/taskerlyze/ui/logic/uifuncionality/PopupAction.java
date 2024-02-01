@@ -101,9 +101,9 @@ public class PopupAction {
         return dialog.getResult().isSuccessful();
     }
 
-    public static boolean showDialogForMovingSubTask(int entityIdToBeMoved) {
+    public static boolean showDialogForMovingSubTask(int subTaskId) {
         DialogMoveSubTask dialog = new DialogMoveSubTask();
-        dialog.setEntityToBeMoved(entityIdToBeMoved);
+        dialog.setSubTaskId(subTaskId);
         dialog.showDialog();
 
         return dialog.getResult().isSuccessful();
