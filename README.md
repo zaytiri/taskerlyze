@@ -31,33 +31,31 @@ Some images for current interface:<br>
 <a name="features"></a>
 ## Features
 
-| Status | Feature                                             |
-|:-------|:----------------------------------------------------|
-| ✅      | tracks tasks and relevant information               |
-| ✅      | tracks questions and answers                        |
-| ✅      | week view                                           |
-| ✅      | tasks viewable by day                               |
-| ✅      | questions viewable by day                           |
-| ✅      | tasks split by custom categories                    |
-| ✅      | questions split by custom categories                |
-| ✅      | usage of mouse's right click for interaction        |
-| ✅      | existing of an archive                              |
-| ✅      | display of achievements for past days               |
-| ❌      | custom configurations                               |
-| ❌      | different app profiles                              |
-| ❌      | setting reminders for tasks                         |
-| ❌      | setting reminders for questions                     |
-| ❌      | set up automatic tasks                              |
-| ❌      | window always on top configuration                  |
-| ❌      | exporting data to file                              |
-| ❌      | importing data from file                            |
-| ❌      | time tracking for each task                         |
-| ❌      | statistics                                          |
-| ❌      | multiple options added to OS context menu           |
-| ❌      | multiple app features with associated shortcut keys |
-| ❌      | bulk select tasks to perform actions                |
-| ❌      | bulk select questions to perform actions            |
+| Status | Feature                                     |
+|:-------|:--------------------------------------------|
+| ✅      | Tracks tasks and sub-tasks                  |
+| ✅      | Tracks questions and answers                |
+| ✅      | Mainly interaction with mouse's right-click |
+| ✅      | Week view for tracking                      |
+| ✅      | Achievements feature by day                 |
+| ✅      | Possibility of custom categories            |
+| ✅      | Existence of default Archive                |
+| ✅      | Multiple profiles                           |
+| ✅      | Profile Management                          |
+| ✅      | Custom Settings                             |
+| ❌      | Time tracking for Tasks                     |
+| ❌      | Repeated Tasks                              |
+| ❌      | Automatic Reminders for Tasks and Questions |
+| ❌      | Set window always on top                    |
+| ❌      | Save/export data                            |
+| ❌      | Import saved data                           |
+| ❌      | Statistics                                  |
+| ❌      | Options added to OS context menu            |
+| ❌      | Features with associated shortcut keys      |
+| ❌      | Bulk actions for Tasks and Questions        |
 
+
+_Disclaimer: The order does not necessarily describe the priority of development of each feature._
 
 Any new features are **_very_** welcomed. If you need some feature or you have any suggestion, open an issue and I can analyse if it's feasible.
 
@@ -80,8 +78,16 @@ is the archive.
 
 This means that it could be used for organizing tasks and questions for general purposes. If a category is removed, all associated tasks and questions will also be moved to the Archive.
 
+#### _Multiple profiles and Profile Management_
+
+All the features are also separated by profile (except _Settings_ section), meaning that there's another layer of organization within the program.
+
+* There must be at least one profile active and more than one can be created.
+* Any profile can be edited or deleted. By deleting a profile, it means that all data is also going to be removed.
+* A default profile can be chosen, meaning that the profile defined as default will be the one displayed first when launching the program.
+
 ### Future features
-All future features are documented in the above table with a ❌ icon.
+All future features are documented in the above table with a ❌ icon. More can be added with time.
 
 <a name="prerequisites"></a>
 ## Prerequisites
@@ -103,7 +109,7 @@ The _taskerlyze.bat_ file contains the following command: ``java -jar taskerlyze
 This command is responsible for launching the program. 
 This is necessary due to the .jar file not being able to be double-clicked or else it will throw an error.
 
-After double-clicking the _taskerlyze.bat_ file, the program should be launching as expected.
+After double-clicking the _taskerlyze.bat_ file, the program should be launched as expected.
 
 If you prefer you can also use the Command Prompt by inputting the same command ``java -jar taskerlyze.jar``.
 
