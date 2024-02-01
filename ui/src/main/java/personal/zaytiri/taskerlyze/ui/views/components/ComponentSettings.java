@@ -14,9 +14,14 @@ import javafx.util.StringConverter;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.ProfileEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SettingsEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalSettings;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.ProfileLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SettingsLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.GlobalProfiles;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddProfile;
 
 import java.awt.*;

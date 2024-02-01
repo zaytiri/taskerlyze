@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import personal.zaytiri.taskerlyze.ui.logic.Configuration;
+import personal.zaytiri.taskerlyze.ui.logic.globals.Configuration;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Result;
 
 import java.util.Map;

@@ -9,8 +9,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalSettings;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Clipboard;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddAchieved;
 
 import java.awt.*;

@@ -8,10 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 
 import java.io.IOException;
 

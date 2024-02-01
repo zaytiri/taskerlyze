@@ -14,9 +14,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import personal.zaytiri.taskerlyze.ui.logic.Configuration;
-import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.globals.Configuration;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.DateConversion;
 import personal.zaytiri.taskerlyze.ui.views.elements.LabelDay;
 
 import java.io.IOException;
@@ -133,7 +133,7 @@ public class ComponentCalendar extends BorderPane {
                     datePicker.updateCurrentDate();
                 }
             });
-            
+
             if (day.getDayOfMonth() == currentDate.getDayOfMonth()) {
                 Platform.runLater(() -> tbtn.setSelected(true));
             }

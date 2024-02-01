@@ -9,11 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import personal.zaytiri.taskerlyze.ui.logic.entities.ProfileEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalSettings;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.ProfileLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.GlobalProfiles;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalSettings;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

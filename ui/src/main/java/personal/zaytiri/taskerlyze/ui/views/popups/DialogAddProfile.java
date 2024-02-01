@@ -5,8 +5,8 @@ import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import personal.zaytiri.taskerlyze.ui.logic.entities.ProfileEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.views.elements.AddText;
 import personal.zaytiri.taskerlyze.ui.views.popups.interfaces.Dialog;
 

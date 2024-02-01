@@ -3,8 +3,8 @@ package personal.zaytiri.taskerlyze.ui.views.popups;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.views.elements.AddText;
 import personal.zaytiri.taskerlyze.ui.views.popups.interfaces.Dialog;
 

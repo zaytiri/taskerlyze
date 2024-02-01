@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.ui.controllers.MainController;
-import personal.zaytiri.taskerlyze.ui.logic.Configuration;
+import personal.zaytiri.taskerlyze.ui.logic.globals.Configuration;
 
 import java.io.IOException;
 

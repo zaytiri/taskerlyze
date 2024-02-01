@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
+package personal.zaytiri.taskerlyze.ui.logic.globals;
 
 import personal.zaytiri.taskerlyze.ui.logic.entities.SettingsEntity;
 

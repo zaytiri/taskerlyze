@@ -6,10 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.ProfileEntity;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SettingsEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalSettings;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.ProfileLoader;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SettingsLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalSettings;
 import personal.zaytiri.taskerlyze.ui.views.popups.DialogAddProfile;
 
 import java.io.IOException;

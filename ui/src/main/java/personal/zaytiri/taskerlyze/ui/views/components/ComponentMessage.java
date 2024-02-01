@@ -6,9 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.FadeAnimation;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

@@ -1,4 +1,4 @@
-package personal.zaytiri.taskerlyze.ui.logic;
+package personal.zaytiri.taskerlyze.ui.logic.globals;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;

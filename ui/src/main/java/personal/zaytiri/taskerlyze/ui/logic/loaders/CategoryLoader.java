@@ -5,7 +5,7 @@ import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -1,6 +1,7 @@
-package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
+package personal.zaytiri.taskerlyze.ui.logic.globals;
 
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

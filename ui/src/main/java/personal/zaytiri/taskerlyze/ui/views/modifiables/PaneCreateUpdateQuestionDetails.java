@@ -5,8 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.DateConversion;
 
 import java.io.IOException;
 

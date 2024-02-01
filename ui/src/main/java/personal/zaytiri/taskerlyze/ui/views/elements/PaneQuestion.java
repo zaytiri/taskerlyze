@@ -5,7 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

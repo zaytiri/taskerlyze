@@ -6,8 +6,12 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.ContextMenu;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.*;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Cache;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneQuestion;
 
 import java.beans.PropertyChangeEvent;

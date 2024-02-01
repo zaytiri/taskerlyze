@@ -6,9 +6,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
-import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.AchievementsLoader;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.DateConversion;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

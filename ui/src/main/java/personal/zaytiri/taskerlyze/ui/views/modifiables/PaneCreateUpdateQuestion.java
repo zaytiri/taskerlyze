@@ -11,9 +11,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalMessage;
 
 import java.io.IOException;
 

@@ -29,4 +29,6 @@ module ui.main {
     opens personal.zaytiri.taskerlyze.ui.views.popups.interfaces to javafx.fxml;
     exports personal.zaytiri.taskerlyze.ui.views.modifiables;
     opens personal.zaytiri.taskerlyze.ui.views.modifiables to javafx.fxml;
+    exports personal.zaytiri.taskerlyze.ui.logic.globals;
+    opens personal.zaytiri.taskerlyze.ui.logic.globals to javafx.fxml;
 }

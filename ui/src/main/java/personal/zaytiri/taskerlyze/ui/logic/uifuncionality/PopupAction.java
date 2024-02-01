@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TabPane;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalSettings;
 import personal.zaytiri.taskerlyze.ui.views.components.TabCategory;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneQuestion;
 import personal.zaytiri.taskerlyze.ui.views.elements.PaneSubTask;

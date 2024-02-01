@@ -8,11 +8,11 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.Categorable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MenuOptions;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.PopupAction;
-import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.UiGlobalFilter;
 
 import java.io.IOException;
 

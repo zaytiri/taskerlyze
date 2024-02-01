@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import personal.zaytiri.taskerlyze.ui.logic.DateConversion;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.DateConversion;
 
 import java.io.IOException;
 import java.time.LocalDate;
