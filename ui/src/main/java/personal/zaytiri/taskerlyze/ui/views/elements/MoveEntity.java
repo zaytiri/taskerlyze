@@ -1,39 +1,51 @@
-package personal.zaytiri.taskerlyze.ui.views.popups.interfaces;
+package personal.zaytiri.taskerlyze.ui.views.elements;
 
+import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.Findable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
 
-public abstract class DialogMoveEntity<T> extends Dialog<T> {
-
+public class MoveEntity extends AnchorPane {
     private final Findable<Pair<Integer, String>> findableEntity;
-    protected int entityIdToBeMoved;
     @FXML
-    protected Button moveButton;
+    private MFXListView<IdentifiableItem<String>> itemsList;
     @FXML
-    protected ListView<IdentifiableItem<String>> itemsList;
+    private MFXTextField searchText;
     @FXML
-    private TextField searchText;
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Label errorMessage;
+    private Label label;
 
-    public DialogMoveEntity(Findable<Pair<Integer, String>> findableEntity) {
-        super("dialog-move", "Search:");
+    public MoveEntity(Findable<Pair<Integer, String>> findableEntity) {
         this.findableEntity = findableEntity;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/move-entity.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            throw new IllegalStateException("Could not load fxml file", ex);
+        }
+    }
+
+    public IdentifiableItem<String> getSelected() {
+        return itemsList.getSelectionModel().getSelectedValue();
     }
 
     @FXML
     public void initialize() {
         overrideIdentifiableItemDisplayInListView();
-        setActionOnMoveButton();
 
         // search while the user is typing to show a realtime list
         searchText.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -43,29 +55,13 @@ public abstract class DialogMoveEntity<T> extends Dialog<T> {
         });
     }
 
-    public void setEntityToBeMoved(int entityIdToBeMoved) {
-        this.entityIdToBeMoved = entityIdToBeMoved;
-    }
-
-    protected abstract void setActionOnMoveButton();
-
-    @Override
-    protected void setOptionsBeforeShow() {
+    public void setDescription(String text) {
+        this.label.setText(text);
     }
 
     private void overrideIdentifiableItemDisplayInListView() {
-        itemsList.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(IdentifiableItem<String> item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null || item.getItemDisplay() == null) {
-                    setText(null);
-                } else {
-                    setText(item.getItemDisplay());
-                }
-            }
-        });
+        StringConverter<IdentifiableItem<String>> converter = FunctionalStringConverter.to(profile -> (profile == null) ? "" : profile.getItemDisplay());
+        itemsList.setConverter(converter);
     }
 
     private void search() {
