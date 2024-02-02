@@ -2,7 +2,6 @@ package personal.zaytiri.taskerlyze.app.api.domain;
 
 import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
-import personal.zaytiri.taskerlyze.app.api.domain.base.IFindable;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.QuestionMapper;
@@ -16,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Question extends Entity<Question, IQuestionRepository, QuestionMapper> implements IStorageOperations<Question>, IFindable<Question> {
+public class Question extends Entity<Question, IQuestionRepository, QuestionMapper> implements IStorageOperations<Question> {
     private String answer;
     private int categoryId;
     private LocalDate answeredAt;
@@ -78,19 +77,6 @@ public class Question extends Entity<Question, IQuestionRepository, QuestionMapp
     public boolean update() {
         //todo: test what happens if i try to update but theres no entry to update because its not created yet.
         return repository.update(this).isSuccess();
-    }
-
-    @Override
-    public List<Question> findNameBySubString(String subString) {
-        Map<String, Pair<String, Object>> filters = new HashMap<>();
-        filters.put("name", new Pair<>("LIKE", subString));
-
-        List<Question> results = get(filters, null);
-        if (results.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return results;
     }
 
     public String getAnswer() {

@@ -2,7 +2,6 @@ package personal.zaytiri.taskerlyze.app.api.domain;
 
 import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
-import personal.zaytiri.taskerlyze.app.api.domain.base.IFindable;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.SubTaskMapper;
@@ -16,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> implements IStorageOperations<SubTask>, IFindable<SubTask> {
+public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> implements IStorageOperations<SubTask> {
     private boolean done;
     private int taskId;
     private LocalDate completedAt;
@@ -82,18 +81,6 @@ public class SubTask extends Entity<SubTask, ISubTaskRepository, SubTaskMapper> 
     public boolean update() {
         //todo: test what happens if i try to update but theres no entry to update because its not created yet.
         return repository.update(this).isSuccess();
-    }
-
-    public List<SubTask> findNameBySubString(String subString) {
-        Map<String, Pair<String, Object>> filters = new HashMap<>();
-        filters.put("name", new Pair<>("LIKE", subString));
-
-        List<SubTask> results = get(filters, null);
-        if (results.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return results;
     }
 
     public LocalDate getCompletedAt() {
