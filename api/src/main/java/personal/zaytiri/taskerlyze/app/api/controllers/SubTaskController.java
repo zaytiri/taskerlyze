@@ -1,6 +1,6 @@
 package personal.zaytiri.taskerlyze.app.api.controllers;
 
-import personal.zaytiri.taskerlyze.app.api.controllers.base.ControllerFindable;
+import personal.zaytiri.taskerlyze.app.api.controllers.base.Controller;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.CodeResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.MessageResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
@@ -8,7 +8,7 @@ import personal.zaytiri.taskerlyze.app.api.domain.SubTask;
 
 import java.util.List;
 
-public class SubTaskController extends ControllerFindable<SubTask> {
+public class SubTaskController extends Controller<SubTask> {
     /**
      * Gets all subtasks associated to a task.
      *

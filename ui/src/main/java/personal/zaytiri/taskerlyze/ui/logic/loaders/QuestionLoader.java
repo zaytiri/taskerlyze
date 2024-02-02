@@ -3,26 +3,15 @@ package personal.zaytiri.taskerlyze.ui.logic.loaders;
 import personal.zaytiri.taskerlyze.app.api.controllers.QuestionController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Question;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionLoader implements Loadable<QuestionEntity>, Findable<Pair<Integer, String>> {
+public class QuestionLoader implements Loadable<QuestionEntity> {
     private int categoryId;
     private LocalDate date;
-
-    @Override
-    public List<Pair<Integer, String>> find(String subString) {
-        OperationResult<List<Question>> result = new QuestionController().findNameBySubString(subString);
-        List<Pair<Integer, String>> questionsToBeReturned = new ArrayList<>();
-        for (Question question : result.getResult()) {
-            questionsToBeReturned.add(new Pair<>(question.getId(), question.getName()));
-        }
-        return questionsToBeReturned;
-    }
 
     @Override
     public List<QuestionEntity> load() {
