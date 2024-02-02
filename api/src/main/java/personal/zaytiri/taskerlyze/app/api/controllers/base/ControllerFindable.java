@@ -10,10 +10,10 @@ import java.util.List;
 public abstract class ControllerFindable<T extends IFindable<T>> extends Controller<T> implements IControllerFindable<T> {
 
     @Override
-    public OperationResult<List<T>> findNameBySubString(String subString) {
+    public OperationResult<List<T>> findNameBySubString(String subString, int profileId) {
         T entity = getEntityInstance();
 
-        List<T> tasksBySubString = entity.findNameBySubString(subString);
+        List<T> tasksBySubString = entity.findNameBySubString(subString, profileId);
 
         MessageResult message = new MessageResult();
         if (tasksBySubString.isEmpty()) {

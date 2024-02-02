@@ -8,6 +8,7 @@ import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITaskRepository;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.Operators;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import java.time.LocalDate;
@@ -93,9 +94,10 @@ public class Task extends Entity<Task, ITaskRepository, TaskMapper> implements I
         return repository.update(this).isSuccess();
     }
 
-    public List<Task> findNameBySubString(String subString) {
+    public List<Task> findNameBySubString(String subString, int profileId) {
         Map<String, Pair<String, Object>> filters = new HashMap<>();
-        filters.put("name", new Pair<>("LIKE", subString));
+        filters.put("name", new Pair<>(Operators.LIKE.value, subString));
+        filters.put("profile_id", new Pair<>(Operators.EQUALS.value, profileId));
 
         List<Task> results = get(filters, null);
         if (results.isEmpty()) {

@@ -12,5 +12,5 @@ public interface IControllerFindable<T> {
      * @param subString to search for.
      * @return OperationResult<List < T>>
      */
-    OperationResult<List<T>> findNameBySubString(String subString);
+    OperationResult<List<T>> findNameBySubString(String subString, int profileId);
 }
