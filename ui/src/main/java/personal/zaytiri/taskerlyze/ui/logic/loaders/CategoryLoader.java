@@ -27,7 +27,7 @@ public class CategoryLoader implements Findable<Pair<Integer, String>> {
 
     @Override
     public List<Pair<Integer, String>> find(String subString) {
-        OperationResult<List<Category>> result = new CategoryController().findNameBySubString(subString);
+        OperationResult<List<Category>> result = new CategoryController().findNameBySubString(subString, UiGlobalFilter.getUiGlobalFilter().getActiveProfileId());
         List<Pair<Integer, String>> categoriesToBeReturned = new ArrayList<>();
         for (Category cat : result.getResult()) {
             categoriesToBeReturned.add(new Pair<>(cat.getId(), cat.getName()));

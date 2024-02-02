@@ -5,6 +5,7 @@ import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
+import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class TaskLoader implements Loadable<TaskEntity>, Findable<Pair<Integer, 
 
     @Override
     public List<Pair<Integer, String>> find(String subString) {
-        OperationResult<List<Task>> result = new TaskController().findNameBySubString(subString);
+        OperationResult<List<Task>> result = new TaskController().findNameBySubString(subString, UiGlobalFilter.getUiGlobalFilter().getActiveProfileId());
         List<Pair<Integer, String>> tasksToBeReturned = new ArrayList<>();
         for (Task task : result.getResult()) {
             tasksToBeReturned.add(new Pair<>(task.getId(), task.getName()));

@@ -2,7 +2,6 @@ package personal.zaytiri.taskerlyze.app.api.domain;
 
 import jakarta.inject.Inject;
 import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
-import personal.zaytiri.taskerlyze.app.api.domain.base.IFindable;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.ProfileMapper;
@@ -10,12 +9,11 @@ import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.IProf
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Profile extends Entity<Profile, IProfileRepository, ProfileMapper> implements IStorageOperations<Profile>, IFindable<Profile> {
+public class Profile extends Entity<Profile, IProfileRepository, ProfileMapper> implements IStorageOperations<Profile> {
 
     @Inject
     public Profile(IProfileRepository repository) {
@@ -82,19 +80,6 @@ public class Profile extends Entity<Profile, IProfileRepository, ProfileMapper> 
         //todo: test what happens if i try to update but theres no entry to update because its not created yet.
         return repository.update(this).isSuccess();
     }
-
-    public List<Profile> findNameBySubString(String subString) {
-        Map<String, Pair<String, Object>> filters = new HashMap<>();
-        filters.put("name", new Pair<>("LIKE", subString));
-
-        List<Profile> results = get(filters, null);
-        if (results.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return results;
-    }
-
 
     public Profile setId(int id) {
         this.id = id;
