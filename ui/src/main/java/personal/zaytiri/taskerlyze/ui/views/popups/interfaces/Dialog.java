@@ -4,6 +4,7 @@ import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialogBuilder;
 import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
 import io.github.palexdev.materialfx.enums.ScrimPriority;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,7 @@ public abstract class Dialog<T> extends AnchorPane {
     private final Stage primaryStage;
     protected Result<T> result = new Result<>();
     protected int id;
+    protected EventHandler<ActionEvent> ifSuccessful;
     private MFXStageDialog dialog;
 
     protected Dialog(String dialogTitle) {
@@ -45,6 +47,10 @@ public abstract class Dialog<T> extends AnchorPane {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setIfSuccessful(EventHandler<ActionEvent> ifSuccessful) {
+        this.ifSuccessful = ifSuccessful;
     }
 
     public void showDialog() {

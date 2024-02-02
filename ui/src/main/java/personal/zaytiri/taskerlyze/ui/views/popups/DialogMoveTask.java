@@ -1,6 +1,7 @@
 package personal.zaytiri.taskerlyze.ui.views.popups;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.event.ActionEvent;
 import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
@@ -49,9 +50,11 @@ public class DialogMoveTask extends Dialog<Integer> {
 
         result.setStatus(didUpdate.getValue().getKey());
 
-        if (!result.isSuccessful()) {
+        if (Boolean.FALSE.equals(didUpdate.getValue().getKey())) {
             return;
         }
+
+        ifSuccessful.handle(new ActionEvent());
 
         closeDialog();
     }

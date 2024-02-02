@@ -88,12 +88,10 @@ public class PaneQuestion extends TitledPane {
     }
 
     private void addMoveQuestionOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Move", event -> {
-            if (PopupAction.showDialogForMovingQuestion(getQuestionId())) {
-                reloadQuestions();
-                UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another category. Please manual refresh new category.");
-            }
-        });
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingQuestion(getQuestionId(), evt -> {
+            reloadQuestions();
+            UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another category. Please manual refresh new category.");
+        }));
     }
 
     //

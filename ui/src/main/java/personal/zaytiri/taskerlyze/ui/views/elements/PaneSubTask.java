@@ -90,12 +90,10 @@ public class PaneSubTask extends TitledPane {
     }
 
     private void addMoveSubtaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Move", event -> {
-            if (PopupAction.showDialogForMovingSubTask(getSubTaskId())) {
-                reloadSubTasks();
-                UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another task.");
-            }
-        });
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingSubTask(getSubTaskId(), evt -> {
+            reloadSubTasks();
+            UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another task.");
+        }));
     }
 
     private void addRemoveSubtaskOptionForContextMenu() {

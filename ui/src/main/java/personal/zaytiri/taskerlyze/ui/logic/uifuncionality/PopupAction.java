@@ -94,25 +94,28 @@ public class PopupAction {
         parent.getPanes().add(index, pane);
     }
 
-    public static boolean showDialogForMovingQuestion(int questionId) {
+    public static boolean showDialogForMovingQuestion(int questionId, EventHandler<ActionEvent> ifSuccessful) {
         DialogMoveQuestion dialog = new DialogMoveQuestion();
         dialog.setQuestionId(questionId);
+        dialog.setIfSuccessful(ifSuccessful);
         dialog.showDialog();
 
         return dialog.getResult().isSuccessful();
     }
 
-    public static boolean showDialogForMovingSubTask(int subTaskId) {
+    public static boolean showDialogForMovingSubTask(int subTaskId, EventHandler<ActionEvent> ifSuccessful) {
         DialogMoveSubTask dialog = new DialogMoveSubTask();
         dialog.setSubTaskId(subTaskId);
+        dialog.setIfSuccessful(ifSuccessful);
         dialog.showDialog();
 
         return dialog.getResult().isSuccessful();
     }
 
-    public static boolean showDialogForMovingTask(int taskId) {
+    public static boolean showDialogForMovingTask(int taskId, EventHandler<ActionEvent> ifSuccessful) {
         DialogMoveTask dialog = new DialogMoveTask();
         dialog.setTaskId(taskId);
+        dialog.setIfSuccessful(ifSuccessful);
         dialog.showDialog();
 
         return dialog.getResult().isSuccessful();

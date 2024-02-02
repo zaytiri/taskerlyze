@@ -108,12 +108,10 @@ public class PaneTask extends TitledPane {
     }
 
     private void addMoveTaskOptionForContextMenu() {
-        this.contextMenu.addMenuItem("Move", event -> {
-            if (PopupAction.showDialogForMovingTask(getTaskId())) {
-                reloadTasks();
-                UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another category. Please manual refresh new category.");
-            }
-        });
+        this.contextMenu.addMenuItem("Move", event -> PopupAction.showDialogForMovingTask(getTaskId(), evt -> {
+            reloadTasks();
+            UiGlobalMessage.getUiGlobalMessage().setMessage(MessageType.WARNING, "Task was moved to another category. Please manual refresh new category.");
+        }));
     }
 
     private void addMoveToArchiveOptionForContextMenu() {
