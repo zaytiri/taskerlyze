@@ -41,14 +41,14 @@
             <CustomTooltip text="Settings"/>
         </tooltip>
     </Tab>
-    <Tab id="sideTab" fx:id="tabStatistics">
-        <graphic>
-            <ImageView fitWidth="30" fitHeight="30">
-                <Image url="@../icons/statistics.png"/>
-            </ImageView>
-        </graphic>
-        <tooltip>
-            <CustomTooltip text="Statistics"/>
-        </tooltip>
-    </Tab>
+    <!--    <Tab id="sideTab" fx:id="tabStatistics">-->
+    <!--        <graphic>-->
+    <!--            <ImageView fitWidth="30" fitHeight="30">-->
+    <!--                <Image url="@../icons/statistics.png"/>-->
+    <!--            </ImageView>-->
+    <!--        </graphic>-->
+    <!--        <tooltip>-->
+    <!--            <CustomTooltip text="Statistics"/>-->
+    <!--        </tooltip>-->
+    <!--    </Tab>-->
 </fx:root>
