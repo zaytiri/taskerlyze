@@ -1,0 +1,12 @@
+/* this is currently not in use.*/
+.context-menu {
+    -fx-background-color: #B8B8B8;
+    -fx-border-radius: 10px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #0E6367;
+}
+.menu-item:focused {
+    -fx-background-color: #0E6367;
+}
