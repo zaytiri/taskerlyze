@@ -42,6 +42,8 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.show();
+
+//        ScenicView.show(scene);
     }
 
     private Scene configureMainScene(Parent root, Stage stage) {

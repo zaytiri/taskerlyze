@@ -5,6 +5,7 @@ module ui.main {
     requires java.desktop;
     requires com.google.common;
     requires MaterialFX;
+//    requires org.scenicview.scenicview;
 
     opens personal.zaytiri.taskerlyze.ui.views to javafx.fxml;
     opens personal.zaytiri.taskerlyze.ui.controllers to javafx.fxml;
