@@ -1,4 +1,4 @@
-# Taskerlyze - Task Management [WIP]
+# Taskerlyze - Task Management
 
 [//]: # (INTRO GIF HERE)
 
