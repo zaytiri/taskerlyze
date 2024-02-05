@@ -1,13 +1,13 @@
 package personal.zaytiri.taskerlyze.app.api.domain;
 
 import jakarta.inject.Inject;
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.response.Response;
 import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.ProfileMapper;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.IProfileRepository;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,9 +1,9 @@
 package personal.zaytiri.taskerlyze.app.persistence.models.base;
 
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Database;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Table;
 import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -5,11 +5,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
 import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

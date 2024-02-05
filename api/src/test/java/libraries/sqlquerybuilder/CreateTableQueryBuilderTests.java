@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.CreateTableQueryBuilder;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.builders.CreateTableQueryBuilder;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Table;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.response.Response;
 
 import java.sql.*;
 import java.util.logging.Level;

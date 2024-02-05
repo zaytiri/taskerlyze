@@ -24,6 +24,8 @@ dependencies {
     // convert xml to json and vice versa
     implementation 'org.json:json:20231013'
     implementation 'com.github.javadev:underscore17:1.46'
+
+    implementation files('libs/mieq-v1.0.1.jar')
 }
 
 test {

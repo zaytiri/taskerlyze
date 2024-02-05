@@ -1,11 +1,11 @@
 package personal.zaytiri.taskerlyze.app.api.controllers;
 
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
 import personal.zaytiri.taskerlyze.app.api.controllers.base.ControllerFindable;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.CodeResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.MessageResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Category;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.util.HashMap;
 import java.util.List;

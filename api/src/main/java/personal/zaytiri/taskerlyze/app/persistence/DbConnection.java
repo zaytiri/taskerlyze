@@ -1,9 +1,9 @@
 package personal.zaytiri.taskerlyze.app.persistence;
 
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.CreateTableQueryBuilder;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Schema;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.builders.CreateTableQueryBuilder;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Database;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Schema;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.io.File;
 import java.io.IOException;

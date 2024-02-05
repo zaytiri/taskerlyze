@@ -1,8 +1,9 @@
 package libraries.sqlquerybuilder.helpers;
 
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Database;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
+
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Column;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Database;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Table;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

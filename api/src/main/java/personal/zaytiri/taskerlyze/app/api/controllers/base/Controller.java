@@ -1,10 +1,10 @@
 package personal.zaytiri.taskerlyze.app.api.controllers.base;
 
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.CodeResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.MessageResult;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.util.List;
 import java.util.Map;

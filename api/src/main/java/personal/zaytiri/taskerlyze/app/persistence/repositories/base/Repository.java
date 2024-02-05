@@ -1,13 +1,18 @@
 package personal.zaytiri.taskerlyze.app.persistence.repositories.base;
 
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.builders.DeleteQueryBuilder;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.builders.InsertQueryBuilder;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.builders.SelectQueryBuilder;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.builders.UpdateQueryBuilder;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.enums.Operators;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.enums.Order;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Column;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.response.Response;
 import personal.zaytiri.taskerlyze.app.persistence.DbConnection;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.base.IMapper;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.IRepository;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.*;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;

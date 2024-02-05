@@ -1,7 +1,7 @@
 package personal.zaytiri.taskerlyze.app.persistence.models;
 
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ public class SettingsModel extends Model {
     private int defaultProfile;
     private LocalDate updatedAt;
     private LocalDate createdAt;
+
     public SettingsModel() {
         super("settings");
     }

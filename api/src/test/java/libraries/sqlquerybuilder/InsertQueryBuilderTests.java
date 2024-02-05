@@ -5,10 +5,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.InsertQueryBuilder;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Column;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.schema.Table;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.builders.InsertQueryBuilder;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Column;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.schema.Table;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.response.Response;
 
 import java.sql.*;
 import java.util.ArrayList;

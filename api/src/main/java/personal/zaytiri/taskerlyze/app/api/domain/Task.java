@@ -1,15 +1,15 @@
 package personal.zaytiri.taskerlyze.app.api.domain;
 
 import jakarta.inject.Inject;
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.querybuilder.query.enums.Operators;
+import personal.zaytiri.makeitexplicitlyqueryable.sqlquerybuilder.response.Response;
 import personal.zaytiri.taskerlyze.app.api.domain.base.Entity;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IFindable;
 import personal.zaytiri.taskerlyze.app.api.domain.base.IStorageOperations;
 import personal.zaytiri.taskerlyze.app.dependencyinjection.AppComponent;
 import personal.zaytiri.taskerlyze.app.persistence.mappers.TaskMapper;
 import personal.zaytiri.taskerlyze.app.persistence.repositories.interfaces.ITaskRepository;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.querybuilder.query.Operators;
-import personal.zaytiri.taskerlyze.libraries.sqlquerybuilder.response.Response;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

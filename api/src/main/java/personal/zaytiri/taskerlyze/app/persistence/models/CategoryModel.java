@@ -1,7 +1,7 @@
 package personal.zaytiri.taskerlyze.app.persistence.models;
 
+import personal.zaytiri.makeitexplicitlyqueryable.pairs.Pair;
 import personal.zaytiri.taskerlyze.app.persistence.models.base.Model;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
