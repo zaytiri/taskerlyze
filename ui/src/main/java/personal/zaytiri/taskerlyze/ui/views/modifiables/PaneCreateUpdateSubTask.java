@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.SubTaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.SubTaskLoader;

@@ -9,7 +9,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.KeyBindable;

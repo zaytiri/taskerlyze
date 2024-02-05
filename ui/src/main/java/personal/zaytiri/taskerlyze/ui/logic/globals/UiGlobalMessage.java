@@ -1,6 +1,6 @@
 package personal.zaytiri.taskerlyze.ui.logic.globals;
 
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.MessageType;
 
 import java.beans.PropertyChangeListener;
@@ -26,6 +26,6 @@ public class UiGlobalMessage {
     }
 
     public void setMessage(MessageType type, String message) {
-        support.firePropertyChange("message", new Pair<>(), new Pair<>(type, message));
+        support.firePropertyChange("message", new Pair<>(null, null), new Pair<>(type, message));
     }
 }

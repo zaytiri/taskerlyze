@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Pair;
 import javafx.util.StringConverter;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.Findable;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;
 

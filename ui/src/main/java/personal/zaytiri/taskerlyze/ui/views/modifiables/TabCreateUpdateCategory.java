@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.CategoryEntity;
 import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalMessage;

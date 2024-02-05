@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ContextMenu;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.QuestionEntity;
 import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.QuestionLoader;

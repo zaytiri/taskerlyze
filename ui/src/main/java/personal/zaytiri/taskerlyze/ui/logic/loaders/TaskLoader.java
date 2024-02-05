@@ -1,9 +1,9 @@
 package personal.zaytiri.taskerlyze.ui.logic.loaders;
 
+import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.app.api.controllers.TaskController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
 import personal.zaytiri.taskerlyze.app.api.domain.Task;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.globals.UiGlobalFilter;
 

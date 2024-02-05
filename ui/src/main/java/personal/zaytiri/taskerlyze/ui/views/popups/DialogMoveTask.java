@@ -2,7 +2,7 @@ package personal.zaytiri.taskerlyze.ui.views.popups;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.entities.TaskEntity;
 import personal.zaytiri.taskerlyze.ui.logic.loaders.CategoryLoader;
 import personal.zaytiri.taskerlyze.ui.logic.uifuncionality.IdentifiableItem;

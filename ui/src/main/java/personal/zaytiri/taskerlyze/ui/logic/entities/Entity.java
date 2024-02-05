@@ -1,8 +1,8 @@
 package personal.zaytiri.taskerlyze.ui.logic.entities;
 
+import javafx.util.Pair;
 import personal.zaytiri.taskerlyze.app.api.controllers.base.IController;
 import personal.zaytiri.taskerlyze.app.api.controllers.result.OperationResult;
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
 import personal.zaytiri.taskerlyze.ui.logic.mappers.IMapper;
 
 public abstract class Entity<TModel, TEntity, TController extends IController<TModel>> {

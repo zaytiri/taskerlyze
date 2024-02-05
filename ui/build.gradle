@@ -37,6 +37,7 @@ javafx {
 
 dependencies {
     implementation("personal.zaytiri.taskerlyze:api:1.0")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     implementation 'io.github.palexdev:materialfx:11.17.0'
@@ -44,9 +45,7 @@ dependencies {
     // convert xml to json and vice versa
     implementation 'org.json:json:20231013'
 
-
-//    implementation files('build/libs/scenicview.jar')
-
+    implementation files('../api/libs/mieq-v1.0.1.jar')
 }
 
 test {

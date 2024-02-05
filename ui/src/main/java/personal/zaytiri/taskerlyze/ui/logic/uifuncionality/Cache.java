@@ -1,6 +1,7 @@
 package personal.zaytiri.taskerlyze.ui.logic.uifuncionality;
 
-import personal.zaytiri.taskerlyze.libraries.pairs.Pair;
+
+import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.util.HashMap;
