@@ -93,7 +93,7 @@ All future features are documented in the above table with a ❌ icon. More can 
 ## Prerequisites
 
 To run this program you will need the following:
-- [JDK 17 Download](https://www.oracle.com/java/technologies/downloads/#jdk17-windows) (x64 Installer recommended)
+- [JDK 17 Download](https://www.oracle.com/java/technologies/downloads/#jdk17-windows) ([x64 Installer (for Windows)](https://download.oracle.com/java/17/latest/jdk-17_windows-x64_bin.exe) recommended)
 
 The JDK 17 is necessary to run .jar executable files. For now, the version cannot be higher than 17, due to compiled version files (more info [here](https://javaalmanac.io/bytecode/versions/)).
 
