@@ -93,9 +93,9 @@ All future features are documented in the above table with a ❌ icon. More can 
 ## Prerequisites
 
 To run this program you will need the following:
-- [JRE Download](https://www.java.com/en/download/)
+- [JDK 17 Download](https://www.oracle.com/java/technologies/downloads/#jdk17-windows) (x64 Installer recommended)
 
-The JRE is necessary to run .jar executable files. You can download the latest version, currently it's at **1.8.0_401**.
+The JDK 17 is necessary to run .jar executable files. For now, the version cannot be higher than 17, due to compiled version files (more info [here](https://javaalmanac.io/bytecode/versions/)).
 
 <a name="installation"></a>
 ## Installation
