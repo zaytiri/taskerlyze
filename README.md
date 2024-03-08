@@ -105,11 +105,19 @@ After having downloaded the .zip file, available on Releases page, you will have
 
 After double-clicking the _.jar_ file, the program should be launched as expected. It could take a few seconds to be displayed.
 
+### If not working
+#### Workaround 1
 If double-clicking the _.jar_ file does not work, you can try the following workaround:
-- Make sure you have JRE installed ([Prerequisites](#prerequisites) section) and followed the necessary steps;
+- Make sure you have JDK 17 installed ([Prerequisites](#prerequisites) section) and followed the necessary steps;
 - Use the _**Command Prompt**_,
   - Go to the .jar file folder location using ``cd <path>``;
   - Input the following command ``java -jar taskerlyze-vx.x.x.jar``.
+
+#### Workaround 2
+If double-clicking the _.jar_ file does not work and it opens the following window:
+<br><img src="https://github.com/zaytiri/taskerlyze/blob/main/readme-images/7.png" width="200" height="100" /><br>
+- Follow solution 1;
+- When inputting the mentioned command, it will display a relevant error message. Copy-paste this error message and open a [new issue](https://github.com/zaytiri/taskerlyze/issues/new) on Github.
 
 <a name="usage"></a>
 ## Usage
